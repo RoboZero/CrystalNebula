@@ -16,8 +16,17 @@ namespace Source.Visuals
         [Header("Settings")]
         [SerializeField] private int dataItemSize;
 
+        private int Size => dataItemSize;
+        private int Capacity => items.Count;
+        
         private List<LineNumber> lineNumbers = new();
         private List<DataItem> items = new();
+
+        private void Awake()
+        {
+            lineNumberPrefab.gameObject.SetActive(false);
+            dataItemPrefab.gameObject.SetActive(false);
+        }
 
         // Update is called once per frame
         void Update()
@@ -27,7 +36,21 @@ namespace Source.Visuals
 
         public void Resize(int newSize)
         {
-            var itemDelta = newSize - items.Count;
+            if (newSize > Capacity)
+            {
+                SetCapacity(newSize);
+            }
+
+            for (var i = 0; i < Capacity; i++)
+            {
+                items[i].gameObject.SetActive(i < newSize);
+                lineNumbers[i].gameObject.SetActive(i < newSize);
+            }
+        }
+        
+        public void SetCapacity(int newCapacity)
+        {
+            var itemDelta = newCapacity - items.Count;
             switch (itemDelta)
             {
                 case > 0:
