@@ -12,5 +12,10 @@ namespace Source.Visuals
         {
             tmpText.text = text;
         }
+
+        public void Select()
+        {
+            text = "Selected";
+        }
     }
 }
