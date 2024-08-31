@@ -1,16 +1,16 @@
-using System;
 using UnityEngine;
 
 namespace Source.Visuals
 {
-    public class DataItem : MonoBehaviour
+    public class LineNumber : MonoBehaviour
     {
-        [SerializeField] private String text;
+        public int Value { get; set; }
+        
         [SerializeField] private TMPro.TMP_Text tmpText;
 
         void Update()
         {
-            tmpText.text = text;
+            tmpText.text = Value.ToString();
         }
     }
 }
