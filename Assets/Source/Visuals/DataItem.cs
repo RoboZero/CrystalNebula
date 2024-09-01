@@ -3,19 +3,36 @@ using UnityEngine;
 
 namespace Source.Visuals
 {
-    public class DataItem : MonoBehaviour
+    public class DataItem : MonoBehaviour, IInteractable
     {
         [SerializeField] private String text;
         [SerializeField] private TMPro.TMP_Text tmpText;
+
+        private String originalText;
+
+        private void Start()
+        {
+            originalText = text;
+        }
 
         void Update()
         {
             tmpText.text = text;
         }
 
-        public void Select()
+        public void EnterHover()
         {
-            text = "Selected";
+            text = "HOVER";
+        }
+
+        public void ExitHover()
+        {
+            text = originalText;
+        }
+
+        public void Interact()
+        {
+            text = "SELECTED";
         }
     }
 }

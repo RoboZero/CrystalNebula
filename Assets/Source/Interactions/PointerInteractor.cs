@@ -14,7 +14,8 @@ namespace Source.Interactions
         [SerializeField] private InputReader inputReader;
         [SerializeField] private LayerMask interactableMask;
 
-        private List<RaycastResult> raycastResults;
+        private List<IInteractable> hoveredInteractables = new();
+        private List<IInteractable> previouslyHoveredInteractables = new();
         private Vector2 pointerPosition;
 
         private void OnEnable()
@@ -33,23 +34,35 @@ namespace Source.Interactions
 
         private void OnInteractPressed()
         {
-            foreach(var result in raycastResults)
+            foreach(var interactable in hoveredInteractables)
             {
-                Debug.Log(result.gameObject.name);
-                if (result.gameObject.TryGetComponent<DataItem>(out var dataItem))
-                {
-                    dataItem.Select();
-                }
+                interactable.Interact();
             }
         }
 
         // Update is called once per frame
         void Update()
         {
-            raycastResults = RaycastUIFromPointer();
+            var raycastResults = RaycastUIFromPointer();
+            hoveredInteractables = raycastResults.Select(result => result.gameObject.GetComponent<IInteractable>()).ToList();
+            Debug.Log(hoveredInteractables);
+            
+            foreach (var interactable in hoveredInteractables.Except(previouslyHoveredInteractables))
+            {
+                interactable.EnterHover();
+                //Debug.Log($"{interactable} Enter");
+            }
+
+            foreach (var interactable in previouslyHoveredInteractables.Except(hoveredInteractables))
+            {
+                interactable.ExitHover();
+                //Debug.Log($"{interactable} Exit");
+            }
+
+            previouslyHoveredInteractables = hoveredInteractables;
         }
 
-        private List<RaycastResult> RaycastUIFromPointer()
+        private IEnumerable<RaycastResult> RaycastUIFromPointer()
         {
             var eventData = new PointerEventData(EventSystem.current)
             {
@@ -58,7 +71,7 @@ namespace Source.Interactions
             
             var results = new List<RaycastResult>();
             EventSystem.current.RaycastAll(eventData, results);
-            var resultsInLayer = results.Where(r => ((1 << r.gameObject.layer) & interactableMask) != 0).ToList();
+            var resultsInLayer = results.Where(r => ((1 << r.gameObject.layer) & interactableMask) != 0);
             return resultsInLayer;
         }
     }
