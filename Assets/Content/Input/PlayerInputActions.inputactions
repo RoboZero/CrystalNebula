@@ -1,0 +1,60 @@
+{
+    "name": "PlayerInputActions",
+    "maps": [
+        {
+            "name": "OS Command",
+            "id": "17d137b4-c5f8-41e5-824e-777bf4684ea5",
+            "actions": [
+                {
+                    "name": "Pointer",
+                    "type": "Value",
+                    "id": "f5a12857-8f77-47bb-b3a1-574068bb58e9",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "663f0eb0-271a-4f58-b717-f5fefd404123",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "ce47beaf-f86c-437f-9bff-ac038ae37ed9",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Pointer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f36bb0d0-adf7-49ed-8145-075de9206865",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": [
+        {
+            "name": "Keyboard&Mouse",
+            "bindingGroup": "Keyboard&Mouse",
+            "devices": []
+        }
+    ]
+}
