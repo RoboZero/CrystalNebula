@@ -44,6 +44,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""013e43a3-acac-433d-8650-c49c4ce8847c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Interact"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ac37d09-c940-4043-b224-fb626e2a5739"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -84,6 +104,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_OSCommand = asset.FindActionMap("OS Command", throwIfNotFound: true);
         m_OSCommand_Pointer = m_OSCommand.FindAction("Pointer", throwIfNotFound: true);
         m_OSCommand_Interact = m_OSCommand.FindAction("Interact", throwIfNotFound: true);
+        m_OSCommand_Cancel = m_OSCommand.FindAction("Cancel", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -147,12 +168,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IOSCommandActions> m_OSCommandActionsCallbackInterfaces = new List<IOSCommandActions>();
     private readonly InputAction m_OSCommand_Pointer;
     private readonly InputAction m_OSCommand_Interact;
+    private readonly InputAction m_OSCommand_Cancel;
     public struct OSCommandActions
     {
         private @PlayerInputActions m_Wrapper;
         public OSCommandActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pointer => m_Wrapper.m_OSCommand_Pointer;
         public InputAction @Interact => m_Wrapper.m_OSCommand_Interact;
+        public InputAction @Cancel => m_Wrapper.m_OSCommand_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_OSCommand; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -168,6 +191,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
         }
 
         private void UnregisterCallbacks(IOSCommandActions instance)
@@ -178,6 +204,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
         }
 
         public void RemoveCallbacks(IOSCommandActions instance)
@@ -208,5 +237,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnPointer(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
 }

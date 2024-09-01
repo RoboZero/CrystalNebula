@@ -25,6 +25,7 @@ namespace Source.Interactions
             inputReader.PointerPositionEvent += OnPointerPosition;
             inputReader.InteractPressedEvent += OnInteractPressed;
             inputReader.InteractReleasedEvent += OnInteractReleased;
+            inputReader.InteractCanceledEvent += OnInteractCanceled;
         }
 
         private void OnDisable()
@@ -32,21 +33,30 @@ namespace Source.Interactions
             inputReader.PointerPositionEvent -= OnPointerPosition;
             inputReader.InteractPressedEvent -= OnInteractPressed;
             inputReader.InteractReleasedEvent -= OnInteractReleased;
+            inputReader.InteractCanceledEvent -= OnInteractCanceled;
         }
         
         private void OnPointerPosition(Vector2 position, bool isMouse) => pointerPosition = position;
         private void OnInteractPressed() => clickAndDrag = true;
         private void OnInteractReleased() => clickAndDrag = false;
+        private void OnInteractCanceled()
+        {
+            interactedInteractables.Clear();
+        }
 
         private void Start()
         {
             hoveredInteractables = new ContinuousInteractableCollection(
                 r => r.TryEnterState(InteractState.Hovered), 
-                (r) => r.TryExitState(InteractState.Hovered)
+                r => r.TryEnterState(InteractState.Hovered),
+                (r) => r.TryExitState(InteractState.Hovered),
+                null
                 );
             interactedInteractables = new ContinuousInteractableCollection(
                 r => r.TryEnterState(InteractState.Interacted),
-                null
+                null,
+                null,
+                r => r.ResetState()
                 );
         }
 
@@ -75,26 +85,43 @@ namespace Source.Interactions
 
         private class ContinuousInteractableCollection
         {
+            private readonly HashSet<IInteractable> storedInteractables = new();
             private List<IInteractable> newInteractables = new();
             private List<IInteractable> oldInteractables = new();
-            [CanBeNull] private Action<IInteractable> enterAction;
-            [CanBeNull] private Action<IInteractable> exitAction;
+            [CanBeNull] private readonly Action<IInteractable> enterAction;
+            [CanBeNull] private readonly Action<IInteractable> stayAction;
+            [CanBeNull] private readonly Action<IInteractable> exitAction;
+            [CanBeNull] private readonly Action<IInteractable> resetAction;
 
-            public ContinuousInteractableCollection(Action<IInteractable> enterAction, Action<IInteractable> exitAction)
+            public ContinuousInteractableCollection(Action<IInteractable> enterAction, 
+                Action<IInteractable> stayAction,
+                Action<IInteractable> exitAction, 
+                Action<IInteractable> resetAction)
             {
                 this.enterAction = enterAction;
+                this.stayAction = stayAction;
                 this.exitAction = exitAction;
+                this.resetAction = resetAction;
             }
             
             public void Tick(List<IInteractable> allInteractables)
             {
                 newInteractables = allInteractables;
 
+                if (stayAction != null)
+                {
+                    foreach (var interactable in storedInteractables)
+                    {
+                        stayAction(interactable);
+                    }
+                }
+                
                 if (enterAction != null)
                 {
                     foreach (var interactable in newInteractables.Except(oldInteractables))
                     {
                         enterAction(interactable);
+                        storedInteractables.Add(interactable);
                     }
                 }
 
@@ -103,10 +130,27 @@ namespace Source.Interactions
                     foreach (var interactable in oldInteractables.Except(newInteractables))
                     {
                         exitAction(interactable);
+                        storedInteractables.Remove(interactable);
                     }
                 }
 
                 oldInteractables = newInteractables;
+            }
+
+            public void Clear()
+            {
+                if (resetAction != null)
+                {
+                    foreach (var interactable in storedInteractables)
+                    {
+                        Debug.Log($"Reset {interactable}");
+                        resetAction(interactable);
+                    }
+                }
+                
+                storedInteractables.Clear();
+                oldInteractables.Clear();
+                newInteractables.Clear();
             }
         }
     }

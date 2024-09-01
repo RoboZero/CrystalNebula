@@ -11,6 +11,7 @@ namespace Source.Input
         public event UnityAction<Vector2, bool> PointerPositionEvent = delegate { };
         public event UnityAction InteractPressedEvent = delegate { }; 
         public event UnityAction InteractReleasedEvent = delegate { }; 
+        public event UnityAction InteractCanceledEvent = delegate { };
     
         private PlayerInputActions playerInputActions;
 
@@ -36,6 +37,12 @@ namespace Source.Input
                 InteractPressedEvent.Invoke();
             if(context.canceled)
                 InteractReleasedEvent.Invoke();
+        }
+
+        public void OnCancel(InputAction.CallbackContext context)
+        {
+            if(context.performed)
+                InteractCanceledEvent.Invoke();
         }
 
         public void EnableOSSystemInput()

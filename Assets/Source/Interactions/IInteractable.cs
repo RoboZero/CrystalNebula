@@ -6,6 +6,7 @@ namespace Source.Interactions
         Hovered,
         Interacted
     }
+    
     public interface IInteractable
     {
         public InteractState CurrentState { get; }
