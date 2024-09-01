@@ -77,6 +77,8 @@ namespace Source.Visuals
 
         private void SetActiveDataItemUiRecord(DataItemUiRecord record, bool isActive)
         {
+            if(!isActive)
+                record.DataItem.ResetState();
             record.DataItem.gameObject.SetActive(isActive);
             record.LineNumber.gameObject.SetActive(isActive);
         }

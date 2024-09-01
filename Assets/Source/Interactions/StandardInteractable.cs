@@ -48,5 +48,11 @@ namespace Source.Interactions
 
             return false;
         }
+
+        public void ResetState()
+        {
+            interactStates.Clear();
+            interactStates.Push(InteractState.None);
+        }
     }
 }

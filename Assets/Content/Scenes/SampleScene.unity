@@ -177,7 +177,7 @@ MonoBehaviour:
   dataItemPrefab: {fileID: 2911644624218230806, guid: 42c295f56f68dd042a0bff32b69970da, type: 3}
   lineNumberLayoutGroup: {fileID: 1209201168}
   dataItemLayoutGroup: {fileID: 505087156}
-  dataItemSize: 20
+  dataItemSize: 14
 --- !u!222 &126037388
 CanvasRenderer:
   m_ObjectHideFlags: 0
