@@ -9,7 +9,8 @@ namespace Source.Input
     public class InputReader : DescriptionBaseSO, PlayerInputActions.IOSCommandActions
     {
         public event UnityAction<Vector2, bool> PointerPositionEvent = delegate { };
-        public event UnityAction InteractEvent = delegate { }; 
+        public event UnityAction InteractPressedEvent = delegate { }; 
+        public event UnityAction InteractReleasedEvent = delegate { }; 
     
         private PlayerInputActions playerInputActions;
 
@@ -31,7 +32,10 @@ namespace Source.Input
 
         public void OnInteract(InputAction.CallbackContext context)
         {
-            InteractEvent.Invoke();
+            if(context.performed)
+                InteractPressedEvent.Invoke();
+            if(context.canceled)
+                InteractReleasedEvent.Invoke();
         }
 
         public void EnableOSSystemInput()

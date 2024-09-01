@@ -1,38 +1,38 @@
 using System;
+using System.Collections.Generic;
+using Source.Interactions;
 using UnityEngine;
 
 namespace Source.Visuals
 {
-    public class DataItem : MonoBehaviour, IInteractable
+    public class DataItem : StandardInteractable
     {
-        [SerializeField] private String text;
+        [SerializeField] private string text;
         [SerializeField] private TMPro.TMP_Text tmpText;
 
-        private String originalText;
+        private string originalText;
 
         private void Start()
         {
             originalText = text;
         }
 
-        void Update()
+        private void Update()
         {
             tmpText.text = text;
-        }
 
-        public void EnterHover()
-        {
-            text = "HOVER";
-        }
-
-        public void ExitHover()
-        {
-            text = originalText;
-        }
-
-        public void Interact()
-        {
-            text = "SELECTED";
+            switch (CurrentState)
+            {
+                case InteractState.None:
+                    text = originalText;
+                    break;
+                case InteractState.Hovered:
+                    text = "HOVERED";
+                    break;
+                case InteractState.Interacted:
+                    text = "SELECTED";
+                    break;
+            }
         }
     }
 }
