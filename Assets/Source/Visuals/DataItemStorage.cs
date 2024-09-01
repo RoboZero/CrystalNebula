@@ -19,7 +19,7 @@ namespace Source.Visuals
         private int Size => dataItemSize;
         private int Capacity => records.Count;
 
-        private List<DataItemUiRecord> records = new();
+        private readonly List<DataItemUiRecord> records = new();
 
         private void Awake()
         {
@@ -28,7 +28,7 @@ namespace Source.Visuals
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
             Resize(dataItemSize);
         }
