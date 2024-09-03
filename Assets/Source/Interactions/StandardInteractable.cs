@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Source.Utility;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,11 +9,11 @@ namespace Source.Interactions
     public abstract class StandardInteractable : MonoBehaviour, IInteractable
     {
         public InteractState CurrentState => interactStates.Peek();
-        private readonly Stack<InteractState> interactStates = new();
+        private List<InteractState> interactStates = new();
 
         private void Awake()
         {
-            interactStates.Push(InteractState.None);
+            interactStates.Add(InteractState.None);
         }
 
         public bool TryEnterState(InteractState nextState)
@@ -21,11 +22,11 @@ namespace Source.Interactions
             {
                 case InteractState.None:
                     if (nextState == InteractState.Hovered)
-                        interactStates.Push(InteractState.Hovered);
+                        interactStates.Add(InteractState.Hovered);
                     return true;
                 case InteractState.Hovered:
                     if (nextState == InteractState.Interacted)
-                        interactStates.Push(InteractState.Interacted);
+                        interactStates.Add(InteractState.Interacted);
                     return true;
             }
 
@@ -39,10 +40,10 @@ namespace Source.Interactions
             switch (CurrentState)
             {
                 case InteractState.Hovered:
-                    interactStates.Pop();
+                    interactStates.TryRemoveLast();
                     return true;
                 case InteractState.Interacted:
-                    interactStates.Pop();
+                    interactStates.TryRemoveLast();
                     return true;
             }
 
@@ -52,7 +53,7 @@ namespace Source.Interactions
         public void ResetState()
         {
             interactStates.Clear();
-            interactStates.Push(InteractState.None);
+            interactStates.Add(InteractState.None);
         }
     }
 }

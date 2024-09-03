@@ -1,36 +1,35 @@
 using System;
 using System.Collections.Generic;
 using Source.Interactions;
+using Source.Logic;
 using UnityEngine;
 
 namespace Source.Visuals
 {
-    public class DataItem : StandardInteractable
+    public class DataItemVisual : StandardInteractable
     {
-        [SerializeField] private string text;
         [SerializeField] private TMPro.TMP_Text tmpText;
 
+        private DataItem trackedDataItem;
         private string originalText;
 
-        private void Start()
+        public void SetDataItem(in DataItem dataItem)
         {
-            originalText = text;
+            trackedDataItem = dataItem;
         }
 
         private void Update()
         {
-            tmpText.text = text;
-
             switch (CurrentState)
             {
                 case InteractState.None:
-                    text = originalText;
+                    tmpText.text = trackedDataItem.Text;
                     break;
                 case InteractState.Hovered:
-                    text = "HOVERED";
+                    tmpText.text = "HOVERED";
                     break;
                 case InteractState.Interacted:
-                    text = "SELECTED";
+                    tmpText.text = "SELECTED";
                     break;
             }
         }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Source.Visuals
 {
-    public class LineNumber : MonoBehaviour
+    public class LineNumberVisual : MonoBehaviour
     {
         public int Value { get; set; }
         
