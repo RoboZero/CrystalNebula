@@ -1,8 +1,16 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventTracker : MonoBehaviour
+namespace Source.Logic.Events
 {
-    
+    public class EventTracker : MonoBehaviour
+    {
+        private List<EventCommand> eventCommands = new();
+
+        public void AddEvent(EventCommand eventCommand)
+        {
+            eventCommands.Add(eventCommand);
+            eventCommand.Perform();
+        }
+    }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Source.Input;
 using Source.Logic;
+using Source.Logic.Events;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,6 +11,7 @@ namespace Source.Interactions
     public class PointerInteractor : MonoBehaviour
     {
         [Header("Dependencies")]
+        [SerializeField] private EventTracker eventTracker;
         [SerializeField] private PlayerInteractions playerInteractions;
         [SerializeField] private InputReader inputReader;
         
@@ -25,7 +27,6 @@ namespace Source.Interactions
             inputReader.InteractPressedEvent += OnInteractPressed;
             inputReader.InteractReleasedEvent += OnInteractReleased;
             inputReader.InteractCanceledEvent += OnInteractCanceled;
-            inputReader.HoldPressedEvent += OnHoldPressed;
         }
 
         private void OnDisable()
@@ -34,7 +35,6 @@ namespace Source.Interactions
             inputReader.InteractPressedEvent -= OnInteractPressed;
             inputReader.InteractReleasedEvent -= OnInteractReleased;
             inputReader.InteractCanceledEvent -= OnInteractCanceled;
-            inputReader.HoldPressedEvent -= OnHoldPressed;
         }
         
         private void OnPointerPosition(Vector2 position, bool isMouse) => pointerPosition = position;
@@ -44,16 +44,12 @@ namespace Source.Interactions
         {
             playerInteractions.Interacted.Clear();
         }
-        private void OnHoldPressed()
-        {
-            Debug.Log("Hold");
-        }
 
         // Update is called once per frame
         void Update()
         {
             var raycastResults = RaycastUIFromPointer();
-            var allInteractables = raycastResults.Select(result => result.gameObject.GetComponent<IInteractable>()).ToList();
+            var allInteractables = raycastResults.Select(result => result.gameObject.GetComponent<IInteractableVisual>()).ToList();
             
             playerInteractions.Hovered.Tick(allInteractables);
             if(clickAndDrag)

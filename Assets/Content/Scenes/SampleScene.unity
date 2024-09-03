@@ -260,10 +260,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineNumberVisualPrefab: {fileID: 3283037356414822244, guid: 163155ca4f4c94d46b739ef4b6e0f39f, type: 3}
-  dataItemVisualPrefab: {fileID: 2911644624218230806, guid: 42c295f56f68dd042a0bff32b69970da, type: 3}
+  memoryItemVisualPrefab: {fileID: 2911644624218230806, guid: 42c295f56f68dd042a0bff32b69970da, type: 3}
   lineNumberLayoutGroup: {fileID: 1209201168}
   dataItemLayoutGroup: {fileID: 505087156}
-  dataItemSize: 10
+  itemStorageSize: 0
 --- !u!222 &126037388
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -313,6 +313,8 @@ GameObject:
   - component: {fileID: 144567629}
   - component: {fileID: 144567631}
   - component: {fileID: 144567628}
+  - component: {fileID: 144567633}
+  - component: {fileID: 144567632}
   - component: {fileID: 144567630}
   m_Layer: 0
   m_Name: Player
@@ -333,6 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f30901a85597440ae2ec3dc8744949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventTracker: {fileID: 144567632}
   playerInteractions: {fileID: 144567631}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
   interactableMask:
@@ -402,6 +405,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 013e43a3-acac-433d-8650-c49c4ce8847c
     m_ActionName: OS Command/Cancel[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f20089ad-0702-4c1f-8e1e-6675175f6551
+    m_ActionName: OS Command/Hold[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: OS Command
@@ -419,6 +426,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1452ddbcff96e0942a704ebdfc068d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &144567632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144567627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e235f435fa0ef940ada045de5ac4310, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &144567633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144567627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c59310763ac3f4a89ce9d3f871c543, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInteractions: {fileID: 144567631}
+  memoryStorageVisual: {fileID: 126037387}
+  playerItemStorageVisual: {fileID: 637927564}
+  eventTracker: {fileID: 144567632}
+  inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
 --- !u!1 &244658248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,8 +1129,11 @@ MonoBehaviour:
   playerInteractions: {fileID: 144567631}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
   backgroundRectTransform: {fileID: 637927563}
-  storedItemsLayoutGroup: {fileID: 87182871}
-  prefab: {fileID: 2330439591976320020, guid: 42c295f56f68dd042a0bff32b69970da, type: 3}
+  lineNumberVisualPrefab: {fileID: 3283037356414822244, guid: 163155ca4f4c94d46b739ef4b6e0f39f, type: 3}
+  memoryItemVisualPrefab: {fileID: 2911644624218230806, guid: 42c295f56f68dd042a0bff32b69970da, type: 3}
+  lineNumberLayoutGroup: {fileID: 1377754878}
+  dataItemLayoutGroup: {fileID: 87182871}
+  itemStorageCapacity: 3
 --- !u!222 &637927565
 CanvasRenderer:
   m_ObjectHideFlags: 0

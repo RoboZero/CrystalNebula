@@ -1,44 +1,51 @@
 using System;
 using System.Collections.Generic;
+using Source.Interactions;
 using Source.Logic;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Source.Visuals
 {
-    public class DataItemStorageVisual : MonoBehaviour
+    public class MemoryStorageVisual : MonoBehaviour
     {
         [Header("Dependencies")]
         [SerializeField] private LineNumberVisual lineNumberVisualPrefab;
-        [SerializeField] private DataItemVisual dataItemVisualPrefab;
+        [SerializeField] private MemoryItemVisual memoryItemVisualPrefab;
         [SerializeField] private LayoutGroup lineNumberLayoutGroup;
         [SerializeField] private LayoutGroup dataItemLayoutGroup;
         
         [Header("Settings")]
-        [SerializeField] private int dataItemSize;
+        [SerializeField] private int itemStorageSize;
 
+        public ItemStorage<DataItem> ItemStorage => itemStorage;
+        public List<int> InteractedVisualIndices => interactedVisualIndices;
+        
         private ItemStorage<DataItem> itemStorage = new();
+        private List<int> interactedVisualIndices = new();
         private List<DataItemRecordVisual> trackedRecords = new();
 
         private void Awake()
         {
             lineNumberVisualPrefab.gameObject.SetActive(false);
-            dataItemVisualPrefab.gameObject.SetActive(false);
+            memoryItemVisualPrefab.gameObject.SetActive(false);
         }
         
         private void Update()
         {
-            itemStorage.Resize(dataItemSize);
+            itemStorage.Resize(itemStorageSize);
             
             while (itemStorage.Capacity > trackedRecords.Count)
             {
                 AddRecord(trackedRecords);
             }
 
+            interactedVisualIndices.Clear();
             for (var i = 0; i < trackedRecords.Count; i++)
             {
-                itemStorage.GetRecord(i, out var recordData);
-                SetRecordData(trackedRecords[i], recordData);
+                itemStorage.GetItemSlot(i, out var itemSlot);
+                UpdateRecordVisual(trackedRecords[i], itemSlot);
+                UpdateVisualIndices(i, trackedRecords[i]);
             }
         }
 
@@ -52,46 +59,54 @@ namespace Source.Visuals
 
         private void AddRecord(in List<DataItemRecordVisual> records)
         {
-            var dataItemVisual = Instantiate(dataItemVisualPrefab, dataItemLayoutGroup.transform);
+            var dataItemVisual = Instantiate(memoryItemVisualPrefab, dataItemLayoutGroup.transform);
             var lineNumberVisual = Instantiate(lineNumberVisualPrefab, lineNumberLayoutGroup.transform);
             
             var record = new DataItemRecordVisual()
             {
-                DataItemVisual = dataItemVisual,
+                MemoryItemVisual = dataItemVisual,
                 LineNumberVisual = lineNumberVisual
             };
             
             records.Add(record);
         }
 
-        private void SetRecordData(DataItemRecordVisual recordVisual, in ItemStorage<DataItem>.ItemRecord record)
+        private void UpdateRecordVisual(in DataItemRecordVisual recordVisual, in ItemStorage<DataItem>.ItemSlot slot)
         {
-            if (record.IsActive)
+            if (slot.IsActive)
             {
-                recordVisual.DataItemVisual.SetDataItem(record.Item);
-                recordVisual.LineNumberVisual.Value = record.LineNumber;
+                recordVisual.MemoryItemVisual.SetDataItem(slot.Item);
+                recordVisual.LineNumberVisual.Value = slot.LineNumber;
             }
             else
             {
-                recordVisual.DataItemVisual.SetDataItem(null);
-                recordVisual.DataItemVisual.ResetState();
+                recordVisual.MemoryItemVisual.SetDataItem(null);
+                recordVisual.MemoryItemVisual.ResetState();
             }
             
-            recordVisual.DataItemVisual.gameObject.SetActive(record.IsActive);
-            recordVisual.LineNumberVisual.gameObject.SetActive(record.IsActive);
+            recordVisual.MemoryItemVisual.gameObject.SetActive(slot.IsActive);
+            recordVisual.LineNumberVisual.gameObject.SetActive(slot.IsActive);
+        }
+
+        private void UpdateVisualIndices(int index, in DataItemRecordVisual recordVisual)
+        {
+            if (recordVisual.MemoryItemVisual.CurrentVisualState == InteractVisualState.Interacted)
+            {
+                interactedVisualIndices.Add(index);
+            }
         }
         
         private void DestroyRecord(DataItemRecordVisual record)
         {
             Destroy(record.LineNumberVisual.gameObject);
-            Destroy(record.DataItemVisual.gameObject);
+            Destroy(record.MemoryItemVisual.gameObject);
         }
 
         [Serializable]
         private struct DataItemRecordVisual
         {
             public LineNumberVisual LineNumberVisual;
-            public DataItemVisual DataItemVisual;
+            public MemoryItemVisual MemoryItemVisual;
         }
     }
 }

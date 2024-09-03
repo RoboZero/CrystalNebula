@@ -1,4 +1,5 @@
 using System;
+using Source.Interactions;
 
 namespace Source.Logic
 {
