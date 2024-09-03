@@ -1,12 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using Source.Input;
-using Source.Visuals;
+using Source.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 namespace Source.Interactions
 {
@@ -15,10 +12,10 @@ namespace Source.Interactions
         [SerializeField] private InputReader inputReader;
         [SerializeField] private LayerMask interactableMask;
 
-        private ContinuousInteractableCollection hoveredInteractables;
-        private ContinuousInteractableCollection interactedInteractables;
+        private ContinuousCollection<IInteractable> hovered;
+        private ContinuousCollection<IInteractable> interacted;
         private Vector2 pointerPosition;
-        private bool clickAndDrag = false;
+        private bool clickAndDrag;
 
         private void OnEnable()
         {
@@ -41,18 +38,18 @@ namespace Source.Interactions
         private void OnInteractReleased() => clickAndDrag = false;
         private void OnInteractCanceled()
         {
-            interactedInteractables.Clear();
+            interacted.Clear();
         }
 
         private void Start()
         {
-            hoveredInteractables = new ContinuousInteractableCollection(
+            hovered = new ContinuousCollection<IInteractable>(
                 r => r.TryEnterState(InteractState.Hovered), 
                 r => r.TryEnterState(InteractState.Hovered),
                 (r) => r.TryExitState(InteractState.Hovered),
                 null
                 );
-            interactedInteractables = new ContinuousInteractableCollection(
+            interacted = new ContinuousCollection<IInteractable>(
                 r => r.TryEnterState(InteractState.Interacted),
                 null,
                 null,
@@ -65,9 +62,9 @@ namespace Source.Interactions
         {
             var raycastResults = RaycastUIFromPointer();
             var allInteractables = raycastResults.Select(result => result.gameObject.GetComponent<IInteractable>()).ToList();
-            hoveredInteractables.Tick(allInteractables);
+            hovered.Tick(allInteractables);
             if(clickAndDrag)
-                interactedInteractables.Tick(allInteractables);
+                interacted.Tick(allInteractables);
         }
 
         private IEnumerable<RaycastResult> RaycastUIFromPointer()
@@ -81,77 +78,6 @@ namespace Source.Interactions
             EventSystem.current.RaycastAll(eventData, results);
             var resultsInLayer = results.Where(r => ((1 << r.gameObject.layer) & interactableMask) != 0);
             return resultsInLayer;
-        }
-
-        private class ContinuousInteractableCollection
-        {
-            private readonly HashSet<IInteractable> storedInteractables = new();
-            private List<IInteractable> newInteractables = new();
-            private List<IInteractable> oldInteractables = new();
-            [CanBeNull] private readonly Action<IInteractable> enterAction;
-            [CanBeNull] private readonly Action<IInteractable> stayAction;
-            [CanBeNull] private readonly Action<IInteractable> exitAction;
-            [CanBeNull] private readonly Action<IInteractable> resetAction;
-
-            public ContinuousInteractableCollection(Action<IInteractable> enterAction, 
-                Action<IInteractable> stayAction,
-                Action<IInteractable> exitAction, 
-                Action<IInteractable> resetAction)
-            {
-                this.enterAction = enterAction;
-                this.stayAction = stayAction;
-                this.exitAction = exitAction;
-                this.resetAction = resetAction;
-            }
-            
-            public void Tick(List<IInteractable> allInteractables)
-            {
-                newInteractables = allInteractables;
-
-                if (stayAction != null)
-                {
-                    foreach (var interactable in storedInteractables)
-                    {
-                        stayAction(interactable);
-                    }
-                }
-                
-                if (enterAction != null)
-                {
-                    foreach (var interactable in newInteractables.Except(oldInteractables))
-                    {
-                        enterAction(interactable);
-                        storedInteractables.Add(interactable);
-                    }
-                }
-
-                if (exitAction != null)
-                {
-                    foreach (var interactable in oldInteractables.Except(newInteractables))
-                    {
-                        exitAction(interactable);
-                        storedInteractables.Remove(interactable);
-                    }
-                }
-
-                oldInteractables = newInteractables;
-            }
-
-            public void Clear()
-            {
-                if (resetAction != null)
-                {
-                    foreach (var interactable in storedInteractables)
-                    {
-                        Debug.Log($"Reset {interactable}");
-                        resetAction(interactable);
-                    }
-                }
-                
-                storedInteractables.Clear();
-                oldInteractables.Clear();
-                newInteractables.Clear();
-            }
         }
     }
 }
