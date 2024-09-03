@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 namespace Source.Interactions
 {
-    public class Pointer : MonoBehaviour
+    public class PointerInteractor : MonoBehaviour
     {
         [SerializeField] private InputReader inputReader;
         [SerializeField] private LayerMask interactableMask;
