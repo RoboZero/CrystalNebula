@@ -23,7 +23,7 @@ namespace Source.Visuals
             switch (CurrentState)
             {
                 case InteractState.None:
-                    tmpText.text = trackedDataItem.Text;
+                    tmpText.text = trackedDataItem?.Text ?? "";
                     break;
                 case InteractState.Hovered:
                     tmpText.text = "HOVERED";

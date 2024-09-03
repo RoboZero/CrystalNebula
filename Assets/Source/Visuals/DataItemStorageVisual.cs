@@ -9,13 +9,16 @@ namespace Source.Visuals
     public class DataItemStorageVisual : MonoBehaviour
     {
         [Header("Dependencies")]
-        [SerializeField] private DataItemStorage dataItemStorage;
         [SerializeField] private LineNumberVisual lineNumberVisualPrefab;
         [SerializeField] private DataItemVisual dataItemVisualPrefab;
         [SerializeField] private LayoutGroup lineNumberLayoutGroup;
         [SerializeField] private LayoutGroup dataItemLayoutGroup;
+        
+        [Header("Settings")]
+        [SerializeField] private int dataItemSize;
 
-        private readonly List<DataItemRecordVisual> trackedRecords = new();
+        private ItemStorage<DataItem> itemStorage = new();
+        private List<DataItemRecordVisual> trackedRecords = new();
 
         private void Awake()
         {
@@ -25,15 +28,17 @@ namespace Source.Visuals
         
         private void Update()
         {
-            while (dataItemStorage.Capacity > trackedRecords.Count)
+            itemStorage.Resize(dataItemSize);
+            
+            while (itemStorage.Capacity > trackedRecords.Count)
             {
                 AddRecord(trackedRecords);
             }
 
             for (var i = 0; i < trackedRecords.Count; i++)
             {
-                if(dataItemStorage.GetRecord(i, out var recordData))
-                    SetRecordData(trackedRecords[i], recordData);
+                itemStorage.GetRecord(i, out var recordData);
+                SetRecordData(trackedRecords[i], recordData);
             }
         }
 
@@ -59,21 +64,21 @@ namespace Source.Visuals
             records.Add(record);
         }
 
-        private void SetRecordData(DataItemRecordVisual recordVisual, in DataItemStorage.DataItemRecord recordData)
+        private void SetRecordData(DataItemRecordVisual recordVisual, in ItemStorage<DataItem>.ItemRecord record)
         {
-            if (recordData.IsActive)
+            if (record.IsActive)
             {
-                recordVisual.DataItemVisual.SetDataItem(recordData.DataItem);
-                recordVisual.LineNumberVisual.Value = recordData.LineNumber;
+                recordVisual.DataItemVisual.SetDataItem(record.Item);
+                recordVisual.LineNumberVisual.Value = record.LineNumber;
             }
             else
             {
-                recordVisual.DataItemVisual.SetDataItem(new DataItem());
+                recordVisual.DataItemVisual.SetDataItem(null);
                 recordVisual.DataItemVisual.ResetState();
             }
             
-            recordVisual.DataItemVisual.gameObject.SetActive(recordData.IsActive);
-            recordVisual.LineNumberVisual.gameObject.SetActive(recordData.IsActive);
+            recordVisual.DataItemVisual.gameObject.SetActive(record.IsActive);
+            recordVisual.LineNumberVisual.gameObject.SetActive(record.IsActive);
         }
         
         private void DestroyRecord(DataItemRecordVisual record)
@@ -82,6 +87,7 @@ namespace Source.Visuals
             Destroy(record.DataItemVisual.gameObject);
         }
 
+        [Serializable]
         private struct DataItemRecordVisual
         {
             public LineNumberVisual LineNumberVisual;

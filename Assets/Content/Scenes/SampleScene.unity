@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 126037389}
   - component: {fileID: 126037388}
   - component: {fileID: 126037387}
-  - component: {fileID: 126037390}
   m_Layer: 0
   m_Name: DataItemStorage
   m_TagString: Untagged
@@ -174,11 +173,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f31e443209c5743b315cd58693adc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataItemStorage: {fileID: 126037390}
   lineNumberVisualPrefab: {fileID: 3283037356414822244, guid: 163155ca4f4c94d46b739ef4b6e0f39f, type: 3}
   dataItemVisualPrefab: {fileID: 2911644624218230806, guid: 42c295f56f68dd042a0bff32b69970da, type: 3}
   lineNumberLayoutGroup: {fileID: 1209201168}
   dataItemLayoutGroup: {fileID: 505087156}
+  dataItemSize: 10
 --- !u!222 &126037388
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -217,19 +216,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 100
---- !u!114 &126037390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 126037384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00ae1b02c1b162449b99862895580a82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dataItemSize: 20
 --- !u!1 &144567627
 GameObject:
   m_ObjectHideFlags: 0

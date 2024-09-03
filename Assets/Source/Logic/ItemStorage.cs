@@ -1,25 +1,19 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Source.Logic
 {
-    public class DataItemStorage : MonoBehaviour
+    [Serializable]
+    public class ItemStorage<T>
     {
-        [Header("Settings")]
-        [SerializeField] private int dataItemSize;
-        
         public int Size { get; private set; }
         public int Capacity => allRecords.Count;
 
-        private List<DataItemRecord> allRecords = new();
+        private List<ItemRecord> allRecords = new();
 
-        private void Update()
-        { 
-            Resize(dataItemSize);
-        }
-
-        public bool GetRecord(int i, out DataItemRecord record)
+        public bool GetRecord(int i, out ItemRecord record)
         {
             if (i >= 0 && i < Size)
             {
@@ -27,7 +21,7 @@ namespace Source.Logic
                 return true;
             }
 
-            record = new DataItemRecord();
+            record = new ItemRecord();
             return false;
         }
         
@@ -55,10 +49,10 @@ namespace Source.Logic
                     var lastCreationIndex = allRecords.Count + itemDelta;
                     for (var i = allRecords.Count; i < lastCreationIndex; i++)
                     {
-                        var record = new DataItemRecord()
+                        var record = new ItemRecord()
                         {
                             LineNumber = i,
-                            DataItem = new DataItem(),
+                            Item = default(T),
                             IsActive = false
                         };
                         allRecords.Add(record);
@@ -80,10 +74,10 @@ namespace Source.Logic
         }
         
         [Serializable]
-        public record DataItemRecord
+        public record ItemRecord
         {
             public int LineNumber;
-            public DataItem DataItem;
+            public T? Item;
             public bool IsActive;
         }
     }
