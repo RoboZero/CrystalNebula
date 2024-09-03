@@ -4,7 +4,8 @@ namespace Source.Interactions
     {
         None,
         Hovered,
-        Interacted
+        Interacted,
+        Held
     }
     
     public interface IInteractable

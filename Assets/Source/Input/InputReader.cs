@@ -12,6 +12,8 @@ namespace Source.Input
         public event UnityAction InteractPressedEvent = delegate { }; 
         public event UnityAction InteractReleasedEvent = delegate { }; 
         public event UnityAction InteractCanceledEvent = delegate { };
+        public event UnityAction HoldPressedEvent = delegate { }; 
+        public event UnityAction HoldReleasedEvent = delegate { }; 
     
         private PlayerInputActions playerInputActions;
 
@@ -35,8 +37,16 @@ namespace Source.Input
         {
             if(context.performed)
                 InteractPressedEvent.Invoke();
-            if(context.canceled)
+            else if(context.canceled)
                 InteractReleasedEvent.Invoke();
+        }
+
+        public void OnHold(InputAction.CallbackContext context)
+        {
+            if(context.performed)
+                HoldPressedEvent.Invoke();
+            else if(context.canceled)
+                HoldReleasedEvent.Invoke();
         }
 
         public void OnCancel(InputAction.CallbackContext context)

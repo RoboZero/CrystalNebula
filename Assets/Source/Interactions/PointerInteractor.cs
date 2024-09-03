@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Source.Input;
-using Source.Utility;
+using Source.Logic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -9,11 +9,13 @@ namespace Source.Interactions
 {
     public class PointerInteractor : MonoBehaviour
     {
+        [Header("Dependencies")]
+        [SerializeField] private PlayerInteractions playerInteractions;
         [SerializeField] private InputReader inputReader;
+        
+        [Header("Settings")]
         [SerializeField] private LayerMask interactableMask;
 
-        private ContinuousCollection<IInteractable> hovered;
-        private ContinuousCollection<IInteractable> interacted;
         private Vector2 pointerPosition;
         private bool clickAndDrag;
 
@@ -23,6 +25,7 @@ namespace Source.Interactions
             inputReader.InteractPressedEvent += OnInteractPressed;
             inputReader.InteractReleasedEvent += OnInteractReleased;
             inputReader.InteractCanceledEvent += OnInteractCanceled;
+            inputReader.HoldPressedEvent += OnHoldPressed;
         }
 
         private void OnDisable()
@@ -31,6 +34,7 @@ namespace Source.Interactions
             inputReader.InteractPressedEvent -= OnInteractPressed;
             inputReader.InteractReleasedEvent -= OnInteractReleased;
             inputReader.InteractCanceledEvent -= OnInteractCanceled;
+            inputReader.HoldPressedEvent -= OnHoldPressed;
         }
         
         private void OnPointerPosition(Vector2 position, bool isMouse) => pointerPosition = position;
@@ -38,23 +42,11 @@ namespace Source.Interactions
         private void OnInteractReleased() => clickAndDrag = false;
         private void OnInteractCanceled()
         {
-            interacted.Clear();
+            playerInteractions.Interacted.Clear();
         }
-
-        private void Start()
+        private void OnHoldPressed()
         {
-            hovered = new ContinuousCollection<IInteractable>(
-                r => r.TryEnterState(InteractState.Hovered), 
-                r => r.TryEnterState(InteractState.Hovered),
-                (r) => r.TryExitState(InteractState.Hovered),
-                null
-                );
-            interacted = new ContinuousCollection<IInteractable>(
-                r => r.TryEnterState(InteractState.Interacted),
-                null,
-                null,
-                r => r.ResetState()
-                );
+            Debug.Log("Hold");
         }
 
         // Update is called once per frame
@@ -62,9 +54,10 @@ namespace Source.Interactions
         {
             var raycastResults = RaycastUIFromPointer();
             var allInteractables = raycastResults.Select(result => result.gameObject.GetComponent<IInteractable>()).ToList();
-            hovered.Tick(allInteractables);
+            
+            playerInteractions.Hovered.Tick(allInteractables);
             if(clickAndDrag)
-                interacted.Tick(allInteractables);
+                playerInteractions.Interacted.Tick(allInteractables);
         }
 
         private IEnumerable<RaycastResult> RaycastUIFromPointer()
