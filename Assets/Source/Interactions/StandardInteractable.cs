@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Source.Utility;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Source.Interactions
