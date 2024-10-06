@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 namespace Source.Input
 {
     [CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
-    public class InputReader : DescriptionBaseSO, PlayerInputActions.IOSCommandActions
+    public class InputReaderSO : DescriptionBaseSO, PlayerInputActions.IOSCommandActions
     {
         public event UnityAction<Vector2, bool> PointerPositionEvent = delegate { };
         public event UnityAction InteractPressedEvent = delegate { }; 

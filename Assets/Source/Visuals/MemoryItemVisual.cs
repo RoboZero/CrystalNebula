@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Source.Visuals
 {
+    [Serializable]
     public class MemoryItemVisual : StandardInteractableVisual
     {
         [SerializeField] private TMPro.TMP_Text tmpText;
@@ -23,21 +24,13 @@ namespace Source.Visuals
             switch (CurrentVisualState)
             {
                 case InteractVisualState.None:
-                    tmpText.text = trackedDataItem?.Text ?? "";
+                    tmpText.text = trackedDataItem?.Description ?? "NONE";
                     break;
                 case InteractVisualState.Hovered:
                     tmpText.text = "HOVERED";
                     break;
-                case InteractVisualState.Interacted:
+                case InteractVisualState.Selected:
                     tmpText.text = "SELECTED";
-                    
-                    // TODO: Determine how to sync visual interact state with data properly
-                    // After a transfer event, visual should reset. 
-                    if (trackedDataItem != null)
-                        trackedDataItem.Text = "LOL";
-                    else
-                        ResetState();
-
                     break;
             }
         }

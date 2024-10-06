@@ -41,8 +41,8 @@ namespace Source.Logic.Events
             var success = true;
             for (var i = 0; i < fromSlots.Count; i++)
             {
-                if (fromStorage.GetItemSlot(fromSlots[i], out var fromSlot) && 
-                    toStorage.GetItemSlot(toSlots[i], out var toSlot))
+                if (fromStorage.GetItemSlotReference(fromSlots[i], out var fromSlot) && 
+                    toStorage.GetItemSlotReference(toSlots[i], out var toSlot))
                 {
                     toSlot.Item = fromSlot.Item;
                     fromSlot.Item = null;

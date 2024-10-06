@@ -9,6 +9,7 @@ namespace Source.Logic.Events
 
         public void AddEvent(EventCommand eventCommand)
         {
+            Debug.Log($"Event Tracker added and performed event: {eventCommand}");
             eventCommands.Add(eventCommand);
             eventCommand.Perform();
         }

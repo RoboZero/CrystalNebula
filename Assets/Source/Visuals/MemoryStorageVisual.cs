@@ -43,7 +43,7 @@ namespace Source.Visuals
             interactedVisualIndices.Clear();
             for (var i = 0; i < trackedRecords.Count; i++)
             {
-                itemStorage.GetItemSlot(i, out var itemSlot);
+                itemStorage.GetItemSlotReference(i, out var itemSlot);
                 UpdateRecordVisual(trackedRecords[i], itemSlot);
                 UpdateVisualIndices(i, trackedRecords[i]);
             }
@@ -90,7 +90,7 @@ namespace Source.Visuals
 
         private void UpdateVisualIndices(int index, in DataItemRecordVisual recordVisual)
         {
-            if (recordVisual.MemoryItemVisual.CurrentVisualState == InteractVisualState.Interacted)
+            if (recordVisual.MemoryItemVisual.CurrentVisualState == InteractVisualState.Selected)
             {
                 interactedVisualIndices.Add(index);
             }

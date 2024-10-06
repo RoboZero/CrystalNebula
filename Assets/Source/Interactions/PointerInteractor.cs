@@ -3,6 +3,7 @@ using System.Linq;
 using Source.Input;
 using Source.Logic;
 using Source.Logic.Events;
+using Source.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,7 +14,7 @@ namespace Source.Interactions
         [Header("Dependencies")]
         [SerializeField] private EventTracker eventTracker;
         [SerializeField] private PlayerInteractions playerInteractions;
-        [SerializeField] private InputReader inputReader;
+        [SerializeField] private InputReaderSO inputReader;
         
         [Header("Settings")]
         [SerializeField] private LayerMask interactableMask;
@@ -45,11 +46,15 @@ namespace Source.Interactions
             playerInteractions.Interacted.Clear();
         }
 
-        // Update is called once per frame
         void Update()
         {
             var raycastResults = RaycastUIFromPointer();
-            var allInteractables = raycastResults.Select(result => result.gameObject.GetComponent<IInteractableVisual>()).ToList();
+            var allInteractables = raycastResults
+                .Select(result => result.gameObject.GetComponent<IInteractableVisual>())
+                .Where(result => result != null)
+                .ToList();
+            
+            Debug.Log("All interactables pointer is over: " + allInteractables.ToItemString());
             
             playerInteractions.Hovered.Tick(allInteractables);
             if(clickAndDrag)

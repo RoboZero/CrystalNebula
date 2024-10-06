@@ -14,7 +14,7 @@ namespace Source.Interactions
         [SerializeField] private MemoryStorageVisual memoryStorageVisual;
         [SerializeField] private PlayerItemStorageVisual playerItemStorageVisual;
         [SerializeField] private EventTracker eventTracker;
-        [SerializeField] private InputReader inputReader;
+        [SerializeField] private InputReaderSO inputReader;
 
         private void OnEnable()
         {
@@ -28,6 +28,7 @@ namespace Source.Interactions
         
         private void OnHoldPressed()
         {
+            Debug.Log("Player pressed hold. ");
             eventTracker.AddEvent(new StorageItemTransferEventCommand<DataItem>(
                     memoryStorageVisual.ItemStorage,
                     memoryStorageVisual.InteractedVisualIndices,

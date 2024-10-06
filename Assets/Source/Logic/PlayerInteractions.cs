@@ -19,7 +19,7 @@ namespace Source.Logic
                 null
                 );
             Interacted = new ContinuousCollection<IInteractableVisual>(
-                r => r.TryEnterState(InteractVisualState.Interacted),
+                r => r.TryEnterState(InteractVisualState.Selected),
                 null,
                 null,
                 r => r.ResetState()

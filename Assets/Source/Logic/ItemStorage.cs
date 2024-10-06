@@ -13,7 +13,7 @@ namespace Source.Logic
 
         private List<ItemSlot> allSlots = new();
 
-        public bool GetItemSlot(int i, out ItemSlot slot)
+        public bool GetItemSlotReference(int i, out ItemSlot slot)
         {
             if (i >= 0 && i < Size)
             {

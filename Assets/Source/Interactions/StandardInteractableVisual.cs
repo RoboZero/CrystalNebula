@@ -25,8 +25,8 @@ namespace Source.Interactions
                         interactStates.Add(InteractVisualState.Hovered);
                     return true;
                 case InteractVisualState.Hovered:
-                    if (nextVisualState == InteractVisualState.Interacted)
-                        interactStates.Add(InteractVisualState.Interacted);
+                    if (nextVisualState == InteractVisualState.Selected)
+                        interactStates.Add(InteractVisualState.Selected);
                     return true;
             }
 
@@ -42,7 +42,7 @@ namespace Source.Interactions
                 case InteractVisualState.Hovered:
                     interactStates.TryRemoveLast();
                     return true;
-                case InteractVisualState.Interacted:
+                case InteractVisualState.Selected:
                     interactStates.TryRemoveLast();
                     return true;
             }

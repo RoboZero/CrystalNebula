@@ -6,7 +6,7 @@ namespace Source.Interactions
     {
         None,
         Hovered,
-        Interacted
+        Selected
     }
     
     public interface IInteractableVisual

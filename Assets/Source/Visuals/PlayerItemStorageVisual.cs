@@ -11,7 +11,7 @@ namespace Source.Visuals
     {
         [Header("Dependencies")]
         [SerializeField] private PlayerInteractions playerInteractions;
-        [SerializeField] private InputReader inputReader;
+        [SerializeField] private InputReaderSO inputReader;
         [SerializeField] private RectTransform backgroundRectTransform;
         
         [SerializeField] private LineNumberVisual lineNumberVisualPrefab;
@@ -59,7 +59,7 @@ namespace Source.Visuals
             interactedVisualIndices.Clear();
             for (var i = 0; i < trackedRecords.Count; i++)
             {
-                itemStorage.GetItemSlot(i, out var itemSlot);
+                itemStorage.GetItemSlotReference(i, out var itemSlot);
                 UpdateRecordVisual(trackedRecords[i], itemSlot);
                 UpdateVisualIndices(i, trackedRecords[i]);
             }
