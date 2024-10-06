@@ -6,6 +6,6 @@ namespace Source.Logic.State
     {
         public LevelData Level;
         public PlayerData[] Players;
-        public BattlefieldData BattlefieldStorage;
+        public BattlefieldStorageData BattlefieldStorageStorage;
     }
 }

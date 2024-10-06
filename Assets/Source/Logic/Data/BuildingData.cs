@@ -4,10 +4,8 @@ using UnityEngine;
 namespace Source.Logic.Data
 {
     [Serializable]
-    public class BuildingData 
+    public class BuildingData : BattlefieldResourceData
     { 
-        public string Definition;
-        public int OwnerId;
         public int Health;
         public int Power;
     }

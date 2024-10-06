@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Source.Interactions;
 using Source.Logic;
+using Source.Logic.Data;
 using Source.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,10 +23,10 @@ namespace Source.Visuals.Battlefield
         [Header("Settings")]
         [SerializeField] private int itemStorageSize;
 
-        public ItemStorage<BattlefieldDataItem> ItemStorage => itemStorage;
+        public ItemStorage<BattlefieldItemData> ItemStorage => itemStorage;
         public List<int> InteractedVisualIndices => interactedVisualIndices;
         
-        private ItemStorage<BattlefieldDataItem> itemStorage = new();
+        private ItemStorage<BattlefieldItemData> itemStorage = new();
         private List<int> interactedVisualIndices = new();
         private List<DataItemRecordVisual> trackedRecords = new();
 
@@ -75,7 +76,7 @@ namespace Source.Visuals.Battlefield
             records.Add(record);
         }
 
-        private void UpdateRecordVisual(in DataItemRecordVisual recordVisual, in ItemStorage<BattlefieldDataItem>.ItemSlot slot)
+        private void UpdateRecordVisual(in DataItemRecordVisual recordVisual, in ItemStorage<BattlefieldItemData>.ItemSlot slot)
         {
             if (slot.IsActive)
             {

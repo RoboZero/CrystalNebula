@@ -21,20 +21,30 @@ namespace Source.Serialization
         [ReadOnly]
         [SerializeField] private List<DefinitionToResource> resourceList = new();
 
-        //TODO: Switch to using dictionary when large enough
-        public T TryLoadAsset<T>(object loader, string definition)
+        //TODO: Switch to using dictionary when large enough. 
+        //TODO: Consider whether to ignore empty definitions
+        public bool TryLoadAsset<T>(object loader, string definition, out T asset)
         {
-            var resource = resourceList.First(definitionToResource => definitionToResource.Definition.Equals(definition));
+            if (definition == "")
+            {
+                Debug.Log($"Loader {loader} could not find asset with empty definition. ");
+                asset = default;
+                return false;
+            }
+            
+            var resource = resourceList.FirstOrDefault(definitionToResource => definitionToResource.Definition.Equals(definition));
 
             // Debug.Log($"Resource found: {resource.Resource}");
-            if (resource.Resource is T resourceTyped)
+            if (resource is { Resource: T resourceTyped })
             {
                 Debug.Log($"Loader {loader} found asset of type {resourceTyped.GetType()}");
-                return resourceTyped;
+                asset = resourceTyped;
+                return true;
             }
 
-            Debug.LogError($"Loader {loader} is unable to load resource: {definition}");
-            return default;
+            Debug.LogWarning($"Loader {loader} is unable to load resource: {definition}");
+            asset = default;
+            return false;
         }
 
         // TODO: Switch to AssetBundles for mods: https://stackoverflow.com/questions/46106849/unity3d-assetdatabase-loadassetatpath-vs-resource-load

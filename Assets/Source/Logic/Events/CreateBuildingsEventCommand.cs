@@ -7,12 +7,12 @@ namespace Source.Logic.Events
 {
     public class CreateBuildingsEventCommand : EventCommand 
     {
-        private ItemStorage<BattlefieldDataItem> storage;
+        private ItemStorage<BattlefieldItemData> storage;
         private List<int> slots;
         private BuildingData buildingData;
 
         public CreateBuildingsEventCommand(
-            ItemStorage<BattlefieldDataItem> storage,
+            ItemStorage<BattlefieldItemData> storage,
             List<int> slots,
             BuildingData buildingData
         )
@@ -31,8 +31,8 @@ namespace Source.Logic.Events
             {
                 if (storage.GetItemSlotReference(slot, out var storageItem))
                 {
-                    storageItem.Item ??= new BattlefieldDataItem();
-                    storageItem.Item.BuildingData = buildingData;
+                    storageItem.Item ??= new BattlefieldItemData();
+                    storageItem.Item.Building = buildingData;
                 }
                 else
                 {

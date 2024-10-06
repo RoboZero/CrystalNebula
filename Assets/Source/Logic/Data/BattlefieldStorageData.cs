@@ -1,15 +1,11 @@
+using System;
+
 namespace Source.Logic.Data
 {
-    public class BattlefieldData
+    [Serializable]
+    public class BattlefieldStorageData
     {
         public int Length;
-        public Item[] Items;
-
-        public class Item
-        {
-            public int Location;
-            public BuildingData Building;
-            public UnitData Unit;
-        }
+        public BattlefieldItemData[] Items;
     }
 }

@@ -1,6 +1,8 @@
 using Source.Interactions;
 using Source.Logic;
+using Source.Logic.Data;
 using Source.Serialization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,12 +13,12 @@ namespace Source.Visuals.Battlefield
         [Header("Dependencies")]
         [SerializeField] private Image buildingImage;
         [SerializeField] private Image unitImage;
-        [SerializeField] private TMPro.TMP_Text healthText;
-        [SerializeField] private TMPro.TMP_Text powerText;
-        [SerializeField] private TMPro.TMP_Text utilityText;
+        [SerializeField] private TMP_Text healthText;
+        [SerializeField] private TMP_Text powerText;
+        [SerializeField] private TMP_Text utilityText;
         
         private GameResources gameResources;
-        private BattlefieldDataItem trackedDataItem;
+        private BattlefieldItemData trackedDataItem;
         private string originalText;
         private UnitDataSO unitDataSO;
         private BuildingDataSO buildingDataSO;
@@ -27,18 +29,18 @@ namespace Source.Visuals.Battlefield
         }
         
         // TODO: Pass scriptable objects to visuals with more data, updates in real time. 
-        public void SetDataItem(in BattlefieldDataItem dataItem)
+        public void SetDataItem(in BattlefieldItemData dataItem)
         {
             if (dataItem != null && dataItem != trackedDataItem)
             {
-                if (dataItem.UnitData != null)
+                if (dataItem.Unit != null)
                 {
-                    unitDataSO = gameResources.TryLoadAsset<UnitDataSO>(this, dataItem.UnitData.Definition);
+                    gameResources.TryLoadAsset(this, dataItem.Unit.Definition, out unitDataSO);
                 }
 
-                if (dataItem.BuildingData != null)
+                if (dataItem.Building != null)
                 {
-                    unitDataSO = gameResources.TryLoadAsset<UnitDataSO>(this, dataItem.BuildingData.Definition);
+                    gameResources.TryLoadAsset(this, dataItem.Building.Definition, out unitDataSO);
                 }
             }
             
@@ -47,7 +49,7 @@ namespace Source.Visuals.Battlefield
 
         private void Update()
         {
-            RefreshVisualWithTrackedItem(trackedDataItem);
+            SetVisualToItem(trackedDataItem);
             
             switch (CurrentVisualState)
             {
@@ -64,26 +66,26 @@ namespace Source.Visuals.Battlefield
             }
         }
         
-        private void RefreshVisualWithTrackedItem(BattlefieldDataItem trackedDataItem)
+        private void SetVisualToItem(BattlefieldItemData dataItem)
         {
             buildingImage.gameObject.SetActive(false);
             unitImage.gameObject.SetActive(false);
             healthText.gameObject.SetActive(false);
             powerText.gameObject.SetActive(false);
 
-            if (trackedDataItem != null && gameResources != null)
+            if (dataItem != null && gameResources != null)
             { 
-                if (trackedDataItem.UnitData != null && unitDataSO != null)
+                if (dataItem.Unit != null && unitDataSO != null)
                 {
                     unitImage.sprite = unitDataSO.Sprite;
-                    healthText.text = trackedDataItem.UnitData.Health.ToString();
-                    powerText.text = trackedDataItem.UnitData.Power.ToString();
+                    healthText.text = dataItem.Unit.Health.ToString();
+                    powerText.text = dataItem.Unit.Power.ToString();
                     unitImage.gameObject.SetActive(true);
                     healthText.gameObject.SetActive(true);
                     powerText.gameObject.SetActive(true);
                 }
                 
-                if (trackedDataItem.BuildingData != null && buildingDataSO != null)
+                if (dataItem.Building != null && buildingDataSO != null)
                 {
                     buildingImage.sprite = buildingDataSO.Sprite;
                     buildingImage.gameObject.SetActive(true);

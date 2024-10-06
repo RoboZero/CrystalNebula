@@ -1,14 +1,11 @@
+using System;
 using Source.Logic.State;
 
 namespace Source.Logic.Data
 {
+    [Serializable]
     public class MemoryStorageData
     {
-        public Item[] Items;
-        
-        public class Item
-        {
-            public ProgramData Program;
-        }
+        public MemoryItemData[] Items;
     }
 }

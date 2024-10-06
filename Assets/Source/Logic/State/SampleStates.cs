@@ -6,31 +6,31 @@ namespace Source.Logic.State
     {
         public static readonly GameState TestState1 = new GameState()
         {
-            Level = new LevelData()
+            Level = new LevelData
             {
                 Definition = "Levels:Level1"
             },
             Players = new []
             {
-                new PlayerData()
+                new PlayerData
                 {
                     Id = 1,
-                    MemoryStorage = new MemoryStorageData()
+                    MemoryStorage = new MemoryStorageData
                     {
                         Items = new[]
                         {
-                            new MemoryStorageData.Item()
+                            new MemoryItemData
                             {
-                                Program = new ProgramData()
+                                Program = new ProgramData
                                 {
                                     OwnerId = 1,
                                     Definition = "Programs:Build",
                                     Progress = 0
                                 }
                             },
-                            new MemoryStorageData.Item()
+                            new MemoryItemData
                             {
-                                Program = new ProgramData()
+                                Program = new ProgramData
                                 {
                                     OwnerId = 1,
                                     Definition = "Programs:Research",
@@ -41,24 +41,24 @@ namespace Source.Logic.State
                     }
                 }
             },
-            BattlefieldStorage = new BattlefieldData()
+            BattlefieldStorageStorage = new BattlefieldStorageData
             {
                 Length = 20,
                 Items = new []
                 {
-                    new BattlefieldData.Item()
+                    new BattlefieldItemData
                     {
                         Location = 19,
-                        Unit = new UnitData()
+                        Building = new BuildingData
+                        {
+                            OwnerId = 1,
+                            Definition = "Buildings:Flag"
+                        },
+                        Unit = new UnitData
                         {
                             OwnerId = 1,
                             Definition = "Units:Guardian"
                         },
-                        Building = new BuildingData()
-                        {
-                            OwnerId = 1,
-                            Definition = "Buildings:Flag"
-                        }
                     }
                 }
             }
