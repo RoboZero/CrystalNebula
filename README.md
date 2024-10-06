@@ -1,5 +1,5 @@
 # Crystal Nebula (AKA File Commander 1)
-Crystal Nebula is a single lane RTS where you play as a personified computer permanently connected to the hostile infected Cloud knwon as The Nebula.\
+Crystal Nebula is a single lane RTS where you play as a personified computer permanently connected to the hostile infected Cloud known as The Nebula.\
 Defend the infected's onslaught, build your base, upgrade your programs, and strategically strike to rescue your fragmented personality shards from the Deadlock bug infection. 
 
 ### Reason for Creation
