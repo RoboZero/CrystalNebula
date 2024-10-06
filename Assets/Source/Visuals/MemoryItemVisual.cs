@@ -6,7 +6,8 @@ using UnityEngine;
 
 namespace Source.Visuals
 {
-    public class DataItemVisual : StandardInteractable
+    [Serializable]
+    public class MemoryItemVisual : StandardInteractableVisual
     {
         [SerializeField] private TMPro.TMP_Text tmpText;
 
@@ -20,15 +21,15 @@ namespace Source.Visuals
 
         private void Update()
         {
-            switch (CurrentState)
+            switch (CurrentVisualState)
             {
-                case InteractState.None:
-                    tmpText.text = trackedDataItem?.Text ?? "";
+                case InteractVisualState.None:
+                    tmpText.text = trackedDataItem?.Description ?? "NONE";
                     break;
-                case InteractState.Hovered:
+                case InteractVisualState.Hovered:
                     tmpText.text = "HOVERED";
                     break;
-                case InteractState.Interacted:
+                case InteractVisualState.Selected:
                     tmpText.text = "SELECTED";
                     break;
             }

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Source.Input;
+using Source.Logic;
+using Source.Logic.Events;
 using Source.Utility;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,11 +11,14 @@ namespace Source.Interactions
 {
     public class PointerInteractor : MonoBehaviour
     {
-        [SerializeField] private InputReader inputReader;
+        [Header("Dependencies")]
+        [SerializeField] private EventTracker eventTracker;
+        [SerializeField] private PlayerInteractions playerInteractions;
+        [SerializeField] private InputReaderSO inputReader;
+        
+        [Header("Settings")]
         [SerializeField] private LayerMask interactableMask;
 
-        private ContinuousCollection<IInteractable> hovered;
-        private ContinuousCollection<IInteractable> interacted;
         private Vector2 pointerPosition;
         private bool clickAndDrag;
 
@@ -38,33 +43,22 @@ namespace Source.Interactions
         private void OnInteractReleased() => clickAndDrag = false;
         private void OnInteractCanceled()
         {
-            interacted.Clear();
+            playerInteractions.Interacted.Clear();
         }
 
-        private void Start()
-        {
-            hovered = new ContinuousCollection<IInteractable>(
-                r => r.TryEnterState(InteractState.Hovered), 
-                r => r.TryEnterState(InteractState.Hovered),
-                (r) => r.TryExitState(InteractState.Hovered),
-                null
-                );
-            interacted = new ContinuousCollection<IInteractable>(
-                r => r.TryEnterState(InteractState.Interacted),
-                null,
-                null,
-                r => r.ResetState()
-                );
-        }
-
-        // Update is called once per frame
         void Update()
         {
             var raycastResults = RaycastUIFromPointer();
-            var allInteractables = raycastResults.Select(result => result.gameObject.GetComponent<IInteractable>()).ToList();
-            hovered.Tick(allInteractables);
+            var allInteractables = raycastResults
+                .Select(result => result.gameObject.GetComponent<IInteractableVisual>())
+                .Where(result => result != null)
+                .ToList();
+            
+            Debug.Log("All interactables pointer is over: " + allInteractables.ToItemString());
+            
+            playerInteractions.Hovered.Tick(allInteractables);
             if(clickAndDrag)
-                interacted.Tick(allInteractables);
+                playerInteractions.Interacted.Tick(allInteractables);
         }
 
         private IEnumerable<RaycastResult> RaycastUIFromPointer()
