@@ -111,7 +111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d68a0d4a4fb4f1418545a62c71d90bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: CREATE
   tmpText: {fileID: 3876277005174334759}
 --- !u!61 &2596210293637875670
 BoxCollider2D:

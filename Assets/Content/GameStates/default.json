@@ -1,0 +1,53 @@
+﻿{
+  "level": {
+    "def": "Levels:Level1"
+  },
+  "players": [
+    {
+      "id": 1,
+      "memory": {
+        "items": [
+          {
+            "program": {
+              "def": "Programs:Build",
+              "progress": 0
+            }
+          },
+          {
+            "program": {
+              "def": "Programs:Research",
+              "progress": 0
+            }
+          },
+          {
+            "program": {
+              "def": "Programs:Command",
+              "progress": 0
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "battlefield": {
+    "length": "20",
+    "items": [
+      {
+        "ownerId": 1,
+        "location": "19",
+        "building": {
+          "def": "Buildings:Fortress",
+          "health": 1,
+          "power": 1,
+          "special-uses": 0
+        },
+        "unit": {
+          "ownerId": 1,
+          "def": "Units:Guardian",
+          "health": "1",
+          "power": "1"
+        }
+      }
+    ]
+  }
+}

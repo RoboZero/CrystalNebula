@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44db0d7d96f2d3c4e8121341dfb13380, type: 3}
+  m_Name: Flag
+  m_EditorClassIdentifier: 
+  guid: a1f05ba9396dcad47808008ca2119113
+  description: 
+  buildingData:
+    Sprite: {fileID: -1419714049, guid: 1dbfce441fc932945accbba00d10b474, type: 3}
+    Name: Flag
+    Health: 1
+    Power: 0
