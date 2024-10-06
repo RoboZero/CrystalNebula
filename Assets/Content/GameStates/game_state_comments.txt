@@ -1,0 +1,3 @@
+﻿Units may have their own stats, specials, and more.
+Read a unit, then try to apply stat values if they exist.
+Only include in JSON if different than default resource. 
