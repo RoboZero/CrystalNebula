@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+<<<<<<< HEAD
+=======
+  - name: Background
+    uniqueID: 3645398369
+    locked: 0
+  - name: Midground
+    uniqueID: 1031546647
+    locked: 0
+  - name: Foreground
+    uniqueID: 3173125001
+    locked: 0
+>>>>>>> local-branch-10.5.24
