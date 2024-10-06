@@ -7,8 +7,20 @@ namespace Source.Visuals.Battlefield
     [CreateAssetMenu(fileName = "BuildingName", menuName = "Game/Building")]
     public class BuildingDataSO : DescriptionBaseSO
     {
-        public BuildingData BuildingData => buildingData;
+        public Sprite Sprite;
+        public string Name;
+        public int BaseHealth;
+        public int BasePower;
 
-        [SerializeField] private BuildingData buildingData;
+        public BuildingData CreateDefault(int ownerId, string definition, int? health = null, int? power = null)
+        {
+            return new BuildingData()
+            {
+                OwnerId = ownerId,
+                Definition = definition,
+                Health = health ?? BaseHealth,
+                Power = power ?? BasePower
+            };
+        }
     }
 }

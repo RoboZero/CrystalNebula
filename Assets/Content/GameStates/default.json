@@ -30,7 +30,7 @@
     }
   ],
   "battlefield": {
-    "length": "20",
+    "length": 20,
     "items": [
       {
         "ownerId": 1,

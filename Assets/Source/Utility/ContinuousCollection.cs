@@ -27,8 +27,10 @@ namespace Source.Utility
             this.collectionClearedAction = collectionClearedAction;
         }
             
-        public void Tick(in List<T> newItems)
+        public bool Tick(in List<T> newItems)
         {
+            var isSame = true;
+            
             if (itemHasStayedAction != null)
             {
                 foreach (var interactable in storedItems.Union(newItems))
@@ -43,6 +45,7 @@ namespace Source.Utility
                 {
                     itemHasEnteredAction(interactable);
                     storedItems.Add(interactable);
+                    isSame = false;
                 }
             }
 
@@ -52,10 +55,12 @@ namespace Source.Utility
                 {
                     itemHasLeftAction(interactable);
                     storedItems.Remove(interactable);
+                    isSame = false;
                 }
             }
 
             oldItems = newItems;
+            return isSame;
         }
 
         public void Clear()

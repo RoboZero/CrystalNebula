@@ -24,7 +24,7 @@ namespace Source.Logic.Events
 
         public override bool Perform()
         {
-            Debug.Log($"Creating buildings of type {buildingData.Name} in slots {slots.ToItemString()} of {storage}");
+            Debug.Log($"Creating buildings of type {buildingData.Definition} in slots {slots.ToItemString()} of {storage}");
 
             var success = true;
             foreach (var slot in slots)

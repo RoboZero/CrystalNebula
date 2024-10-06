@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: d7280cfe630323d419c1995671ed82b6
   description: 
-  unitData:
-    Sprite: {fileID: 1116579199, guid: b83ea8ad3494ce0438f38cedffd2d653, type: 3}
-    Name: Guardian
-    Health: 1
-    Power: 1
+  Sprite: {fileID: 1116579199, guid: b83ea8ad3494ce0438f38cedffd2d653, type: 3}
+  Name: Guardian
+  BaseHealth: 3
+  BasePower: 1

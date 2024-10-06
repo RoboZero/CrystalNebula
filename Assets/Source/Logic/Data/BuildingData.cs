@@ -6,8 +6,8 @@ namespace Source.Logic.Data
     [Serializable]
     public class BuildingData 
     { 
-        public Sprite Sprite;
-        public string Name;
+        public string Definition;
+        public int OwnerId;
         public int Health;
         public int Power;
     }

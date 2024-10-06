@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Source.Interactions;
 using Source.Logic;
+using Source.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +16,8 @@ namespace Source.Visuals.Battlefield
         [SerializeField] private BattlefieldItemVisual memoryItemVisualPrefab;
         [SerializeField] private LayoutGroup lineNumberLayoutGroup;
         [SerializeField] private LayoutGroup dataItemLayoutGroup;
+        
+        [SerializeField] private GameResources gameResources;
         
         [Header("Settings")]
         [SerializeField] private int itemStorageSize;
@@ -76,6 +79,7 @@ namespace Source.Visuals.Battlefield
         {
             if (slot.IsActive)
             {
+                recordVisual.ItemVisual.SetGameResources(gameResources);
                 recordVisual.ItemVisual.SetDataItem(slot.Item);
                 recordVisual.LineNumberVisual.Value = slot.LineNumber;
             }

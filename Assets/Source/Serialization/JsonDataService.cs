@@ -4,6 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 // Reference YouTube video: https://www.youtube.com/watch?v=mntS45g8OK4
 namespace Source.Serialization
@@ -37,8 +38,12 @@ namespace Source.Serialization
                 else
                 {
                     stream.Close();
-                    File.WriteAllText(path, JsonConvert.SerializeObject(data));
+                    string json = JsonConvert.SerializeObject(data);
+                    string newLineJson = JValue.Parse(json).ToString(Formatting.Indented);
+                    File.WriteAllText(path, newLineJson);
                 }
+                
+                Debug.Log($"Wrote file to {path}");
                 return true;
             }
             catch (Exception e)

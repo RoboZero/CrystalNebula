@@ -38,8 +38,7 @@ namespace Source.Logic.Events
                 }
             }
             
-            
-            Debug.Log($"{(success ? "Created" : "Failed to create")} units of type {unitData.Name} in slots {slots.ToItemString()} of {storage}");
+            Debug.Log($"{(success ? "Successfully created" : "Failed to create")} units of type {unitData.Definition} in slots {slots.ToItemString()} of {storage}");
 
             return success;
         }
