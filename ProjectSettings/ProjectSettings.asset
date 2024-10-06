@@ -4,11 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-<<<<<<< HEAD
-  productGUID: 6051dab58dd937c4ab4ed298e799442e
-=======
-  productGUID: 94f6df885b10d72459e1cdf529226cf2
->>>>>>> local-branch-10.5.24
+  productGUID: 283b0cf51c39d324e8e7bc08fc72fc58
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -20,11 +16,7 @@ PlayerSettings:
   productName: File_Commander
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-<<<<<<< HEAD
   m_SplashScreenBackgroundColor: {r: 0.12156863, g: 0.12156863, b: 0.1254902, a: 1}
-=======
-  m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
->>>>>>> local-branch-10.5.24
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
@@ -55,11 +47,7 @@ PlayerSettings:
   defaultScreenWidthWeb: 960
   defaultScreenHeightWeb: 600
   m_StereoRenderingPath: 0
-<<<<<<< HEAD
   m_ActiveColorSpace: 0
-=======
-  m_ActiveColorSpace: 1
->>>>>>> local-branch-10.5.24
   unsupportedMSAAFallback: 0
   m_SpriteBatchVertexThreshold: 300
   m_MTRendering: 1
@@ -172,12 +160,7 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-<<<<<<< HEAD
   applicationIdentifier: {}
-=======
-  applicationIdentifier:
-    Standalone: com.DefaultCompany.File-Commander
->>>>>>> local-branch-10.5.24
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -264,15 +247,9 @@ PlayerSettings:
   iOSAutomaticallyDetectAndAddCapabilities: 1
   appleEnableProMotion: 0
   shaderPrecisionModel: 0
-<<<<<<< HEAD
   clonedFromGUID: 00000000000000000000000000000000
   templatePackageId: 
   templateDefaultScene: 
-=======
-  clonedFromGUID: c19f32bac17ee4170b3bf8a6a0333fb9
-  templatePackageId: com.unity.template.universal-2d@2.1.2
-  templateDefaultScene: Assets/Scenes/SampleScene.unity
->>>>>>> local-branch-10.5.24
   useCustomMainManifest: 0
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 0
@@ -304,11 +281,7 @@ PlayerSettings:
   AndroidMinifyRelease: 0
   AndroidMinifyDebug: 0
   AndroidValidateAppBundleSize: 1
-<<<<<<< HEAD
   AndroidAppBundleSizeToValidate: 200
-=======
-  AndroidAppBundleSizeToValidate: 150
->>>>>>> local-branch-10.5.24
   m_BuildTargetIcons: []
   m_BuildTargetPlatformIcons: []
   m_BuildTargetBatching: []
@@ -325,10 +298,7 @@ PlayerSettings:
   m_TemplateCustomTags: {}
   mobileMTRendering:
     Android: 1
-<<<<<<< HEAD
     VisionOS: 1
-=======
->>>>>>> local-branch-10.5.24
     iPhone: 1
     tvOS: 1
   m_BuildTargetGroupLightmapEncodingQuality: []
@@ -472,11 +442,7 @@ PlayerSettings:
   switchSystemResourceMemory: 16777216
   switchSupportedNpadStyles: 22
   switchNativeFsCacheSize: 32
-<<<<<<< HEAD
   switchIsHoldTypeHorizontal: 1
-=======
-  switchIsHoldTypeHorizontal: 0
->>>>>>> local-branch-10.5.24
   switchSupportedNpadCount: 8
   switchEnableTouchScreen: 1
   switchSocketConfigEnabled: 0
@@ -489,11 +455,7 @@ PlayerSettings:
   switchSocketBufferEfficiency: 4
   switchSocketInitializeEnabled: 1
   switchNetworkInterfaceManagerInitializeEnabled: 1
-<<<<<<< HEAD
   switchUseNewStyleFilepaths: 1
-=======
-  switchUseNewStyleFilepaths: 0
->>>>>>> local-branch-10.5.24
   switchUseLegacyFmodPriorities: 0
   switchUseMicroSleepForYield: 1
   switchEnableRamDiskSupport: 0
@@ -539,11 +501,7 @@ PlayerSettings:
   ps4GarlicHeapSize: 2048
   ps4ProGarlicHeapSize: 2560
   playerPrefsMaxSize: 32768
-<<<<<<< HEAD
   ps4Passcode: frAQBc8Wsa1xVPfvJcrgRYwTiizs2trQ
-=======
-  ps4Passcode: D25bFOIlcWmANChRvUT1ao3Ud48vHsjc
->>>>>>> local-branch-10.5.24
   ps4pnSessions: 1
   ps4pnPresence: 1
   ps4pnFriends: 1
@@ -594,11 +552,7 @@ PlayerSettings:
   webGLTemplate: APPLICATION:Default
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
-<<<<<<< HEAD
   webGLCompressionFormat: 1
-=======
-  webGLCompressionFormat: 0
->>>>>>> local-branch-10.5.24
   webGLWasmArithmeticExceptions: 0
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
@@ -616,25 +570,7 @@ PlayerSettings:
   scriptingBackend: {}
   il2cppCompilerConfiguration: {}
   il2cppCodeGeneration: {}
-<<<<<<< HEAD
   managedStrippingLevel: {}
-=======
-  managedStrippingLevel:
-    EmbeddedLinux: 1
-    GameCoreScarlett: 1
-    GameCoreXboxOne: 1
-    Nintendo Switch: 1
-    PS4: 1
-    PS5: 1
-    QNX: 1
-    Stadia: 1
-    VisionOS: 1
-    WebGL: 1
-    Windows Store Apps: 1
-    XboxOne: 1
-    iPhone: 1
-    tvOS: 1
->>>>>>> local-branch-10.5.24
   incrementalIl2cppBuild: {}
   suppressCommonWarnings: 1
   allowUnsafeCode: 0
@@ -722,19 +658,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-<<<<<<< HEAD
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: 
   organizationId: 
-=======
-  cloudProjectId: 2beb5ce4-d359-4494-b041-00ac3ed3dd95
-  framebufferDepthMemorylessMode: 0
-  qualitySettingsNames: []
-  projectName: File_Commander
-  organizationId: tirionfordring2039
->>>>>>> local-branch-10.5.24
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
