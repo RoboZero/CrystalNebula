@@ -1,0 +1,3 @@
+[submodule "Assets/RoboZero.Core"]
+	path = Assets/RoboZero.Core
+	url = https://github.com/RoboZero/RoboZero.Core.git
