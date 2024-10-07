@@ -11,6 +11,7 @@ using UnityEngine.UI;
 namespace Source.Visuals.Battlefield
 {
     //TODO: Be able to import and export a battlefield. 
+    [RequireComponent(typeof(BattlefieldStorage))]
     public class BattlefieldStorageVisual : MonoBehaviour
     {
         [Header("Dependencies")]
@@ -19,33 +20,28 @@ namespace Source.Visuals.Battlefield
         [SerializeField] private LayoutGroup lineNumberLayoutGroup;
         [SerializeField] private LayoutGroup dataItemLayoutGroup;
         
-        [SerializeField] private GameStateLoader gameStateLoader;
         [SerializeField] private GameResources gameResources;
-        
-        [Header("Settings")]
-        [SerializeField] private int itemStorageSize;
 
-        public ItemStorage<BattlefieldItemData> ItemStorage => itemStorage;
+        private BattlefieldStorage battlefieldStorage;
+
         public List<int> InteractedVisualIndices => interactedVisualIndices;
         
-        private ItemStorage<BattlefieldItemData> itemStorage = new();
         private List<int> interactedVisualIndices = new();
         private List<DataItemRecordVisual> trackedRecords = new();
 
         private void Awake()
         {
+            battlefieldStorage = GetComponent<BattlefieldStorage>();
+            
             lineNumberVisualPrefab.gameObject.SetActive(false);
             memoryItemVisualPrefab.gameObject.SetActive(false);
         }
 
         private void Update()
         {
-            if(gameStateLoader.GameState != null)
-                UpdateStorageFromState(gameStateLoader.GameState);
-            
-            itemStorage.Resize(itemStorageSize);
-            
-            while (itemStorage.Capacity > trackedRecords.Count)
+            battlefieldStorage.Tick();
+
+            while (battlefieldStorage.ItemStorage.Capacity > trackedRecords.Count)
             {
                 AddRecord(trackedRecords);
             }
@@ -53,7 +49,7 @@ namespace Source.Visuals.Battlefield
             interactedVisualIndices.Clear();
             for (var i = 0; i < trackedRecords.Count; i++)
             {
-                itemStorage.GetItemSlotReference(i, out var itemSlot);
+                battlefieldStorage.ItemStorage.GetItemSlotReference(i, out var itemSlot);
                 UpdateRecordVisual(trackedRecords[i], itemSlot);
                 UpdateVisualIndices(i, trackedRecords[i]);
             }
@@ -67,21 +63,6 @@ namespace Source.Visuals.Battlefield
             }
         }
 
-        private void UpdateStorageFromState(GameState gameState)
-        {
-            itemStorageSize = gameState.BattlefieldStorage.Length;
-
-            foreach (var battlefieldStorageItem in gameState.BattlefieldStorage.Items)
-            {
-                //Debug.Log($"Battlefield Item: {battlefieldStorageItem.Location}, {battlefieldStorageItem.Unit?.Definition}, {battlefieldStorageItem.Building?.Definition}");
-                itemStorage.GetItemSlotReference(battlefieldStorageItem.Location, out var itemSlot);
-                itemSlot.Item ??= new BattlefieldItemData();
-                itemSlot.Item.Location = battlefieldStorageItem.Location;
-                itemSlot.Item.Unit = battlefieldStorageItem.Unit;
-                itemSlot.Item.Building = battlefieldStorageItem.Building;
-            }
-        }
-        
         private void AddRecord(in List<DataItemRecordVisual> records)
         {
             var dataItemVisual = Instantiate(memoryItemVisualPrefab, dataItemLayoutGroup.transform);

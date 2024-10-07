@@ -389,9 +389,9 @@ GameObject:
   - component: {fileID: 144567631}
   - component: {fileID: 144567628}
   - component: {fileID: 144567633}
+  - component: {fileID: 144567634}
   - component: {fileID: 144567632}
   - component: {fileID: 144567630}
-  - component: {fileID: 144567634}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -521,7 +521,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144567627}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3c59310763ac3f4a89ce9d3f871c543, type: 3}
   m_Name: 
@@ -544,6 +544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInteractions: {fileID: 144567631}
+  battlefieldStorage: {fileID: 1890852933}
   battlefieldStorageVisual: {fileID: 1890852929}
   eventTracker: {fileID: 144567632}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
@@ -2854,6 +2855,7 @@ GameObject:
   - component: {fileID: 1890852932}
   - component: {fileID: 1890852931}
   - component: {fileID: 1890852929}
+  - component: {fileID: 1890852933}
   m_Layer: 0
   m_Name: BattlefieldItemStorage
   m_TagString: Untagged
@@ -2897,9 +2899,7 @@ MonoBehaviour:
   memoryItemVisualPrefab: {fileID: 4204064081103648318, guid: 92060e43c3c366949a48f3b95a94c103, type: 3}
   lineNumberLayoutGroup: {fileID: 1797053274}
   dataItemLayoutGroup: {fileID: 1694005783}
-  gameStateLoader: {fileID: 801838671}
   gameResources: {fileID: 11400000, guid: e4dc6275d5f050243a88dfd9a519a163, type: 2}
-  itemStorageSize: 20
 --- !u!222 &1890852931
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2938,6 +2938,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 100
+--- !u!114 &1890852933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890852927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a34484b228a479c81be0aee04bcfd0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemStorageSize: 3
+  gameStateLoader: {fileID: 801838671}
 --- !u!1 &1927663121
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using Source.Input;
+﻿using System.Linq;
+using Source.Input;
 using Source.Logic;
 using Source.Logic.Data;
 using Source.Logic.Events;
@@ -13,6 +14,7 @@ namespace Source.Interactions
     {
         [Header("Dependencies")]
         [SerializeField] private PlayerInteractions playerInteractions;
+        [SerializeField] private BattlefieldStorage battlefieldStorage;
         [SerializeField] private BattlefieldStorageVisual battlefieldStorageVisual;
         [SerializeField] private EventTracker eventTracker;
         [SerializeField] private InputReaderSO inputReader;
@@ -37,7 +39,7 @@ namespace Source.Interactions
             if (unitDataSO != null)
             {
                 eventTracker.AddEvent(new CreateUnitsEventCommand(
-                    battlefieldStorageVisual.ItemStorage, 
+                    battlefieldStorage.ItemStorage, 
                     battlefieldStorageVisual.InteractedVisualIndices,
                     unitDataSO.CreateDefault(0, "Units:Guardian")
                 ));
@@ -45,7 +47,7 @@ namespace Source.Interactions
             if (buildingDataSO != null)
             {
                 eventTracker.AddEvent(new CreateBuildingsEventCommand(
-                    battlefieldStorageVisual.ItemStorage, 
+                    battlefieldStorage.ItemStorage, 
                     battlefieldStorageVisual.InteractedVisualIndices,
                     buildingDataSO.CreateDefault(0, "Buildings:Flag")
                 ));

@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 3f6c241fa7708e543b1713f92fd10db4
   description: 
-  unitData:
-    Sprite: {fileID: -1848972772, guid: 5115a204aec265e4ea76562ff32d5026, type: 3}
-    Name: Bug
-    Health: 1
-    Power: 1
+  Sprite: {fileID: -1848972772, guid: 5115a204aec265e4ea76562ff32d5026, type: 3}
+  Name: 
+  BaseHealth: 3
+  BasePower: 1
