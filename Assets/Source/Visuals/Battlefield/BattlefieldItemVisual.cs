@@ -1,5 +1,8 @@
 using Source.Interactions;
 using Source.Logic;
+using Source.Logic.Data;
+using Source.Serialization;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,55 +10,52 @@ namespace Source.Visuals.Battlefield
 {
     public class BattlefieldItemVisual : StandardInteractableVisual
     {
+        [Header("Dependencies")]
         [SerializeField] private Image buildingImage;
         [SerializeField] private Image unitImage;
-        [SerializeField] private TMPro.TMP_Text healthText;
-        [SerializeField] private TMPro.TMP_Text powerText;
-        [SerializeField] private TMPro.TMP_Text utilityText;
-
-        private BattlefieldDataItem trackedDataItem;
+        [SerializeField] private TMP_Text healthText;
+        [SerializeField] private TMP_Text powerText;
+        [SerializeField] private TMP_Text utilityText;
+        
+        private GameResources gameResources;
+        private BattlefieldItemData trackedDataItem;
         private string originalText;
+        private UnitDataSO unitDataSO;
+        private BuildingDataSO buildingDataSO;
 
-        // TODO: Pass scriptable objects to visuals with more data, updates in real time. 
-        public void SetDataItem(in BattlefieldDataItem dataItem)
+        public void SetGameResources(GameResources resources)
         {
+            gameResources = resources;
+        }
+        
+        // TODO: Pass scriptable objects to visuals with more data, updates in real time. 
+        public void SetDataItem(in BattlefieldItemData dataItem)
+        {
+            if (dataItem != null && dataItem != trackedDataItem)
+            {
+                if (dataItem.Unit != null)
+                {
+                    gameResources.TryLoadAsset(this, dataItem.Unit.Definition, out unitDataSO);
+                }
+
+                if (dataItem.Building != null)
+                {
+                    gameResources.TryLoadAsset(this, dataItem.Building.Definition, out buildingDataSO);
+                }
+            }
+            
             trackedDataItem = dataItem;
         }
 
         private void Update()
         {
-            buildingImage.gameObject.SetActive(false);
-            unitImage.gameObject.SetActive(false);
-            healthText.gameObject.SetActive(false);
-            powerText.gameObject.SetActive(false);
+            SetVisualToItem(trackedDataItem);
             
-            var isTracking = trackedDataItem != null;
-            
-            if (isTracking)
-            {
-                if (trackedDataItem.UnitData != null)
-                {
-                    unitImage.sprite = trackedDataItem.UnitData.Sprite;
-                    healthText.text = trackedDataItem.UnitData.Health.ToString();
-                    powerText.text = trackedDataItem.UnitData.Power.ToString();
-                    unitImage.gameObject.SetActive(true);
-                    healthText.gameObject.SetActive(true);
-                    powerText.gameObject.SetActive(true);
-                }
-
-                if (trackedDataItem.BuildingData != null)
-                {
-                    buildingImage.sprite = trackedDataItem.BuildingData.Sprite;
-                    buildingImage.gameObject.SetActive(true);
-                    healthText.gameObject.SetActive(true);
-                    powerText.gameObject.SetActive(true);
-                }
-            }
-
             switch (CurrentVisualState)
             {
                 case InteractVisualState.None:
-                    utilityText.text = trackedDataItem != null && trackedDataItem.UnitData != null ? trackedDataItem.UnitData.Name : "";
+                    utilityText.text = trackedDataItem != null && 
+                                       unitDataSO != null ? unitDataSO.Name : "";
                     break;
                 case InteractVisualState.Hovered:
                     utilityText.text = "STATE: HOVERED";
@@ -63,6 +63,35 @@ namespace Source.Visuals.Battlefield
                 case InteractVisualState.Selected:
                     utilityText.text = "STATE: SELECTED";
                     break;
+            }
+        }
+        
+        private void SetVisualToItem(BattlefieldItemData dataItem)
+        {
+            buildingImage.gameObject.SetActive(false);
+            unitImage.gameObject.SetActive(false);
+            healthText.gameObject.SetActive(false);
+            powerText.gameObject.SetActive(false);
+
+            if (dataItem != null && gameResources != null)
+            { 
+                if (dataItem.Unit != null && unitDataSO != null)
+                {
+                    unitImage.sprite = unitDataSO.Sprite;
+                    healthText.text = dataItem.Unit.Health.ToString();
+                    powerText.text = dataItem.Unit.Power.ToString();
+                    unitImage.gameObject.SetActive(true);
+                    healthText.gameObject.SetActive(true);
+                    powerText.gameObject.SetActive(true);
+                }
+                
+                if (dataItem.Building != null && buildingDataSO != null)
+                {
+                    buildingImage.sprite = buildingDataSO.Sprite;
+                    buildingImage.gameObject.SetActive(true);
+                    healthText.gameObject.SetActive(true);
+                    powerText.gameObject.SetActive(true);
+                }
             }
         }
     }

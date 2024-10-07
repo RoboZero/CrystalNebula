@@ -54,11 +54,16 @@ namespace Source.Interactions
                 .Where(result => result != null)
                 .ToList();
             
-            Debug.Log("All interactables pointer is over: " + allInteractables.ToItemString());
             
-            playerInteractions.Hovered.Tick(allInteractables);
+            var hoveredIsSame = playerInteractions.Hovered.Tick(allInteractables);
+            var interactedIsSame = true;
             if(clickAndDrag)
-                playerInteractions.Interacted.Tick(allInteractables);
+                interactedIsSame = playerInteractions.Interacted.Tick(allInteractables);
+            
+            if(!hoveredIsSame)
+                Debug.Log("Pointer hovering over" + allInteractables.ToItemString());
+            if(!interactedIsSame)
+                Debug.Log("Pointer interacting with" + allInteractables.ToItemString());
         }
 
         private IEnumerable<RaycastResult> RaycastUIFromPointer()

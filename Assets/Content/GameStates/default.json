@@ -1,52 +1,70 @@
 ﻿{
-  "level": {
-    "def": "Levels:Level1"
+  "Level": {
+    "Definition": "Levels/Level1"
   },
-  "players": [
+  "Players": [
     {
-      "id": 1,
-      "memory": {
-        "items": [
+      "Id": 1,
+      "MemoryStorage": {
+        "Items": [
           {
-            "program": {
-              "def": "Programs:Build",
-              "progress": 0
+            "Program": {
+              "OwnerId": 1,
+              "Definition": "Programs/Build",
+              "Progress": 0
             }
           },
           {
-            "program": {
-              "def": "Programs:Research",
-              "progress": 0
-            }
-          },
-          {
-            "program": {
-              "def": "Programs:Command",
-              "progress": 0
+            "Program": {
+              "OwnerId": 1,
+              "Definition": "Programs/Research",
+              "Progress": 0
             }
           }
         ]
       }
     }
   ],
-  "battlefield": {
-    "length": "20",
-    "items": [
+  "BattlefieldStorage": {
+    "Length": 20,
+    "Items": [
       {
-        "ownerId": 1,
-        "location": "19",
-        "building": {
-          "def": "Buildings:Fortress",
-          "health": 1,
-          "power": 1,
-          "special-uses": 0
+        "Location": 3,
+        "Building": null,
+        "Unit": {
+          "Health": 2,
+          "Power": 2,
+          "Definition": "Units/Bug",
+          "OwnerId": 1
         },
-        "unit": {
-          "ownerId": 1,
-          "def": "Units:Guardian",
-          "health": "1",
-          "power": "1"
-        }
+        "Description": null
+      },
+      {
+        "Location": 7,
+        "Building": null,
+        "Unit": {
+          "Health": 5,
+          "Power": 1,
+          "Definition": "Units/Guardian",
+          "OwnerId": 1
+        },
+        "Description": null
+      },
+      {
+        "Location": 8,
+        "Building": {
+          "Health": 0,
+          "Power": 0,
+          "Definition": "Buildings/Flag",
+          "OwnerId": 1
+        },
+        "Unit": {
+          "Health": 5,
+          "Power": 1,
+          "Definition": "Units/Guardian",
+          "OwnerId": 1
+        },
+        "Description": null
       }
     ]
   }

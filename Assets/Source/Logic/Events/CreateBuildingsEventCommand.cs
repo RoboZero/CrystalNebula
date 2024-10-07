@@ -7,12 +7,12 @@ namespace Source.Logic.Events
 {
     public class CreateBuildingsEventCommand : EventCommand 
     {
-        private ItemStorage<BattlefieldDataItem> storage;
+        private ItemStorage<BattlefieldItemData> storage;
         private List<int> slots;
         private BuildingData buildingData;
 
         public CreateBuildingsEventCommand(
-            ItemStorage<BattlefieldDataItem> storage,
+            ItemStorage<BattlefieldItemData> storage,
             List<int> slots,
             BuildingData buildingData
         )
@@ -24,15 +24,15 @@ namespace Source.Logic.Events
 
         public override bool Perform()
         {
-            Debug.Log($"Creating buildings of type {buildingData.Name} in slots {slots.ToItemString()} of {storage}");
+            Debug.Log($"Creating buildings of type {buildingData.Definition} in slots {slots.ToItemString()} of {storage}");
 
             var success = true;
             foreach (var slot in slots)
             {
                 if (storage.GetItemSlotReference(slot, out var storageItem))
                 {
-                    storageItem.Item ??= new BattlefieldDataItem();
-                    storageItem.Item.BuildingData = buildingData;
+                    storageItem.Item ??= new BattlefieldItemData();
+                    storageItem.Item.Building = buildingData;
                 }
                 else
                 {
