@@ -46,7 +46,12 @@ namespace Source.Serialization
             asset = default;
             return false;
         }
-
+        
+        public static string BuildDefinitionPath(string directoryName, string assetNameNoExtension)
+        {
+            return $"{directoryName}/{assetNameNoExtension}";
+        }
+        
         // TODO: Switch to AssetBundles for mods: https://stackoverflow.com/questions/46106849/unity3d-assetdatabase-loadassetatpath-vs-resource-load
 #if UNITY_EDITOR
         [ContextMenu("Load assets")]
@@ -76,12 +81,6 @@ namespace Source.Serialization
                 }
             }
         }
-
-        public static string BuildDefinitionPath(string directoryName, string assetNameNoExtension)
-        {
-            return $"{directoryName}/{assetNameNoExtension}";
-        }
-        
 #endif
         [Serializable]
         public class DefinitionToResource
