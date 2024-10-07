@@ -40,7 +40,7 @@ namespace Source.Visuals.Battlefield
 
                 if (dataItem.Building != null)
                 {
-                    gameResources.TryLoadAsset(this, dataItem.Building.Definition, out unitDataSO);
+                    gameResources.TryLoadAsset(this, dataItem.Building.Definition, out buildingDataSO);
                 }
             }
             

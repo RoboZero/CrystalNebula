@@ -25,6 +25,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/14992b42befa3a7bddd6de3d7bb8f7c36d75a6df7d265677e7340adcf591a/System.Buffers.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5a41d6b7189842eca409fd0b1c3e3dcf17bf78/75/b2a49bf0/IEnumerable`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ffe351aa6232372f4a3b8c3ff36a636f33de226f60e607acbfe569289d7289d/System.IO.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/011ccacb58784a80ac4b48b4c50ee0b7176400/ec/98e98957/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.purchasing@4.11.0/Editor/UnityPurchasingEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/97cb9d38073941518be7ea7279a10e803600/f0/3d8cd82a/JsonUtility.cs" root0="SKIP_HIGHLIGHTING" />
@@ -91,7 +92,7 @@
       <workItem from="1725319130277" duration="31726000" />
       <workItem from="1727650723952" duration="24174000" />
       <workItem from="1728099179833" duration="1800000" />
-      <workItem from="1728250890335" duration="3535000" />
+      <workItem from="1728250890335" duration="11177000" />
     </task>
     <servers />
   </component>
@@ -112,10 +113,10 @@
           <line>91</line>
           <properties documentPath="C:\All Alex Files\Creations And Assets\Unity Creations\Projects\File_Commander\Assets\Source\Visuals\Battlefield\BattlefieldItemVisual.cs" initialLine="89" containingFunctionPresentation="method 'RefreshVisualWithTrackedItem'">
             <startOffsets>
-              <option value="3380" />
+              <option value="3384" />
             </startOffsets>
             <endOffsets>
-              <option value="3418" />
+              <option value="3422" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="2" />

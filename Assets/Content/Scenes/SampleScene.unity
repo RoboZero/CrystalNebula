@@ -1301,6 +1301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bfa1c7ea6f3d0b408393612cd71e032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateLoader: {fileID: 0}
   playerInteractions: {fileID: 144567631}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
   backgroundRectTransform: {fileID: 637927563}
@@ -1563,6 +1564,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &801838669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 801838670}
+  - component: {fileID: 801838671}
+  m_Layer: 0
+  m_Name: GameLoader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &801838670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801838669}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -42.655933, y: -5.853392, z: -0.023322728}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &801838671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801838669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 601687f8a5e549cfa1144aa01c8b662d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameStateJsonAsset: {fileID: 4900000, guid: e5cc45c398c54e48adb22d1b5837f2be, type: 3}
 --- !u!1 &913246918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2851,6 +2897,7 @@ MonoBehaviour:
   memoryItemVisualPrefab: {fileID: 4204064081103648318, guid: 92060e43c3c366949a48f3b95a94c103, type: 3}
   lineNumberLayoutGroup: {fileID: 1797053274}
   dataItemLayoutGroup: {fileID: 1694005783}
+  gameStateLoader: {fileID: 801838671}
   gameResources: {fileID: 11400000, guid: e4dc6275d5f050243a88dfd9a519a163, type: 2}
   itemStorageSize: 20
 --- !u!222 &1890852931
@@ -3144,6 +3191,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
+  - {fileID: 801838670}
   - {fileID: 244658252}
   - {fileID: 144567629}
   - {fileID: 1124407004}

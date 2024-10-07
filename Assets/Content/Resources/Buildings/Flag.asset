@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: a1f05ba9396dcad47808008ca2119113
   description: 
-  buildingData:
-    Sprite: {fileID: -1419714049, guid: 1dbfce441fc932945accbba00d10b474, type: 3}
-    Name: Flag
-    Health: 1
-    Power: 0
+  Sprite: {fileID: -1419714049, guid: 1dbfce441fc932945accbba00d10b474, type: 3}
+  Name: 
+  BaseHealth: 0
+  BasePower: 0

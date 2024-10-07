@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Source.Input;
 using Source.Logic;
+using Source.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ namespace Source.Visuals
     public class PlayerItemStorageVisual : MonoBehaviour
     {
         [Header("Dependencies")]
+        [SerializeField] private GameStateLoader gameStateLoader;
         [SerializeField] private PlayerInteractions playerInteractions;
         [SerializeField] private InputReaderSO inputReader;
         [SerializeField] private RectTransform backgroundRectTransform;

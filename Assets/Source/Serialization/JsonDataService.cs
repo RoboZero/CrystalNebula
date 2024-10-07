@@ -87,7 +87,7 @@ namespace Source.Serialization
                 T data;
                 if (encrypted)
                 {
-                    data = ReadEncryptedData<T>(path);
+                    data = ReadEncryptedData<T>(File.ReadAllBytes(path));
                 }
                 else
                 { 
@@ -102,9 +102,31 @@ namespace Source.Serialization
             }
         }
 
-        private T ReadEncryptedData<T>(string path)
+        public T LoadData<T>(byte[] bytes, bool encrypted)
         {
-            byte[] fileBytes = File.ReadAllBytes(path);
+            try
+            {
+                T data;
+                if (encrypted)
+                {
+                    data = ReadEncryptedData<T>(bytes);
+                }
+                else
+                { 
+                    Debug.Log($"Bytes to string: {Encoding.UTF8.GetString(bytes)}");
+                    data = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(bytes));
+                }
+                return data;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Failed to load data due to: {e.Message} {e.StackTrace}");
+                throw e;
+            }
+        }
+        
+        private T ReadEncryptedData<T>(byte[] fileBytes)
+        {
             using var aesProvider = Aes.Create();
             aesProvider.Key = Convert.FromBase64String(KEY);
             aesProvider.IV = Convert.FromBase64String(IV);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Source.Interactions;
 using Source.Logic;
 using Source.Logic.Data;
+using Source.Logic.State;
 using Source.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,7 @@ namespace Source.Visuals.Battlefield
         [SerializeField] private LayoutGroup lineNumberLayoutGroup;
         [SerializeField] private LayoutGroup dataItemLayoutGroup;
         
+        [SerializeField] private GameStateLoader gameStateLoader;
         [SerializeField] private GameResources gameResources;
         
         [Header("Settings")]
@@ -35,9 +37,12 @@ namespace Source.Visuals.Battlefield
             lineNumberVisualPrefab.gameObject.SetActive(false);
             memoryItemVisualPrefab.gameObject.SetActive(false);
         }
-        
+
         private void Update()
         {
+            if(gameStateLoader.GameState != null)
+                UpdateStorageFromState(gameStateLoader.GameState);
+            
             itemStorage.Resize(itemStorageSize);
             
             while (itemStorage.Capacity > trackedRecords.Count)
@@ -62,6 +67,21 @@ namespace Source.Visuals.Battlefield
             }
         }
 
+        private void UpdateStorageFromState(GameState gameState)
+        {
+            itemStorageSize = gameState.BattlefieldStorage.Length;
+
+            foreach (var battlefieldStorageItem in gameState.BattlefieldStorage.Items)
+            {
+                //Debug.Log($"Battlefield Item: {battlefieldStorageItem.Location}, {battlefieldStorageItem.Unit?.Definition}, {battlefieldStorageItem.Building?.Definition}");
+                itemStorage.GetItemSlotReference(battlefieldStorageItem.Location, out var itemSlot);
+                itemSlot.Item ??= new BattlefieldItemData();
+                itemSlot.Item.Location = battlefieldStorageItem.Location;
+                itemSlot.Item.Unit = battlefieldStorageItem.Unit;
+                itemSlot.Item.Building = battlefieldStorageItem.Building;
+            }
+        }
+        
         private void AddRecord(in List<DataItemRecordVisual> records)
         {
             var dataItemVisual = Instantiate(memoryItemVisualPrefab, dataItemLayoutGroup.transform);

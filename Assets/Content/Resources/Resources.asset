@@ -15,9 +15,9 @@ MonoBehaviour:
   guid: e4dc6275d5f050243a88dfd9a519a163
   description: 
   resourceList:
-  - Definition: Buildings:Flag
+  - Definition: Buildings/Flag
     Resource: {fileID: 11400000, guid: a1f05ba9396dcad47808008ca2119113, type: 2}
-  - Definition: Units:Bug
+  - Definition: Units/Bug
     Resource: {fileID: 11400000, guid: 3f6c241fa7708e543b1713f92fd10db4, type: 2}
-  - Definition: Units:Guardian
+  - Definition: Units/Guardian
     Resource: {fileID: 11400000, guid: d7280cfe630323d419c1995671ed82b6, type: 2}

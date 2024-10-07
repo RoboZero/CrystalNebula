@@ -65,7 +65,7 @@ namespace Source.Serialization
                     var localPath = RELATIVE_PROJECT_PATH + Path.GetRelativePath(RELATIVE_PROJECT_PATH, assetPath);
 
                     Debug.Log($"Local Path: {localPath}");
-                    var definitionName = $"{directoryName}:{assetNameNoExtension}";
+                    var definitionName = BuildDefinitionPath(directoryName, assetNameNoExtension);
                     var resource = AssetDatabase.LoadAssetAtPath<DescriptionBaseSO>(localPath);
                     
                     resourceList.Add(new DefinitionToResource
@@ -76,6 +76,12 @@ namespace Source.Serialization
                 }
             }
         }
+
+        public static string BuildDefinitionPath(string directoryName, string assetNameNoExtension)
+        {
+            return $"{directoryName}/{assetNameNoExtension}";
+        }
+        
 #endif
         [Serializable]
         public class DefinitionToResource
