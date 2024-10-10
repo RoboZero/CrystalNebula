@@ -21,7 +21,9 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Source/Logic/Data/MemoryItemData.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8d33a6384e1148858f2e669234fa89ff958800/7c/f2a61310/AssetDatabase.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/14992b42befa3a7bddd6de3d7bb8f7c36d75a6df7d265677e7340adcf591a/System.Buffers.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.core@1.12.5/Editor/Core/Build/ProjectUnlinkBuildWarning.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/d44b17e136d09081da1e8fd0e8c83fde60e11818b9f2442d7ed8cb733fae895e/System.Collections.Generic.cs" root0="SKIP_HIGHLIGHTING" />
@@ -102,7 +104,8 @@
       <workItem from="1727650723952" duration="24174000" />
       <workItem from="1728099179833" duration="1800000" />
       <workItem from="1728250890335" duration="11932000" />
-      <workItem from="1728316842502" duration="87000" />
+      <workItem from="1728316842502" duration="4981000" />
+      <workItem from="1728512430518" duration="5588000" />
     </task>
     <servers />
   </component>
@@ -120,13 +123,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Assets/Source/Visuals/Battlefield/BattlefieldItemVisual.cs</url>
-          <line>91</line>
+          <line>90</line>
           <properties documentPath="C:\All Alex Files\Creations And Assets\Unity Creations\Projects\File_Commander\Assets\Source\Visuals\Battlefield\BattlefieldItemVisual.cs" initialLine="89" containingFunctionPresentation="method 'RefreshVisualWithTrackedItem'">
             <startOffsets>
-              <option value="3384" />
+              <option value="3293" />
             </startOffsets>
             <endOffsets>
-              <option value="3422" />
+              <option value="3331" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="2" />

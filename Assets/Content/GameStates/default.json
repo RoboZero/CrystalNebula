@@ -5,18 +5,63 @@
   "Players": [
     {
       "Id": 1,
-      "MemoryStorage": {
+      "ProcessorStorage": {
+        "Length": 1,
         "Items": [
           {
-            "Program": {
-              "OwnerId": 1,
+            "Length": 0,
+            "Memory": {
+              "OwnerId": 0,
+              "Definition": "Programs/Build",
+              "Progress": 0
+            }
+          }
+        ]
+      },
+      "MemoryStorage": {
+        "Length": 3,
+        "Items": [
+          {
+            "Location": 0,
+            "Memory": {
+              "OwnerId": 0,
               "Definition": "Programs/Build",
               "Progress": 0
             }
           },
           {
-            "Program": {
-              "OwnerId": 1,
+            "Location": 1,
+            "Memory": {
+              "OwnerId": 0,
+              "Definition": "Programs/Research",
+              "Progress": 0
+            }
+          },
+          {
+            "Location": 2,
+            "Memory": {
+              "OwnerId": 0,
+              "Definition": "Programs/Research",
+              "Progress": 0
+            }
+          }
+        ]
+      },
+      "DiskStorage": {
+        "Length": 5,
+        "Items": [
+          {
+            "Location": 2,
+            "Memory": {
+              "OwnerId": 0,
+              "Definition": "Programs/Build",
+              "Progress": 0
+            }
+          },
+          {
+            "Location": 4,
+            "Memory": {
+              "OwnerId": 0,
               "Definition": "Programs/Research",
               "Progress": 0
             }

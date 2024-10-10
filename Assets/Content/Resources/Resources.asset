@@ -17,6 +17,10 @@ MonoBehaviour:
   resourceList:
   - Definition: Buildings/Flag
     Resource: {fileID: 11400000, guid: a1f05ba9396dcad47808008ca2119113, type: 2}
+  - Definition: Programs/Build
+    Resource: {fileID: 11400000, guid: 88aed4bdba825bc4ab03a5ef608384ed, type: 2}
+  - Definition: Programs/Research
+    Resource: {fileID: 11400000, guid: 8b53a7fe70aaab54a9679b01fcbf5458, type: 2}
   - Definition: Units/Bug
     Resource: {fileID: 11400000, guid: 3f6c241fa7708e543b1713f92fd10db4, type: 2}
   - Definition: Units/Guardian

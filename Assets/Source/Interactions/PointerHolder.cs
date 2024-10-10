@@ -11,7 +11,7 @@ namespace Source.Interactions
     {
         [Header("Dependencies")]
         [SerializeField] private PlayerInteractions playerInteractions;
-        [SerializeField] private MemoryStorageVisual memoryStorageVisual;
+        [SerializeField] private DataItemStorageVisual dataItemStorageVisual;
         [SerializeField] private PlayerItemStorageVisual playerItemStorageVisual;
         [SerializeField] private EventTracker eventTracker;
         [SerializeField] private InputReaderSO inputReader;
@@ -30,8 +30,8 @@ namespace Source.Interactions
         {
             Debug.Log("Player pressed hold. ");
             eventTracker.AddEvent(new StorageItemTransferEventCommand<DataItem>(
-                    memoryStorageVisual.ItemStorage,
-                    memoryStorageVisual.InteractedVisualIndices,
+                    dataItemStorageVisual.ItemStorage,
+                    dataItemStorageVisual.InteractedVisualIndices,
                     playerItemStorageVisual.ItemStorage,
                     playerItemStorageVisual.InteractedVisualIndices
                 )

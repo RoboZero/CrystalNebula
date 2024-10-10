@@ -3,8 +3,9 @@ using System;
 namespace Source.Logic.Data
 {
     [Serializable]
-    public class MemoryItemData
+    public class MemoryItemData : DataItem
     {
-        public ProgramData Program;
+        public int Location;
+        public MemoryData Memory;
     }
 }
