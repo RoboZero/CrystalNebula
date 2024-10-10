@@ -4,9 +4,9 @@ using Source.Logic.State;
 namespace Source.Logic.Data
 {
     [Serializable]
-    public class MemoryStorageData
+    public class LineStorageData
     {
         public int Length;
-        public MemoryItemData[] Items;
+        public LineItemData[] Items;
     }
 }

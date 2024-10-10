@@ -16,12 +16,12 @@ namespace Source.Logic.State
                 new PlayerData
                 {
                     Id = 0,
-                    ProcessorStorage = new MemoryStorageData
+                    ProcessorStorage = new LineStorageData
                     {
                         Length = 1,
                         Items = new[]
                         {
-                            new MemoryItemData
+                            new LineItemData
                             {
                                 Location = 0,
                                 Memory = new MemoryData
@@ -33,12 +33,12 @@ namespace Source.Logic.State
                             },
                         }
                     },
-                    MemoryStorage = new MemoryStorageData
+                    MemoryStorage = new LineStorageData
                     {
                         Length = 3,
                         Items = new[]
                         {
-                            new MemoryItemData
+                            new LineItemData
                             {
                                 Location = 0,
                                 Memory = new MemoryData
@@ -48,7 +48,7 @@ namespace Source.Logic.State
                                     Progress = 0
                                 }
                             },
-                            new MemoryItemData
+                            new LineItemData
                             {
                                 Location = 1,
                                 Memory = new MemoryData
@@ -60,12 +60,12 @@ namespace Source.Logic.State
                             }
                         }
                     },
-                    DiskStorage = new MemoryStorageData
+                    DiskStorage = new LineStorageData
                     {
                         Length = 5,
                         Items = new[]
                         {
-                            new MemoryItemData
+                            new LineItemData
                             {
                                 Location = 0,
                                 Memory = new MemoryData
@@ -75,7 +75,7 @@ namespace Source.Logic.State
                                     Progress = 0
                                 }
                             },
-                            new MemoryItemData
+                            new LineItemData
                             {
                                 Location = 1,
                                 Memory = new MemoryData

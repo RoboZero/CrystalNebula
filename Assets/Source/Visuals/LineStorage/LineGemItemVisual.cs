@@ -1,33 +1,44 @@
+using System;
 using Source.Interactions;
 using Source.Logic.Data;
 using Source.Serialization;
-using Source.Visuals.Battlefield;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Visuals.ProgramStorage
+namespace Source.Visuals.LineStorage
 {
-    public class MemoryGemItemVisual : StandardInteractableVisual
+    public class LineGemItemVisual : StandardInteractableVisual
     {
         [Header("Dependencies")]
         [SerializeField] private Image iconImage;
         
         private GameResources gameResources;
-        private MemoryItemData trackedDataItem;
-        private MemoryDataSO memoryDataSO;
+        private LineItemData trackedDataItem;
+        private LineDataSO lineDataSo;
+
+        private LineDataSO blankGemSO;
+
+        private void Start()
+        {
+            if (gameResources != null)
+            {
+                var blankSprite = GameResources.BuildDefinitionPath("Programs", "Blank");
+                gameResources.TryLoadAsset(this, blankSprite, out blankGemSO);
+            }
+        }
 
         public void SetGameResources(GameResources resources)
         {
             gameResources = resources;
         }
         
-        public void SetDataItem(in MemoryItemData dataItem)
+        public void SetDataItem(in LineItemData dataItem)
         {
             if (dataItem != null && dataItem != trackedDataItem)
             {
                 if (dataItem.Memory != null)
                 {
-                    gameResources.TryLoadAsset(this, dataItem.Memory.Definition, out memoryDataSO);
+                    gameResources.TryLoadAsset(this, dataItem.Memory.Definition, out lineDataSo);
                 }
             }
             
@@ -52,17 +63,21 @@ namespace Source.Visuals.ProgramStorage
             }
         }
         
-        private void SetVisualToItem(MemoryItemData dataItem)
+        private void SetVisualToItem(LineItemData dataItem)
         {
             iconImage.gameObject.SetActive(false);
 
             if (dataItem != null && gameResources != null)
-            { 
-                if (dataItem.Memory != null && memoryDataSO != null)
+            {
+                if (dataItem.Memory != null && lineDataSo != null)
                 {
-                    iconImage.sprite = memoryDataSO.Icon;
+                    iconImage.sprite = lineDataSo.Icon;
                     iconImage.gameObject.SetActive(true);
                 }
+            } else if(blankGemSO != null)
+            {
+                iconImage.sprite = blankGemSO.Icon;
+                iconImage.gameObject.SetActive(true);
             }
         }
     }

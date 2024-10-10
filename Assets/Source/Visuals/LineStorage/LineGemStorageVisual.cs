@@ -1,29 +1,28 @@
-using System;
 using System.Collections.Generic;
 using Source.Interactions;
 using Source.Logic;
 using Source.Logic.Data;
 using Source.Serialization;
+using Source.Utility;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Source.Visuals.ProgramStorage
+namespace Source.Visuals.LineStorage
 {
-    public class MemoryGemStorageVisual : MonoBehaviour
+    public class LineGemStorageVisual : MonoBehaviour
     {
         [Header("Dependencies")]
-        [SerializeField] private MemoryStorage trackedMemoryStorage;
-        [SerializeField] private MemoryGemItemVisual memoryGemItemVisualPrefab;
-        [SerializeField] private LayoutGroup dataItemLayoutGroup;
+        [SerializeField] private LineStorage trackedMemoryStorage;
+        [SerializeField] private LineGemItemVisual lineGemItemVisualPrefab;
+        [SerializeField] private MultirowHorizontalLayoutGroup dataItemLayoutGroup;
         
         [SerializeField] private GameResources gameResources;
 
         private List<int> interactedVisualIndices = new();
-        private List<MemoryGemItemVisual> trackedRecords = new();
+        private List<LineGemItemVisual> trackedRecords = new();
 
         private void Awake()
         {
-            memoryGemItemVisualPrefab.gameObject.SetActive(false);
+            lineGemItemVisualPrefab.gameObject.SetActive(false);
         }
 
         private void Update()
@@ -45,13 +44,21 @@ namespace Source.Visuals.ProgramStorage
             }
         }
         
-        private void AddRecord(in List<MemoryGemItemVisual> records)
+        private void AddRecord(in List<LineGemItemVisual> records)
         {
-            var dataItemVisual = Instantiate(memoryGemItemVisualPrefab, dataItemLayoutGroup.transform);
+            var dataItemVisual = Instantiate(lineGemItemVisualPrefab, dataItemLayoutGroup.transform);
+            if (dataItemVisual.TryGetComponent<RectTransform>(out var rectTransform))
+            {
+                dataItemLayoutGroup.TryAddUIElement(rectTransform);
+            }
+            else
+            {
+                Debug.LogError("Unable to add memory gem visual to layout group. Make RectTransform", this);
+            }
             records.Add(dataItemVisual);
         }
         
-        private void UpdateRecordVisual(in MemoryGemItemVisual recordVisual, in ItemStorage<MemoryItemData>.ItemSlot slot)
+        private void UpdateRecordVisual(in LineGemItemVisual recordVisual, in ItemStorage<LineItemData>.ItemSlot slot)
         {
             if (slot.IsActive)
             {
@@ -67,7 +74,7 @@ namespace Source.Visuals.ProgramStorage
             recordVisual.gameObject.SetActive(slot.IsActive);
         }
 
-        private void UpdateVisualIndices(int index, in MemoryGemItemVisual recordVisual)
+        private void UpdateVisualIndices(int index, in LineGemItemVisual recordVisual)
         {
             if (recordVisual.CurrentVisualState == InteractVisualState.Selected)
             {
@@ -75,7 +82,7 @@ namespace Source.Visuals.ProgramStorage
             }
         }
         
-        private void DestroyRecord(MemoryGemItemVisual record)
+        private void DestroyRecord(LineGemItemVisual record)
         {
             Destroy(record.gameObject);
         }
