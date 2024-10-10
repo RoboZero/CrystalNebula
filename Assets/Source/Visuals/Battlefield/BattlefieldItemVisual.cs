@@ -28,7 +28,6 @@ namespace Source.Visuals.Battlefield
             gameResources = resources;
         }
         
-        // TODO: Pass scriptable objects to visuals with more data, updates in real time. 
         public void SetDataItem(in BattlefieldItemData dataItem)
         {
             if (dataItem != null && dataItem != trackedDataItem)

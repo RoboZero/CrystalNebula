@@ -6,6 +6,8 @@ namespace Source.Logic.Data
     public class PlayerData
     {
         public int Id;
-        public MemoryStorageData MemoryStorage;
+        public LineStorageData ProcessorStorage;
+        public LineStorageData MemoryStorage;
+        public LineStorageData DiskStorage;
     }
 }

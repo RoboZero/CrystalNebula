@@ -17,7 +17,7 @@ namespace Source.Visuals
         [SerializeField] private RectTransform backgroundRectTransform;
         
         [SerializeField] private LineNumberVisual lineNumberVisualPrefab;
-        [SerializeField] private MemoryItemVisual memoryItemVisualPrefab;
+        [SerializeField] private DataItemVisual dataItemVisualPrefab;
         [SerializeField] private LayoutGroup lineNumberLayoutGroup;
         [SerializeField] private LayoutGroup dataItemLayoutGroup;
 
@@ -77,12 +77,12 @@ namespace Source.Visuals
         
         private void AddRecord(in List<DataItemRecordVisual> records)
         {
-            var dataItemVisual = Instantiate(memoryItemVisualPrefab, dataItemLayoutGroup.transform);
+            var dataItemVisual = Instantiate(dataItemVisualPrefab, dataItemLayoutGroup.transform);
             var lineNumberVisual = Instantiate(lineNumberVisualPrefab, lineNumberLayoutGroup.transform);
             
             var record = new DataItemRecordVisual()
             {
-                MemoryItemVisual = dataItemVisual,
+                dataItemVisual = dataItemVisual,
                 LineNumberVisual = lineNumberVisual
             };
             
@@ -93,16 +93,16 @@ namespace Source.Visuals
         {
             if (slot.IsActive)
             {
-                recordVisual.MemoryItemVisual.SetDataItem(slot.Item);
+                recordVisual.dataItemVisual.SetDataItem(slot.Item);
                 recordVisual.LineNumberVisual.Value = slot.LineNumber;
             }
             else
             {
-                recordVisual.MemoryItemVisual.SetDataItem(null);
-                recordVisual.MemoryItemVisual.ResetState();
+                recordVisual.dataItemVisual.SetDataItem(null);
+                recordVisual.dataItemVisual.ResetState();
             }
             
-            recordVisual.MemoryItemVisual.gameObject.SetActive(slot.IsActive);
+            recordVisual.dataItemVisual.gameObject.SetActive(slot.IsActive);
             recordVisual.LineNumberVisual.gameObject.SetActive(slot.IsActive);
         }
 
@@ -115,7 +115,7 @@ namespace Source.Visuals
         private struct DataItemRecordVisual
         {
             public LineNumberVisual LineNumberVisual;
-            public MemoryItemVisual MemoryItemVisual;
+            public DataItemVisual dataItemVisual;
         }
     }
 }

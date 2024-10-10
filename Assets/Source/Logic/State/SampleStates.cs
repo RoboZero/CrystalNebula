@@ -15,25 +15,72 @@ namespace Source.Logic.State
             {
                 new PlayerData
                 {
-                    Id = 1,
-                    MemoryStorage = new MemoryStorageData
+                    Id = 0,
+                    ProcessorStorage = new LineStorageData
                     {
+                        Length = 1,
                         Items = new[]
                         {
-                            new MemoryItemData
+                            new LineItemData
                             {
-                                Program = new ProgramData
+                                Location = 0,
+                                Memory = new MemoryData
                                 {
-                                    OwnerId = 1,
+                                    OwnerId = 0,
                                     Definition = GameResources.BuildDefinitionPath("Programs","Build"),
                                     Progress = 0
                                 }
                             },
-                            new MemoryItemData
+                        }
+                    },
+                    MemoryStorage = new LineStorageData
+                    {
+                        Length = 3,
+                        Items = new[]
+                        {
+                            new LineItemData
                             {
-                                Program = new ProgramData
+                                Location = 0,
+                                Memory = new MemoryData
                                 {
-                                    OwnerId = 1,
+                                    OwnerId = 0,
+                                    Definition = GameResources.BuildDefinitionPath("Programs","Build"),
+                                    Progress = 0
+                                }
+                            },
+                            new LineItemData
+                            {
+                                Location = 1,
+                                Memory = new MemoryData
+                                {
+                                    OwnerId = 0,
+                                    Definition = GameResources.BuildDefinitionPath("Programs","Research"),
+                                    Progress = 0
+                                }
+                            }
+                        }
+                    },
+                    DiskStorage = new LineStorageData
+                    {
+                        Length = 5,
+                        Items = new[]
+                        {
+                            new LineItemData
+                            {
+                                Location = 0,
+                                Memory = new MemoryData
+                                {
+                                    OwnerId = 0,
+                                    Definition = GameResources.BuildDefinitionPath("Programs","Build"),
+                                    Progress = 0
+                                }
+                            },
+                            new LineItemData
+                            {
+                                Location = 1,
+                                Memory = new MemoryData
+                                {
+                                    OwnerId = 0,
                                     Definition = GameResources.BuildDefinitionPath("Programs","Research"),
                                     Progress = 0
                                 }
@@ -52,12 +99,12 @@ namespace Source.Logic.State
                         Location = 19,
                         Building = new BuildingData
                         {
-                            OwnerId = 1,
+                            OwnerId = 0,
                             Definition = GameResources.BuildDefinitionPath("Buildings", "Flag"),
                         },
                         Unit = new UnitData
                         {
-                            OwnerId = 1,
+                            OwnerId = 0,
                             Definition = GameResources.BuildDefinitionPath("Units", "Guardian"),
                         },
                     }

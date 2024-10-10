@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Source.Visuals
 {
     [Serializable]
-    public class MemoryItemVisual : StandardInteractableVisual
+    public class DataItemVisual : StandardInteractableVisual
     {
         [SerializeField] private TMPro.TMP_Text tmpText;
 
