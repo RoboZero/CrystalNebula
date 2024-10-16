@@ -5022,6 +5022,7 @@ MonoBehaviour:
   playerId: 0
   itemStorageSize: 0
   gameStateLoader: {fileID: 801838671}
+  processorIndex: 0
 --- !u!1 &2051352128
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Source.Logic.Data
 {
@@ -6,7 +7,7 @@ namespace Source.Logic.Data
     public class PlayerData
     {
         public int Id;
-        public LineStorageData ProcessorStorage;
+        public List<ProcessorData> Processors;
         public LineStorageData MemoryStorage;
         public LineStorageData DiskStorage;
     }

@@ -1,24 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using Source.Logic.Data;
 using Source.Logic.State;
-using Source.Visuals.LineStorage;
 using UnityEngine;
+using UnityEngine.Assertions;
 
-public class ProcessorStorage : LineStorage
+namespace Source.Visuals.LineStorage
 {
-    protected override void UpdateStorageFromState(GameState gameState)
+    public class ProcessorStorage : LineStorage
     {
-        var diskStorageState = gameState.Players[playerId].ProcessorStorage;
-        itemStorageSize = diskStorageState.Length;
-
-        foreach (var item in diskStorageState.Items)
+        [Header("Dependencies")]
+        [SerializeField] private int processorIndex = 0;
+        
+        protected override void UpdateStorageFromState(GameState gameState)
         {
-            // Debug.Log($"Memory Item: {item.Location}, {item.Memory?.Definition}");
-            itemStorage.GetItemSlotReference(item.Location, out var itemSlot);
-            itemSlot.Item ??= new LineItemData();
-            itemSlot.Item.Location = item.Location;
-            itemSlot.Item.Memory = item.Memory;
+            var player = gameState.Players[playerId];
+
+            if (processorIndex < player.Processors.Count) return;
+
+            var processor = player.Processors[processorIndex];
+            itemStorageSize = processor.ProcessorStorage.Length;
+
+            foreach (var item in processor.ProcessorStorage.Items)
+            {
+                // Debug.Log($"Memory Item: {item.Location}, {item.Memory?.Definition}");
+                itemStorage.GetItemSlotReference(item.Location, out var itemSlot);
+                itemSlot.Item ??= new LineItemData();
+                itemSlot.Item.Location = item.Location;
+                itemSlot.Item.Memory = item.Memory;
+            }
         }
     }
 }

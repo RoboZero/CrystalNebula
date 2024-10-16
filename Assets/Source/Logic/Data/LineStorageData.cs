@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Source.Logic.State;
 
 namespace Source.Logic.Data
@@ -7,6 +8,6 @@ namespace Source.Logic.Data
     public class LineStorageData
     {
         public int Length;
-        public LineItemData[] Items;
+        public List<LineItemData> Items;
     }
 }

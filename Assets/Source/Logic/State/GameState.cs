@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Source.Logic.Data;
 
 namespace Source.Logic.State
@@ -7,7 +8,7 @@ namespace Source.Logic.State
     public class GameState
     {
         public LevelData Level;
-        public PlayerData[] Players;
+        public List<PlayerData> Players;
         public BattlefieldStorageData BattlefieldStorage;
     }
 }

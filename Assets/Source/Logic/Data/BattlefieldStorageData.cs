@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Source.Logic.Data
 {
@@ -6,6 +7,6 @@ namespace Source.Logic.Data
     public class BattlefieldStorageData
     {
         public int Length;
-        public BattlefieldItemData[] Items;
+        public List<BattlefieldItemData> Items;
     }
 }

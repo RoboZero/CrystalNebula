@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Source.Logic.Data;
 using Source.Serialization;
 
@@ -11,32 +12,40 @@ namespace Source.Logic.State
             {
                 Definition = GameResources.BuildDefinitionPath("Levels","Level1")
             },
-            Players = new []
+            Players = new List<PlayerData>
             {
                 new PlayerData
                 {
                     Id = 0,
-                    ProcessorStorage = new LineStorageData
+                    Processors = new List<ProcessorData>
                     {
-                        Length = 1,
-                        Items = new[]
+                        new ProcessorData
                         {
-                            new LineItemData
+                            Definition = "Processors/Basic",
+                            ClockSpeed = 1.0f,
+                            ProcessorStorage = new LineStorageData
                             {
-                                Location = 0,
-                                Memory = new MemoryData
+                                Length = 1,
+                                Items = new List<LineItemData>
                                 {
-                                    OwnerId = 0,
-                                    Definition = GameResources.BuildDefinitionPath("Programs","Build"),
-                                    Progress = 0
+                                    new LineItemData
+                                    {
+                                        Location = 0,
+                                        Memory = new MemoryData
+                                        {
+                                            OwnerId = 0,
+                                            Definition = GameResources.BuildDefinitionPath("Programs","Build"),
+                                            Progress = 0
+                                        }
+                                    },
                                 }
-                            },
+                            }  
                         }
                     },
                     MemoryStorage = new LineStorageData
                     {
                         Length = 3,
-                        Items = new[]
+                        Items = new List<LineItemData>
                         {
                             new LineItemData
                             {
@@ -63,7 +72,7 @@ namespace Source.Logic.State
                     DiskStorage = new LineStorageData
                     {
                         Length = 5,
-                        Items = new[]
+                        Items = new List<LineItemData>
                         {
                             new LineItemData
                             {
@@ -92,7 +101,7 @@ namespace Source.Logic.State
             BattlefieldStorage = new BattlefieldStorageData
             {
                 Length = 20,
-                Items = new []
+                Items = new List<BattlefieldItemData>
                 {
                     new BattlefieldItemData
                     {
@@ -106,7 +115,7 @@ namespace Source.Logic.State
                         {
                             OwnerId = 0,
                             Definition = GameResources.BuildDefinitionPath("Units", "Guardian"),
-                        },
+                        }
                     }
                 }
             }
