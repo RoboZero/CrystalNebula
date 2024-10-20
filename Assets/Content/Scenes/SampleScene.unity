@@ -544,7 +544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInteractions: {fileID: 144567631}
-  battlefieldStorage: {fileID: 1890852933}
+  battlefieldStorageBehavior: {fileID: 0}
   battlefieldStorageVisual: {fileID: 1890852929}
   eventTracker: {fileID: 144567632}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
@@ -2315,6 +2315,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameStateJsonAsset: {fileID: 4900000, guid: e5cc45c398c54e48adb22d1b5837f2be, type: 3}
+  gameState:
+    Level:
+      Definition: 
+    Players: []
+    BattlefieldStorage:
+      Items: []
 --- !u!1 &844333156
 GameObject:
   m_ObjectHideFlags: 0
@@ -3340,7 +3346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23863f9a7f78bd0468f7be341c8ff833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackedMemoryStorage: {fileID: 1255313528}
+  trackedLineGemStorageBehavior: {fileID: 1255313528}
   lineGemItemVisualPrefab: {fileID: 7609047805936301161, guid: 7f02e1f3e1916364e9bdd299170ecdcc, type: 3}
   dataItemLayoutGroup: {fileID: 844333158}
   gameResources: {fileID: 11400000, guid: e4dc6275d5f050243a88dfd9a519a163, type: 2}
@@ -5003,7 +5009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23863f9a7f78bd0468f7be341c8ff833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackedMemoryStorage: {fileID: 2012217505}
+  trackedLineGemStorageBehavior: {fileID: 2012217505}
   lineGemItemVisualPrefab: {fileID: 7609047805936301161, guid: 7f02e1f3e1916364e9bdd299170ecdcc, type: 3}
   dataItemLayoutGroup: {fileID: 1147219893}
   gameResources: {fileID: 11400000, guid: e4dc6275d5f050243a88dfd9a519a163, type: 2}
@@ -5113,7 +5119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23863f9a7f78bd0468f7be341c8ff833, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackedMemoryStorage: {fileID: 2051352135}
+  trackedLineGemStorageBehavior: {fileID: 2051352135}
   lineGemItemVisualPrefab: {fileID: 7609047805936301161, guid: 7f02e1f3e1916364e9bdd299170ecdcc, type: 3}
   dataItemLayoutGroup: {fileID: 314639647}
   gameResources: {fileID: 11400000, guid: e4dc6275d5f050243a88dfd9a519a163, type: 2}

@@ -13,7 +13,7 @@ namespace Source.Serialization
 
         public GameState GameState => gameState;
 
-        private GameState gameState;
+        [SerializeField] private GameState gameState;
         private GameData gameData;
         private readonly JsonDataService jsonDataService = new();
 

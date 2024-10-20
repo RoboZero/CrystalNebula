@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Source.Interactions;
 using Source.Logic;
-using Source.Logic.Data;
 using Source.Serialization;
 using Source.Utility;
 using UnityEngine;
@@ -11,7 +10,7 @@ namespace Source.Visuals.LineStorage
     public class LineGemStorageVisual : MonoBehaviour
     {
         [Header("Dependencies")]
-        [SerializeField] private LineStorage trackedMemoryStorage;
+        [SerializeField] private LineStorageBehavior trackedLineGemStorageBehavior;
         [SerializeField] private LineGemItemVisual lineGemItemVisualPrefab;
         [SerializeField] private MultirowHorizontalLayoutGroup dataItemLayoutGroup;
         
@@ -28,9 +27,9 @@ namespace Source.Visuals.LineStorage
         private void Update()
         {
             // TODO: Visual should not update memory storage, could be updated multiple times per frame. 
-            trackedMemoryStorage.Tick();
-            
-            while (trackedMemoryStorage.ItemStorage.Capacity > trackedRecords.Count)
+            trackedLineGemStorageBehavior.Tick();
+
+            while (trackedLineGemStorageBehavior.State.Items.Count > trackedRecords.Count)
             {
                 AddRecord(trackedRecords);
             }
@@ -38,8 +37,8 @@ namespace Source.Visuals.LineStorage
             interactedVisualIndices.Clear();
             for (var i = 0; i < trackedRecords.Count; i++)
             {
-                trackedMemoryStorage.ItemStorage.GetItemSlotReference(i, out var itemSlot);
-                UpdateRecordVisual(trackedRecords[i], itemSlot);
+                var item = trackedLineGemStorageBehavior.State.Items[i];
+                UpdateRecordVisual(trackedRecords[i], i, item, true);
                 UpdateVisualIndices(i, trackedRecords[i]);
             }
         }
@@ -58,12 +57,12 @@ namespace Source.Visuals.LineStorage
             records.Add(dataItemVisual);
         }
         
-        private void UpdateRecordVisual(in LineGemItemVisual recordVisual, in ItemStorage<LineItem>.ItemSlot slot)
+        private void UpdateRecordVisual(in LineGemItemVisual recordVisual,int lineNumber, LineItem item, bool isActive)
         {
-            if (slot.IsActive)
+            if (isActive)
             {
                 recordVisual.SetGameResources(gameResources);
-                recordVisual.SetDataItem(slot.Item);
+                recordVisual.SetDataItem(item);
             }
             else
             {
@@ -71,7 +70,7 @@ namespace Source.Visuals.LineStorage
                 recordVisual.ResetState();
             }
             
-            recordVisual.gameObject.SetActive(slot.IsActive);
+            recordVisual.gameObject.SetActive(isActive);
         }
 
         private void UpdateVisualIndices(int index, in LineGemItemVisual recordVisual)

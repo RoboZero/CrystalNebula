@@ -8,7 +8,6 @@ using Source.Serialization;
 using Source.Serialization.Samples;
 using Source.Visuals.Battlefield;
 using UnityEngine;
-using BattlefieldStorage = Source.Visuals.Battlefield.BattlefieldStorage;
 
 namespace Source.Interactions
 {
@@ -16,7 +15,7 @@ namespace Source.Interactions
     {
         [Header("Dependencies")]
         [SerializeField] private PlayerInteractions playerInteractions;
-        [SerializeField] private BattlefieldStorage battlefieldStorage;
+        [SerializeField] private BattlefieldStorageBehavior battlefieldStorageBehavior;
         [SerializeField] private BattlefieldStorageVisual battlefieldStorageVisual;
         [SerializeField] private EventTracker eventTracker;
         [SerializeField] private InputReaderSO inputReader;
@@ -41,7 +40,7 @@ namespace Source.Interactions
             if (unitDataSO != null)
             {
                 eventTracker.AddEvent(new CreateUnitsEventCommand(
-                    battlefieldStorage.ItemStorage, 
+                    battlefieldStorageBehavior.State, 
                     battlefieldStorageVisual.InteractedVisualIndices,
                     unitDataSO.CreateDefault(0, "Units/Guardian")
                 ));
@@ -49,7 +48,7 @@ namespace Source.Interactions
             if (buildingDataSO != null)
             {
                 eventTracker.AddEvent(new CreateBuildingsEventCommand(
-                    battlefieldStorage.ItemStorage, 
+                    battlefieldStorageBehavior.State, 
                     battlefieldStorageVisual.InteractedVisualIndices,
                     buildingDataSO.CreateDefault(0, "Buildings/Flag")
                 ));

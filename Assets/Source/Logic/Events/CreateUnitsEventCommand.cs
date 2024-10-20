@@ -7,17 +7,17 @@ namespace Source.Logic.Events
 {
     public class CreateUnitsEventCommand : EventCommand 
     {
-        private ItemStorage<BattlefieldItem> storage;
+        private BattlefieldStorage battlefieldStorage;
         private List<int> slots;
         private Unit unit;
 
         public CreateUnitsEventCommand(
-            ItemStorage<BattlefieldItem> storage,
+            BattlefieldStorage battlefieldStorage,
             List<int> slots,
             Unit unit
         )
         {
-            this.storage = storage;
+            this.battlefieldStorage = battlefieldStorage;
             this.slots = slots;
             this.unit = unit;
         }
@@ -27,10 +27,9 @@ namespace Source.Logic.Events
             var success = true;
             foreach (var slot in slots)
             {
-                if (storage.GetItemSlotReference(slot, out var storageItem))
+                if (slot >= 0 && slot < battlefieldStorage.Items.Count)
                 {
-                    storageItem.Item ??= new BattlefieldItem();
-                    storageItem.Item.Unit = unit;
+                    battlefieldStorage.Items[slot].Unit = unit;
                 }
                 else
                 {
@@ -38,8 +37,7 @@ namespace Source.Logic.Events
                 }
             }
             
-            Debug.Log($"{(success ? "Successfully created" : "Failed to create")} units of type {unit.Definition} in slots {slots.ToItemString()} of {storage}");
-
+            Debug.Log($"{(success ? "Successfully created" : "Failed to create")} units of type {unit.Definition} in slots {slots.ToItemString()} of {battlefieldStorage}");
             return success;
         }
     }
