@@ -1,14 +1,9 @@
-using Source.Logic.Data;
-
-namespace Source.Logic
+﻿namespace Source.Logic
 {
     public class Processor
     {
-        // private ProcessorData processorData;
-        //
-        // public void T()
-        // {
-        //     
-        // }
+        public string Definition;
+        public float ClockSpeed;
+        public LineStorage ProcessorStorage;
     }
 }

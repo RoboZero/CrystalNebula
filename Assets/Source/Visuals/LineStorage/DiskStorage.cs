@@ -13,13 +13,12 @@ namespace Source.Visuals.LineStorage
             var diskStorageState = gameState.Players[playerId].DiskStorage;
             itemStorageSize = diskStorageState.Length;
 
-            foreach (var item in diskStorageState.Items)
+            for (var index = 0; index < diskStorageState.Items.Count; index++)
             {
+                var item = diskStorageState.Items[index];
                 // Debug.Log($"Memory Item: {item.Location}, {item.Memory?.Definition}");
-                itemStorage.GetItemSlotReference(item.Location, out var itemSlot);
-                itemSlot.Item ??= new LineItemData();
-                itemSlot.Item.Location = item.Location;
-                itemSlot.Item.Memory = item.Memory;
+                itemStorage.GetItemSlotReference(index, out var itemSlot);
+                itemSlot.Item = item;
             }
         }
     }

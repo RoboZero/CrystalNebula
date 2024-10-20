@@ -1,10 +1,10 @@
 using System;
-using UnityEngine;
+using Source.Serialization.Data;
 
-namespace Source.Logic.Data
+namespace Source.Logic
 {
     [Serializable]
-    public class UnitData : BattlefieldResourceData
+    public class Unit : BattlefieldResource
     {
         public int Health;
         public int Power;

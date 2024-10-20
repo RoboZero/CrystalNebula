@@ -1,5 +1,6 @@
 using System;
 using Source.Interactions;
+using Source.Logic;
 using Source.Logic.Data;
 using Source.Serialization;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Source.Visuals.LineStorage
         [SerializeField] private Image iconImage;
         
         private GameResources gameResources;
-        private LineItemData trackedDataItem;
+        private LineItem trackedItem;
         private LineDataSO lineDataSo;
 
         private LineDataSO blankGemSO;
@@ -32,22 +33,22 @@ namespace Source.Visuals.LineStorage
             gameResources = resources;
         }
         
-        public void SetDataItem(in LineItemData dataItem)
+        public void SetDataItem(in LineItem item)
         {
-            if (dataItem != null && dataItem != trackedDataItem)
+            if (item != null && item != trackedItem)
             {
-                if (dataItem.Memory != null)
+                if (item.Memory != null && item.Memory.Definition != null)
                 {
-                    gameResources.TryLoadAsset(this, dataItem.Memory.Definition, out lineDataSo);
+                    gameResources.TryLoadAsset(this, item.Memory.Definition, out lineDataSo);
                 }
             }
             
-            trackedDataItem = dataItem;
+            trackedItem = item;
         }
 
         private void Update()
         {
-            SetVisualToItem(trackedDataItem);
+            SetVisualToItem(trackedItem);
             
             switch (CurrentVisualState)
             {
@@ -63,17 +64,16 @@ namespace Source.Visuals.LineStorage
             }
         }
         
-        private void SetVisualToItem(LineItemData dataItem)
+        private void SetVisualToItem(LineItem item)
         {
             iconImage.gameObject.SetActive(false);
 
-            if (dataItem != null && gameResources != null)
+            if (gameResources == null) return;
+            
+            if (item != null && item.Memory != null && lineDataSo != null)
             {
-                if (dataItem.Memory != null && lineDataSo != null)
-                {
-                    iconImage.sprite = lineDataSo.Icon;
-                    iconImage.gameObject.SetActive(true);
-                }
+                iconImage.sprite = lineDataSo.Icon;
+                iconImage.gameObject.SetActive(true);
             } else if(blankGemSO != null)
             {
                 iconImage.sprite = blankGemSO.Icon;

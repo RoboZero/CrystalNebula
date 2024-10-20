@@ -1,3 +1,4 @@
+using Source.Logic;
 using Source.Logic.Data;
 using Source.Logic.State;
 using UnityEngine;
@@ -15,17 +16,16 @@ namespace Source.Visuals.LineStorage
             var player = gameState.Players[playerId];
 
             if (processorIndex < player.Processors.Count) return;
-
+            
             var processor = player.Processors[processorIndex];
             itemStorageSize = processor.ProcessorStorage.Length;
 
-            foreach (var item in processor.ProcessorStorage.Items)
+            for (var index = 0; index < processor.ProcessorStorage.Items.Count; index++)
             {
+                var item = processor.ProcessorStorage.Items[index];
                 // Debug.Log($"Memory Item: {item.Location}, {item.Memory?.Definition}");
-                itemStorage.GetItemSlotReference(item.Location, out var itemSlot);
-                itemSlot.Item ??= new LineItemData();
-                itemSlot.Item.Location = item.Location;
-                itemSlot.Item.Memory = item.Memory;
+                itemStorage.GetItemSlotReference(index, out var itemSlot);
+                itemSlot.Item = item;
             }
         }
     }

@@ -58,7 +58,7 @@ namespace Source.Visuals.LineStorage
             records.Add(dataItemVisual);
         }
         
-        private void UpdateRecordVisual(in LineGemItemVisual recordVisual, in ItemStorage<LineItemData>.ItemSlot slot)
+        private void UpdateRecordVisual(in LineGemItemVisual recordVisual, in ItemStorage<LineItem>.ItemSlot slot)
         {
             if (slot.IsActive)
             {

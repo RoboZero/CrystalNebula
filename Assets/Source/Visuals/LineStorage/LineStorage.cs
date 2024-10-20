@@ -14,8 +14,8 @@ namespace Source.Visuals.LineStorage
     
         [SerializeField] protected GameStateLoader gameStateLoader;
     
-        public ItemStorage<LineItemData> ItemStorage => itemStorage;
-        protected readonly ItemStorage<LineItemData> itemStorage = new();
+        public ItemStorage<LineItem> ItemStorage => itemStorage;
+        protected readonly ItemStorage<LineItem> itemStorage = new();
     
         public void Tick()
         {

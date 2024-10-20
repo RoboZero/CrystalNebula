@@ -2,6 +2,7 @@ using Source.Logic;
 using Source.Logic.Data;
 using Source.Logic.State;
 using Source.Serialization;
+using Source.Utility;
 using UnityEngine;
 
 namespace Source.Visuals.LineStorage
@@ -10,16 +11,16 @@ namespace Source.Visuals.LineStorage
     {
         protected override void UpdateStorageFromState(GameState gameState)
         {
-            var ramStorageState = gameState.Players[playerId].MemoryStorage;
-            itemStorageSize = ramStorageState.Length;
+            var memoryStorageState = gameState.Players[playerId].MemoryStorage;
+            itemStorageSize = memoryStorageState.Length;
 
-            foreach (var item in ramStorageState.Items)
+
+            for (var index = 0; index < memoryStorageState.Items.Count; index++)
             {
+                var item = memoryStorageState.Items[index];
                 // Debug.Log($"Memory Item: {item.Location}, {item.Memory?.Definition}");
-                itemStorage.GetItemSlotReference(item.Location, out var itemSlot);
-                itemSlot.Item ??= new LineItemData();
-                itemSlot.Item.Location = item.Location;
-                itemSlot.Item.Memory = item.Memory;
+                itemStorage.GetItemSlotReference(index, out var itemSlot);
+                itemSlot.Item = item;
             }
         }
     }

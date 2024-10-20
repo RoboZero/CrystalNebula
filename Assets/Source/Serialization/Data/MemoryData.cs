@@ -1,6 +1,6 @@
 using System;
 
-namespace Source.Logic.Data
+namespace Source.Serialization.Data
 {
     [Serializable]
     public class MemoryData

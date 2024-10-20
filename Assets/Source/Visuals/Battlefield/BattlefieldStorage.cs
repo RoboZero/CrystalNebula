@@ -2,6 +2,7 @@ using Source.Logic;
 using Source.Logic.Data;
 using Source.Logic.State;
 using Source.Serialization;
+using Source.Utility;
 using UnityEngine;
 
 namespace Source.Visuals.Battlefield
@@ -13,9 +14,9 @@ namespace Source.Visuals.Battlefield
         
         [SerializeField] private GameStateLoader gameStateLoader;
         
-        public ItemStorage<BattlefieldItemData> ItemStorage => itemStorage;
+        public ItemStorage<BattlefieldItem> ItemStorage => itemStorage;
         
-        private ItemStorage<BattlefieldItemData> itemStorage = new();
+        private ItemStorage<BattlefieldItem> itemStorage = new();
 
         public void Tick()
         {
@@ -27,16 +28,15 @@ namespace Source.Visuals.Battlefield
         
         private void UpdateStorageFromState(GameState gameState)
         {
-            itemStorageSize = gameState.BattlefieldStorage.Length;
+            itemStorageSize = gameState.BattlefieldStorage.Items.Count;
 
-            foreach (var battlefieldStorageItem in gameState.BattlefieldStorage.Items)
+
+            for (var index = 0; index < gameState.BattlefieldStorage.Items.Count; index++)
             {
+                var item = gameState.BattlefieldStorage.Items[index];
                 //Debug.Log($"Battlefield Item: {battlefieldStorageItem.Location}, {battlefieldStorageItem.Unit?.Definition}, {battlefieldStorageItem.Building?.Definition}");
-                itemStorage.GetItemSlotReference(battlefieldStorageItem.Location, out var itemSlot);
-                itemSlot.Item ??= new BattlefieldItemData();
-                itemSlot.Item.Location = battlefieldStorageItem.Location;
-                itemSlot.Item.Unit = battlefieldStorageItem.Unit;
-                itemSlot.Item.Building = battlefieldStorageItem.Building;
+                itemStorage.GetItemSlotReference(index, out var itemSlot);
+                itemSlot.Item = item;
             }
         }
     }

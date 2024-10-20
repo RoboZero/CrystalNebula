@@ -77,7 +77,7 @@ namespace Source.Visuals.Battlefield
             records.Add(record);
         }
 
-        private void UpdateRecordVisual(in DataItemRecordVisual recordVisual, in ItemStorage<BattlefieldItemData>.ItemSlot slot)
+        private void UpdateRecordVisual(in DataItemRecordVisual recordVisual, in ItemStorage<BattlefieldItem>.ItemSlot slot)
         {
             if (slot.IsActive)
             {

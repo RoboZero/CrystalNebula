@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Source.Logic.State;
 
-namespace Source.Logic.Data
+namespace Source.Serialization.Data
 {
     [Serializable]
     public class LineStorageData

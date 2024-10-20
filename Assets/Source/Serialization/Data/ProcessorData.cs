@@ -1,4 +1,4 @@
-﻿namespace Source.Logic.Data
+﻿namespace Source.Serialization.Data
 {
     public class ProcessorData
     {

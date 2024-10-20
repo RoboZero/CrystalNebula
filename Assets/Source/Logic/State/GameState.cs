@@ -7,8 +7,8 @@ namespace Source.Logic.State
     [Serializable]
     public class GameState
     {
-        public LevelData Level;
-        public List<PlayerData> Players;
-        public BattlefieldStorageData BattlefieldStorage;
+        public Level Level;
+        public List<Player> Players;
+        public BattlefieldStorage BattlefieldStorage;
     }
 }

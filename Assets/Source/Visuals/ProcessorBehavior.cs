@@ -1,4 +1,5 @@
 ﻿using System;
+using Source.Logic;
 using Source.Logic.Data;
 using Source.Serialization;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace Source.Visuals
                 for (var index = 0; index < battlefield.Items.Count; index++)
                 {
                     var item = battlefield.Items[index];
-                    battlefield.Items.Insert(index, new BattlefieldItemData());
+                    battlefield.Items.Insert(index, new BattlefieldItem());
                 }
 
 

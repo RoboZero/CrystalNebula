@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Source.Logic.Data
+namespace Source.Serialization.Data
 {
     [Serializable]
     public class PlayerData

@@ -5,8 +5,10 @@ using Source.Logic.Data;
 using Source.Logic.Events;
 using Source.Logic.State;
 using Source.Serialization;
+using Source.Serialization.Samples;
 using Source.Visuals.Battlefield;
 using UnityEngine;
+using BattlefieldStorage = Source.Visuals.Battlefield.BattlefieldStorage;
 
 namespace Source.Interactions
 {
@@ -26,7 +28,7 @@ namespace Source.Interactions
             inputReader.HoldPressedEvent += OnHoldPressed;
             
             var s = new JsonDataService();
-            s.SaveData("/GameState.json", SampleStates.TestState1, false);
+            s.SaveData("/GameState.json", SampleData.TestState1, false);
         }
 
         private void OnDisable()

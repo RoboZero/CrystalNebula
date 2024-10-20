@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using Source.Logic.State;
+using Source.Serialization.Data;
 using UnityEngine;
 
 namespace Source.Serialization
@@ -13,6 +14,7 @@ namespace Source.Serialization
         public GameState GameState => gameState;
 
         private GameState gameState;
+        private GameData gameData;
         private readonly JsonDataService jsonDataService = new();
 
         private void Awake()
@@ -22,13 +24,16 @@ namespace Source.Serialization
 
         private void Load(TextAsset gameStateJsonAsset)
         { 
-            gameState = jsonDataService.LoadData<GameState>(Encoding.UTF8.GetBytes(gameStateJsonAsset.text), false);
-            Debug.Log($"Game state: {gameState}");
+            gameData = jsonDataService.LoadData<GameData>(Encoding.UTF8.GetBytes(gameStateJsonAsset.text), false);
+            var converter = new GameDataConverter();
+            gameState = converter.Convert(gameData);
+            
+            Debug.Log($"Game state: {gameData}");
         }
         
         public void Load(string relativePath)
         {
-            gameState = jsonDataService.LoadData<GameState>(relativePath, false);
+            gameData = jsonDataService.LoadData<GameData>(relativePath, false);
         }
 
         public void Save(GameState gameState)

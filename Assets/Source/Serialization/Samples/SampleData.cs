@@ -1,12 +1,11 @@
 using System.Collections.Generic;
-using Source.Logic.Data;
-using Source.Serialization;
+using Source.Serialization.Data;
 
-namespace Source.Logic.State
+namespace Source.Serialization.Samples
 {
-    public static class SampleStates
+    public static class SampleData
     {
-        public static readonly GameState TestState1 = new ()
+        public static readonly GameData TestState1 = new ()
         {
             Level = new LevelData
             {

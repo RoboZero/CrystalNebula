@@ -1,9 +1,9 @@
 using System;
 
-namespace Source.Logic.Data
+namespace Source.Logic
 {
     [Serializable]
-    public class LevelData
+    public class Level
     { 
         public string Definition;
     }
