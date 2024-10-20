@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Source.Logic.Data;
 using Source.Utility;
 using UnityEngine;
@@ -10,34 +12,49 @@ namespace Source.Logic.Events
         private BattlefieldStorage battlefieldStorage;
         private List<int> slots;
         private Unit unit;
+        private bool forceIfOccupied;
 
         public CreateUnitsEventCommand(
             BattlefieldStorage battlefieldStorage,
             List<int> slots,
-            Unit unit
+            Unit unit,
+            bool forceIfOccupied
         )
         {
             this.battlefieldStorage = battlefieldStorage;
             this.slots = slots;
             this.unit = unit;
+            this.forceIfOccupied = forceIfOccupied;
         }
 
         public override bool Perform()
         {
+            var logBuilder = new StringBuilder();
+            logBuilder.AppendLine($"{ID} Creating units of type {unit.Definition} in slots {slots.ToItemString()} of {battlefieldStorage}");
+
             var success = true;
             foreach (var slot in slots)
             {
-                if (slot >= 0 && slot < battlefieldStorage.Items.Count)
+                if (slot < 0 || slot >= battlefieldStorage.Items.Count)
                 {
-                    battlefieldStorage.Items[slot].Unit = unit;
-                }
-                else
-                {
+                    logBuilder.AppendLine($"Failed to create unit of type {unit.Definition} in slot {slot} of {battlefieldStorage}: slot {slot} out of battlefield index bounds {battlefieldStorage.Items.Count}");
                     success = false;
+                    continue;
                 }
+                
+                battlefieldStorage.Items[slot] ??= new BattlefieldItem();
+                if (!forceIfOccupied && battlefieldStorage.Items[slot].Unit != null)
+                {
+                    logBuilder.AppendLine($"Failed to create unit of type {unit.Definition} in slot {slot} of {battlefieldStorage}: slot is occupied by {battlefieldStorage.Items[slot].Unit.Definition}\n");
+                    success = false;
+                    continue;
+                }
+                
+                battlefieldStorage.Items[slot].Unit = unit;
+                logBuilder.AppendLine($"Successfully created unit of type {unit.Definition} in slot {slot} of {battlefieldStorage}");
             }
             
-            Debug.Log($"{(success ? "Successfully created" : "Failed to create")} units of type {unit.Definition} in slots {slots.ToItemString()} of {battlefieldStorage}");
+            Debug.Log(logBuilder);
             return success;
         }
     }

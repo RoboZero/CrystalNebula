@@ -544,7 +544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInteractions: {fileID: 144567631}
-  battlefieldStorageBehavior: {fileID: 0}
+  battlefieldStorageBehavior: {fileID: 1890852933}
   battlefieldStorageVisual: {fileID: 1890852929}
   eventTracker: {fileID: 144567632}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}

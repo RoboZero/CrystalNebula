@@ -42,7 +42,8 @@ namespace Source.Interactions
                 eventTracker.AddEvent(new CreateUnitsEventCommand(
                     battlefieldStorageBehavior.State, 
                     battlefieldStorageVisual.InteractedVisualIndices,
-                    unitDataSO.CreateDefault(0, "Units/Guardian")
+                    unitDataSO.CreateDefault(0, "Units/Guardian"),
+                    false
                 ));
             }
             if (buildingDataSO != null)
@@ -50,7 +51,8 @@ namespace Source.Interactions
                 eventTracker.AddEvent(new CreateBuildingsEventCommand(
                     battlefieldStorageBehavior.State, 
                     battlefieldStorageVisual.InteractedVisualIndices,
-                    buildingDataSO.CreateDefault(0, "Buildings/Flag")
+                    buildingDataSO.CreateDefault(0, "Buildings/Flag"),
+                    false
                 ));
             }
         }
