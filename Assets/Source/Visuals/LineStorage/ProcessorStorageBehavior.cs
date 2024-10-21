@@ -1,4 +1,5 @@
 using Source.Logic.State;
+using Source.Utility;
 using UnityEngine;
 
 namespace Source.Visuals.LineStorage
@@ -10,9 +11,15 @@ namespace Source.Visuals.LineStorage
         
         protected override void UpdateStorageFromState(GameState gameState)
         {
+            if (!gameState.Players.InBounds(playerId))
+            {
+                Debug.LogWarning($"Failed to read from processor: processor index {processorIndex} is invalid, gamestate players count {gameState.Players.Count}" );
+                return;
+            }
+            
             var player = gameState.Players[playerId];
 
-            if (processorIndex < 0 || processorIndex >= player.Processors.Count) return;
+            if (!player.Processors.InBounds(processorIndex)) return;
             
             var processor = player.Processors[processorIndex];
             itemStorageSize = processor.ProcessorStorage.Length;

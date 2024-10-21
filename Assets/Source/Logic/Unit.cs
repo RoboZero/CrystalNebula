@@ -8,5 +8,10 @@ namespace Source.Logic
     {
         public int Health;
         public int Power;
+
+        public override string ToString()
+        {
+            return $"{Definition}: (OId: {OwnerId} H {Health}, P {Power})";
+        }
     }
 }

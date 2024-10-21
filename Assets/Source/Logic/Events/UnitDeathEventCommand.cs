@@ -26,13 +26,13 @@ namespace Source.Logic.Events
 
             if (!battlefieldStorage.TryGetUnitAtSlot(deadUnitSlot, logBuilder, out _, out _))
             {
-                logBuilder.AppendLine($"{ID} Failed have unit in slot {deadUnitSlot} die: could not get unit in slot");
+                logBuilder.AppendLine($"Failed have unit in slot {deadUnitSlot} die: could not get unit in slot");
                 Debug.Log(logBuilder);
                 return false;
             }
 
             battlefieldStorage.Items[deadUnitSlot].Unit = null;
-            logBuilder.AppendLine($"{ID} Successfully killed unit by removing unit in slot {deadUnitSlot} (now null)");
+            logBuilder.AppendLine($"Successfully killed unit by removing unit in slot {deadUnitSlot} (now null)");
             Debug.Log(logBuilder);
             return true;
         }

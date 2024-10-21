@@ -24,6 +24,7 @@ namespace Source.Logic.Events
             bool canEngageCombatOverride
         )
         {
+            this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
             this.fromSlots = fromSlots;
             this.toSlots = toSlots;
@@ -57,24 +58,33 @@ namespace Source.Logic.Events
                 if (battlefieldStorage.TryGetUnitAtSlot(toSlot, logBuilder, out _, out var otherUnit))
                 {
                     // TODO: Allow units to determine if able to switch
-                    if (!canSwitchPlacesOverride && unit.OwnerId == otherUnit.OwnerId)
+                    if (unit.OwnerId == otherUnit.OwnerId)
                     {
-                        logBuilder.AppendLine($"Failed to move unit from {fromSlot} to {toSlot}: friendly unit {otherUnit.Definition} on to spot and is not switching");
-                        success = false;
-                        continue;
-                    }
-                    
-                    if (canEngageCombatOverride && unit.OwnerId != otherUnit.OwnerId)
-                    {
-                        eventTracker.AddEvent(new UnitCombatEventCommand(eventTracker, battlefieldStorage, fromSlot, toSlot));
-                        
-                        // TODO: Consider ways of trying to move again
-                        if (eventTracker.EventCommands.Peek() is not UnitDeathEventCommand)
+                        if (!canSwitchPlacesOverride)
                         {
-                            logBuilder.AppendLine($"Failed to move unit from {fromSlot} to {toSlot}: attacked opponent that did not die");
-                            success = false;
-                            continue;
+                            logBuilder.AppendLine($"Failed to move unit from {fromSlot} to {toSlot}: friendly unit {otherUnit.Definition} on to spot and is not switching");
+                            Debug.Log(logBuilder);
+                            return false;
                         }
+                    }
+                    else
+                    {
+                        if (!canEngageCombatOverride)
+                        {
+                            logBuilder.AppendLine($"Failed to move unit from {fromSlot} to {toSlot}: enemy unit {otherUnit.Definition} on to slot and cannot engage combat");
+                            Debug.Log(logBuilder);
+                            return false;
+                        }
+                    
+                        eventTracker.AddEvent(new UnitCombatEventCommand(
+                            eventTracker,
+                            battlefieldStorage, 
+                            fromSlot, 
+                            toSlot, 
+                            true
+                        ));
+
+                        return true;
                     }
                 }
 

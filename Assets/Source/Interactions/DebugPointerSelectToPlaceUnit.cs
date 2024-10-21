@@ -5,6 +5,7 @@ using Source.Logic.Data;
 using Source.Logic.Events;
 using Source.Logic.State;
 using Source.Serialization;
+using Source.Serialization.Data;
 using Source.Serialization.Samples;
 using Source.Visuals.Battlefield;
 using UnityEngine;
@@ -33,15 +34,28 @@ namespace Source.Interactions
         private void OnDisable()
         {
             inputReader.HoldPressedEvent -= OnHoldPressed;
+            //inputReader.CommandPressedEvent += OnCommandPress;
         }
         
         private void OnHoldPressed()
         {
+            MoveUnit();
+        }
+
+        private void PlaceItemOnBattlefield()
+        {
+            var interactedSlots = playerInteractions.Interacted
+                .OfType<BattlefieldItemVisual>()
+                .Select(visual => visual.TrackedSlot)
+                .ToList();
+            
+            if (interactedSlots.Count <= 0) return;
+            
             if (unitDataSO != null)
             {
                 eventTracker.AddEvent(new CreateUnitsEventCommand(
                     battlefieldStorageBehavior.State, 
-                    battlefieldStorageVisual.InteractedVisualIndices,
+                    interactedSlots,
                     unitDataSO.CreateDefault(0, "Units/Guardian"),
                     false
                 ));
@@ -50,12 +64,34 @@ namespace Source.Interactions
             {
                 eventTracker.AddEvent(new CreateBuildingsEventCommand(
                     battlefieldStorageBehavior.State, 
-                    battlefieldStorageVisual.InteractedVisualIndices,
+                    interactedSlots,
                     buildingDataSO.CreateDefault(0, "Buildings/Flag"),
                     false
                 ));
             }
         }
 
+        private void MoveUnit()
+        {
+            var interactedSlots = playerInteractions.Interacted
+                .OfType<BattlefieldItemVisual>()
+                .Select(visual => visual.TrackedSlot)
+                .ToList();
+            var hoveredSlots = playerInteractions.Hovered
+                .OfType<BattlefieldItemVisual>()
+                .Select(visual => visual.TrackedSlot)
+                .ToList();
+
+            if (interactedSlots.Count <= 0 || hoveredSlots.Count <= 0) return;
+            
+            eventTracker.AddEvent(new MoveUnitEventCommand(
+                eventTracker,
+                battlefieldStorageBehavior.State,
+                interactedSlots[0],
+                hoveredSlots[0],
+                false,
+                true
+            ));
+        }
     }
 }

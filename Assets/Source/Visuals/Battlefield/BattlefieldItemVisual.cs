@@ -17,11 +17,18 @@ namespace Source.Visuals.Battlefield
         [SerializeField] private TMP_Text healthText;
         [SerializeField] private TMP_Text powerText;
         [SerializeField] private TMP_Text utilityText;
+
+        public BattlefieldItem TrackedItem => trackedItem;
+        public int TrackedSlot => trackedSlot;
         
         private GameResources gameResources;
         private BattlefieldItem trackedItem;
+        private int trackedSlot;
         private string originalText;
+
+        private string unitDataDefinition;
         private UnitDataSO unitDataSO;
+        private string buildingDataDefinition;
         private BuildingDataSO buildingDataSO;
 
         public void SetGameResources(GameResources resources)
@@ -31,20 +38,26 @@ namespace Source.Visuals.Battlefield
         
         public void SetDataItem(BattlefieldItem item)
         {
-            if (item != null && item != trackedItem)
+            if (item == null)
             {
-                if (item.Unit != null && item.Unit.Definition != null)
-                {
-                    gameResources.TryLoadAsset(this, item.Unit.Definition, out unitDataSO);
-                }
-
-                if (item.Building != null && item.Building.Definition != null)
-                {
-                    gameResources.TryLoadAsset(this, item.Building.Definition, out buildingDataSO);
-                }
+                unitDataSO = null;
+                buildingDataSO = null;
+                trackedItem = null;
+                return;
             }
-            
+
+            if (item != trackedItem)
+            {
+                unitDataDefinition = "";
+                buildingDataDefinition = "";
+            }
+
             trackedItem = item;
+        }
+
+        public void SetSlot(int slot)
+        { 
+            trackedSlot = slot;
         }
 
         private void Update()
@@ -74,23 +87,41 @@ namespace Source.Visuals.Battlefield
             powerText.gameObject.SetActive(false);
 
             if (item == null || gameResources == null) return;
-            
-            if (item.Unit != null && unitDataSO != null)
+
+            if (item.Unit != null)
             {
-                unitImage.sprite = unitDataSO.Sprite;
-                healthText.text = item.Unit.Health.ToString();
-                powerText.text = item.Unit.Power.ToString();
-                unitImage.gameObject.SetActive(true);
-                healthText.gameObject.SetActive(true);
-                powerText.gameObject.SetActive(true);
+                if (item.Unit.Definition != null && item.Unit.Definition != unitDataDefinition)
+                {
+                    gameResources.TryLoadAsset(this, item.Unit.Definition, out unitDataSO);
+                    unitDataDefinition = item.Unit.Definition;
+                }
+
+                if (unitDataSO != null)
+                {
+                    unitImage.sprite = unitDataSO.Sprite;
+                    healthText.text = item.Unit.Health.ToString();
+                    powerText.text = item.Unit.Power.ToString();
+                    unitImage.gameObject.SetActive(true);
+                    healthText.gameObject.SetActive(true);
+                    powerText.gameObject.SetActive(true);
+                }
             }
-                
-            if (item.Building != null && buildingDataSO != null)
+
+            if (item.Building != null)
             {
-                buildingImage.sprite = buildingDataSO.Sprite;
-                buildingImage.gameObject.SetActive(true);
-                healthText.gameObject.SetActive(true);
-                powerText.gameObject.SetActive(true);
+                if (item.Building.Definition != null && item.Building.Definition != buildingDataDefinition)
+                {
+                    gameResources.TryLoadAsset(this, item.Building.Definition, out buildingDataSO);
+                    buildingDataDefinition = item.Building.Definition;
+                }
+                
+                if (buildingDataSO != null)
+                {
+                    buildingImage.sprite = buildingDataSO.Sprite;
+                    buildingImage.gameObject.SetActive(true);
+                    healthText.gameObject.SetActive(true);
+                    powerText.gameObject.SetActive(true);
+                }
             }
         }
     }

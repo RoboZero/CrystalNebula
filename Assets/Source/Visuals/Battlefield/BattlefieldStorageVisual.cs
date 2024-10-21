@@ -24,9 +24,6 @@ namespace Source.Visuals.Battlefield
 
         private BattlefieldStorageBehavior battlefieldStorageBehavior;
 
-        public List<int> InteractedVisualIndices => interactedVisualIndices;
-        
-        private List<int> interactedVisualIndices = new();
         private List<DataItemRecordVisual> trackedRecords = new();
 
         private void Awake()
@@ -46,12 +43,10 @@ namespace Source.Visuals.Battlefield
                 AddRecord(trackedRecords);
             }
 
-            interactedVisualIndices.Clear();
             for (var i = 0; i < trackedRecords.Count; i++)
             {
                 var item = battlefieldStorageBehavior.State.Items[i];
                 UpdateRecordVisual(trackedRecords[i], i, item, true);
-                UpdateVisualIndices(i, trackedRecords[i]);
             }
         }
 
@@ -81,13 +76,16 @@ namespace Source.Visuals.Battlefield
         {
             if (isActive)
             {
+                recordVisual.ItemVisual.gameObject.name = "Slot " + lineNumber;
                 recordVisual.ItemVisual.SetGameResources(gameResources);
                 recordVisual.ItemVisual.SetDataItem(item);
+                recordVisual.ItemVisual.SetSlot(lineNumber);
                 recordVisual.LineNumberVisual.Value = lineNumber;
             }
             else
             {
                 recordVisual.ItemVisual.SetDataItem(null);
+                recordVisual.ItemVisual.SetSlot(-1);
                 recordVisual.ItemVisual.ResetState();
             }
             
@@ -95,14 +93,6 @@ namespace Source.Visuals.Battlefield
             recordVisual.LineNumberVisual.gameObject.SetActive(isActive);
         }
 
-        private void UpdateVisualIndices(int index, in DataItemRecordVisual recordVisual)
-        {
-            if (recordVisual.ItemVisual.CurrentVisualState == InteractVisualState.Selected)
-            {
-                interactedVisualIndices.Add(index);
-            }
-        }
-        
         private void DestroyRecord(DataItemRecordVisual record)
         {
             Destroy(record.LineNumberVisual.gameObject);
