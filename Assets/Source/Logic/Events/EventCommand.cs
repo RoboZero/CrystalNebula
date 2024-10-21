@@ -9,7 +9,7 @@ namespace Source.Logic.Events
 
         protected EventCommand()
         {
-            id = Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 4);
+            id = "[" + Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 4) + "]";
         }
         
         public abstract bool Perform();
