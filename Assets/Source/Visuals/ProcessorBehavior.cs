@@ -55,7 +55,7 @@ namespace Source.Visuals
                     battlefield,
                     fromSlots,
                     MoveUnitsInDirectionEventCommand.Direction.Right,
-                    1,
+                    2,
                     null
                 ));
 

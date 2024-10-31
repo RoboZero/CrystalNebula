@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Text;
-using Source.Logic.Data;
+﻿using Source.Logic.Data;
 
 namespace Source.Logic.Events
 {
     public class MoveUnitEventCommand : EventCommand
     {
-        
         private EventTracker eventTracker;
         private BattlefieldStorage battlefieldStorage;
         private int fromSlot;

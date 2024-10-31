@@ -45,7 +45,7 @@ namespace Source.Logic.Events
 
             foreach (var fromSlot in fromSlots)
             {
-                var toSlot = fromSlot + (int) direction;
+                var toSlot = fromSlot + ((int) direction * distance);
                 
                 toSlots.Add(toSlot);
             }
