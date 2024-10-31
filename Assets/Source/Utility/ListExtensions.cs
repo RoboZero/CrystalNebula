@@ -27,5 +27,10 @@ namespace Source.Utility
 
             return items;
         }
+
+        public static bool InBounds<T>(this IList<T> list, int index)
+        {
+            return index >= 0 && index < list.Count;
+        }
     }
 }

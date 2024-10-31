@@ -5,6 +5,8 @@ using Source.Logic.Data;
 using Source.Logic.Events;
 using Source.Logic.State;
 using Source.Serialization;
+using Source.Serialization.Data;
+using Source.Serialization.Samples;
 using Source.Visuals.Battlefield;
 using UnityEngine;
 
@@ -14,7 +16,7 @@ namespace Source.Interactions
     {
         [Header("Dependencies")]
         [SerializeField] private PlayerInteractions playerInteractions;
-        [SerializeField] private BattlefieldStorage battlefieldStorage;
+        [SerializeField] private BattlefieldStorageBehavior battlefieldStorageBehavior;
         [SerializeField] private BattlefieldStorageVisual battlefieldStorageVisual;
         [SerializeField] private EventTracker eventTracker;
         [SerializeField] private InputReaderSO inputReader;
@@ -26,33 +28,70 @@ namespace Source.Interactions
             inputReader.HoldPressedEvent += OnHoldPressed;
             
             var s = new JsonDataService();
-            s.SaveData("/GameState.json", SampleStates.TestState1, false);
+            s.SaveData("/GameState.json", SampleData.TestState1, false);
         }
 
         private void OnDisable()
         {
             inputReader.HoldPressedEvent -= OnHoldPressed;
+            //inputReader.CommandPressedEvent += OnCommandPress;
         }
         
         private void OnHoldPressed()
         {
+            MoveUnit();
+        }
+
+        private void PlaceItemOnBattlefield()
+        {
+            var interactedSlots = playerInteractions.Interacted
+                .OfType<BattlefieldItemVisual>()
+                .Select(visual => visual.TrackedSlot)
+                .ToList();
+            
+            if (interactedSlots.Count <= 0) return;
+            
             if (unitDataSO != null)
             {
                 eventTracker.AddEvent(new CreateUnitsEventCommand(
-                    battlefieldStorage.ItemStorage, 
-                    battlefieldStorageVisual.InteractedVisualIndices,
-                    unitDataSO.CreateDefault(0, "Units/Guardian")
+                    battlefieldStorageBehavior.State, 
+                    interactedSlots,
+                    unitDataSO.CreateDefault(0, "Units/Guardian"),
+                    false
                 ));
             }
             if (buildingDataSO != null)
             {
                 eventTracker.AddEvent(new CreateBuildingsEventCommand(
-                    battlefieldStorage.ItemStorage, 
-                    battlefieldStorageVisual.InteractedVisualIndices,
-                    buildingDataSO.CreateDefault(0, "Buildings/Flag")
+                    battlefieldStorageBehavior.State, 
+                    interactedSlots,
+                    buildingDataSO.CreateDefault(0, "Buildings/Flag"),
+                    false
                 ));
             }
         }
 
+        private void MoveUnit()
+        {
+            var interactedSlots = playerInteractions.Interacted
+                .OfType<BattlefieldItemVisual>()
+                .Select(visual => visual.TrackedSlot)
+                .ToList();
+            var hoveredSlots = playerInteractions.Hovered
+                .OfType<BattlefieldItemVisual>()
+                .Select(visual => visual.TrackedSlot)
+                .ToList();
+
+            if (interactedSlots.Count <= 0 || hoveredSlots.Count <= 0) return;
+            
+            eventTracker.AddEvent(new MoveUnitEventCommand(
+                eventTracker,
+                battlefieldStorageBehavior.State,
+                interactedSlots[0],
+                hoveredSlots[0],
+                false,
+                true
+            ));
+        }
     }
 }

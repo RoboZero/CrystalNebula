@@ -46,6 +46,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Command"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba4f7969-16fb-4303-af82-23a3158d1c93"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Hold"",
                     ""type"": ""Button"",
                     ""id"": ""f20089ad-0702-4c1f-8e1e-6675175f6551"",
@@ -108,6 +117,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Hold"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4dbae992-15c2-46ac-8010-049ee8038cc0"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Command"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -124,6 +144,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_OSCommand = asset.FindActionMap("OS Command", throwIfNotFound: true);
         m_OSCommand_Pointer = m_OSCommand.FindAction("Pointer", throwIfNotFound: true);
         m_OSCommand_Interact = m_OSCommand.FindAction("Interact", throwIfNotFound: true);
+        m_OSCommand_Command = m_OSCommand.FindAction("Command", throwIfNotFound: true);
         m_OSCommand_Hold = m_OSCommand.FindAction("Hold", throwIfNotFound: true);
         m_OSCommand_Cancel = m_OSCommand.FindAction("Cancel", throwIfNotFound: true);
     }
@@ -189,6 +210,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IOSCommandActions> m_OSCommandActionsCallbackInterfaces = new List<IOSCommandActions>();
     private readonly InputAction m_OSCommand_Pointer;
     private readonly InputAction m_OSCommand_Interact;
+    private readonly InputAction m_OSCommand_Command;
     private readonly InputAction m_OSCommand_Hold;
     private readonly InputAction m_OSCommand_Cancel;
     public struct OSCommandActions
@@ -197,6 +219,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public OSCommandActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pointer => m_Wrapper.m_OSCommand_Pointer;
         public InputAction @Interact => m_Wrapper.m_OSCommand_Interact;
+        public InputAction @Command => m_Wrapper.m_OSCommand_Command;
         public InputAction @Hold => m_Wrapper.m_OSCommand_Hold;
         public InputAction @Cancel => m_Wrapper.m_OSCommand_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_OSCommand; }
@@ -214,6 +237,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Command.started += instance.OnCommand;
+            @Command.performed += instance.OnCommand;
+            @Command.canceled += instance.OnCommand;
             @Hold.started += instance.OnHold;
             @Hold.performed += instance.OnHold;
             @Hold.canceled += instance.OnHold;
@@ -230,6 +256,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Command.started -= instance.OnCommand;
+            @Command.performed -= instance.OnCommand;
+            @Command.canceled -= instance.OnCommand;
             @Hold.started -= instance.OnHold;
             @Hold.performed -= instance.OnHold;
             @Hold.canceled -= instance.OnHold;
@@ -266,6 +295,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnPointer(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnCommand(InputAction.CallbackContext context);
         void OnHold(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
     }

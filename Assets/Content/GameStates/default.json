@@ -5,19 +5,25 @@
   "Players": [
     {
       "Id": 1,
-      "ProcessorStorage": {
-        "Length": 1,
-        "Items": [
-          {
-            "Length": 0,
-            "Memory": {
-              "OwnerId": 0,
-              "Definition": "Programs/Build",
-              "Progress": 0
-            }
+      "Processors": [
+        {
+          "Definition": "Processors/Basic",
+          "ClockSpeed": 1.0,
+          "ProcessorStorage": {
+            "Length": 1,
+            "Items": [
+              {
+                "Length": 0,
+                "Memory": {
+                  "OwnerId": 0,
+                  "Definition": "Programs/Build",
+                  "Progress": 0
+                }
+              }
+            ]
           }
-        ]
-      },
+        }
+      ],
       "MemoryStorage": {
         "Length": 3,
         "Items": [
@@ -48,7 +54,7 @@
         ]
       },
       "DiskStorage": {
-        "Length": 6,
+        "Length": 5,
         "Items": [
           {
             "Location": 2,
@@ -80,7 +86,7 @@
           "Health": 2,
           "Power": 2,
           "Definition": "Units/Bug",
-          "OwnerId": 1
+          "OwnerId": 2
         },
         "Description": null
       },

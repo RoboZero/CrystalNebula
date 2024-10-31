@@ -11,7 +11,7 @@ using UnityEngine.UI;
 namespace Source.Visuals.Battlefield
 {
     //TODO: Be able to import and export a battlefield. 
-    [RequireComponent(typeof(BattlefieldStorage))]
+    [RequireComponent(typeof(BattlefieldStorageBehavior))]
     public class BattlefieldStorageVisual : MonoBehaviour
     {
         [Header("Dependencies")]
@@ -22,16 +22,13 @@ namespace Source.Visuals.Battlefield
         
         [SerializeField] private GameResources gameResources;
 
-        private BattlefieldStorage battlefieldStorage;
+        private BattlefieldStorageBehavior battlefieldStorageBehavior;
 
-        public List<int> InteractedVisualIndices => interactedVisualIndices;
-        
-        private List<int> interactedVisualIndices = new();
         private List<DataItemRecordVisual> trackedRecords = new();
 
         private void Awake()
         {
-            battlefieldStorage = GetComponent<BattlefieldStorage>();
+            battlefieldStorageBehavior = GetComponent<BattlefieldStorageBehavior>();
             
             lineNumberVisualPrefab.gameObject.SetActive(false);
             memoryItemVisualPrefab.gameObject.SetActive(false);
@@ -39,19 +36,17 @@ namespace Source.Visuals.Battlefield
 
         private void Update()
         {
-            battlefieldStorage.Tick();
+            battlefieldStorageBehavior.Tick();
 
-            while (battlefieldStorage.ItemStorage.Capacity > trackedRecords.Count)
+            while (battlefieldStorageBehavior.State.Items.Count > trackedRecords.Count)
             {
                 AddRecord(trackedRecords);
             }
 
-            interactedVisualIndices.Clear();
             for (var i = 0; i < trackedRecords.Count; i++)
             {
-                battlefieldStorage.ItemStorage.GetItemSlotReference(i, out var itemSlot);
-                UpdateRecordVisual(trackedRecords[i], itemSlot);
-                UpdateVisualIndices(i, trackedRecords[i]);
+                var item = battlefieldStorageBehavior.State.Items[i];
+                UpdateRecordVisual(trackedRecords[i], i, item, true);
             }
         }
 
@@ -77,32 +72,27 @@ namespace Source.Visuals.Battlefield
             records.Add(record);
         }
 
-        private void UpdateRecordVisual(in DataItemRecordVisual recordVisual, in ItemStorage<BattlefieldItemData>.ItemSlot slot)
+        private void UpdateRecordVisual(in DataItemRecordVisual recordVisual, int lineNumber, BattlefieldItem item, bool isActive)
         {
-            if (slot.IsActive)
+            if (isActive)
             {
+                recordVisual.ItemVisual.gameObject.name = "Slot " + lineNumber;
                 recordVisual.ItemVisual.SetGameResources(gameResources);
-                recordVisual.ItemVisual.SetDataItem(slot.Item);
-                recordVisual.LineNumberVisual.Value = slot.LineNumber;
+                recordVisual.ItemVisual.SetDataItem(item);
+                recordVisual.ItemVisual.SetSlot(lineNumber);
+                recordVisual.LineNumberVisual.Value = lineNumber;
             }
             else
             {
                 recordVisual.ItemVisual.SetDataItem(null);
+                recordVisual.ItemVisual.SetSlot(-1);
                 recordVisual.ItemVisual.ResetState();
             }
             
-            recordVisual.ItemVisual.gameObject.SetActive(slot.IsActive);
-            recordVisual.LineNumberVisual.gameObject.SetActive(slot.IsActive);
+            recordVisual.ItemVisual.gameObject.SetActive(isActive);
+            recordVisual.LineNumberVisual.gameObject.SetActive(isActive);
         }
 
-        private void UpdateVisualIndices(int index, in DataItemRecordVisual recordVisual)
-        {
-            if (recordVisual.ItemVisual.CurrentVisualState == InteractVisualState.Selected)
-            {
-                interactedVisualIndices.Add(index);
-            }
-        }
-        
         private void DestroyRecord(DataItemRecordVisual record)
         {
             Destroy(record.LineNumberVisual.gameObject);

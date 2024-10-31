@@ -5,13 +5,15 @@ namespace Source.Logic.Events
 {
     public class EventTracker : MonoBehaviour
     {
+        public List<EventCommand> EventCommands => eventCommands;
+        
         private List<EventCommand> eventCommands = new();
 
-        public void AddEvent(EventCommand eventCommand)
+        public bool AddEvent(EventCommand eventCommand)
         {
             Debug.Log($"Event Tracker added and performed event: {eventCommand}");
             eventCommands.Add(eventCommand);
-            eventCommand.Perform();
+            return eventCommand.Perform();
         }
     }
 }

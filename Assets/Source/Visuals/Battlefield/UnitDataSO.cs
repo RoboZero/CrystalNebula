@@ -1,3 +1,4 @@
+using Source.Logic;
 using Source.Logic.Data;
 using Source.Utility;
 using UnityEngine;
@@ -12,9 +13,9 @@ namespace Source.Visuals.Battlefield
         public int BaseHealth = 3;
         public int BasePower = 1;
 
-        public UnitData CreateDefault(int ownerId, string definition)
+        public Unit CreateDefault(int ownerId, string definition)
         {
-            return new UnitData()
+            return new Unit()
             {
                 Definition = definition,
                 OwnerId = ownerId,
