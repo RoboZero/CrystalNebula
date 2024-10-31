@@ -18,7 +18,8 @@ namespace Source.Logic.Events
         {
             id = "[" + Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 4) + "]";
         }
-        
+
+        public virtual bool CanPerform() { return true; }
         public abstract bool Perform();
 
         protected bool PerformChildEventWithLog(EventCommand eventCommand)
@@ -99,14 +100,12 @@ namespace Source.Logic.Events
                 return false;
             }
 
-            var itemAtSlot = battlefieldStorage.Items[slot];
-            if(itemAtSlot == null){
-                AddLog(failedLog + "battlefield item at slot does not exist");
-                item = null;
-                return false;
+            if(battlefieldStorage.Items[slot] == null){
+                AddLog("Battlefield item at slot does not exist, creating");
+                battlefieldStorage.Items[slot] = new BattlefieldItem();
             }
 
-            item = itemAtSlot;
+            item = battlefieldStorage.Items[slot];
             return true;
         }
     }

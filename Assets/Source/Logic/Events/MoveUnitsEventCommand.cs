@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Source.Logic.Data;
 using Source.Utility;
@@ -13,7 +14,9 @@ namespace Source.Logic.Events
         private List<int> fromSlots;
         private List<int> toSlots;
         private MoveUnitEventOverrides moveUnitEventOverrides;
-        
+
+        private List<FromData> fromData = new();
+
         public MoveUnitsEventCommand(
             EventTracker eventTracker,
             BattlefieldStorage battlefieldStorage,
@@ -35,32 +38,55 @@ namespace Source.Logic.Events
 
             var success = true;
 
+            if (fromSlots.Count != toSlots.Count)
+            {
+                AddLog($"Failed to move units: from count {fromSlots.Count} != to count {toSlots.Count}");
+                return false;
+            }
+
             for (var index = 0; index < fromSlots.Count; index++)
             {
                 var fromSlot = fromSlots[index];
-                
-                if (!toSlots.InBounds(index))
+
+                if (!TryGetUnitAtSlot(battlefieldStorage, fromSlot, out var fromItem, out var fromUnit))
                 {
-                    AddLog($"Failed to move unit from {fromSlot}: no associated to index.");
+                    AddLog($"Failed to move unit in {fromSlot}: unit does not exist (null)");
                     success = false;
                     continue;
                 }
                 
-                var toSlot = toSlots[index];
-                
+                fromData.Add(new FromData
+                {
+                    FromSlotsIndex = index,
+                    Item = fromItem,
+                    Unit = fromUnit
+                });
+            }
+
+            foreach (var from in fromData)
+            {
+                var toSlot = toSlots[from.FromSlotsIndex];
+
                 var result = PerformChildEventWithLog(new MoveUnitEventCommand(
                     eventTracker, 
                     battlefieldStorage, 
-                    fromSlot, 
+                    from.Unit, 
                     toSlot, 
-                    moveUnitEventOverrides)
-                );
-                
-                if (result == false) 
+                    moveUnitEventOverrides
+                ));
+
+                if (result) 
                     success = false;
             }
             
             return success;
+        }
+
+        private struct FromData
+        {
+            public int FromSlotsIndex;
+            public BattlefieldItem Item;
+            public Unit Unit;
         }
     }
 }

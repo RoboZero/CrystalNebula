@@ -54,7 +54,7 @@ namespace Source.Visuals
                     eventTracker,
                     battlefield,
                     fromSlots,
-                    MoveUnitsInDirectionEventCommand.Direction.Up,
+                    MoveUnitsInDirectionEventCommand.Direction.Right,
                     1,
                     null
                 ));

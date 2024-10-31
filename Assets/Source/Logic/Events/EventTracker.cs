@@ -16,5 +16,6 @@ namespace Source.Logic.Events
             Debug.Log($"Event Tracker added and performed event: {eventCommand} \n {eventCommand.GetLog()}");
             return result;
         }
+        
     }
 }

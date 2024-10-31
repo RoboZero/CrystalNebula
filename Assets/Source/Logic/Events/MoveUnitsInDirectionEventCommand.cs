@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Source.Logic.Data;
 using Source.Utility;
-using UnityEngine;
 
 namespace Source.Logic.Events
 {
@@ -11,8 +8,8 @@ namespace Source.Logic.Events
     {
         public enum Direction
         {
-            Up = 1,
-            Down = -1
+            Right = 1,
+            Left = -1
         }
         
         private EventTracker eventTracker;
@@ -53,18 +50,47 @@ namespace Source.Logic.Events
                 toSlots.Add(toSlot);
             }
 
-            var result = PerformChildEventWithLog(new MoveUnitsEventCommand(
-                    eventTracker,
-                    battlefieldStorage,
-                    fromSlots,
-                    toSlots,
-                    moveUnitEventOverrides
-                )
-            );
+            switch (direction)
+            {
+                case Direction.Right:
+                    for (var i = fromSlots.Count - 1; i >= 0; i--)
+                    {
+                        var fromSlot = fromSlots[i];
+                        var toSlot = toSlots[i];
+                        var result = PerformChildEventWithLog(new MoveUnitEventCommand(
+                                eventTracker,
+                                battlefieldStorage,
+                                fromSlot,
+                                toSlot,
+                                moveUnitEventOverrides
+                            )
+                        );
+                        
+                        if (result == false)
+                            success = false;
+                    }
 
-            if (result == false)
-                success = false;
-            
+                    break;
+                case Direction.Left:
+                    for (var i = 0; i < fromSlots.Count; i++)
+                    {
+                        var fromSlot = fromSlots[i];
+                        var toSlot = toSlots[i];
+                        var result = PerformChildEventWithLog(new MoveUnitEventCommand(
+                                eventTracker,
+                                battlefieldStorage,
+                                fromSlot,
+                                toSlot,
+                                moveUnitEventOverrides
+                            )
+                        );
+                        
+                        if (result == false)
+                            success = false;
+                    }
+                    break;
+            }
+
             return success;
         }
     }

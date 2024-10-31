@@ -38,7 +38,7 @@ namespace Source.Logic.Events
                 return false;
             }
 
-            if (!initiatorUnit.canEngageCombat)
+            if (!initiatorUnit.CanEngageCombat)
             {
                 AddLog($"Failed to start combat: initiator unit on {initiatorSlot} cannot initiate combat. ");
                 return false;
