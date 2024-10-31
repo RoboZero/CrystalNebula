@@ -308,7 +308,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 14.3246, y: -0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_SizeDelta: {x: 20, y: 1}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &87182869
 MonoBehaviour:
@@ -795,8 +795,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 486106103}
   m_HandleRect: {fileID: 486106102}
   m_Direction: 3
-  m_Value: 0.6127928
-  m_Size: 0.505962
+  m_Value: -0.000007706502
+  m_Size: 0.50424916
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2185,7 +2185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &637927563
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3875,7 +3875,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.000022888184}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 1}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1295048472
 MonoBehaviour:
@@ -3953,7 +3953,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 2.1623, y: -0}
-  m_SizeDelta: {x: 4.3246, y: 0}
+  m_SizeDelta: {x: 4.3246, y: 1}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1377754876
 MonoBehaviour:
@@ -4862,7 +4862,7 @@ RectTransform:
   m_Father: {fileID: 1927663122}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -0.000040769577, y: -0.000049591064}
   m_SizeDelta: {x: -0.0000090599, y: -0.000091553}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6086,7 +6086,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5396266626338173817, guid: 55ad4514407be184a863172d00e2069c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 27.6
+      value: 71.280174
       objectReference: {fileID: 0}
     - target: {fileID: 5396266626338173817, guid: 55ad4514407be184a863172d00e2069c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
