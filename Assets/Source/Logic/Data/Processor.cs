@@ -1,4 +1,4 @@
-﻿namespace Source.Logic
+﻿namespace Source.Logic.Data
 {
     public class Processor
     {

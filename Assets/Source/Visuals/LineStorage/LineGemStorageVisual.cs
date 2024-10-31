@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Source.Interactions;
 using Source.Logic;
+using Source.Logic.Data;
 using Source.Serialization;
 using Source.Utility;
 using UnityEngine;

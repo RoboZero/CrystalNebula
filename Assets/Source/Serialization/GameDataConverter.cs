@@ -4,7 +4,7 @@ using Source.Logic;
 using Source.Logic.Data;
 using Source.Logic.State;
 using Source.Serialization.Data;
-using LineStorage = Source.Logic.LineStorage;
+using LineStorage = Source.Logic.Data.LineStorage;
 
 namespace Source.Serialization
 {

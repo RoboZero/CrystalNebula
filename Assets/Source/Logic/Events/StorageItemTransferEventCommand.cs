@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Source.Interactions;
+using Source.Logic.Data;
 using UnityEngine;
 
 namespace Source.Logic.Events

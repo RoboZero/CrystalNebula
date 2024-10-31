@@ -1,7 +1,6 @@
 using System;
-using Source.Serialization.Data;
 
-namespace Source.Logic
+namespace Source.Logic.Data
 {
     [Serializable]
     public class Unit : BattlefieldResource

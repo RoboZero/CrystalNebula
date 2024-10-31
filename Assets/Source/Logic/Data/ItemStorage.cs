@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Source.Logic
+namespace Source.Logic.Data
 {
     [Serializable]
     public class ItemStorage<T> : IEnumerable<ItemStorage<T>.ItemSlot> where T : DataItem

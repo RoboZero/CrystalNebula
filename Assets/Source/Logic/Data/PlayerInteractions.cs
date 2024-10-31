@@ -1,9 +1,8 @@
-using System;
 using Source.Interactions;
 using Source.Utility;
 using UnityEngine;
 
-namespace Source.Logic
+namespace Source.Logic.Data
 {
     public class PlayerInteractions : MonoBehaviour
     {

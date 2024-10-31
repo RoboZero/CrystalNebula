@@ -1,6 +1,7 @@
 using System;
 using Source.Input;
 using Source.Logic;
+using Source.Logic.Data;
 using Source.Logic.Events;
 using Source.Visuals;
 using UnityEngine;

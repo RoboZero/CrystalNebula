@@ -1,7 +1,6 @@
 using System;
-using Source.Interactions;
 
-namespace Source.Logic
+namespace Source.Logic.Data
 {
     [Serializable]
     public class DataItem

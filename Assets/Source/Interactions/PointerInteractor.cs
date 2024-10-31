@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Source.Input;
 using Source.Logic;
+using Source.Logic.Data;
 using Source.Logic.Events;
 using Source.Utility;
 using UnityEngine;

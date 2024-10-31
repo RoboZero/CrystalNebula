@@ -13,8 +13,8 @@ namespace Source.Visuals.LineStorage
     
         [SerializeField] protected GameStateLoader gameStateLoader;
     
-        public Logic.LineStorage State => state;
-        protected Logic.LineStorage state;
+        public Logic.Data.LineStorage State => state;
+        protected Logic.Data.LineStorage state;
     
         public void Tick()
         {

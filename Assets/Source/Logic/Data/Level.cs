@@ -1,6 +1,6 @@
 using System;
 
-namespace Source.Logic
+namespace Source.Logic.Data
 {
     [Serializable]
     public class Level
