@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c3676419d46764e92ff1aec6f4f8b5, type: 3}
+  m_Name: Hornet
+  m_EditorClassIdentifier: 
+  guid: ea37090dfda252d40b6941debf910497
+  description: 
+  Sprite: {fileID: -355753444, guid: e2c5cd3374c6d9b4eb298bbda86a2096, type: 3}
+  Name: Hornet
+  Abbreviation: Hrnt
+  BaseHealth: 3
+  BasePower: 3

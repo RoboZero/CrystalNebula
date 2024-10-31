@@ -1,0 +1,186 @@
+﻿{
+  "Level": {
+    "Definition": "Levels/Level1"
+  },
+  "Players": [
+    {
+      "Id": 1,
+      "Processors": [
+        {
+          "Definition": "Processors/Basic",
+          "ClockSpeed": 1.0,
+          "ProcessorStorage": {
+            "Length": 1,
+            "Items": [
+              {
+                "Length": 0,
+                "Memory": {
+                  "OwnerId": 0,
+                  "Definition": "Programs/Research",
+                  "Progress": 0
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "MemoryStorage": {
+        "Length": 3,
+        "Items": [
+          {
+            "Location": 0,
+            "Memory": {
+              "OwnerId": 0,
+              "Definition": "Programs/Build",
+              "Progress": 0
+            }
+          },
+          {
+            "Location": 2,
+            "Memory": {
+              "OwnerId": 0,
+              "Definition": "Programs/Research",
+              "Progress": 0
+            }
+          }
+        ]
+      },
+      "DiskStorage": {
+        "Length": 5,
+        "Items": [
+          {
+            "Location": 0,
+            "Memory": {
+              "OwnerId": 0,
+              "Definition": "Programs/Research",
+              "Progress": 0
+            }
+          },
+          {
+            "Location": 1,
+            "Memory": {
+              "OwnerId": 0,
+              "Definition": "Programs/Build",
+              "Progress": 0
+            }
+          },
+          {
+            "Location": 2,
+            "Memory": {
+              "OwnerId": 0,
+              "Definition": "Programs/Research",
+              "Progress": 0
+            }
+          },
+          {
+            "Location": 3,
+            "Memory": {
+              "OwnerId": 0,
+              "Definition": "Programs/Research",
+              "Progress": 0
+            }
+          },
+          {
+            "Location": 4,
+            "Memory": {
+              "OwnerId": 0,
+              "Definition": "Programs/Research",
+              "Progress": 0
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "BattlefieldStorage": {
+    "Length": 20,
+    "Items": [
+      {
+        "Location": 0,
+        "Building": {
+          "Health": 3,
+          "Power": 1,
+          "Definition": "Buildings/Factory",
+          "OwnerId": 2
+        },
+        "Unit": {
+          "Health": 5,
+          "Power": 2,
+          "Definition": "Units/Scarab",
+          "OwnerId": 2
+        },
+        "Description": null
+      },
+      {
+        "Location": 1,
+        "Building": null,
+        "Unit": {
+          "Health": 5,
+          "Power": 2,
+          "Definition": "Units/Scarab",
+          "OwnerId": 2
+        },
+        "Description": null
+      },
+      {
+        "Location": 2,
+        "Building": {
+          "Health": 2,
+          "Power": 0,
+          "Definition": "Buildings/Flag",
+          "OwnerId": 2
+        },
+        "Unit": {
+          "Health": 3,
+          "Power": 3,
+          "Definition": "Units/Hornet",
+          "OwnerId": 2
+        },
+        "Description": null
+      },
+      {
+        "Location": 17,
+        "Building": null,
+        "Unit": {
+          "Health": 5,
+          "Power": 1,
+          "Definition": "Units/Guardian",
+          "OwnerId": 1
+        },
+        "Description": null
+      },
+      {
+        "Location": 18,
+        "Building": {
+          "Health": 0,
+          "Power": 0,
+          "Definition": "Buildings/Flag",
+          "OwnerId": 1
+        },
+        "Unit": {
+          "Health": 5,
+          "Power": 1,
+          "Definition": "Units/Guardian",
+          "OwnerId": 1
+        },
+        "Description": null
+      },
+      {
+        "Location": 19,
+        "Building": {
+          "Health": 0,
+          "Power": 0,
+          "Definition": "Buildings/Factory",
+          "OwnerId": 1
+        },
+        "Unit": {
+          "Health": 2,
+          "Power": 2,
+          "Definition": "Units/Thief",
+          "OwnerId": 1
+        },
+        "Description": null
+      }
+    ]
+  }
+}
