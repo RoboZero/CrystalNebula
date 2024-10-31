@@ -1010,7 +1010,7 @@ GameObject:
   - component: {fileID: 1626344892}
   - component: {fileID: 1626344891}
   m_Layer: 5
-  m_Name: Start
+  m_Name: Continue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1048,7 +1048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420daa268f4c5db4b9a90e162b43031b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 1
+  sceneIndex: 0
 --- !u!114 &1626344892
 MonoBehaviour:
   m_ObjectHideFlags: 0
