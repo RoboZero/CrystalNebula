@@ -485,6 +485,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f20089ad-0702-4c1f-8e1e-6675175f6551
     m_ActionName: OS Command/Hold[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ba4f7969-16fb-4303-af82-23a3158d1c93
+    m_ActionName: OS Command/Command[/Mouse/rightButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: OS Command
