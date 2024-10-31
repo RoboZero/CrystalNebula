@@ -24,6 +24,7 @@ namespace Source.Serialization
             return converter.Convert(gameState);
         }
 
+        // TODO: Load from game resources HERE so scriptable objects are already distributed
         private class ConvertDataToState
         {
             public GameState Convert(GameData gameData)

@@ -85,7 +85,7 @@
         "Unit": {
           "Health": 2,
           "Power": 2,
-          "Definition": "Units/Bug",
+          "Definition": "Units/Scarab",
           "OwnerId": 2
         },
         "Description": null

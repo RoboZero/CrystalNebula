@@ -79,8 +79,9 @@ namespace Source.Logic.Events
             }
 
             logBuilder.AppendLine($"Successfully moved unit {unit.Definition} from {fromSlot} to {toSlot}");
-            battlefieldStorage.Items[toSlot] = battlefieldStorage.Items[fromSlot];
-            battlefieldStorage.Items[fromSlot] = null;
+            battlefieldStorage.Items[toSlot] ??= new BattlefieldItem();
+            battlefieldStorage.Items[toSlot].Unit = battlefieldStorage.Items[fromSlot].Unit;
+            battlefieldStorage.Items[fromSlot].Unit = null;
             Debug.Log(logBuilder);
             return true;
         }

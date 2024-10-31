@@ -16,5 +16,6 @@ MonoBehaviour:
   description: 
   Sprite: {fileID: 1116579199, guid: b83ea8ad3494ce0438f38cedffd2d653, type: 3}
   Name: Guardian
-  BaseHealth: 3
+  Abbreviation: Guard
+  BaseHealth: 4
   BasePower: 1

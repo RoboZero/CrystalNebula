@@ -10,12 +10,10 @@ using UnityEngine.UI;
 
 namespace Source.Visuals.Battlefield
 {
-    //TODO: Be able to import and export a battlefield. 
     [RequireComponent(typeof(BattlefieldStorageBehavior))]
     public class BattlefieldStorageVisual : MonoBehaviour
     {
         [Header("Dependencies")]
-        [SerializeField] private LineNumberVisual lineNumberVisualPrefab;
         [SerializeField] private BattlefieldItemVisual memoryItemVisualPrefab;
         [SerializeField] private LayoutGroup lineNumberLayoutGroup;
         [SerializeField] private LayoutGroup dataItemLayoutGroup;
@@ -30,7 +28,6 @@ namespace Source.Visuals.Battlefield
         {
             battlefieldStorageBehavior = GetComponent<BattlefieldStorageBehavior>();
             
-            lineNumberVisualPrefab.gameObject.SetActive(false);
             memoryItemVisualPrefab.gameObject.SetActive(false);
         }
 
@@ -61,12 +58,11 @@ namespace Source.Visuals.Battlefield
         private void AddRecord(in List<DataItemRecordVisual> records)
         {
             var dataItemVisual = Instantiate(memoryItemVisualPrefab, dataItemLayoutGroup.transform);
-            var lineNumberVisual = Instantiate(lineNumberVisualPrefab, lineNumberLayoutGroup.transform);
             
+            dataItemVisual.SetLineNumber(records.Count);
             var record = new DataItemRecordVisual()
             {
                 ItemVisual = dataItemVisual,
-                LineNumberVisual = lineNumberVisual
             };
             
             records.Add(record);
@@ -80,7 +76,6 @@ namespace Source.Visuals.Battlefield
                 recordVisual.ItemVisual.SetGameResources(gameResources);
                 recordVisual.ItemVisual.SetDataItem(item);
                 recordVisual.ItemVisual.SetSlot(lineNumber);
-                recordVisual.LineNumberVisual.Value = lineNumber;
             }
             else
             {
@@ -90,19 +85,16 @@ namespace Source.Visuals.Battlefield
             }
             
             recordVisual.ItemVisual.gameObject.SetActive(isActive);
-            recordVisual.LineNumberVisual.gameObject.SetActive(isActive);
         }
 
         private void DestroyRecord(DataItemRecordVisual record)
         {
-            Destroy(record.LineNumberVisual.gameObject);
             Destroy(record.ItemVisual.gameObject);
         }
 
         [Serializable]
         private struct DataItemRecordVisual
         {
-            public LineNumberVisual LineNumberVisual;
             public BattlefieldItemVisual ItemVisual;
         }
     }

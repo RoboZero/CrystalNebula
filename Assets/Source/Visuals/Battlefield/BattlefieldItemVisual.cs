@@ -12,11 +12,20 @@ namespace Source.Visuals.Battlefield
     public class BattlefieldItemVisual : StandardInteractableVisual
     {
         [Header("Dependencies")]
+        [SerializeField] private Image selectorIcon;
+        [SerializeField] private TMP_Text lineNumberText;
         [SerializeField] private Image buildingImage;
+        [SerializeField] private Image buildingPlatformImage;
+        [SerializeField] private GameObject buildingStatsHolder;
+        [SerializeField] private TMP_Text buildingHealthText;
+        [SerializeField] private TMP_Text buildingPowerText;
+        [SerializeField] private TMP_Text buildingUtilityText;
         [SerializeField] private Image unitImage;
-        [SerializeField] private TMP_Text healthText;
-        [SerializeField] private TMP_Text powerText;
-        [SerializeField] private TMP_Text utilityText;
+        [SerializeField] private Image unitPlatformImage;
+        [SerializeField] private GameObject unitStatsHolder;
+        [SerializeField] private TMP_Text unitHealthText;
+        [SerializeField] private TMP_Text unitPowerText;
+        [SerializeField] private TMP_Text unitUtilityText;
 
         public BattlefieldItem TrackedItem => trackedItem;
         public int TrackedSlot => trackedSlot;
@@ -24,6 +33,7 @@ namespace Source.Visuals.Battlefield
         private GameResources gameResources;
         private BattlefieldItem trackedItem;
         private int trackedSlot;
+        private int assignedLineNumber;
         private string originalText;
 
         private string unitDataDefinition;
@@ -34,6 +44,11 @@ namespace Source.Visuals.Battlefield
         public void SetGameResources(GameResources resources)
         {
             gameResources = resources;
+        }
+
+        public void SetLineNumber(int lineNumber)
+        {
+            assignedLineNumber = lineNumber;
         }
         
         public void SetDataItem(BattlefieldItem item)
@@ -62,19 +77,38 @@ namespace Source.Visuals.Battlefield
 
         private void Update()
         {
+            lineNumberText.gameObject.SetActive(true);
+            lineNumberText.text = assignedLineNumber.ToString();
             SetVisualToItem(trackedItem);
             
             switch (CurrentVisualState)
             {
                 case InteractVisualState.None:
-                    utilityText.text = trackedItem != null && 
-                                       unitDataSO != null ? unitDataSO.Name : "";
+                    selectorIcon.gameObject.SetActive(false);
+                    buildingUtilityText.text = "";
+                    unitUtilityText.text = "";
                     break;
                 case InteractVisualState.Hovered:
-                    utilityText.text = "STATE: HOVERED";
+                    selectorIcon.gameObject.SetActive(true);
+                    selectorIcon.color = Color.yellow;
+                    //unitUtilityText.text = "STATE: HOVERED";
+                    buildingUtilityText.text = trackedItem != null && 
+                                               trackedItem.Building != null && 
+                                               buildingDataSO != null ? buildingDataSO.Abbreviation : "";
+                    unitUtilityText.text = trackedItem != null && 
+                                           trackedItem.Unit != null && 
+                                           unitDataSO != null ? unitDataSO.Abbreviation : "";
                     break;
                 case InteractVisualState.Selected:
-                    utilityText.text = "STATE: SELECTED";
+                    selectorIcon.gameObject.SetActive(true);
+                    selectorIcon.color = Color.blue;
+                    //unitUtilityText.text = "STATE: SELECTED";
+                    buildingUtilityText.text = trackedItem != null && 
+                                               trackedItem.Building != null && 
+                                               buildingDataSO != null ? buildingDataSO.Abbreviation : "";
+                    unitUtilityText.text = trackedItem != null && 
+                                           trackedItem.Unit != null && 
+                                           unitDataSO != null ? unitDataSO.Abbreviation : "";
                     break;
             }
         }
@@ -82,9 +116,15 @@ namespace Source.Visuals.Battlefield
         private void SetVisualToItem(BattlefieldItem item)
         {
             buildingImage.gameObject.SetActive(false);
+            buildingPlatformImage.gameObject.SetActive(false);
+            buildingStatsHolder.gameObject.SetActive(false);
+            buildingHealthText.gameObject.SetActive(false);
+            buildingPowerText.gameObject.SetActive(false);
             unitImage.gameObject.SetActive(false);
-            healthText.gameObject.SetActive(false);
-            powerText.gameObject.SetActive(false);
+            unitPlatformImage.gameObject.SetActive(false);
+            unitStatsHolder.gameObject.SetActive(false);
+            unitHealthText.gameObject.SetActive(false);
+            unitPowerText.gameObject.SetActive(false);
 
             if (item == null || gameResources == null) return;
 
@@ -99,11 +139,13 @@ namespace Source.Visuals.Battlefield
                 if (unitDataSO != null)
                 {
                     unitImage.sprite = unitDataSO.Sprite;
-                    healthText.text = item.Unit.Health.ToString();
-                    powerText.text = item.Unit.Power.ToString();
+                    unitHealthText.text = item.Unit.Health.ToString();
+                    unitPowerText.text = item.Unit.Power.ToString();
                     unitImage.gameObject.SetActive(true);
-                    healthText.gameObject.SetActive(true);
-                    powerText.gameObject.SetActive(true);
+                    unitPlatformImage.gameObject.SetActive(true);
+                    unitStatsHolder.gameObject.SetActive(true);
+                    unitHealthText.gameObject.SetActive(true);
+                    unitPowerText.gameObject.SetActive(true);
                 }
             }
 
@@ -118,9 +160,13 @@ namespace Source.Visuals.Battlefield
                 if (buildingDataSO != null)
                 {
                     buildingImage.sprite = buildingDataSO.Sprite;
+                    buildingHealthText.text = item.Building.Health.ToString();
+                    buildingPowerText.text = item.Building.Power.ToString();
                     buildingImage.gameObject.SetActive(true);
-                    healthText.gameObject.SetActive(true);
-                    powerText.gameObject.SetActive(true);
+                    buildingPlatformImage.gameObject.SetActive(true);
+                    buildingStatsHolder.gameObject.SetActive(true);
+                    buildingHealthText.gameObject.SetActive(true);
+                    buildingPowerText.gameObject.SetActive(true);
                 }
             }
         }

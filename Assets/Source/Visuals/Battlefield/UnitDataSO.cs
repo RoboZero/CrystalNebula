@@ -10,6 +10,7 @@ namespace Source.Visuals.Battlefield
     {
         public Sprite Sprite;
         public string Name;
+        public string Abbreviation;
         public int BaseHealth = 3;
         public int BasePower = 1;
 

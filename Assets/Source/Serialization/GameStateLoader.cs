@@ -34,6 +34,8 @@ namespace Source.Serialization
         public void Load(string relativePath)
         {
             gameData = jsonDataService.LoadData<GameData>(relativePath, false);
+            var converter = new GameDataConverter();
+            gameState = converter.Convert(gameData);
         }
 
         public void Save(GameState gameState)
