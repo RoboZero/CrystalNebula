@@ -21,19 +21,16 @@ namespace Source.Logic.Events
         
         public override bool Perform()
         {
-            var logBuilder = new StringBuilder();
-            logBuilder.AppendLine($"{ID} Unit at slot {deadUnitSlot} has died in {battlefieldStorage}");
+            AddLog($"Unit at slot {deadUnitSlot} has died in {battlefieldStorage}");
 
-            if (!battlefieldStorage.TryGetUnitAtSlot(deadUnitSlot, logBuilder, out _, out _))
+            if (!TryGetUnitAtSlot(battlefieldStorage, deadUnitSlot, out _, out _))
             {
-                logBuilder.AppendLine($"Failed have unit in slot {deadUnitSlot} die: could not get unit in slot");
-                Debug.Log(logBuilder);
+                AddLog($"Failed have unit in slot {deadUnitSlot} die: could not get unit in slot");
                 return false;
             }
 
             battlefieldStorage.Items[deadUnitSlot].Unit = null;
-            logBuilder.AppendLine($"Successfully killed unit by removing unit in slot {deadUnitSlot} (now null)");
-            Debug.Log(logBuilder);
+            AddLog($"Successfully killed unit by removing unit in slot {deadUnitSlot} (now null)");
             return true;
         }
     }

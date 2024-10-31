@@ -30,64 +30,66 @@ namespace Source.Logic.Events
         
         public override bool Perform()
         {
-            var logBuilder = new StringBuilder();
-            logBuilder.AppendLine($"{ID} Unit combat started. Initiator slot: {initiatorSlot}, Responder slot: {responderSlot}");
+            AddLog($"Unit combat started. Initiator slot: {initiatorSlot}, Responder slot: {responderSlot}");
             
-            if (!battlefieldStorage.TryGetUnitAtSlot(initiatorSlot, logBuilder, out _, out var initiatorUnit))
+            if (!TryGetUnitAtSlot(battlefieldStorage, initiatorSlot, out _, out var initiatorUnit))
             {
-                logBuilder.AppendLine($"Failed to start combat: initiator unit on {initiatorSlot} does not exist. (null)");
-                Debug.Log(logBuilder);
+                AddLog($"Failed to start combat: initiator unit on {initiatorSlot} does not exist. (null)");
                 return false;
             }
 
-            if (!battlefieldStorage.TryGetUnitAtSlot(responderSlot, logBuilder, out _, out var responderUnit))
+            if (!initiatorUnit.canEngageCombat)
             {
-                logBuilder.AppendLine($"Failed to start combat: responder unit on {responderSlot} does not exist (null)");
-                Debug.Log(logBuilder);
+                AddLog($"Failed to start combat: initiator unit on {initiatorSlot} cannot initiate combat. ");
                 return false;
             }
 
-            logBuilder.AppendLine($"Found units on slots. Initiator: {initiatorUnit}, Responder: {responderUnit}");
+            if (!TryGetUnitAtSlot(battlefieldStorage, responderSlot, out _, out var responderUnit))
+            {
+                AddLog($"Failed to start combat: responder unit on {responderSlot} does not exist (null)");
+                return false;
+            }
 
-            Attack(initiatorUnit, responderUnit, logBuilder);
+            AddLog($"Found units on slots. Initiator: {initiatorUnit}, Responder: {responderUnit}");
+
+            Attack(initiatorUnit, responderUnit);
             if (IsUnitDead(responderUnit))
             {
-                logBuilder.AppendLine($"Responder has died, cannot counter attack");
-                eventTracker.AddEvent(new UnitDeathEventCommand(battlefieldStorage, responderSlot));
+                AddLog($"Responder has died, cannot counter attack");
+
+                PerformChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, responderSlot));
 
                 if (tryMoveAfterCombat)
                 {
                     // TODO: Let unit decide whether it should move after combat
-                    eventTracker.AddEvent(new MoveUnitEventCommand(
+                    PerformChildEventWithLog(new MoveUnitEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         initiatorSlot,
                         responderSlot,
-                        false,
-                        false
-                        ));
+                        null
+                    ));
                 }
             }
             else
             {
-                Attack(responderUnit, initiatorUnit, logBuilder);
+                Attack(responderUnit, initiatorUnit);
             }
             
             if (IsUnitDead(initiatorUnit))
             {
-                logBuilder.AppendLine($"Initiator has died");
-                eventTracker.AddEvent(new UnitDeathEventCommand(battlefieldStorage, initiatorSlot));
+                AddLog($"Initiator has died");
+                PerformChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, initiatorSlot));
             }
 
-            Debug.Log(logBuilder);
             return true;
         }
 
-        private void Attack(Unit attacker, Unit defender, StringBuilder logBuilder)
+        private void Attack(Unit attacker, Unit defender)
         {
-            logBuilder.AppendLine($"Attacker {attacker.Definition} has {attacker.Power} power, deals {attacker.Power} damage to defenders's {defender.Health} health");
+            AddLog($"Attacker {attacker.Definition} has {attacker.Power} power, deals {attacker.Power} damage to defenders's {defender.Health} health");
             defender.Health -= attacker.Power;
-            logBuilder.AppendLine($"Defender {defender.Definition} now at {defender.Health} health");
+            AddLog($"Defender {defender.Definition} now at {defender.Health} health");
         }
 
         private bool IsUnitDead(Unit unit)

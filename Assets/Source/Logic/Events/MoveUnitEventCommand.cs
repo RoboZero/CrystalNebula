@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using Source.Logic.Data;
-using Source.Utility;
-using UnityEngine;
 
 namespace Source.Logic.Events
 {
@@ -13,64 +11,57 @@ namespace Source.Logic.Events
         private BattlefieldStorage battlefieldStorage;
         private int fromSlot;
         private int toSlot;
-        private bool canSwitchPlacesOverride;
-        private bool canEngageCombatOverride;
+        private MoveUnitEventOverrides moveUnitEventOverrides;
         
         public MoveUnitEventCommand(
             EventTracker eventTracker,
             BattlefieldStorage battlefieldStorage,
             int fromSlot,
             int toSlot,
-            bool canSwitchPlacesOverride,
-            bool canEngageCombatOverride
+            MoveUnitEventOverrides moveUnitEventOverrides
         )
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
             this.fromSlot = fromSlot;
             this.toSlot = toSlot;
-            this.canSwitchPlacesOverride = canSwitchPlacesOverride;
-            this.canEngageCombatOverride = canEngageCombatOverride;
+            this.moveUnitEventOverrides = moveUnitEventOverrides;
         }
         
         public override bool Perform()
         {
-            var logBuilder = new StringBuilder();
-            logBuilder.AppendLine($"{ID} Moving unit from {fromSlot} to {toSlot} of {battlefieldStorage}");
+            AddLog($"Moving unit from {fromSlot} to {toSlot} of {battlefieldStorage}");
             
-            if (!battlefieldStorage.TryGetUnitAtSlot(fromSlot, logBuilder, out _, out var unit))
+            if (!TryGetUnitAtSlot(battlefieldStorage, fromSlot, out _, out var unit))
             {
-                logBuilder.AppendLine($"Failed to move unit from {fromSlot} to {toSlot}: unit at from slot does not exit");
-                Debug.Log(logBuilder);
+                AddLog($"Failed to move unit from {fromSlot} to {toSlot}: unit at from slot does not exit");
                 return false;
             }
 
-            if (battlefieldStorage.TryGetUnitAtSlot(toSlot, logBuilder, out _, out var otherUnit))
+            if (TryGetUnitAtSlot(battlefieldStorage, toSlot, out _, out var otherUnit))
             {
                 // TODO: Allow units to determine if able to switch
                 if (unit.OwnerId == otherUnit.OwnerId)
                 {
-                    if (!canSwitchPlacesOverride)
+                    if (moveUnitEventOverrides != null && !moveUnitEventOverrides.canSwitchPlacesOverride)
                     {
-                        logBuilder.AppendLine($"Failed to move unit from {fromSlot} to {toSlot}: friendly unit {otherUnit.Definition} on to spot and is not switching");
-                        Debug.Log(logBuilder);
+                        AddLog($"Failed to move unit from {fromSlot} to {toSlot}: friendly unit {otherUnit.Definition} on to spot and is not switching");
                         return false;
                     }
                 }
                 else
                 {
-                    if (!canEngageCombatOverride)
+                    if (moveUnitEventOverrides != null && !moveUnitEventOverrides.canEngageCombatOverride)
                     {
-                        logBuilder.AppendLine($"Failed to move unit from {fromSlot} to {toSlot}: enemy unit {otherUnit.Definition} on to slot and cannot engage combat");
-                        Debug.Log(logBuilder);
+                        AddLog($"Failed to move unit from {fromSlot} to {toSlot}: enemy unit {otherUnit.Definition} on to slot and cannot engage combat");
                         return false;
                     }
-                    
-                    eventTracker.AddEvent(new UnitCombatEventCommand(
+
+                    PerformChildEventWithLog(new UnitCombatEventCommand(
                         eventTracker,
-                        battlefieldStorage, 
-                        fromSlot, 
-                        toSlot, 
+                        battlefieldStorage,
+                        fromSlot,
+                        toSlot,
                         true
                     ));
 
@@ -78,11 +69,10 @@ namespace Source.Logic.Events
                 }
             }
 
-            logBuilder.AppendLine($"Successfully moved unit {unit.Definition} from {fromSlot} to {toSlot}");
+            AddLog($"Successfully moved unit {unit.Definition} from {fromSlot} to {toSlot}");
             battlefieldStorage.Items[toSlot] ??= new BattlefieldItem();
             battlefieldStorage.Items[toSlot].Unit = battlefieldStorage.Items[fromSlot].Unit;
             battlefieldStorage.Items[fromSlot].Unit = null;
-            Debug.Log(logBuilder);
             return true;
         }
     }

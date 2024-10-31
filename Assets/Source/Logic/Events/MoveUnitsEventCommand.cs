@@ -12,30 +12,26 @@ namespace Source.Logic.Events
         private BattlefieldStorage battlefieldStorage;
         private List<int> fromSlots;
         private List<int> toSlots;
-        private bool canSwitchPlacesOverride;
-        private bool canEngageCombatOverride;
+        private MoveUnitEventOverrides moveUnitEventOverrides;
         
         public MoveUnitsEventCommand(
             EventTracker eventTracker,
             BattlefieldStorage battlefieldStorage,
             List<int> fromSlots,
             List<int> toSlots,
-            bool canSwitchPlacesOverride,
-            bool canEngageCombatOverride
+            MoveUnitEventOverrides moveUnitEventOverrides
         )
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
             this.fromSlots = fromSlots;
             this.toSlots = toSlots;
-            this.canSwitchPlacesOverride = canSwitchPlacesOverride;
-            this.canEngageCombatOverride = canEngageCombatOverride;
+            this.moveUnitEventOverrides = moveUnitEventOverrides;
         }
         
         public override bool Perform()
         {
-            var logBuilder = new StringBuilder();
-            logBuilder.AppendLine($"{ID} Moving units from {fromSlots.ToItemString()} to {toSlots.ToItemString()} of {battlefieldStorage}");
+            AddLog($"Moving units from {fromSlots.ToItemString()} to {toSlots.ToItemString()} of {battlefieldStorage}");
 
             var success = true;
 
@@ -45,21 +41,25 @@ namespace Source.Logic.Events
                 
                 if (!toSlots.InBounds(index))
                 {
-                    logBuilder.AppendLine($"Failed to move unit from {fromSlot}: no associated to index.");
+                    AddLog($"Failed to move unit from {fromSlot}: no associated to index.");
                     success = false;
                     continue;
                 }
                 
                 var toSlot = toSlots[index];
-
-                var moveUnitEvent = new MoveUnitEventCommand(eventTracker, battlefieldStorage, fromSlot, toSlot, canSwitchPlacesOverride, canEngageCombatOverride);
-                var result = moveUnitEvent.Perform();
+                
+                var result = PerformChildEventWithLog(new MoveUnitEventCommand(
+                    eventTracker, 
+                    battlefieldStorage, 
+                    fromSlot, 
+                    toSlot, 
+                    moveUnitEventOverrides)
+                );
                 
                 if (result == false) 
                     success = false;
             }
-
-            Debug.Log(logBuilder);
+            
             return success;
         }
     }

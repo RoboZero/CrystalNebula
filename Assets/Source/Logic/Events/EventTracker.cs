@@ -11,9 +11,10 @@ namespace Source.Logic.Events
 
         public bool AddEvent(EventCommand eventCommand)
         {
-            Debug.Log($"Event Tracker added and performed event: {eventCommand}");
             eventCommands.Add(eventCommand);
-            return eventCommand.Perform();
+            var result = eventCommand.Perform();
+            Debug.Log($"Event Tracker added and performed event: {eventCommand} \n {eventCommand.GetLog()}");
+            return result;
         }
     }
 }

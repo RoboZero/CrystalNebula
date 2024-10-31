@@ -89,8 +89,7 @@ namespace Source.Interactions
                 battlefieldStorageBehavior.State,
                 interactedSlots[0],
                 hoveredSlots[0],
-                false,
-                true
+                null
             ));
         }
     }
