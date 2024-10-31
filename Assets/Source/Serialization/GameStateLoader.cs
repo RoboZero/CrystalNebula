@@ -22,7 +22,7 @@ namespace Source.Serialization
             Load(gameStateJsonAsset);
         }
 
-        private void Load(TextAsset gameStateJsonAsset)
+        public void Load(TextAsset gameStateJsonAsset)
         { 
             gameData = jsonDataService.LoadData<GameData>(Encoding.UTF8.GetBytes(gameStateJsonAsset.text), false);
             var converter = new GameDataConverter();
