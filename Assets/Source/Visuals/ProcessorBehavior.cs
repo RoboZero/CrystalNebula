@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Source.Logic;
 using Source.Logic.Events;
 using Source.Serialization;
-using Source.Serialization.Data;
-using Source.Utility;
 using Source.Visuals.LineStorage;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Source.Visuals
 {
@@ -19,10 +20,10 @@ namespace Source.Visuals
         [SerializeField] private GameStateLoader gameStateLoader;
         [SerializeField] private ProcessorStorageBehavior processorStorageBehavior;
         [SerializeField] private EventTracker eventTracker;
-
-        [Header("Settings")]
-        [SerializeField] private int playerID = 0;
-        [SerializeField] private int processorIndex = 0;
+        
+        [SerializeField] private TextMeshProUGUI clockSpeedText;
+        [SerializeField] private Image flashingPanel;
+        [SerializeField] private Gradient flashingPanelGradient;
 
         private float time;
 
@@ -35,7 +36,10 @@ namespace Source.Visuals
                 Debug.LogWarning("Processor Behavior's processor is null");
                 return;
             }
-            
+
+            clockSpeedText.text = processor.ClockSpeed.ToString(CultureInfo.InvariantCulture);
+            flashingPanel.color = flashingPanelGradient.Evaluate(time / processor.ClockSpeed);
+
             time += Time.deltaTime;
             if (time >= processor.ClockSpeed)
             {

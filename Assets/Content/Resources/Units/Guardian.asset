@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: d7280cfe630323d419c1995671ed82b6
   description: 
+  memoryBackgroundIcon: {fileID: 0}
   Sprite: {fileID: 1116579199, guid: b83ea8ad3494ce0438f38cedffd2d653, type: 3}
-  Name: Guardian
+  UnitName: Guardian
   Abbreviation: Guard
-  BaseHealth: 4
+  BaseHealth: 5
   BasePower: 1

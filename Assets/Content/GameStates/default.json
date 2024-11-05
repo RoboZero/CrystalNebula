@@ -13,9 +13,9 @@
             "Length": 1,
             "Items": [
               {
-                "Length": 0,
+                "Location": 0,
                 "Memory": {
-                  "OwnerId": 0,
+                  "OwnerId": 1,
                   "Definition": "Programs/Build",
                   "Progress": 0
                 }
@@ -30,7 +30,7 @@
           {
             "Location": 0,
             "Memory": {
-              "OwnerId": 0,
+              "OwnerId": 1,
               "Definition": "Programs/Build",
               "Progress": 0
             }
@@ -38,7 +38,7 @@
           {
             "Location": 1,
             "Memory": {
-              "OwnerId": 0,
+              "OwnerId": 1,
               "Definition": "Programs/Research",
               "Progress": 0
             }
@@ -46,7 +46,7 @@
           {
             "Location": 2,
             "Memory": {
-              "OwnerId": 0,
+              "OwnerId": 1,
               "Definition": "Programs/Research",
               "Progress": 0
             }
@@ -59,7 +59,7 @@
           {
             "Location": 2,
             "Memory": {
-              "OwnerId": 0,
+              "OwnerId": 1,
               "Definition": "Programs/Build",
               "Progress": 0
             }
@@ -67,7 +67,7 @@
           {
             "Location": 4,
             "Memory": {
-              "OwnerId": 0,
+              "OwnerId": 1,
               "Definition": "Programs/Research",
               "Progress": 0
             }

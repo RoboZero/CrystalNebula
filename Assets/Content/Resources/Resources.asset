@@ -19,12 +19,12 @@ MonoBehaviour:
     Resource: {fileID: 11400000, guid: cbc7fdc9af72236418cdc29da078a114, type: 2}
   - Definition: Buildings/Flag
     Resource: {fileID: 11400000, guid: a1f05ba9396dcad47808008ca2119113, type: 2}
-  - Definition: Programs/Blank
-    Resource: {fileID: 11400000, guid: 4672ce53622d35c47ac7deae915afc4f, type: 2}
   - Definition: Programs/Build
-    Resource: {fileID: 11400000, guid: 88aed4bdba825bc4ab03a5ef608384ed, type: 2}
+    Resource: {fileID: 11400000, guid: aea579a70ada0fe46887dd12e1f666e9, type: 2}
+  - Definition: Programs/EmptySlot
+    Resource: {fileID: 11400000, guid: f3fe046630acce646a92a9fa5feb971e, type: 2}
   - Definition: Programs/Research
-    Resource: {fileID: 11400000, guid: 8b53a7fe70aaab54a9679b01fcbf5458, type: 2}
+    Resource: {fileID: 11400000, guid: 0735d92f6b530e3479becd128bc6c4b7, type: 2}
   - Definition: Units/Guardian
     Resource: {fileID: 11400000, guid: d7280cfe630323d419c1995671ed82b6, type: 2}
   - Definition: Units/Hornet

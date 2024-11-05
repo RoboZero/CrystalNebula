@@ -9,7 +9,9 @@ namespace Source.Visuals.LineStorage
     public class LineGemItemVisual : StandardInteractableVisual
     {
         [Header("Dependencies")]
-        [SerializeField] private Image iconImage;
+        [SerializeField] private Image progressImage;
+        [SerializeField] private Image backgroundImage;
+        [SerializeField] private Image foregroundImage;
         
         private GameResources gameResources;
         private LineItem trackedItem;
@@ -51,31 +53,42 @@ namespace Source.Visuals.LineStorage
             switch (CurrentVisualState)
             {
                 case InteractVisualState.None:
-                    iconImage.color = Color.white; 
+                    backgroundImage.color = Color.white; 
                     break;
                 case InteractVisualState.Hovered:
-                    iconImage.color = Color.yellow;
+                    backgroundImage.color = Color.yellow;
                     break;
                 case InteractVisualState.Selected:
-                    iconImage.color = Color.blue;
+                    backgroundImage.color = Color.blue;
                     break;
             }
         }
         
         private void SetVisualToItem(LineItem item)
         {
-            iconImage.gameObject.SetActive(false);
+            backgroundImage.gameObject.SetActive(false);
 
             if (gameResources == null) return;
             
             if (item != null && item.Memory != null && memoryDataSO != null)
             {
-                iconImage.sprite = memoryDataSO.MemoryBackgroundIcon;
-                iconImage.gameObject.SetActive(true);
+                backgroundImage.sprite = memoryDataSO.MemoryBackgroundIcon;
+                backgroundImage.gameObject.SetActive(true);
+
+                if (memoryDataSO.MemoryForegroundIcon != null)
+                {
+                    foregroundImage.sprite = memoryDataSO.MemoryForegroundIcon;
+                    foregroundImage.gameObject.SetActive(true);
+                }
+
+                progressImage.fillAmount = ((float) item.Memory.CurrentProgress) / item.Memory.MaxProgress;
+                progressImage.gameObject.SetActive(true);
             } else if(emptyGemSO != null)
             {
-                iconImage.sprite = emptyGemSO.MemoryBackgroundIcon;
-                iconImage.gameObject.SetActive(true);
+                backgroundImage.sprite = emptyGemSO.MemoryBackgroundIcon;
+                backgroundImage.gameObject.SetActive(true);
+                foregroundImage.gameObject.SetActive(false);
+                progressImage.gameObject.SetActive(false);
             }
         }
     }
