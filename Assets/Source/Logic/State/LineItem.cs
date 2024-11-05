@@ -1,6 +1,6 @@
 using System;
 
-namespace Source.Logic.Data
+namespace Source.Logic.State
 {
     [Serializable]
     public class LineItem : DataItem

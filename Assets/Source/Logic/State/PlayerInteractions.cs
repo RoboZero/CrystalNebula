@@ -2,7 +2,7 @@ using Source.Interactions;
 using Source.Utility;
 using UnityEngine;
 
-namespace Source.Logic.Data
+namespace Source.Logic.State
 {
     public class PlayerInteractions : MonoBehaviour
     {

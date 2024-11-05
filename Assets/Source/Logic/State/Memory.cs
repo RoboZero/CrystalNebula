@@ -1,12 +1,13 @@
 using System;
 
-namespace Source.Logic.Data
+namespace Source.Logic.State
 {
     [Serializable]
     public class Memory
     {
         public int OwnerId;
         public string Definition;
-        public int Progress;
+        public int CurrentProgress;
+        public int MaxProgress;
     }
 }
