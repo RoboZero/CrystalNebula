@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Source.Logic.State;
+﻿using Source.Logic.State;
 using Source.Serialization.Data;
 
 namespace Source.Serialization

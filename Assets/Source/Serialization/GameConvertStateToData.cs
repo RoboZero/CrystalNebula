@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Source.Logic.State;
+using Source.Logic.State.LineItems;
 using Source.Serialization.Data;
 
 namespace Source.Serialization
@@ -9,7 +10,7 @@ namespace Source.Serialization
     {
         public GameData Convert(GameState gameState)
         {
-            var players = gameState.Players.Select(ConvertPlayer).ToList();
+            var players = gameState.Players.Select(pair => ConvertPlayer(pair.Value)).ToList();
 
             var gameData = new GameData
             {

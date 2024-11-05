@@ -1,5 +1,4 @@
 using Source.Logic;
-using Source.Logic.Data;
 using Source.Logic.State;
 using Source.Serialization;
 using Source.Utility;
@@ -11,7 +10,13 @@ namespace Source.Visuals.LineStorage
     {
         protected override void UpdateStorageFromState(GameState gameState)
         {
-            var memoryStorageState = gameState.Players[playerId].MemoryStorage;
+            if (!gameState.Players.ContainsKey(playerID))
+            {
+                Debug.LogWarning($"Failed to read from memory storage: playerId {playerID} is invalid, gamestate players count {gameState.Players.Count}");
+                return;
+            }
+            
+            var memoryStorageState = gameState.Players[playerID].MemoryStorage;
             itemStorageSize = memoryStorageState.Length;
             state = memoryStorageState;
         }

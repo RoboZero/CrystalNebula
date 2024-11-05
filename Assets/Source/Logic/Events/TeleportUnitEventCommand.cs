@@ -1,8 +1,9 @@
 ﻿using Source.Logic.State;
+using UnityEngine;
 
 namespace Source.Logic.Events
 {
-    public class MoveUnitEventCommand : EventCommand
+    public class TeleportUnitEventCommand : EventCommand
     {
         private EventTracker eventTracker;
         private BattlefieldStorage battlefieldStorage;
@@ -13,7 +14,7 @@ namespace Source.Logic.Events
         private Unit fromUnit;
         private BattlefieldItem fromItem;
         
-        public MoveUnitEventCommand(
+        public TeleportUnitEventCommand(
             EventTracker eventTracker,
             BattlefieldStorage battlefieldStorage,
             int fromSlot,
@@ -28,7 +29,7 @@ namespace Source.Logic.Events
             this.moveUnitEventOverrides = moveUnitEventOverrides;
         }
         
-        public MoveUnitEventCommand(
+        public TeleportUnitEventCommand(
             EventTracker eventTracker,
             BattlefieldStorage battlefieldStorage,
             Unit fromUnit,
@@ -45,25 +46,29 @@ namespace Source.Logic.Events
 
         public override bool Perform()
         {
-            AddLog($"Moving unit from {fromSlot} to {toSlot} of {battlefieldStorage}");
+            AddLog($"{nameof(TeleportUnitEventCommand)}: Moving unit from {fromSlot} to {toSlot} of {battlefieldStorage}");
+            var failPrefix = $"Failed to move unit from {fromSlot} to {toSlot}: ";
 
             if (fromUnit == null)
             {
                 if (!TryGetUnitAtSlot(battlefieldStorage, fromSlot, out fromItem, out fromUnit))
                 {
-                    AddLog($"Failed to move unit from {fromSlot} to {toSlot}: unit at from slot does not exit");
+                    AddLog(failPrefix + "unit at from slot does not exit");
                     return false;
                 }
             }
+            
+            failPrefix = $"Failed to move unit {fromUnit} from {fromSlot} to {toSlot}: ";
 
-            if (TryGetUnitAtSlot(battlefieldStorage, toSlot, out var toItem, out var otherUnit))
+            if (TryGetUnitAtSlot(battlefieldStorage, toSlot, out var toItem, out var otherUnit) && otherUnit != null)
             {
+                AddLog($"To slot {toSlot}, To item: {toItem}, Other unit {otherUnit}, battlefield item {battlefieldStorage.Items[toSlot]}");
                 if (fromUnit.OwnerId == otherUnit.OwnerId)
                 {
                     if (!fromUnit.CanSwitchPlaces &&
                         (moveUnitEventOverrides == null || !moveUnitEventOverrides.canSwitchPlacesOverride))
                     {
-                        AddLog($"Failed to move unit from {fromSlot} to {toSlot}: friendly unit {otherUnit.Definition} on to spot and is not switching");
+                        AddLog(failPrefix + $"friendly unit {otherUnit} on to spot and is not switching");
                         return false;
                     }
                     
@@ -79,29 +84,27 @@ namespace Source.Logic.Events
                     if (!fromUnit.CanEngageCombat &&
                         (moveUnitEventOverrides == null || !moveUnitEventOverrides.canEngageCombatOverride))
                     {
-                        AddLog($"Failed to move unit from to {toSlot}: enemy unit {otherUnit.Definition} on to slot and cannot engage combat");
+                        AddLog(failPrefix + $"enemy unit {otherUnit} on to slot and cannot engage combat");
                         return false;
                     }
 
-                    PerformChildEventWithLog(new UnitCombatEventCommand(
+                    return PerformChildEventWithLog(new UnitCombatEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         fromSlot,
                         toSlot,
                         true
                     ));
-
-                    return true;
                 }
             }
 
             if (toItem == null)
             {
-                AddLog($"Failed to move unit from {fromSlot} to {toSlot}: to slot does not exist");
+                AddLog(failPrefix + $" to slot does not exist");
                 return false;
             }
 
-            AddLog($"Successfully moved unit {fromUnit.Definition} from {fromSlot} to {toSlot}");
+            AddLog($"Successfully moved unit {fromUnit} from {fromSlot} to {toSlot}");
             toItem.Unit = fromUnit;
             
             if (fromItem != null)

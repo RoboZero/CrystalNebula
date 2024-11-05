@@ -1,7 +1,5 @@
-using System;
 using Source.Interactions;
-using Source.Logic;
-using Source.Logic.Data;
+using Source.Logic.State.LineItems;
 using Source.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,16 +13,16 @@ namespace Source.Visuals.LineStorage
         
         private GameResources gameResources;
         private LineItem trackedItem;
-        private LineDataSO lineDataSo;
+        private MemoryDataSO memoryDataSO;
 
-        private LineDataSO blankGemSO;
+        private MemoryDataSO emptyGemSO;
 
         private void Start()
         {
             if (gameResources != null)
             {
-                var blankSprite = GameResources.BuildDefinitionPath("Programs", "Blank");
-                gameResources.TryLoadAsset(this, blankSprite, out blankGemSO);
+                var emptySprite = GameResources.BuildDefinitionPath(GameResourceConstants.PROGRAMS_PATH, GameResourceConstants.EMPTY_MEMORY_DATA_DEFINITION);
+                gameResources.TryLoadAsset(this, emptySprite, out emptyGemSO);
             }
         }
 
@@ -39,7 +37,7 @@ namespace Source.Visuals.LineStorage
             {
                 if (item.Memory != null && item.Memory.Definition != null)
                 {
-                    gameResources.TryLoadAsset(this, item.Memory.Definition, out lineDataSo);
+                    gameResources.TryLoadAsset(this, item.Memory.Definition, out memoryDataSO);
                 }
             }
             
@@ -70,13 +68,13 @@ namespace Source.Visuals.LineStorage
 
             if (gameResources == null) return;
             
-            if (item != null && item.Memory != null && lineDataSo != null)
+            if (item != null && item.Memory != null && memoryDataSO != null)
             {
-                iconImage.sprite = lineDataSo.Icon;
+                iconImage.sprite = memoryDataSO.MemoryBackgroundIcon;
                 iconImage.gameObject.SetActive(true);
-            } else if(blankGemSO != null)
+            } else if(emptyGemSO != null)
             {
-                iconImage.sprite = blankGemSO.Icon;
+                iconImage.sprite = emptyGemSO.MemoryBackgroundIcon;
                 iconImage.gameObject.SetActive(true);
             }
         }

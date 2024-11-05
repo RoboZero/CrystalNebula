@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Newtonsoft.Json;
 using Source.Logic.State;
 using Source.Serialization.Data;
 using UnityEngine;
@@ -29,7 +30,8 @@ namespace Source.Serialization
             var converter = new GameDataConverter();
             gameState = converter.Convert(gameData, gameResources);
             
-            Debug.Log($"Game state: {gameData}");
+            Debug.Log($"Game data: {gameData}");
+            Debug.Log($"Game state: {JsonConvert.SerializeObject(gameState)}");
         }
         
         public void Load(string relativePath)

@@ -62,7 +62,7 @@ namespace Source.Logic.Events
                 if (tryMoveAfterCombat)
                 {
                     // TODO: Let unit decide whether it should move after combat
-                    PerformChildEventWithLog(new MoveUnitEventCommand(
+                    PerformChildEventWithLog(new TeleportUnitEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         initiatorSlot,

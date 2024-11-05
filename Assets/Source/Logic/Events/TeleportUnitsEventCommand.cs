@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Source.Logic.Events
 {
-    public class MoveUnitsEventCommand : EventCommand
+    public class TeleportUnitsEventCommand : EventCommand
     {
         private EventTracker eventTracker;
         private BattlefieldStorage battlefieldStorage;
@@ -17,7 +17,7 @@ namespace Source.Logic.Events
 
         private List<FromData> fromData = new();
 
-        public MoveUnitsEventCommand(
+        public TeleportUnitsEventCommand(
             EventTracker eventTracker,
             BattlefieldStorage battlefieldStorage,
             List<int> fromSlots,
@@ -67,7 +67,7 @@ namespace Source.Logic.Events
             {
                 var toSlot = toSlots[from.FromSlotsIndex];
 
-                var result = PerformChildEventWithLog(new MoveUnitEventCommand(
+                var result = PerformChildEventWithLog(new TeleportUnitEventCommand(
                     eventTracker, 
                     battlefieldStorage, 
                     from.Unit, 

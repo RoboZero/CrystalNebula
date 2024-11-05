@@ -1,7 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Source.Logic.State;
+using Source.Logic.State.LineItems;
 using Source.Serialization.Data;
+using Source.Visuals.Battlefield;
+using Source.Visuals.LineStorage;
+using UnityEngine;
 
 namespace Source.Serialization
 {
@@ -19,11 +23,17 @@ namespace Source.Serialization
         {
             var players = gameData.Players.Select(ConvertPlayer).ToList();
 
+            var playerDictionary = new Dictionary<int, Player>();
+            foreach (var player in players)
+            {
+                playerDictionary.Add(player.Id, player);
+            }
+            
             var gameState = new GameState
             {
                 Level = ConvertLevel(gameData.Level),
                 BattlefieldStorage = ConvertBattlefieldStorage(gameData.BattlefieldStorage),
-                Players = players
+                Players = playerDictionary
             };
             return gameState;
         }
@@ -40,6 +50,11 @@ namespace Source.Serialization
         {
             var battlefieldItems = new List<BattlefieldItem>(new BattlefieldItem[battlefieldStorage.Length]);
 
+            for (var i = 0; i < battlefieldStorage.Length; i++)
+            {
+                battlefieldItems[i] = new BattlefieldItem();
+            }
+            
             foreach (var item in battlefieldStorage.Items)
             {
                 battlefieldItems[item.Location] = ConvertBattlefieldItem(item);
@@ -105,16 +120,18 @@ namespace Source.Serialization
 
             foreach (var storedItem in lineStorage.Items)
             {
-                diskStorageItems[storedItem.Location] = new LineItem()
+                if (gameResources.TryLoadAsset(this, storedItem.Memory.Definition, out MemoryDataSO memoryDataSO))
                 {
-                    Description = storedItem.Description,
-                    Memory = new Memory()
+                    diskStorageItems[storedItem.Location] = new LineItem()
                     {
-                        OwnerId = storedItem.Memory.OwnerId,
-                        Definition = storedItem.Memory.Definition,
-                        CurrentProgress = storedItem.Memory.Progress
-                    }
-                };
+                        Description = storedItem.Description,
+                        Memory = memoryDataSO.CreateMemoryInstance(storedItem.Memory),
+                    };
+                }
+                else
+                {
+                    Debug.LogError($"Unable to load {nameof(memoryDataSO)} asset for stored data item: {storedItem}");
+                }
             }
 
             return new LineStorage()

@@ -1,4 +1,6 @@
-﻿namespace Source.Logic.State
+﻿using Source.Logic.State.LineItems;
+
+namespace Source.Logic.State
 {
     public class Processor
     {

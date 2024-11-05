@@ -57,7 +57,7 @@ namespace Source.Logic.Events
                     {
                         var fromSlot = fromSlots[i];
                         var toSlot = toSlots[i];
-                        var result = PerformChildEventWithLog(new MoveUnitEventCommand(
+                        var result = PerformChildEventWithLog(new TeleportUnitEventCommand(
                                 eventTracker,
                                 battlefieldStorage,
                                 fromSlot,
@@ -76,7 +76,7 @@ namespace Source.Logic.Events
                     {
                         var fromSlot = fromSlots[i];
                         var toSlot = toSlots[i];
-                        var result = PerformChildEventWithLog(new MoveUnitEventCommand(
+                        var result = PerformChildEventWithLog(new TeleportUnitEventCommand(
                                 eventTracker,
                                 battlefieldStorage,
                                 fromSlot,

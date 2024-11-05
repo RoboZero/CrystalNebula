@@ -100,11 +100,6 @@ namespace Source.Logic.Events
                 return false;
             }
 
-            if(battlefieldStorage.Items[slot] == null){
-                AddLog("Battlefield item at slot does not exist, creating");
-                battlefieldStorage.Items[slot] = new BattlefieldItem();
-            }
-
             item = battlefieldStorage.Items[slot];
             return true;
         }

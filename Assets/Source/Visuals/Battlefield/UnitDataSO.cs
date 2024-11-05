@@ -1,15 +1,25 @@
 using Source.Logic;
-using Source.Logic.Data;
+using Source.Logic.State;
+using Source.Logic.State.LineItems;
+using Source.Logic.State.LineItems.Units;
+using Source.Serialization.Data;
 using Source.Utility;
+using Source.Visuals.LineStorage;
 using UnityEngine;
 
 namespace Source.Visuals.Battlefield
 {
     [CreateAssetMenu(fileName = "UnitName", menuName = "Game/Unit")]
-    public class UnitDataSO : DescriptionBaseSO
+    public class UnitDataSO : MemoryDataSO
     {
+        public override Sprite MemoryBackgroundIcon => memoryBackgroundIcon;
+        public override Sprite MemoryForegroundIcon => Sprite;
+        public override string MemoryName => UnitName;
+
+        [SerializeField] private Sprite memoryBackgroundIcon;
+        
         public Sprite Sprite;
-        public string Name;
+        public string UnitName;
         public string Abbreviation;
         public int BaseHealth = 3;
         public int BasePower = 1;
@@ -22,6 +32,17 @@ namespace Source.Visuals.Battlefield
                 OwnerId = ownerId,
                 Health = BaseHealth,
                 Power = BasePower
+            };
+        }
+        
+        public override Memory CreateMemoryInstance(MemoryData memoryData)
+        {
+            return new UnitLineItem()
+            {
+                OwnerId = memoryData.OwnerId,
+                Definition = memoryData.Definition,
+                CurrentProgress = memoryData.Progress,
+                MaxProgress = -1,
             };
         }
     }

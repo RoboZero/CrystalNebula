@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Source.Input;
 using Source.Logic;
-using Source.Logic.Data;
 using Source.Logic.Events;
 using Source.Logic.State;
 using Source.Serialization;
@@ -84,7 +83,7 @@ namespace Source.Interactions
 
             if (interactedSlots.Count <= 0 || hoveredSlots.Count <= 0) return;
             
-            eventTracker.AddEvent(new MoveUnitEventCommand(
+            eventTracker.AddEvent(new TeleportUnitEventCommand(
                 eventTracker,
                 battlefieldStorageBehavior.State,
                 interactedSlots[0],

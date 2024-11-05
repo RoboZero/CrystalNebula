@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Source.Logic;
-using Source.Logic.Data;
 using Source.Logic.Events;
 using Source.Serialization;
 using Source.Serialization.Data;
+using Source.Utility;
+using Source.Visuals.LineStorage;
 using UnityEngine;
 
 namespace Source.Visuals
@@ -16,50 +17,39 @@ namespace Source.Visuals
     {
         [Header("Dependencies")]
         [SerializeField] private GameStateLoader gameStateLoader;
+        [SerializeField] private ProcessorStorageBehavior processorStorageBehavior;
         [SerializeField] private EventTracker eventTracker;
 
+        [Header("Settings")]
+        [SerializeField] private int playerID = 0;
+        [SerializeField] private int processorIndex = 0;
+
         private float time;
-        
+
         private void Update()
         {
-            var processor = gameStateLoader.GameState.Players[0].Processors[0];
+            var processor = processorStorageBehavior.Processor;
 
-            int ownerId = 1;
-
-            time += Time.deltaTime;
-            if (time >= 3)
+            if (processor == null)
             {
-                var battlefield = gameStateLoader.GameState.BattlefieldStorage;
-                
-                /*
-                    battlefield.Items.Insert(index, new BattlefieldItem());
-                 */
-
-                StringBuilder logBuilder = new StringBuilder();
-
-                var fromSlots = new List<int>();
-                for (var index = 0; index < battlefield.Items.Count; index++)
+                Debug.LogWarning("Processor Behavior's processor is null");
+                return;
+            }
+            
+            time += Time.deltaTime;
+            if (time >= processor.ClockSpeed)
+            {
+                foreach (var lineItem in processorStorageBehavior.State.Items)
                 {
-                    var item = battlefield.Items[index];
-                    if (item != null && item.Unit != null)
+                    if (lineItem.Memory != null)
                     {
-                        if (item.Unit.OwnerId == ownerId)
-                        {
-                            fromSlots.Add(index);
-                        }
+                        lineItem.Memory.Tick(eventTracker, gameStateLoader.GameState);
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Line item {lineItem} memory is null");
                     }
                 }
-
-                eventTracker.AddEvent(new MoveUnitsInDirectionEventCommand(
-                    eventTracker,
-                    battlefield,
-                    fromSlots,
-                    MoveUnitsInDirectionEventCommand.Direction.Right,
-                    2,
-                    null
-                ));
-
-
                 time = 0;
             }
         }

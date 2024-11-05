@@ -9,7 +9,7 @@ namespace Source.Serialization.Samples
         {
             Level = new LevelData
             {
-                Definition = GameResources.BuildDefinitionPath("Levels","Level1")
+                Definition = GameResources.BuildDefinitionPath(GameResourceConstants.LEVELS_PATH,"Level1")
             },
             Players = new List<PlayerData>
             {
@@ -33,7 +33,7 @@ namespace Source.Serialization.Samples
                                         Memory = new MemoryData
                                         {
                                             OwnerId = 0,
-                                            Definition = GameResources.BuildDefinitionPath("Programs","Build"),
+                                            Definition = GameResources.BuildDefinitionPath(GameResourceConstants.PROGRAMS_PATH,"Build"),
                                             Progress = 0
                                         }
                                     },
@@ -52,7 +52,7 @@ namespace Source.Serialization.Samples
                                 Memory = new MemoryData
                                 {
                                     OwnerId = 0,
-                                    Definition = GameResources.BuildDefinitionPath("Programs","Build"),
+                                    Definition = GameResources.BuildDefinitionPath(GameResourceConstants.PROGRAMS_PATH,"Build"),
                                     Progress = 0
                                 }
                             },
@@ -62,7 +62,7 @@ namespace Source.Serialization.Samples
                                 Memory = new MemoryData
                                 {
                                     OwnerId = 0,
-                                    Definition = GameResources.BuildDefinitionPath("Programs","Research"),
+                                    Definition = GameResources.BuildDefinitionPath(GameResourceConstants.PROGRAMS_PATH,"Research"),
                                     Progress = 0
                                 }
                             }
@@ -79,7 +79,7 @@ namespace Source.Serialization.Samples
                                 Memory = new MemoryData
                                 {
                                     OwnerId = 0,
-                                    Definition = GameResources.BuildDefinitionPath("Programs","Build"),
+                                    Definition = GameResources.BuildDefinitionPath(GameResourceConstants.PROGRAMS_PATH,"Build"),
                                     Progress = 0
                                 }
                             },
@@ -89,7 +89,7 @@ namespace Source.Serialization.Samples
                                 Memory = new MemoryData
                                 {
                                     OwnerId = 0,
-                                    Definition = GameResources.BuildDefinitionPath("Programs","Research"),
+                                    Definition = GameResources.BuildDefinitionPath(GameResourceConstants.PROGRAMS_PATH,"Research"),
                                     Progress = 0
                                 }
                             }
@@ -108,12 +108,12 @@ namespace Source.Serialization.Samples
                         Building = new BuildingData
                         {
                             OwnerId = 0,
-                            Definition = GameResources.BuildDefinitionPath("Buildings", "Flag"),
+                            Definition = GameResources.BuildDefinitionPath(GameResourceConstants.BUILDINGS_PATH, "Flag"),
                         },
                         Unit = new UnitData
                         {
                             OwnerId = 0,
-                            Definition = GameResources.BuildDefinitionPath("Units", "Guardian"),
+                            Definition = GameResources.BuildDefinitionPath(GameResourceConstants.UNITS_PATH, "Guardian"),
                         }
                     }
                 }

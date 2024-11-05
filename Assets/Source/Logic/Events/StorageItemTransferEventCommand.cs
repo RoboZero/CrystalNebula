@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Source.Interactions;
 using Source.Logic.State;
+using Source.Logic.State.LineItems;
 using UnityEngine;
 
 namespace Source.Logic.Events
