@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Source.Interactions;
+using Source.Logic.State;
+using Source.Logic.State.LineItems;
 using UnityEngine;
 
 namespace Source.Logic.Events
@@ -27,11 +29,11 @@ namespace Source.Logic.Events
 
         public override bool Perform()
         {
-            Debug.Log($"Starting transfer of {fromSlots.Count} slots to {toSlots.Count} slots");
+            AddLog($"Starting transfer of {fromSlots.Count} slots to {toSlots.Count} slots");
 
             if (fromSlots.Count > toSlots.Count)
             {
-                Debug.Log("There are more from slots than to slots, cannot transfer. Exiting");
+                AddLog("There are more from slots than to slots, cannot transfer. Exiting");
                 return false;
             }
             
@@ -45,8 +47,8 @@ namespace Source.Logic.Events
                     toStorage.GetItemSlotReference(toSlots[i], out var toSlot))
                 {
                     toSlot.Item = fromSlot.Item;
-                    fromSlot.Item = null;
-                    Debug.Log($"Transferred slot {fromSlots[i]} to slot {toSlots[i]}");
+                    fromSlot.Item = null; 
+                    AddLog($"Transferred slot {fromSlots[i]} to slot {toSlots[i]}");
                 }
                 else
                 {

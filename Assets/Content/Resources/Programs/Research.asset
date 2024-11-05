@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90eed9c269fe4c5c9f5dba3d12298cd4, type: 3}
+  m_Script: {fileID: 11500000, guid: addadbdfb26c4b399156e139d97db7ca, type: 3}
   m_Name: Research
   m_EditorClassIdentifier: 
-  guid: 8b53a7fe70aaab54a9679b01fcbf5458
+  guid: 0735d92f6b530e3479becd128bc6c4b7
   description: 
-  Icon: {fileID: 21300000, guid: 183f557c46160684eb0829e3a523035f, type: 3}
-  Name: Research
+  memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
+  memoryForegroundIcon: {fileID: 21300000, guid: 8ab9772a0113ae9488292c792c92dace, type: 3}
+  memoryName: Research
+  MaxProgress: 3

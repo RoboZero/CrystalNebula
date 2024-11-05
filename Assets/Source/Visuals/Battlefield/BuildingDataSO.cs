@@ -1,5 +1,5 @@
 using Source.Logic;
-using Source.Logic.Data;
+using Source.Logic.State;
 using Source.Utility;
 using UnityEngine;
 
@@ -10,6 +10,7 @@ namespace Source.Visuals.Battlefield
     {
         public Sprite Sprite;
         public string Name;
+        public string Abbreviation;
         public int BaseHealth;
         public int BasePower;
 

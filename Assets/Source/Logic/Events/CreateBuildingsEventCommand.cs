@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Source.Logic.Data;
+using Source.Logic.State;
 using Source.Utility;
 using UnityEngine;
 
@@ -29,15 +29,14 @@ namespace Source.Logic.Events
 
         public override bool Perform()
         {
-            var logBuilder = new StringBuilder();
-            logBuilder.AppendLine($"{ID} Creating buildings of type {building.Definition} in slots {slots.ToItemString()} of {battlefieldStorage}");
+            AddLog($"{ID} Creating buildings of type {building.Definition} in slots {slots.ToItemString()} of {battlefieldStorage}");
 
             var success = true;
             foreach (var slot in slots)
             {
                 if (slot < 0 || slot >= battlefieldStorage.Items.Count)
                 {
-                    logBuilder.AppendLine($"Failed to create unit of type {building.Definition} in slot {slot} of {battlefieldStorage}: slot {slot} out of battlefield index bounds {battlefieldStorage.Items.Count}");
+                    AddLog($"Failed to create unit of type {building.Definition} in slot {slot} of {battlefieldStorage}: slot {slot} out of battlefield index bounds {battlefieldStorage.Items.Count}");
                     success = false;
                     continue;
                 }
@@ -45,16 +44,15 @@ namespace Source.Logic.Events
                 battlefieldStorage.Items[slot] ??= new BattlefieldItem();
                 if (!forceIfOccupied && battlefieldStorage.Items[slot].Unit != null)
                 {
-                    logBuilder.AppendLine($"Failed to create unit of type {building.Definition} in slot {slot} of {battlefieldStorage}: slot is occupied by {battlefieldStorage.Items[slot].Building.Definition}");
+                    AddLog($"Failed to create unit of type {building.Definition} in slot {slot} of {battlefieldStorage}: slot is occupied by {battlefieldStorage.Items[slot].Building.Definition}");
                     success = false;
                     continue;
                 }
                 
                 battlefieldStorage.Items[slot].Building = building;
-                logBuilder.AppendLine($"Successfully created building of type {building.Definition} in slot {slot} of {battlefieldStorage}");
+                AddLog($"Successfully created building of type {building.Definition} in slot {slot} of {battlefieldStorage}");
             }
             
-            Debug.Log(logBuilder);
             return success;
         }
     }
