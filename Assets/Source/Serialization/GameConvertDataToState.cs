@@ -98,10 +98,10 @@ namespace Source.Serialization
             return new Player()
             {
                 Id = playerData.Id,
-                PersonalStorage = ConvertLineStorage(playerData.PersonalStorage),
+                PersonalStorage = ConvertLineStorage("Personal", playerData.PersonalStorage),
                 Processors = processors,
-                DiskStorage = ConvertLineStorage(playerData.DiskStorage),
-                MemoryStorage = ConvertLineStorage(playerData.MemoryStorage)
+                MemoryStorage = ConvertLineStorage("Memory", playerData.MemoryStorage),
+                DiskStorage = ConvertLineStorage("Disk", playerData.DiskStorage),
             };
         }
 
@@ -110,12 +110,12 @@ namespace Source.Serialization
             return new Processor()
             {
                 Definition = processorData.Definition,
-                ProcessorStorage = ConvertLineStorage(processorData.ProcessorStorage),
+                ProcessorStorage = ConvertLineStorage("Processor", processorData.ProcessorStorage),
                 ClockSpeed = processorData.ClockSpeed,
             };
         }
 
-        private LineStorage ConvertLineStorage(LineStorageData lineStorage)
+        private LineStorage ConvertLineStorage(string storageName, LineStorageData lineStorage)
         {
             var diskStorageItems = new List<LineItem>(new LineItem[lineStorage.Length]);
 
@@ -137,6 +137,7 @@ namespace Source.Serialization
 
             return new LineStorage()
             {
+                StorageName = storageName,
                 Length = lineStorage.Length,
                 Items = diskStorageItems
             };

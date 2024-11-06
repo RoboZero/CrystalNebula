@@ -12,9 +12,15 @@ namespace Source.Visuals.LineStorage
         [SerializeField] private Image progressImage;
         [SerializeField] private Image backgroundImage;
         [SerializeField] private Image foregroundImage;
+
+        public Logic.State.LineItems.LineStorage TrackedLineStorage => trackedLineStorage;
+        public LineItem TrackedItem => trackedItem;
+        public int TrackedSlot => trackedSlot;
         
         private GameResources gameResources;
+        private Logic.State.LineItems.LineStorage trackedLineStorage;
         private LineItem trackedItem;
+        private int trackedSlot;
         private MemoryDataSO memoryDataSO;
 
         private MemoryDataSO emptyGemSO;
@@ -32,6 +38,11 @@ namespace Source.Visuals.LineStorage
         {
             gameResources = resources;
         }
+
+        public void SetStorage(Logic.State.LineItems.LineStorage lineStorage)
+        {
+            trackedLineStorage = lineStorage;
+        }
         
         public void SetDataItem(in LineItem item)
         {
@@ -44,6 +55,11 @@ namespace Source.Visuals.LineStorage
             }
             
             trackedItem = item;
+        }
+        
+        public void SetSlot(int slot)
+        { 
+            trackedSlot = slot;
         }
 
         private void Update()

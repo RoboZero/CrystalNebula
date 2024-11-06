@@ -28,5 +28,15 @@ namespace Source.Logic.State.LineItems
         {
             
         }
+
+        public bool IsEmpty()
+        {
+            return OwnerId == 0;
+        }
+
+        public override string ToString()
+        {
+            return $"{Definition}:(OId: {OwnerId}, Prog: {CurrentProgress}, Max Prog: {MaxProgress})";
+        }
     }
 }

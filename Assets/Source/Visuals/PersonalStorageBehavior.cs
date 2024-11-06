@@ -2,21 +2,14 @@ using System;
 using System.Collections.Generic;
 using Source.Input;
 using Source.Logic.State;
-using Source.Logic.State.LineItems;
-using Source.Serialization;
 using Source.Visuals.LineStorage;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Source.Visuals
 {
     public class PersonalStorageBehavior : LineStorageBehavior
     {
-        // public LineGemStorageVisual Visual => 
-        
         [Header("Dependencies")]
-        [SerializeField] private GameStateLoader gameStateLoader;
-        [SerializeField] private PlayerInteractions playerInteractions;
         [SerializeField] private InputReaderSO inputReader;
         [SerializeField] private RectTransform backgroundRectTransform;
         

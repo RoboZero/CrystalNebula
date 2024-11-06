@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 6426986643564849314}
   - component: {fileID: 6931938102655961191}
   - component: {fileID: 7609047805936301161}
+  - component: {fileID: 5791240221727366471}
   m_Layer: 5
   m_Name: LineGemItem
   m_TagString: Untagged
@@ -386,3 +387,23 @@ MonoBehaviour:
   progressImage: {fileID: 9072511430797212121}
   backgroundImage: {fileID: 5422749221396203535}
   foregroundImage: {fileID: 4435131233945948580}
+--- !u!114 &5791240221727366471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8817466851857335604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreLayout: 0
+  m_MinWidth: 9
+  m_MinHeight: 9
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1

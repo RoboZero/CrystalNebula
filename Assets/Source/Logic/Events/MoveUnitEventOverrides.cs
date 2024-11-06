@@ -2,7 +2,7 @@
 {
     public class MoveUnitEventOverrides
     {
-        public bool canSwitchPlacesOverride;
-        public bool canEngageCombatOverride;
+        public bool CanSwitchPlacesOverride;
+        public bool CanEngageCombatOverride;
     }
 }
