@@ -38,6 +38,19 @@ namespace Source.Visuals.Battlefield
                 CanEngageCombat = CanEngageCombat
             };
         }
+
+        public Unit CreateInstance(UnitData unitData)
+        {
+            return new Unit()
+            {
+                OwnerId = unitData.OwnerId,
+                Definition = unitData.Definition,
+                Health = unitData.Health,
+                Power = unitData.Power,
+                CanSwitchPlaces = CanSwitchPlaces,
+                CanEngageCombat = CanEngageCombat
+            };
+        }
         
         public override Memory CreateMemoryInstance(MemoryData memoryData)
         {

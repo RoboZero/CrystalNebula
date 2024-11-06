@@ -68,26 +68,28 @@ namespace Source.Serialization
 
         private BattlefieldItem ConvertBattlefieldItem(BattlefieldItemData battlefieldItemData)
         {
+            Building building = null;
+            if (battlefieldItemData.Building != null)
+            {
+                if (gameResources.TryLoadAsset(this, battlefieldItemData.Building.Definition, out BuildingDataSO buildingDataSO))
+                {
+                    building = buildingDataSO.CreateInstance(battlefieldItemData.Building);
+                }
+            }
+
+            Unit unit = null;
+            if (battlefieldItemData.Unit != null)
+            {
+                if (gameResources.TryLoadAsset(this, battlefieldItemData.Unit.Definition, out UnitDataSO unitDataSO))
+                {
+                    unit = unitDataSO.CreateInstance(battlefieldItemData.Unit);
+                }
+            }
+
             return new BattlefieldItem()
             {
-                Building = battlefieldItemData.Building != null
-                    ? new Building()
-                    {
-                        OwnerId = battlefieldItemData.Building.OwnerId,
-                        Definition = battlefieldItemData.Building.Definition,
-                        Health = battlefieldItemData.Building.Health,
-                        Power = battlefieldItemData.Building.Power
-                    }
-                    : null,
-                Unit = battlefieldItemData.Unit != null
-                    ? new Unit()
-                    {
-                        OwnerId = battlefieldItemData.Unit.OwnerId,
-                        Definition = battlefieldItemData.Unit.Definition,
-                        Health = battlefieldItemData.Unit.Health,
-                        Power = battlefieldItemData.Unit.Power
-                    }
-                    : null
+                Building = building,
+                Unit = unit
             };
         }
 
