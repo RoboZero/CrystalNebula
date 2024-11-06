@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using Source.Interactions;
-using Source.Logic;
-using Source.Logic.State;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
 using Source.Utility;

@@ -98,6 +98,7 @@ namespace Source.Serialization
             return new Player()
             {
                 Id = playerData.Id,
+                PersonalStorage = ConvertLineStorage(playerData.PersonalStorage),
                 Processors = processors,
                 DiskStorage = ConvertLineStorage(playerData.DiskStorage),
                 MemoryStorage = ConvertLineStorage(playerData.MemoryStorage)

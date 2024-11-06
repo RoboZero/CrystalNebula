@@ -16,6 +16,23 @@ namespace Source.Serialization.Samples
                 new PlayerData
                 {
                     Id = 0,
+                    PersonalStorage = new LineStorageData()
+                    {
+                        Length = 1,
+                        Items = new List<LineItemData>
+                        {
+                            new LineItemData
+                            {
+                                Location = 0,
+                                Memory = new MemoryData
+                                {
+                                    OwnerId = 0,
+                                    Definition = GameResources.BuildDefinitionPath(GameResourceConstants.PROGRAMS_PATH,"Build"),
+                                    Progress = 0
+                                }
+                            },
+                        }
+                    },
                     Processors = new List<ProcessorData>
                     {
                         new ProcessorData

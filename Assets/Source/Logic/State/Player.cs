@@ -8,6 +8,7 @@ namespace Source.Logic.State
     public class Player
     {
         public int Id;
+        public LineStorage PersonalStorage;
         public List<Processor> Processors;
         public LineStorage MemoryStorage;
         public LineStorage DiskStorage;
