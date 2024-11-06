@@ -1,9 +1,11 @@
 using System;
+using System.Linq;
 using Source.Input;
 using Source.Logic;
 using Source.Logic.Events;
 using Source.Logic.State;
 using Source.Visuals;
+using Source.Visuals.LineStorage;
 using UnityEngine;
 
 namespace Source.Interactions
@@ -12,10 +14,14 @@ namespace Source.Interactions
     {
         [Header("Dependencies")]
         [SerializeField] private PlayerInteractions playerInteractions;
-        [SerializeField] private DataItemStorageVisual dataItemStorageVisual;
-        [SerializeField] private PlayerItemStorageVisual playerItemStorageVisual;
+        [SerializeField] private PersonalStorageBehavior personalStorageBehavior;
         [SerializeField] private EventTracker eventTracker;
         [SerializeField] private InputReaderSO inputReader;
+
+        private TransferEventOverrides transferEventOverrides = new TransferEventOverrides()
+        {
+            CanSwitch = true,
+        };
 
         private void OnEnable()
         {
@@ -30,13 +36,24 @@ namespace Source.Interactions
         private void OnHoldPressed()
         {
             Debug.Log("Player pressed hold. ");
-            eventTracker.AddEvent(new StorageItemTransferEventCommand<DataItem>(
-                    dataItemStorageVisual.ItemStorage,
-                    dataItemStorageVisual.InteractedVisualIndices,
-                    playerItemStorageVisual.ItemStorage,
-                    playerItemStorageVisual.InteractedVisualIndices
+            var interactedLines = playerInteractions.Interacted
+                .OfType<LineGemItemVisual>()
+                .Where(item => item.TrackedItem != null)
+                .ToList();
+
+            var interactedSlots = interactedLines.Select(visual => visual.TrackedSlot).ToList();
+            var interactedStorages= interactedLines.Select(visual => visual.TrackedLineStorage).ToList();
+            
+            eventTracker.AddEvent(new LineStorageOpenMultiTransferEventCommand(
+                    interactedStorages,
+                    interactedSlots,
+                    personalStorageBehavior.State,
+                    transferEventOverrides
                 )
             );
+            
+            playerInteractions.Interacted.Clear();
+            inputReader.ClickAndDrag = false;
         }
     }
 }

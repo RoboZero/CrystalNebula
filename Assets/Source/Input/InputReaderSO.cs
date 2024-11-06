@@ -18,6 +18,7 @@ namespace Source.Input
         public event UnityAction HoldReleasedEvent = delegate { }; 
     
         private PlayerInputActions playerInputActions;
+        public bool ClickAndDrag { get; set; }
 
         private void OnEnable()
         {

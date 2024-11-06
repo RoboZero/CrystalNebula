@@ -68,26 +68,28 @@ namespace Source.Serialization
 
         private BattlefieldItem ConvertBattlefieldItem(BattlefieldItemData battlefieldItemData)
         {
+            Building building = null;
+            if (battlefieldItemData.Building != null)
+            {
+                if (gameResources.TryLoadAsset(this, battlefieldItemData.Building.Definition, out BuildingDataSO buildingDataSO))
+                {
+                    building = buildingDataSO.CreateInstance(battlefieldItemData.Building);
+                }
+            }
+
+            Unit unit = null;
+            if (battlefieldItemData.Unit != null)
+            {
+                if (gameResources.TryLoadAsset(this, battlefieldItemData.Unit.Definition, out UnitDataSO unitDataSO))
+                {
+                    unit = unitDataSO.CreateInstance(battlefieldItemData.Unit);
+                }
+            }
+
             return new BattlefieldItem()
             {
-                Building = battlefieldItemData.Building != null
-                    ? new Building()
-                    {
-                        OwnerId = battlefieldItemData.Building.OwnerId,
-                        Definition = battlefieldItemData.Building.Definition,
-                        Health = battlefieldItemData.Building.Health,
-                        Power = battlefieldItemData.Building.Power
-                    }
-                    : null,
-                Unit = battlefieldItemData.Unit != null
-                    ? new Unit()
-                    {
-                        OwnerId = battlefieldItemData.Unit.OwnerId,
-                        Definition = battlefieldItemData.Unit.Definition,
-                        Health = battlefieldItemData.Unit.Health,
-                        Power = battlefieldItemData.Unit.Power
-                    }
-                    : null
+                Building = building,
+                Unit = unit
             };
         }
 
@@ -98,9 +100,10 @@ namespace Source.Serialization
             return new Player()
             {
                 Id = playerData.Id,
+                PersonalStorage = ConvertLineStorage("Personal", playerData.PersonalStorage),
                 Processors = processors,
-                DiskStorage = ConvertLineStorage(playerData.DiskStorage),
-                MemoryStorage = ConvertLineStorage(playerData.MemoryStorage)
+                MemoryStorage = ConvertLineStorage("Memory", playerData.MemoryStorage),
+                DiskStorage = ConvertLineStorage("Disk", playerData.DiskStorage),
             };
         }
 
@@ -109,20 +112,25 @@ namespace Source.Serialization
             return new Processor()
             {
                 Definition = processorData.Definition,
-                ProcessorStorage = ConvertLineStorage(processorData.ProcessorStorage),
+                ProcessorStorage = ConvertLineStorage("Processor", processorData.ProcessorStorage),
                 ClockSpeed = processorData.ClockSpeed,
             };
         }
 
-        private LineStorage ConvertLineStorage(LineStorageData lineStorage)
+        private LineStorage ConvertLineStorage(string storageName, LineStorageData lineStorage)
         {
-            var diskStorageItems = new List<LineItem>(new LineItem[lineStorage.Length]);
+            var lineStorageItems = new List<LineItem>(new LineItem[lineStorage.Length]);
+
+            for (var index = 0; index < lineStorageItems.Count; index++)
+            {
+                lineStorageItems[index] = new LineItem();
+            }
 
             foreach (var storedItem in lineStorage.Items)
             {
                 if (gameResources.TryLoadAsset(this, storedItem.Memory.Definition, out MemoryDataSO memoryDataSO))
                 {
-                    diskStorageItems[storedItem.Location] = new LineItem()
+                    lineStorageItems[storedItem.Location] = new LineItem()
                     {
                         Description = storedItem.Description,
                         Memory = memoryDataSO.CreateMemoryInstance(storedItem.Memory),
@@ -136,8 +144,9 @@ namespace Source.Serialization
 
             return new LineStorage()
             {
+                StorageName = storageName,
                 Length = lineStorage.Length,
-                Items = diskStorageItems
+                Items = lineStorageItems
             };
         }
     }

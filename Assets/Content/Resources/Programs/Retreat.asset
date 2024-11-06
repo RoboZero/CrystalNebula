@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d531825b29e49ddb94632e12b7bcaa8, type: 3}
-  m_Name: Command
+  m_Name: Retreat
   m_EditorClassIdentifier: 
-  guid: aea579a70ada0fe46887dd12e1f666e9
+  guid: dbc73ab5476853241ba3ca8b2286d9f6
   description: 
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
   memoryForegroundIcon: {fileID: 21300000, guid: a182f363425c339429bc4ea2e44711ac, type: 3}
-  memoryName: Command
+  memoryName: Retreat
   MaxProgress: 3
   Distance: 1
-  Direction: -1
+  Direction: 1

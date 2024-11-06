@@ -66,13 +66,13 @@ namespace Source.Logic.Events
                 if (fromUnit.OwnerId == otherUnit.OwnerId)
                 {
                     if (!fromUnit.CanSwitchPlaces &&
-                        (moveUnitEventOverrides == null || !moveUnitEventOverrides.canSwitchPlacesOverride))
+                        (moveUnitEventOverrides == null || !moveUnitEventOverrides.CanSwitchPlacesOverride))
                     {
                         AddLog(failPrefix + $"friendly unit {otherUnit} on to spot and is not switching");
                         return false;
                     }
                     
-                    PerformChildEventWithLog(new SwitchUnitEventCommand(
+                    return PerformChildEventWithLog(new SwitchUnitEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         fromSlot,
@@ -82,7 +82,7 @@ namespace Source.Logic.Events
                 else
                 {
                     if (!fromUnit.CanEngageCombat &&
-                        (moveUnitEventOverrides == null || !moveUnitEventOverrides.canEngageCombatOverride))
+                        (moveUnitEventOverrides == null || !moveUnitEventOverrides.CanEngageCombatOverride))
                     {
                         AddLog(failPrefix + $"enemy unit {otherUnit} on to slot and cannot engage combat");
                         return false;

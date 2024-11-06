@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using Source.Interactions;
-using Source.Logic;
-using Source.Logic.State;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
 using Source.Utility;
@@ -15,16 +13,18 @@ namespace Source.Visuals.LineStorage
         [SerializeField] private LineStorageBehavior trackedLineGemStorageBehavior;
         [SerializeField] private LineGemItemVisual lineGemItemVisualPrefab;
         [SerializeField] private MultirowHorizontalLayoutGroup dataItemLayoutGroup;
-        
         [SerializeField] private GameResources gameResources;
 
-        private List<int> interactedVisualIndices = new();
+        [Header("Settings")]
+        [SerializeField] private bool showEmptyGems = true;
+        
         private List<LineGemItemVisual> trackedRecords = new();
 
         private void Awake()
         {
             lineGemItemVisualPrefab.gameObject.SetActive(false);
         }
+        
 
         private void Update()
         {
@@ -36,12 +36,10 @@ namespace Source.Visuals.LineStorage
                 AddRecord(trackedRecords);
             }
 
-            interactedVisualIndices.Clear();
             for (var i = 0; i < trackedRecords.Count; i++)
             {
                 var item = trackedLineGemStorageBehavior.State.Items[i];
-                UpdateRecordVisual(trackedRecords[i], i, item, true);
-                UpdateVisualIndices(i, trackedRecords[i]);
+                UpdateRecordVisual(trackedRecords[i], i, item, showEmptyGems || (item.Memory != null));
             }
         }
         
@@ -59,30 +57,26 @@ namespace Source.Visuals.LineStorage
             records.Add(dataItemVisual);
         }
         
-        private void UpdateRecordVisual(in LineGemItemVisual recordVisual,int lineNumber, LineItem item, bool isActive)
+        private void UpdateRecordVisual(in LineGemItemVisual recordVisual, int lineNumber, LineItem item, bool isActive)
         {
             if (isActive)
             {
                 recordVisual.SetGameResources(gameResources);
+                recordVisual.SetStorage(trackedLineGemStorageBehavior.State);
                 recordVisual.SetDataItem(item);
+                recordVisual.SetSlot(lineNumber);
             }
             else
             {
                 recordVisual.SetDataItem(null);
+                recordVisual.SetStorage(null);
                 recordVisual.ResetState();
+                recordVisual.SetSlot(-1);
             }
             
             recordVisual.gameObject.SetActive(isActive);
         }
 
-        private void UpdateVisualIndices(int index, in LineGemItemVisual recordVisual)
-        {
-            if (recordVisual.CurrentVisualState == InteractVisualState.Selected)
-            {
-                interactedVisualIndices.Add(index);
-            }
-        }
-        
         private void DestroyRecord(LineGemItemVisual record)
         {
             Destroy(record.gameObject);

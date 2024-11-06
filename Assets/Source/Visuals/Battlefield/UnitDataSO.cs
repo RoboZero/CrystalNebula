@@ -23,6 +23,8 @@ namespace Source.Visuals.Battlefield
         public string Abbreviation;
         public int BaseHealth = 3;
         public int BasePower = 1;
+        public bool CanSwitchPlaces = true;
+        public bool CanEngageCombat = true;
 
         public Unit CreateDefault(int ownerId, string definition)
         {
@@ -31,7 +33,22 @@ namespace Source.Visuals.Battlefield
                 Definition = definition,
                 OwnerId = ownerId,
                 Health = BaseHealth,
-                Power = BasePower
+                Power = BasePower,
+                CanSwitchPlaces = CanSwitchPlaces,
+                CanEngageCombat = CanEngageCombat
+            };
+        }
+
+        public Unit CreateInstance(UnitData unitData)
+        {
+            return new Unit()
+            {
+                OwnerId = unitData.OwnerId,
+                Definition = unitData.Definition,
+                Health = unitData.Health,
+                Power = unitData.Power,
+                CanSwitchPlaces = CanSwitchPlaces,
+                CanEngageCombat = CanEngageCombat
             };
         }
         

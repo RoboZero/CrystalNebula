@@ -24,9 +24,11 @@ namespace Source.Logic.State.LineItems
             CurrentProgress = 0;
         }
 
-        protected virtual void Run(EventTracker eventTracker, GameState gameState)
+        protected virtual void Run(EventTracker eventTracker, GameState gameState) { }
+
+        public override string ToString()
         {
-            
+            return $"{Definition}:(OId: {OwnerId}, Prog: {CurrentProgress}, Max Prog: {MaxProgress})";
         }
     }
 }

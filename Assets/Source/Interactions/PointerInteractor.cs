@@ -21,7 +21,6 @@ namespace Source.Interactions
         [SerializeField] private LayerMask interactableMask;
 
         private Vector2 pointerPosition;
-        private bool clickAndDrag;
 
         private void OnEnable()
         {
@@ -40,10 +39,10 @@ namespace Source.Interactions
         }
         
         private void OnPointerPosition(Vector2 position, bool isMouse) => pointerPosition = position;
-        private void OnInteractPressed() => clickAndDrag = true;
-        private void OnInteractReleased() => clickAndDrag = false;
+        private void OnInteractPressed() => inputReader.ClickAndDrag = true;
+        private void OnInteractReleased() => inputReader.ClickAndDrag = false;
         private void OnInteractCanceled()
-        {
+        { 
             playerInteractions.Interacted.Clear();
         }
 
@@ -58,7 +57,7 @@ namespace Source.Interactions
             
             var hoveredIsSame = playerInteractions.Hovered.Tick(allInteractables);
             var interactedIsSame = true;
-            if(clickAndDrag)
+            if(inputReader.ClickAndDrag)
                 interactedIsSame = playerInteractions.Interacted.Tick(allInteractables);
             
             if(!hoveredIsSame)
