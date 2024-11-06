@@ -41,7 +41,14 @@ namespace Source.Visuals
             flashingPanel.color = flashingPanelGradient.Evaluate(time / processor.ClockSpeed);
 
             time += Time.deltaTime;
-            if (time >= processor.ClockSpeed)
+
+            if (processor.ClockSpeed < 0.1f)
+            {
+                Debug.LogWarning("Please don't set processor clock speed below 0.1f");
+                return;
+            }
+            
+            if (time >= 1 / processor.ClockSpeed)
             {
                 foreach (var lineItem in processorStorageBehavior.State.Items)
                 {

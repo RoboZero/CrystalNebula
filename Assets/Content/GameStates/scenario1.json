@@ -21,7 +21,7 @@
       "Processors": [
         {
           "Definition": "Processors/Basic",
-          "ClockSpeed": 1.0,
+          "ClockSpeed": 3.0,
           "ProcessorStorage": {
             "Length": 1,
             "Items": [
