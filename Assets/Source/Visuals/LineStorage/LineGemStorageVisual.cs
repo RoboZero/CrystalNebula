@@ -39,8 +39,7 @@ namespace Source.Visuals.LineStorage
             for (var i = 0; i < trackedRecords.Count; i++)
             {
                 var item = trackedLineGemStorageBehavior.State.Items[i];
-                //TODO: 
-                UpdateRecordVisual(trackedRecords[i], i, item, showEmptyGems || !item.Memory.IsEmpty());
+                UpdateRecordVisual(trackedRecords[i], i, item, showEmptyGems || (item.Memory != null));
             }
         }
         

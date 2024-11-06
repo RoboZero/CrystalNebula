@@ -51,7 +51,7 @@ namespace Source.Visuals
                     }
                     else
                     {
-                        Debug.LogWarning($"Line item {lineItem} memory is null");
+                        Debug.Log($"Line item {lineItem} memory is null");
                     }
                 }
                 time = 0;

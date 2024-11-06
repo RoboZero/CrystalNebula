@@ -117,13 +117,18 @@ namespace Source.Serialization
 
         private LineStorage ConvertLineStorage(string storageName, LineStorageData lineStorage)
         {
-            var diskStorageItems = new List<LineItem>(new LineItem[lineStorage.Length]);
+            var lineStorageItems = new List<LineItem>(new LineItem[lineStorage.Length]);
+
+            for (var index = 0; index < lineStorageItems.Count; index++)
+            {
+                lineStorageItems[index] = new LineItem();
+            }
 
             foreach (var storedItem in lineStorage.Items)
             {
                 if (gameResources.TryLoadAsset(this, storedItem.Memory.Definition, out MemoryDataSO memoryDataSO))
                 {
-                    diskStorageItems[storedItem.Location] = new LineItem()
+                    lineStorageItems[storedItem.Location] = new LineItem()
                     {
                         Description = storedItem.Description,
                         Memory = memoryDataSO.CreateMemoryInstance(storedItem.Memory),
@@ -139,7 +144,7 @@ namespace Source.Serialization
             {
                 StorageName = storageName,
                 Length = lineStorage.Length,
-                Items = diskStorageItems
+                Items = lineStorageItems
             };
         }
     }

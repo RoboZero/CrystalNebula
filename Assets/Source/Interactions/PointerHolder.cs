@@ -20,7 +20,7 @@ namespace Source.Interactions
 
         private TransferEventOverrides transferEventOverrides = new TransferEventOverrides()
         {
-            CanSwitch = false,
+            CanSwitch = true,
         };
 
         private void OnEnable()
@@ -38,6 +38,7 @@ namespace Source.Interactions
             Debug.Log("Player pressed hold. ");
             var interactedLines = playerInteractions.Interacted
                 .OfType<LineGemItemVisual>()
+                .Where(item => item.TrackedItem != null)
                 .ToList();
 
             var interactedSlots = interactedLines.Select(visual => visual.TrackedSlot).ToList();

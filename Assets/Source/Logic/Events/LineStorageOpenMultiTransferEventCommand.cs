@@ -2,6 +2,7 @@
 using System.Linq;
 using Source.Logic.State.LineItems;
 using Source.Utility;
+using UnityEngine;
 
 namespace Source.Logic.Events
 {
@@ -28,15 +29,24 @@ namespace Source.Logic.Events
         
         public override bool Perform()
         {
-            AddLog($"{nameof(GetType)} Starting multiple line storage transfers from slots {fromSlots.ToItemString()} to all open slots");
+            AddLog($"{GetType().Name} Starting multiple line storage transfers from slots {fromStorages.ToItemString()}:{fromSlots.ToItemString()} to all {toStorage} open slots");
+            var failurePrefix = "Failed to start multiple line storage transfers to open slots: ";
 
             var openSlots = new List<int>();
+            Debug.Log($"Personal storage item count = {toStorage.Items.Count}");
             for (var index = 0; index < toStorage.Items.Count; index++)
             {
                 var item = toStorage.Items[index];
-                if(item != null){
+                if(item.Memory == null || transferEventOverrides.CanSwitch){
+                    Debug.Log($"Adding slot {index}");
                     openSlots.Add(index);
                 }
+            }
+
+            if (openSlots.Count == 0)
+            {
+                AddLog(failurePrefix + $"No open slots");
+                return false;
             }
 
             var result = PerformChildEventWithLog(new LineStorageMultiTransferEventCommand(

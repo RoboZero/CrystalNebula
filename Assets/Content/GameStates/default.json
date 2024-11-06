@@ -7,16 +7,7 @@
       "Id": 1,
       "PersonalStorage": {
         "Length": 1,
-        "Items": [
-          {
-            "Location": 0,
-            "Memory": {
-              "OwnerId": 1,
-              "Definition": "Programs/Build",
-              "Progress": 0
-            }
-          }
-        ]
+        "Items": []
       },
       "Processors": [
         {
@@ -25,14 +16,7 @@
           "ProcessorStorage": {
             "Length": 1,
             "Items": [
-              {
-                "Location": 0,
-                "Memory": {
-                  "OwnerId": 1,
-                  "Definition": "Programs/Build",
-                  "Progress": 0
-                }
-              }
+              
             ]
           }
         }

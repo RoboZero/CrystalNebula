@@ -14,9 +14,11 @@ namespace Source.Visuals.LineStorage
         [SerializeField] private Image foregroundImage;
 
         public Logic.State.LineItems.LineStorage TrackedLineStorage => trackedLineStorage;
+
         public LineItem TrackedItem => trackedItem;
         public int TrackedSlot => trackedSlot;
         
+        // TODO: Reevaluate if each item needs all info Storage gives
         private GameResources gameResources;
         private Logic.State.LineItems.LineStorage trackedLineStorage;
         private LineItem trackedItem;

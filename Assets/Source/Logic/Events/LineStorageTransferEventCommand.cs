@@ -28,8 +28,8 @@ namespace Source.Logic.Events
 
         public override bool Perform()
         {
-            AddLog($"{nameof(LineStorageTransferEventCommand)} Starting line storage transfer from slot {fromSlot} to slot {toSlot}");
-            var failurePrefix = $"Unable to transfer from {fromStorage}-{fromSlot} to {toStorage}-{toSlot}: ";
+            AddLog($"{GetType().Name} Starting line storage transfer from slot {fromStorage}:{fromSlot} to slot {fromStorage}:{toSlot}");
+            var failurePrefix = $"Unable to transfer from {fromStorage}:{fromSlot} to {toStorage}:{toSlot}: ";
 
             if (!fromStorage.Items.InBounds(fromSlot))
             {
@@ -43,14 +43,13 @@ namespace Source.Logic.Events
                 return false;
             }
 
-            if (!transferEventOverrides.CanSwitch && !toStorage.Items[toSlot].Memory.IsEmpty())
+            if (!transferEventOverrides.CanSwitch && toStorage.Items[toSlot].Memory != null)
             {
                 AddLog(failurePrefix + $"cannot switch and to slot {toSlot} has item in it {toStorage.Items[toSlot].Memory}");
                 return false;
             }
 
-            toStorage.Items[toSlot] = fromStorage.Items[fromSlot];
-            fromStorage.Items[fromSlot] = null;
+            (toStorage.Items[toSlot], fromStorage.Items[fromSlot]) = (fromStorage.Items[fromSlot], toStorage.Items[toSlot]);
             AddLog($"Successfully transferred slot {fromSlot} to slot {toSlot}");
             
             return true;

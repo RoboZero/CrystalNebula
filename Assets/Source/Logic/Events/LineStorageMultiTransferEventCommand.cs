@@ -17,29 +17,35 @@ namespace Source.Logic.Events
             List<LineStorage> fromStorages,
             List<int> fromSlots,
             LineStorage toStorage,
-            List<int> toSlot,
+            List<int> toSlots,
             TransferEventOverrides transferEventOverrides
         )
         {
             this.fromStorages = fromStorages;
             this.fromSlots = fromSlots;
             this.toStorage = toStorage;
-            this.toSlots = toSlot;
+            this.toSlots = toSlots;
             this.transferEventOverrides = transferEventOverrides;
         }
 
         public override bool Perform()
         {
-            AddLog($"{nameof(GetType)} Starting multiple line storage transfers from storages {fromStorages.ToItemString()} slots {fromSlots.ToItemString()} to slot {toSlots.ToItemString()}");
-            var failurePrefix = $"Unable to multi transfer: ";
+            AddLog($"{GetType().Name} Starting multiple line storage transfers from storages {fromStorages.ToItemString()}: slots {fromSlots.ToItemString()} to slot {toStorage}:{toSlots.ToItemString()}");
+            var failurePrefix = $"Failed to multi transfer: ";
 
+            if (fromStorages.Count != fromSlots.Count)
+            {
+                AddLog(failurePrefix + $"from storages Count {fromStorages.Count} is not equal to from slots count {fromSlots.Count}. Unable to determine which storage from slot is from. ");
+                return false;
+            }
+            
             var success = true;
 
             for (var index = 0; index < fromSlots.Count; index++)
             {
-                if (index > toSlots.Count)
+                if (index >= toSlots.Count)
                 {
-                    AddLog(failurePrefix + $"Unable to transfer at transfer {index}, from slots {fromSlots.Count} has more indices than to slots {toSlots.Count}");
+                    AddLog(failurePrefix + $"Unable to transfer at transfer {index}, from slots index {index} is greater than to slots count {toSlots.Count}");
                     success = false;
                     continue;
                 }

@@ -24,15 +24,7 @@ namespace Source.Logic.State.LineItems
             CurrentProgress = 0;
         }
 
-        protected virtual void Run(EventTracker eventTracker, GameState gameState)
-        {
-            
-        }
-
-        public bool IsEmpty()
-        {
-            return OwnerId == 0;
-        }
+        protected virtual void Run(EventTracker eventTracker, GameState gameState) { }
 
         public override string ToString()
         {
