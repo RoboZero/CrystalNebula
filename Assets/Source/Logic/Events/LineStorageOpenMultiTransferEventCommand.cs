@@ -33,12 +33,10 @@ namespace Source.Logic.Events
             var failurePrefix = "Failed to start multiple line storage transfers to open slots: ";
 
             var openSlots = new List<int>();
-            Debug.Log($"Personal storage item count = {toStorage.Items.Count}");
             for (var index = 0; index < toStorage.Items.Count; index++)
             {
                 var item = toStorage.Items[index];
                 if(item.Memory == null || transferEventOverrides.CanSwitch){
-                    Debug.Log($"Adding slot {index}");
                     openSlots.Add(index);
                 }
             }

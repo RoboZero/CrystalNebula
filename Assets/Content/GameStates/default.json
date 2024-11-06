@@ -39,36 +39,12 @@
               "Definition": "Programs/Research",
               "Progress": 0
             }
-          },
-          {
-            "Location": 2,
-            "Memory": {
-              "OwnerId": 1,
-              "Definition": "Programs/Research",
-              "Progress": 0
-            }
           }
         ]
       },
       "DiskStorage": {
         "Length": 5,
         "Items": [
-          {
-            "Location": 2,
-            "Memory": {
-              "OwnerId": 1,
-              "Definition": "Programs/Build",
-              "Progress": 0
-            }
-          },
-          {
-            "Location": 4,
-            "Memory": {
-              "OwnerId": 1,
-              "Definition": "Programs/Research",
-              "Progress": 0
-            }
-          }
         ]
       }
     }

@@ -51,6 +51,9 @@ namespace Source.Interactions
                     transferEventOverrides
                 )
             );
+            
+            playerInteractions.Interacted.Clear();
+            inputReader.ClickAndDrag = false;
         }
     }
 }

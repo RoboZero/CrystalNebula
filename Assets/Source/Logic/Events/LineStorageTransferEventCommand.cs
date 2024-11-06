@@ -43,7 +43,7 @@ namespace Source.Logic.Events
                 return false;
             }
 
-            if (!transferEventOverrides.CanSwitch && toStorage.Items[toSlot].Memory != null)
+            if (transferEventOverrides != null && !transferEventOverrides.CanSwitch && toStorage.Items[toSlot].Memory != null)
             {
                 AddLog(failurePrefix + $"cannot switch and to slot {toSlot} has item in it {toStorage.Items[toSlot].Memory}");
                 return false;

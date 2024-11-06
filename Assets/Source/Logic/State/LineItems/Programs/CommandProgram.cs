@@ -6,6 +6,9 @@ namespace Source.Logic.State.LineItems.Programs
 {
     public class CommandProgram : Memory
     {
+        public int Distance;
+        public MoveUnitsInDirectionEventCommand.Direction Direction;
+        
         protected override void Run(EventTracker eventTracker, GameState gameState)
         {
             Debug.Log("Command ran!");
@@ -29,8 +32,8 @@ namespace Source.Logic.State.LineItems.Programs
                 eventTracker,
                 battlefield,
                 fromSlots,
-                MoveUnitsInDirectionEventCommand.Direction.Right,
-                1,
+                Direction,
+                Distance,
                 null
             ));
         }
