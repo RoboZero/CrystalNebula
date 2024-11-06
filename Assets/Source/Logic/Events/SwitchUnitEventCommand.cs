@@ -26,20 +26,22 @@ namespace Source.Logic.Events
         {
             AddLog($"Switching units from {fromSlot} to {toSlot} in {battlefieldStorage}");
 
-            if (!TryGetUnitAtSlot(battlefieldStorage, fromSlot, out var itemA, out var unitA))
+            if (!TryGetUnitAtSlot(battlefieldStorage, fromSlot, out var itemA, out _))
             {
                 AddLog($"Failed to switch units: no unit in from slot {fromSlot}");
                 return false;
             }
 
-            if (!TryGetUnitAtSlot(battlefieldStorage, toSlot, out var itemB, out var unitB))
+            if (!TryGetUnitAtSlot(battlefieldStorage, toSlot, out var itemB, out _))
             {
                 AddLog($"Failed to switch units: no unit in to slot {toSlot}");
                 return false;
             }
+            
+            AddLog($"Switching units A {itemA.Unit} and B {itemB.Unit}.");
 
             (itemB.Unit, itemA.Unit) = (itemA.Unit, itemB.Unit);
-
+            AddLog($"Successfully switch units.");
             return true;
         }
     }

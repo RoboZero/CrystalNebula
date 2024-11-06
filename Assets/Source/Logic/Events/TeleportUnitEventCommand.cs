@@ -72,7 +72,7 @@ namespace Source.Logic.Events
                         return false;
                     }
                     
-                    PerformChildEventWithLog(new SwitchUnitEventCommand(
+                    return PerformChildEventWithLog(new SwitchUnitEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         fromSlot,

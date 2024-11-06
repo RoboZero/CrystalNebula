@@ -61,6 +61,7 @@ namespace Source.Logic.Events
 
                 if (tryMoveAfterCombat)
                 {
+                    AddLog("Moving to responders slot after their death.");
                     // TODO: Let unit decide whether it should move after combat
                     PerformChildEventWithLog(new TeleportUnitEventCommand(
                         eventTracker,

@@ -20,3 +20,5 @@ MonoBehaviour:
   Abbreviation: Guard
   BaseHealth: 5
   BasePower: 1
+  CanSwitchPlaces: 0
+  CanEngageCombat: 1
