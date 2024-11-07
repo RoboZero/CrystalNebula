@@ -27,7 +27,7 @@ namespace Source.Serialization
             var gameState = new GameState
             {
                 Level = ConvertLevel(gameData.Level),
-                BattlefieldStorage = ConvertBattlefieldStorage(gameData.BattlefieldStorage),
+                BattlefieldStorage = ConvertBattlefieldStorage("Battlefield", gameData.BattlefieldStorage),
                 Players = players
             };
             return gameState;
@@ -41,7 +41,7 @@ namespace Source.Serialization
             };
         }
 
-        private LineStorage<BattlefieldItem> ConvertBattlefieldStorage(BattlefieldStorageData battlefieldStorage)
+        private LineStorage<BattlefieldItem> ConvertBattlefieldStorage(string storageName, BattlefieldStorageData battlefieldStorage)
         {
             var battlefieldItems = new List<BattlefieldItem>(new BattlefieldItem[battlefieldStorage.Length]);
 
@@ -57,6 +57,8 @@ namespace Source.Serialization
 
             return new LineStorage<BattlefieldItem>()
             {
+                StorageName = storageName,
+                Length = battlefieldStorage.Length,
                 Items = battlefieldItems
             };
         }

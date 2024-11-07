@@ -1,5 +1,6 @@
 using Source.Interactions;
 using Source.Logic.State.Battlefield;
+using Source.Logic.State.LineItems;
 using Source.Serialization;
 using TMPro;
 using UnityEngine;
@@ -25,10 +26,12 @@ namespace Source.Visuals.BattlefieldStorage
         [SerializeField] private TMP_Text unitPowerText;
         [SerializeField] private TMP_Text unitUtilityText;
 
+        public LineStorage<BattlefieldItem> TrackedBattlefieldStorage => trackedBattlefieldStorage;
         public BattlefieldItem TrackedItem => trackedItem;
         public int TrackedSlot => trackedSlot;
         
         private GameResources gameResources;
+        private LineStorage<BattlefieldItem> trackedBattlefieldStorage;
         private BattlefieldItem trackedItem;
         private int trackedSlot;
         private int assignedLineNumber;
@@ -42,6 +45,11 @@ namespace Source.Visuals.BattlefieldStorage
         public void SetGameResources(GameResources resources)
         {
             gameResources = resources;
+        }
+        
+        public void SetStorage(LineStorage<BattlefieldItem> battlefieldStorage)
+        {
+            trackedBattlefieldStorage = battlefieldStorage;
         }
 
         public void SetLineNumber(int lineNumber)

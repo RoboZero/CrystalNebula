@@ -12,7 +12,6 @@ namespace Source.Logic.Events
         private List<int> toSlots;
         private TransferEventOverrides transferEventOverrides;
 
-        
         public LineStorageMultiTransferEventCommand(
             List<LineStorage<MemoryItem>> fromStorages,
             List<int> fromSlots,

@@ -71,6 +71,7 @@ namespace Source.Visuals.BattlefieldStorage
             {
                 recordVisual.ItemVisual.gameObject.name = "Slot " + lineNumber;
                 recordVisual.ItemVisual.SetGameResources(gameResources);
+                recordVisual.ItemVisual.SetStorage(battlefieldStorageBehavior.State);
                 recordVisual.ItemVisual.SetDataItem(item);
                 recordVisual.ItemVisual.SetSlot(lineNumber);
             }
