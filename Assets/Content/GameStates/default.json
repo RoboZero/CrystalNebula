@@ -15,9 +15,7 @@
           "ClockSpeed": 1.0,
           "ProcessorStorage": {
             "Length": 1,
-            "Items": [
-              
-            ]
+            "Items": []
           }
         }
       ],
@@ -38,6 +36,16 @@
               "OwnerId": 1,
               "Definition": "Programs/Research",
               "Progress": 0
+            }
+          },
+          {
+            "Location": 2,
+            "Memory": {
+              "OwnerId": 1,
+              "Definition": "Units/Guardian",
+              "Progress": 0,
+              "Health": 5,
+              "Power": 1
             }
           }
         ]

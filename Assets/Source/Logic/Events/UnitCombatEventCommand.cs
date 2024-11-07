@@ -2,6 +2,7 @@
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
+using Source.Logic.State.LineItems.Units;
 using Source.Utility;
 using UnityEngine;
 
@@ -88,14 +89,14 @@ namespace Source.Logic.Events
             return true;
         }
 
-        private void Attack(Unit attacker, Unit defender)
+        private void Attack(UnitMemory attacker, UnitMemory defender)
         {
             AddLog($"Attacker {attacker.Definition} has {attacker.Power} power, deals {attacker.Power} damage to defenders's {defender.Health} health");
             defender.Health -= attacker.Power;
             AddLog($"Defender {defender.Definition} now at {defender.Health} health");
         }
 
-        private bool IsUnitDead(Unit unit)
+        private bool IsUnitDead(UnitMemory unit)
         {
             return unit.Health <= 0;
         }

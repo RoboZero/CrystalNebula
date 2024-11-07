@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Source.Logic.State.LineItems
 {
     [Serializable]
-    public class ItemStorage<T> : IEnumerable<ItemStorage<T>.ItemSlot> where T : DataItem
+    public class ItemStorage<T> : IEnumerable<ItemStorage<T>.ItemSlot> where T : LineItem
     {
         public int Size { get; private set; }
         public int Capacity => allSlots.Count;

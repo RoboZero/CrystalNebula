@@ -4,6 +4,7 @@ using System.Text;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
+using Source.Logic.State.LineItems.Units;
 using Source.Utility;
 using UnityEngine;
 
@@ -88,7 +89,7 @@ namespace Source.Logic.Events
         {
             public int FromSlotsIndex;
             public BattlefieldItem Item;
-            public Unit Unit;
+            public UnitMemory Unit;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
     {
         public int Distance;
         public MoveUnitsInDirectionEventCommand.Direction Direction;
-        
+
         public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
         {
             return new CommandProgram()

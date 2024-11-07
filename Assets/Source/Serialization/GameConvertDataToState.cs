@@ -3,6 +3,7 @@ using System.Linq;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
+using Source.Logic.State.LineItems.Units;
 using Source.Serialization.Data;
 using Source.Visuals.BattlefieldStorage;
 using Source.Visuals.MemoryStorage;
@@ -62,21 +63,21 @@ namespace Source.Serialization
 
         private BattlefieldItem ConvertBattlefieldItem(BattlefieldItemData battlefieldItemData)
         {
-            Building building = null;
+            BuildingMemory building = null;
             if (battlefieldItemData.Building != null)
             {
-                if (gameResources.TryLoadAsset(this, battlefieldItemData.Building.Definition, out BuildingDataSO buildingDataSO))
+                if (gameResources.TryLoadAsset(this, battlefieldItemData.Building.Definition, out BuildingMemoryDataSO buildingDataSO))
                 {
                     building = buildingDataSO.CreateInstance(battlefieldItemData.Building);
                 }
             }
 
-            Unit unit = null;
+            UnitMemory unit = null;
             if (battlefieldItemData.Unit != null)
             {
-                if (gameResources.TryLoadAsset(this, battlefieldItemData.Unit.Definition, out UnitDataSO unitDataSO))
+                if (gameResources.TryLoadAsset(this, battlefieldItemData.Unit.Definition, out UnitMemoryDataSO unitDataSO))
                 {
-                    unit = unitDataSO.CreateInstance(battlefieldItemData.Unit);
+                    unit = (UnitMemory) unitDataSO.CreateMemoryInstance(battlefieldItemData.Unit);
                 }
             }
 

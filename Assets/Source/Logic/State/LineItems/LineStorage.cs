@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Source.Logic.State.LineItems
 {
     [Serializable]
-    public class LineStorage<T> where T : DataItem
+    public class LineStorage<T> where T : LineItem
 
     {
         public string StorageName;

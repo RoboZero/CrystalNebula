@@ -1,11 +1,12 @@
 using System;
+using Source.Logic.State.LineItems.Units;
 
 namespace Source.Logic.State.Battlefield
 {
     [Serializable]
-    public class BattlefieldItem : DataItem
+    public class BattlefieldItem : LineItem
     {
-        public Building Building;
-        public Unit Unit;
+        public BuildingMemory Building;
+        public UnitMemory Unit;
     }
 }

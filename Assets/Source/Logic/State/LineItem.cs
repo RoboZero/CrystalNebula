@@ -3,7 +3,7 @@ using System;
 namespace Source.Logic.State
 {
     [Serializable]
-    public class DataItem
+    public class LineItem
     {
         public string Description;
     }

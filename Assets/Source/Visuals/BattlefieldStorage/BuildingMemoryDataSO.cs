@@ -1,4 +1,5 @@
 using Source.Logic.State.Battlefield;
+using Source.Logic.State.LineItems.Units;
 using Source.Serialization.Data;
 using Source.Utility;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 namespace Source.Visuals.BattlefieldStorage
 {
     [CreateAssetMenu(fileName = "BuildingName", menuName = "Game/Building")]
-    public class BuildingDataSO : DescriptionBaseSO
+    public class BuildingMemoryDataSO : DescriptionBaseSO
     {
         public Sprite Sprite;
         public string Name;
@@ -14,9 +15,9 @@ namespace Source.Visuals.BattlefieldStorage
         public int BaseHealth;
         public int BasePower;
 
-        public Building CreateInstance(BuildingData buildingData)
+        public BuildingMemory CreateInstance(BuildingData buildingData)
         {
-            return new Building()
+            return new BuildingMemory()
             {
                 OwnerId = buildingData.OwnerId,
                 Definition = buildingData.Definition,
@@ -25,9 +26,9 @@ namespace Source.Visuals.BattlefieldStorage
             };
         }
 
-        public Building CreateDefault(int ownerId, string definition, int? health = null, int? power = null)
+        public BuildingMemory CreateDefault(int ownerId, string definition, int? health = null, int? power = null)
         {
-            return new Building()
+            return new BuildingMemory()
             {
                 OwnerId = ownerId,
                 Definition = definition,

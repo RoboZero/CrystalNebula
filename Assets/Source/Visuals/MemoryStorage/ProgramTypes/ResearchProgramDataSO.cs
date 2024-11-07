@@ -15,7 +15,7 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
                 OwnerId = memoryData.OwnerId,
                 Definition = memoryData.Definition,
                 CurrentProgress = memoryData.Progress,
-                MaxProgress = this.MaxProgress,
+                MaxProgress = MaxProgress,
             };
         }
     }

@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Source.Visuals.BattlefieldStorage
 {
     [CreateAssetMenu(fileName = "UnitName", menuName = "Game/Unit")]
-    public class UnitDataSO : MemoryDataSO
+    public class UnitMemoryDataSO : MemoryDataSO
     {
         public override Sprite MemoryBackgroundIcon => memoryBackgroundIcon;
         public override Sprite MemoryForegroundIcon => Sprite;
@@ -19,14 +19,15 @@ namespace Source.Visuals.BattlefieldStorage
         public Sprite Sprite;
         public string UnitName;
         public string Abbreviation;
-        public int BaseHealth = 3;
-        public int BasePower = 1;
+        public int MaxProgress;
+        public int BaseHealth;
+        public int BasePower;
         public bool CanSwitchPlaces = true;
         public bool CanEngageCombat = true;
 
-        public Unit CreateDefault(int ownerId, string definition)
+        public UnitMemory CreateDefault(int ownerId, string definition)
         {
-            return new Unit()
+            return new UnitMemory
             {
                 Definition = definition,
                 OwnerId = ownerId,
@@ -37,27 +38,20 @@ namespace Source.Visuals.BattlefieldStorage
             };
         }
 
-        public Unit CreateInstance(UnitData unitData)
-        {
-            return new Unit()
-            {
-                OwnerId = unitData.OwnerId,
-                Definition = unitData.Definition,
-                Health = unitData.Health,
-                Power = unitData.Power,
-                CanSwitchPlaces = CanSwitchPlaces,
-                CanEngageCombat = CanEngageCombat
-            };
-        }
-        
         public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
         {
-            return new UnitLineItem()
+            Debug.Log($"Creating instance of Memory data {memoryData}");
+
+            return new UnitMemory()
             {
                 OwnerId = memoryData.OwnerId,
                 Definition = memoryData.Definition,
+                Health = memoryData.Health ?? BaseHealth,
+                Power = memoryData.Power ?? BasePower,
+                CanSwitchPlaces = CanSwitchPlaces,
+                CanEngageCombat = CanEngageCombat,
                 CurrentProgress = memoryData.Progress,
-                MaxProgress = -1,
+                MaxProgress = MaxProgress,
             };
         }
     }

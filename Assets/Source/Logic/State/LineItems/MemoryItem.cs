@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Source.Logic.State.LineItems
 {
     [Serializable]
-    public class MemoryItem : DataItem
+    public class MemoryItem : LineItem
     {
         public int OwnerId;
         public string Definition;

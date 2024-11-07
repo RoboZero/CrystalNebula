@@ -4,6 +4,7 @@ using System.Text;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
+using Source.Logic.State.LineItems.Units;
 using Source.Utility;
 
 namespace Source.Logic.Events
@@ -48,7 +49,7 @@ namespace Source.Logic.Events
         }
         
         
-        protected bool TryGetUnitAtSlot(LineStorage<BattlefieldItem> battlefieldStorage, int slot, out BattlefieldItem item, out Unit unit){
+        protected bool TryGetUnitAtSlot(LineStorage<BattlefieldItem> battlefieldStorage, int slot, out BattlefieldItem item, out UnitMemory unit){
             var failedLog = $"Failed to get unit at slot {slot} in {battlefieldStorage}: ";
 
             if(!TryGetBattlefieldItemAtSlot(battlefieldStorage, slot, out item))
@@ -69,7 +70,7 @@ namespace Source.Logic.Events
             return true;
         }
         
-        protected bool TryGetBuildingAtSlot(LineStorage<BattlefieldItem> battlefieldStorage, int slot, out BattlefieldItem item, out Building building){
+        protected bool TryGetBuildingAtSlot(LineStorage<BattlefieldItem> battlefieldStorage, int slot, out BattlefieldItem item, out BuildingMemory building){
             var failedLog = $"Failed to get building at slot {slot} in {battlefieldStorage}: ";
 
             if(!TryGetBattlefieldItemAtSlot(battlefieldStorage, slot, out item))

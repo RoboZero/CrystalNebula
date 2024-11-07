@@ -35,9 +35,9 @@ namespace Source.Visuals.BattlefieldStorage
         private string originalText;
 
         private string unitDataDefinition;
-        private UnitDataSO unitDataSO;
+        private UnitMemoryDataSO unitMemoryDataSO;
         private string buildingDataDefinition;
-        private BuildingDataSO buildingDataSO;
+        private BuildingMemoryDataSO buildingMemoryDataSO;
 
         public void SetGameResources(GameResources resources)
         {
@@ -53,8 +53,8 @@ namespace Source.Visuals.BattlefieldStorage
         {
             if (item == null)
             {
-                unitDataSO = null;
-                buildingDataSO = null;
+                unitMemoryDataSO = null;
+                buildingMemoryDataSO = null;
                 trackedItem = null;
                 return;
             }
@@ -92,10 +92,10 @@ namespace Source.Visuals.BattlefieldStorage
                     //unitUtilityText.text = "STATE: HOVERED";
                     buildingUtilityText.text = trackedItem != null && 
                                                trackedItem.Building != null && 
-                                               buildingDataSO != null ? buildingDataSO.Abbreviation : "";
+                                               buildingMemoryDataSO != null ? buildingMemoryDataSO.Abbreviation : "";
                     unitUtilityText.text = trackedItem != null && 
                                            trackedItem.Unit != null && 
-                                           unitDataSO != null ? unitDataSO.Abbreviation : "";
+                                           unitMemoryDataSO != null ? unitMemoryDataSO.Abbreviation : "";
                     break;
                 case InteractVisualState.Selected:
                     selectorIcon.gameObject.SetActive(true);
@@ -103,10 +103,10 @@ namespace Source.Visuals.BattlefieldStorage
                     //unitUtilityText.text = "STATE: SELECTED";
                     buildingUtilityText.text = trackedItem != null && 
                                                trackedItem.Building != null && 
-                                               buildingDataSO != null ? buildingDataSO.Abbreviation : "";
+                                               buildingMemoryDataSO != null ? buildingMemoryDataSO.Abbreviation : "";
                     unitUtilityText.text = trackedItem != null && 
                                            trackedItem.Unit != null && 
-                                           unitDataSO != null ? unitDataSO.Abbreviation : "";
+                                           unitMemoryDataSO != null ? unitMemoryDataSO.Abbreviation : "";
                     break;
             }
         }
@@ -130,13 +130,13 @@ namespace Source.Visuals.BattlefieldStorage
             {
                 if (item.Unit.Definition != null && item.Unit.Definition != unitDataDefinition)
                 {
-                    gameResources.TryLoadAsset(this, item.Unit.Definition, out unitDataSO);
+                    gameResources.TryLoadAsset(this, item.Unit.Definition, out unitMemoryDataSO);
                     unitDataDefinition = item.Unit.Definition;
                 }
 
-                if (unitDataSO != null)
+                if (unitMemoryDataSO != null)
                 {
-                    unitImage.sprite = unitDataSO.Sprite;
+                    unitImage.sprite = unitMemoryDataSO.Sprite;
                     unitHealthText.text = item.Unit.Health.ToString();
                     unitPowerText.text = item.Unit.Power.ToString();
                     unitImage.gameObject.SetActive(true);
@@ -151,13 +151,13 @@ namespace Source.Visuals.BattlefieldStorage
             {
                 if (item.Building.Definition != null && item.Building.Definition != buildingDataDefinition)
                 {
-                    gameResources.TryLoadAsset(this, item.Building.Definition, out buildingDataSO);
+                    gameResources.TryLoadAsset(this, item.Building.Definition, out buildingMemoryDataSO);
                     buildingDataDefinition = item.Building.Definition;
                 }
                 
-                if (buildingDataSO != null)
+                if (buildingMemoryDataSO != null)
                 {
-                    buildingImage.sprite = buildingDataSO.Sprite;
+                    buildingImage.sprite = buildingMemoryDataSO.Sprite;
                     buildingHealthText.text = item.Building.Health.ToString();
                     buildingPowerText.text = item.Building.Power.ToString();
                     buildingImage.gameObject.SetActive(true);
