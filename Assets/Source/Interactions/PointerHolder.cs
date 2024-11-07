@@ -22,7 +22,6 @@ namespace Source.Interactions
         [SerializeField] private EventTracker eventTracker;
         [SerializeField] private InputReaderSO inputReader;
 
-        private List<int> allPersonalSlots = new();
         private TransferEventOverrides transferEventOverrides = new TransferEventOverrides()
         {
             CanSwitch = true,
@@ -41,13 +40,38 @@ namespace Source.Interactions
         private void OnHoldPressed()
         {
             Debug.Log("Player pressed hold. ");
-            /*
+            bool hasInteracted = false;
+            
             var interactedLines = playerInteractions.Interacted
                 .OfType<LineGemItemVisual>()
                 .ToList();
 
-            var interactedSlots = interactedLines.Select(visual => visual.TrackedSlot).ToList();
-            var interactedStorages = interactedLines.Select(visual => visual.TrackedLineStorage).ToList();
+            if (interactedLines.Count > 0)
+            {
+                TransferPersonalAndMemoryStorages(interactedLines);
+                hasInteracted = true;
+            }
+
+            if (!hasInteracted)
+            {
+                var interactedBattlefieldItems = playerInteractions.Interacted
+                    .OfType<BattlefieldItemVisual>()
+                    .ToList();
+
+                if (interactedBattlefieldItems.Count > 0 )
+                {
+                    TransferPersonalAndBattlefieldStorage(interactedBattlefieldItems);
+                }
+            }
+
+            playerInteractions.Interacted.Clear();
+            inputReader.ClickAndDrag = false;
+        }
+
+        private void TransferPersonalAndMemoryStorages(List<LineGemItemVisual> lineGemItemVisuals)
+        {
+            var interactedSlots = lineGemItemVisuals.Select(visual => visual.TrackedSlot).ToList();
+            var interactedStorages = lineGemItemVisuals.Select(visual => visual.TrackedLineStorage).ToList();
             
             Debug.Log($"Storages {interactedStorages.ToItemString()}, Slots {interactedSlots.ToItemString()}");
             
@@ -58,32 +82,21 @@ namespace Source.Interactions
                     transferEventOverrides
                 )
             );
-            */
-            var interactedBattlefieldItems = playerInteractions.Interacted
-                .OfType<BattlefieldItemVisual>()
-                .ToList();
+        }
 
-            var interactedBattlefieldSlots = interactedBattlefieldItems.Select(visual => visual.TrackedSlot).ToList();
-            var interactedBattlefields = interactedBattlefieldItems.Select(visual => visual.TrackedBattlefieldStorage).ToList();
+        private void TransferPersonalAndBattlefieldStorage(List<BattlefieldItemVisual> battlefieldItemVisuals)
+        {
+            var interactedBattlefieldSlots = battlefieldItemVisuals.Select(visual => visual.TrackedSlot).ToList();
+            var interactedBattlefields = battlefieldItemVisuals.Select(visual => visual.TrackedBattlefieldStorage).ToList();
 
-            for (var i = 0; i < personalStorageBehavior.State.Items.Count; i++)
-            { 
-                allPersonalSlots.Add(i);
-            }
-            
-            eventTracker.AddEvent(new LineStorageBattlefieldMultiTransferEventCommand(
+            eventTracker.AddEvent(new LineStorageBattlefieldOpenMultiTransferEventCommand(
                     interactedBattlefields,
                     interactedBattlefieldSlots,
                     personalStorageBehavior.State,
-                    allPersonalSlots,
                     LineStorageBattlefieldTransferEventCommand.TransferredItem.Unit,
                     transferEventOverrides
                 )
             );
-
-            allPersonalSlots.Clear();
-            playerInteractions.Interacted.Clear();
-            inputReader.ClickAndDrag = false;
         }
     }
 }

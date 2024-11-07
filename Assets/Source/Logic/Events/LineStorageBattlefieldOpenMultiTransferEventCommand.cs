@@ -1,26 +1,31 @@
 ﻿using System.Collections.Generic;
+using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Utility;
 
 namespace Source.Logic.Events
 {
-    public class LineStorageOpenMultiTransferEventCommand : EventCommand
+    // TODO: Rename huge name!
+    public class LineStorageBattlefieldOpenMultiTransferEventCommand : EventCommand
     {
-        private List<LineStorage<MemoryItem>> fromStorages;
+        private List<LineStorage<BattlefieldItem>> fromStorages;
         private List<int> fromSlots;
         private LineStorage<MemoryItem> toStorage;
+        private LineStorageBattlefieldTransferEventCommand.TransferredItem transferredItem;
         private TransferEventOverrides transferEventOverrides;
 
-        public LineStorageOpenMultiTransferEventCommand(
-            List<LineStorage<MemoryItem>> fromStorages,
+        public LineStorageBattlefieldOpenMultiTransferEventCommand (
+            List<LineStorage<BattlefieldItem>> fromStorages,
             List<int> fromSlots,
             LineStorage<MemoryItem> toStorage,
+            LineStorageBattlefieldTransferEventCommand.TransferredItem transferredItem,
             TransferEventOverrides transferEventOverrides
         )
         {
             this.fromStorages = fromStorages;
             this.fromSlots = fromSlots;
             this.toStorage = toStorage;
+            this.transferredItem = transferredItem;
             this.transferEventOverrides = transferEventOverrides;
         }
 
@@ -45,11 +50,12 @@ namespace Source.Logic.Events
                 return false;
             }
 
-            var result = PerformChildEventWithLog(new LineStorageMultiTransferEventCommand(
+            var result = PerformChildEventWithLog(new LineStorageBattlefieldMultiTransferEventCommand(
                 fromStorages,
                 fromSlots,
                 toStorage,
                 openSlots,
+                transferredItem,
                 transferEventOverrides
             ));
 
