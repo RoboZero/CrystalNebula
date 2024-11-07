@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Source.Logic.State;
+using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Serialization.Data;
-using Source.Visuals.Battlefield;
-using Source.Visuals.LineStorage;
+using Source.Visuals.BattlefieldStorage;
+using Source.Visuals.MemoryStorage;
 using UnityEngine;
 
 namespace Source.Serialization
 {
-    // TODO: Load from game resources HERE so scriptable objects are already distributed
     public class GameConvertDataToState
     {
         private GameResources gameResources;
@@ -23,17 +23,11 @@ namespace Source.Serialization
         {
             var players = gameData.Players.Select(ConvertPlayer).ToList();
 
-            var playerDictionary = new Dictionary<int, Player>();
-            foreach (var player in players)
-            {
-                playerDictionary.Add(player.Id, player);
-            }
-            
             var gameState = new GameState
             {
                 Level = ConvertLevel(gameData.Level),
                 BattlefieldStorage = ConvertBattlefieldStorage(gameData.BattlefieldStorage),
-                Players = playerDictionary
+                Players = players
             };
             return gameState;
         }
@@ -46,7 +40,7 @@ namespace Source.Serialization
             };
         }
 
-        private BattlefieldStorage ConvertBattlefieldStorage(BattlefieldStorageData battlefieldStorage)
+        private LineStorage<BattlefieldItem> ConvertBattlefieldStorage(BattlefieldStorageData battlefieldStorage)
         {
             var battlefieldItems = new List<BattlefieldItem>(new BattlefieldItem[battlefieldStorage.Length]);
 
@@ -60,7 +54,7 @@ namespace Source.Serialization
                 battlefieldItems[item.Location] = ConvertBattlefieldItem(item);
             }
 
-            return new BattlefieldStorage()
+            return new LineStorage<BattlefieldItem>()
             {
                 Items = battlefieldItems
             };
@@ -100,10 +94,10 @@ namespace Source.Serialization
             return new Player()
             {
                 Id = playerData.Id,
-                PersonalStorage = ConvertLineStorage("Personal", playerData.PersonalStorage),
+                PersonalStorage = ConvertMemoryStorage("Personal", playerData.PersonalStorage),
                 Processors = processors,
-                MemoryStorage = ConvertLineStorage("Memory", playerData.MemoryStorage),
-                DiskStorage = ConvertLineStorage("Disk", playerData.DiskStorage),
+                MemoryStorage = ConvertMemoryStorage("Memory", playerData.MemoryStorage),
+                DiskStorage = ConvertMemoryStorage("Disk", playerData.DiskStorage),
             };
         }
 
@@ -112,29 +106,20 @@ namespace Source.Serialization
             return new Processor()
             {
                 Definition = processorData.Definition,
-                ProcessorStorage = ConvertLineStorage("Processor", processorData.ProcessorStorage),
+                ProcessorStorage = ConvertMemoryStorage("Processor", processorData.ProcessorStorage),
                 ClockSpeed = processorData.ClockSpeed,
             };
         }
 
-        private LineStorage ConvertLineStorage(string storageName, LineStorageData lineStorage)
+        private LineStorage<MemoryItem> ConvertMemoryStorage(string storageName, MemoryStorageData memoryStorage)
         {
-            var lineStorageItems = new List<LineItem>(new LineItem[lineStorage.Length]);
+            var lineStorageItems = new List<MemoryItem>(new MemoryItem[memoryStorage.Length]);
 
-            for (var index = 0; index < lineStorageItems.Count; index++)
-            {
-                lineStorageItems[index] = new LineItem();
-            }
-
-            foreach (var storedItem in lineStorage.Items)
+            foreach (var storedItem in memoryStorage.Items)
             {
                 if (gameResources.TryLoadAsset(this, storedItem.Memory.Definition, out MemoryDataSO memoryDataSO))
                 {
-                    lineStorageItems[storedItem.Location] = new LineItem()
-                    {
-                        Description = storedItem.Description,
-                        Memory = memoryDataSO.CreateMemoryInstance(storedItem.Memory),
-                    };
+                    lineStorageItems[storedItem.Location] = memoryDataSO.CreateMemoryInstance(storedItem.Memory);
                 }
                 else
                 {
@@ -142,10 +127,10 @@ namespace Source.Serialization
                 }
             }
 
-            return new LineStorage()
+            return new LineStorage<MemoryItem>()
             {
                 StorageName = storageName,
-                Length = lineStorage.Length,
+                Length = memoryStorage.Length,
                 Items = lineStorageItems
             };
         }

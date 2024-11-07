@@ -1,10 +1,10 @@
-using Source.Logic;
 using Source.Logic.State;
+using Source.Logic.State.Battlefield;
+using Source.Logic.State.LineItems;
 using Source.Serialization;
-using Source.Utility;
 using UnityEngine;
 
-namespace Source.Visuals.Battlefield
+namespace Source.Visuals.BattlefieldStorage
 {
     public class BattlefieldStorageBehavior : MonoBehaviour
     {
@@ -13,9 +13,9 @@ namespace Source.Visuals.Battlefield
         
         [SerializeField] private GameStateLoader gameStateLoader;
 
-        public BattlefieldStorage State => state;
+        public LineStorage<BattlefieldItem> State => state;
  
-        private BattlefieldStorage state;
+        private LineStorage<BattlefieldItem> state;
 
         public void Tick()
         {

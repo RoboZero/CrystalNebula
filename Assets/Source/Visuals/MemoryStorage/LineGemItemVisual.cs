@@ -4,7 +4,7 @@ using Source.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Visuals.LineStorage
+namespace Source.Visuals.MemoryStorage
 {
     public class LineGemItemVisual : StandardInteractableVisual
     {
@@ -13,15 +13,15 @@ namespace Source.Visuals.LineStorage
         [SerializeField] private Image backgroundImage;
         [SerializeField] private Image foregroundImage;
 
-        public Logic.State.LineItems.LineStorage TrackedLineStorage => trackedLineStorage;
+        public LineStorage<MemoryItem> TrackedLineStorage => trackedLineStorage;
 
-        public LineItem TrackedItem => trackedItem;
+        public MemoryItem TrackedItem => trackedItem;
         public int TrackedSlot => trackedSlot;
         
         // TODO: Reevaluate if each item needs all info Storage gives
         private GameResources gameResources;
-        private Logic.State.LineItems.LineStorage trackedLineStorage;
-        private LineItem trackedItem;
+        private LineStorage<MemoryItem> trackedLineStorage;
+        private MemoryItem trackedItem;
         private int trackedSlot;
         private MemoryDataSO memoryDataSO;
 
@@ -41,18 +41,18 @@ namespace Source.Visuals.LineStorage
             gameResources = resources;
         }
 
-        public void SetStorage(Logic.State.LineItems.LineStorage lineStorage)
+        public void SetStorage(LineStorage<MemoryItem> lineStorage)
         {
             trackedLineStorage = lineStorage;
         }
         
-        public void SetDataItem(in LineItem item)
+        public void SetDataItem(in MemoryItem item)
         {
             if (item != null && item != trackedItem)
             {
-                if (item.Memory != null && item.Memory.Definition != null)
+                if (item.Definition != null)
                 {
-                    gameResources.TryLoadAsset(this, item.Memory.Definition, out memoryDataSO);
+                    gameResources.TryLoadAsset(this, item.Definition, out memoryDataSO);
                 }
             }
             
@@ -82,13 +82,13 @@ namespace Source.Visuals.LineStorage
             }
         }
         
-        private void SetVisualToItem(LineItem item)
+        private void SetVisualToItem(MemoryItem item)
         {
             backgroundImage.gameObject.SetActive(false);
 
             if (gameResources == null) return;
             
-            if (item != null && item.Memory != null && memoryDataSO != null)
+            if (item != null && memoryDataSO != null)
             {
                 backgroundImage.sprite = memoryDataSO.MemoryBackgroundIcon;
                 backgroundImage.gameObject.SetActive(true);
@@ -99,7 +99,7 @@ namespace Source.Visuals.LineStorage
                     foregroundImage.gameObject.SetActive(true);
                 }
 
-                progressImage.fillAmount = ((float) item.Memory.CurrentProgress) / item.Memory.MaxProgress;
+                progressImage.fillAmount = ((float) item.CurrentProgress) / item.MaxProgress;
                 progressImage.gameObject.SetActive(true);
             } else if(emptyGemSO != null)
             {

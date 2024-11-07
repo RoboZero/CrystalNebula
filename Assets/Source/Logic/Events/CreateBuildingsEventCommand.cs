@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Source.Logic.State;
+using Source.Logic.State.Battlefield;
+using Source.Logic.State.LineItems;
 using Source.Utility;
 using UnityEngine;
 
@@ -9,13 +11,13 @@ namespace Source.Logic.Events
 {
     public class CreateBuildingsEventCommand : EventCommand
     {
-        private BattlefieldStorage battlefieldStorage;
+        private LineStorage<BattlefieldItem> battlefieldStorage;
         private List<int> slots;
         private Building building;
         private bool forceIfOccupied;
 
         public CreateBuildingsEventCommand(
-            BattlefieldStorage battlefieldStorage,
+            LineStorage<BattlefieldItem> battlefieldStorage,
             List<int> slots,
             Building building,
             bool forceIfOccupied

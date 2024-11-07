@@ -1,8 +1,9 @@
+using System.Linq;
 using Source.Logic.State;
 using Source.Utility;
 using UnityEngine;
 
-namespace Source.Visuals.LineStorage
+namespace Source.Visuals.MemoryStorage
 {
     public class ProcessorStorageBehavior : LineStorageBehavior
     {
@@ -15,14 +16,13 @@ namespace Source.Visuals.LineStorage
         
         protected override void UpdateStorageFromState(GameState gameState)
         {
-            if (!gameState.Players.ContainsKey(playerID))
+            var player = gameState.Players.FirstOrDefault(player => player.Id == playerID);
+            if (player == null)
             {
                 Debug.LogWarning($"Failed to read from processor: playerId {playerID} is invalid, gamestate players count {gameState.Players.Count}");
                 return;
             }
-            
-            var player = gameState.Players[playerID];
-            
+
             if (!player.Processors.InBounds(processorIndex))
             {
                 Debug.LogWarning($"Failed to read from processor: processor index {processorIndex} is invalid, gamestate players count {gameState.Players.Count}");

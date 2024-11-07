@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Source.Input;
 using Source.Logic.State;
-using Source.Visuals.LineStorage;
+using Source.Visuals.MemoryStorage;
 using UnityEngine;
 
 namespace Source.Visuals
@@ -31,13 +32,14 @@ namespace Source.Visuals
         
         protected override void UpdateStorageFromState(GameState gameState)
         {
-            if (!gameState.Players.ContainsKey(playerID))
+            var player = gameState.Players.FirstOrDefault(player => player.Id == playerID);
+            if (player == null)
             {
                 Debug.LogWarning($"Failed to read from player storage: playerId {playerID} is invalid, gamestate players count {gameState.Players.Count}");
                 return;
             }
 
-            var personalStorageState = gameState.Players[playerID].PersonalStorage;
+            var personalStorageState = player.PersonalStorage;
             itemStorageSize = personalStorageState.Length;
             state = personalStorageState;
         }

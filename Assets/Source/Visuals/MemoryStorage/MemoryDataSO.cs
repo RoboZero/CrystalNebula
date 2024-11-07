@@ -1,10 +1,9 @@
-﻿using Source.Logic.State;
-using Source.Logic.State.LineItems;
+﻿using Source.Logic.State.LineItems;
 using Source.Serialization.Data;
 using Source.Utility;
 using UnityEngine;
 
-namespace Source.Visuals.LineStorage
+namespace Source.Visuals.MemoryStorage
 {
     public abstract class MemoryDataSO : DescriptionBaseSO
     {
@@ -12,6 +11,6 @@ namespace Source.Visuals.LineStorage
         public abstract Sprite MemoryForegroundIcon { get; }
         public abstract string MemoryName { get; }
         
-        public abstract Memory CreateMemoryInstance(MemoryData memoryData);
+        public abstract MemoryItem CreateMemoryInstance(MemoryData memoryData);
     }
 }

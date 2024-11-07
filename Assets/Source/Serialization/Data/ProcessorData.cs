@@ -4,6 +4,6 @@
     {
         public string Definition;
         public float ClockSpeed;
-        public LineStorageData ProcessorStorage;
+        public MemoryStorageData ProcessorStorage;
     }
 }

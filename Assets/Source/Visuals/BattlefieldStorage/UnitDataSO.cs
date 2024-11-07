@@ -1,13 +1,11 @@
-using Source.Logic;
-using Source.Logic.State;
+using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Logic.State.LineItems.Units;
 using Source.Serialization.Data;
-using Source.Utility;
-using Source.Visuals.LineStorage;
+using Source.Visuals.MemoryStorage;
 using UnityEngine;
 
-namespace Source.Visuals.Battlefield
+namespace Source.Visuals.BattlefieldStorage
 {
     [CreateAssetMenu(fileName = "UnitName", menuName = "Game/Unit")]
     public class UnitDataSO : MemoryDataSO
@@ -52,7 +50,7 @@ namespace Source.Visuals.Battlefield
             };
         }
         
-        public override Memory CreateMemoryInstance(MemoryData memoryData)
+        public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
         {
             return new UnitLineItem()
             {

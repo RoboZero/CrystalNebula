@@ -1,10 +1,9 @@
-using Source.Logic;
-using Source.Logic.State;
+using Source.Logic.State.Battlefield;
 using Source.Serialization.Data;
 using Source.Utility;
 using UnityEngine;
 
-namespace Source.Visuals.Battlefield
+namespace Source.Visuals.BattlefieldStorage
 {
     [CreateAssetMenu(fileName = "BuildingName", menuName = "Game/Building")]
     public class BuildingDataSO : DescriptionBaseSO

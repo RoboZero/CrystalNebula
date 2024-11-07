@@ -1,9 +1,9 @@
-using Source.Logic;
 using Source.Logic.State;
+using Source.Logic.State.LineItems;
 using Source.Serialization;
 using UnityEngine;
 
-namespace Source.Visuals.LineStorage
+namespace Source.Visuals.MemoryStorage
 {
     public abstract class LineStorageBehavior : MonoBehaviour
     {
@@ -13,8 +13,8 @@ namespace Source.Visuals.LineStorage
     
         [SerializeField] protected GameStateLoader gameStateLoader;
     
-        public Logic.State.LineItems.LineStorage State => state;
-        protected Logic.State.LineItems.LineStorage state;
+        public LineStorage<MemoryItem> State => state;
+        protected LineStorage<MemoryItem> state;
     
         public void Tick()
         {

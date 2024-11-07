@@ -4,7 +4,7 @@ using Source.Logic.State.LineItems.Programs;
 using Source.Serialization.Data;
 using UnityEngine;
 
-namespace Source.Visuals.LineStorage.ProgramTypes
+namespace Source.Visuals.MemoryStorage.ProgramTypes
 {
     [CreateAssetMenu(fileName = "CommandProgramLineItem", menuName = "Game/Memory Item/Command Program")]
     public class CommandProgramDataSO : ProgramDataSO
@@ -12,7 +12,7 @@ namespace Source.Visuals.LineStorage.ProgramTypes
         public int Distance;
         public MoveUnitsInDirectionEventCommand.Direction Direction;
         
-        public override Memory CreateMemoryInstance(MemoryData memoryData)
+        public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
         {
             return new CommandProgram()
             {

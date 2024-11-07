@@ -4,8 +4,9 @@ using Source.Input;
 using Source.Logic;
 using Source.Logic.Events;
 using Source.Logic.State;
+using Source.Utility;
 using Source.Visuals;
-using Source.Visuals.LineStorage;
+using Source.Visuals.MemoryStorage;
 using UnityEngine;
 
 namespace Source.Interactions
@@ -38,11 +39,12 @@ namespace Source.Interactions
             Debug.Log("Player pressed hold. ");
             var interactedLines = playerInteractions.Interacted
                 .OfType<LineGemItemVisual>()
-                .Where(item => item.TrackedItem != null)
                 .ToList();
 
             var interactedSlots = interactedLines.Select(visual => visual.TrackedSlot).ToList();
             var interactedStorages= interactedLines.Select(visual => visual.TrackedLineStorage).ToList();
+            
+            Debug.Log($"Storages {interactedStorages.ToItemString()}, Slots {interactedSlots.ToItemString()}");
             
             eventTracker.AddEvent(new LineStorageOpenMultiTransferEventCommand(
                     interactedStorages,

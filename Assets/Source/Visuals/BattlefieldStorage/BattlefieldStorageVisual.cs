@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Source.Interactions;
-using Source.Logic;
-using Source.Logic.State;
+using Source.Logic.State.Battlefield;
 using Source.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Visuals.Battlefield
+namespace Source.Visuals.BattlefieldStorage
 {
     [RequireComponent(typeof(BattlefieldStorageBehavior))]
     public class BattlefieldStorageVisual : MonoBehaviour

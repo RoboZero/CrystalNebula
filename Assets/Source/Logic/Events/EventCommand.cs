@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Source.Logic.State;
+using Source.Logic.State.Battlefield;
+using Source.Logic.State.LineItems;
 using Source.Utility;
 
 namespace Source.Logic.Events
@@ -46,7 +48,7 @@ namespace Source.Logic.Events
         }
         
         
-        protected bool TryGetUnitAtSlot(BattlefieldStorage battlefieldStorage, int slot, out BattlefieldItem item, out Unit unit){
+        protected bool TryGetUnitAtSlot(LineStorage<BattlefieldItem> battlefieldStorage, int slot, out BattlefieldItem item, out Unit unit){
             var failedLog = $"Failed to get unit at slot {slot} in {battlefieldStorage}: ";
 
             if(!TryGetBattlefieldItemAtSlot(battlefieldStorage, slot, out item))
@@ -67,7 +69,7 @@ namespace Source.Logic.Events
             return true;
         }
         
-        protected bool TryGetBuildingAtSlot(BattlefieldStorage battlefieldStorage, int slot, out BattlefieldItem item, out Building building){
+        protected bool TryGetBuildingAtSlot(LineStorage<BattlefieldItem> battlefieldStorage, int slot, out BattlefieldItem item, out Building building){
             var failedLog = $"Failed to get building at slot {slot} in {battlefieldStorage}: ";
 
             if(!TryGetBattlefieldItemAtSlot(battlefieldStorage, slot, out item))
@@ -89,7 +91,7 @@ namespace Source.Logic.Events
         }
 
         
-        protected bool TryGetBattlefieldItemAtSlot(BattlefieldStorage battlefieldStorage, int slot, out BattlefieldItem item)
+        protected bool TryGetBattlefieldItemAtSlot(LineStorage<BattlefieldItem> battlefieldStorage, int slot, out BattlefieldItem item)
         {
             var failedLog = $"Failed to get battlefield item at slot {slot} in {battlefieldStorage}: ";
             

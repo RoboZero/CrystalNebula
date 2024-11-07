@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace Source.Serialization.Data
 {
     [Serializable]
-    public class LineStorageData
+    public class MemoryStorageData
     {
         public int Length;
-        public List<LineItemData> Items;
+        public List<MemoryItemData> Items;
     }
 }

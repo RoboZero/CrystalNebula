@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using Source.Interactions;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
 using Source.Utility;
 using UnityEngine;
 
-namespace Source.Visuals.LineStorage
+namespace Source.Visuals.MemoryStorage
 {
     public class LineGemStorageVisual : MonoBehaviour
     {
@@ -38,8 +37,15 @@ namespace Source.Visuals.LineStorage
 
             for (var i = 0; i < trackedRecords.Count; i++)
             {
-                var item = trackedLineGemStorageBehavior.State.Items[i];
-                UpdateRecordVisual(trackedRecords[i], i, item, showEmptyGems || (item.Memory != null));
+                if (i < trackedLineGemStorageBehavior.State.Items.Count)
+                {
+                    var item = trackedLineGemStorageBehavior.State.Items[i];
+                    UpdateRecordVisual(trackedRecords[i], i, item, showEmptyGems || (item != null));
+                }
+                else
+                {
+                    UpdateRecordVisual(trackedRecords[i], i, null, false);
+                }
             }
         }
         
@@ -57,7 +63,7 @@ namespace Source.Visuals.LineStorage
             records.Add(dataItemVisual);
         }
         
-        private void UpdateRecordVisual(in LineGemItemVisual recordVisual, int lineNumber, LineItem item, bool isActive)
+        private void UpdateRecordVisual(in LineGemItemVisual recordVisual, int lineNumber, MemoryItem item, bool isActive)
         {
             if (isActive)
             {

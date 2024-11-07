@@ -1,11 +1,9 @@
 using System;
-using Source.Logic;
-using Source.Logic.State;
 
 namespace Source.Serialization.Data
 {
     [Serializable]
-    public class LineItemData : DataItem
+    public class MemoryItemData
     {
         public int Location;
         public MemoryData Memory;

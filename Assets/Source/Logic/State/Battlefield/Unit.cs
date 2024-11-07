@@ -1,6 +1,6 @@
 using System;
 
-namespace Source.Logic.State
+namespace Source.Logic.State.Battlefield
 {
     [Serializable]
     public class Unit : BattlefieldResource

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Source.Visuals.LineStorage.ProgramTypes
+namespace Source.Visuals.MemoryStorage.ProgramTypes
 { 
     public abstract class ProgramDataSO : MemoryDataSO
     {

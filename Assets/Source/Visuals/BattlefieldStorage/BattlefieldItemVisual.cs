@@ -1,13 +1,11 @@
 using Source.Interactions;
-using Source.Logic;
-using Source.Logic.State;
+using Source.Logic.State.Battlefield;
 using Source.Serialization;
-using Source.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Visuals.Battlefield
+namespace Source.Visuals.BattlefieldStorage
 {
     public class BattlefieldItemVisual : StandardInteractableVisual
     {

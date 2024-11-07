@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Source.Logic.State.LineItems.Units
 {
-    public class UnitLineItem : Memory
+    public class UnitLineItem : MemoryItem
     {
         protected override void Run(EventTracker eventTracker, GameState gameState)
         {

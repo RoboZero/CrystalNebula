@@ -1,22 +1,21 @@
-using Source.Logic;
+using System.Linq;
 using Source.Logic.State;
-using Source.Serialization;
-using Source.Utility;
 using UnityEngine;
 
-namespace Source.Visuals.LineStorage
+namespace Source.Visuals.MemoryStorage
 {
     public class MemoryStorageBehavior : LineStorageBehavior
     {
         protected override void UpdateStorageFromState(GameState gameState)
         {
-            if (!gameState.Players.ContainsKey(playerID))
+            var player = gameState.Players.FirstOrDefault(player => player.Id == playerID);
+            if (player == null)
             {
                 Debug.LogWarning($"Failed to read from memory storage: playerId {playerID} is invalid, gamestate players count {gameState.Players.Count}");
                 return;
             }
             
-            var memoryStorageState = gameState.Players[playerID].MemoryStorage;
+            var memoryStorageState = player.MemoryStorage;
             itemStorageSize = memoryStorageState.Length;
             state = memoryStorageState;
         }

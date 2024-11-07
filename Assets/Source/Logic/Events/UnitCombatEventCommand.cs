@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using Source.Logic.State;
+using Source.Logic.State.Battlefield;
+using Source.Logic.State.LineItems;
 using Source.Utility;
 using UnityEngine;
 
@@ -8,14 +10,14 @@ namespace Source.Logic.Events
     public class UnitCombatEventCommand : EventCommand
     {
         private EventTracker eventTracker;
-        private BattlefieldStorage battlefieldStorage;
+        private LineStorage<BattlefieldItem> battlefieldStorage;
         private int initiatorSlot;
         private int responderSlot;
         private bool tryMoveAfterCombat;
 
         public UnitCombatEventCommand(
             EventTracker eventTracker,
-            BattlefieldStorage battlefieldStorage,
+            LineStorage<BattlefieldItem> battlefieldStorage,
             int initiatorSlot,
             int responderSlot,
             bool tryMoveAfterCombat

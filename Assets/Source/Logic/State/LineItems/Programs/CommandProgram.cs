@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Source.Logic.State.LineItems.Programs
 {
-    public class CommandProgram : Memory
+    public class CommandProgram : MemoryItem
     {
         public int Distance;
         public MoveUnitsInDirectionEventCommand.Direction Direction;

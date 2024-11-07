@@ -1,4 +1,4 @@
 ﻿namespace Source.Logic.State.LineItems.Programs
 {
-    public abstract class ProgramLineItem : Memory { }
+    public abstract class ProgramLineItem : MemoryItem { }
 }

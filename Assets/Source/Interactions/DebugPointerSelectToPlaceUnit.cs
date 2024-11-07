@@ -6,7 +6,7 @@ using Source.Logic.State;
 using Source.Serialization;
 using Source.Serialization.Data;
 using Source.Serialization.Samples;
-using Source.Visuals.Battlefield;
+using Source.Visuals.BattlefieldStorage;
 using UnityEngine;
 
 namespace Source.Interactions
