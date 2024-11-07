@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Source.Logic.State.LineItems;
+using Source.Serialization.Data;
 
 namespace Source.Logic.State
 {
@@ -8,9 +10,9 @@ namespace Source.Logic.State
     public class Player
     {
         public int Id;
-        public LineStorage PersonalStorage;
+        public LineStorage<MemoryItem> PersonalStorage;
         public List<Processor> Processors;
-        public LineStorage MemoryStorage;
-        public LineStorage DiskStorage;
+        public LineStorage<MemoryItem> MemoryStorage;
+        public LineStorage<MemoryItem> DiskStorage;
     }
 }

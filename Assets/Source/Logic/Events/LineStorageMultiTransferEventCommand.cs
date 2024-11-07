@@ -6,17 +6,16 @@ namespace Source.Logic.Events
 {
     public class LineStorageMultiTransferEventCommand : EventCommand
     {
-        private List<LineStorage> fromStorages;
+        private List<LineStorage<MemoryItem>> fromStorages;
         private List<int> fromSlots;
-        private LineStorage toStorage;
+        private LineStorage<MemoryItem> toStorage;
         private List<int> toSlots;
         private TransferEventOverrides transferEventOverrides;
 
-        
         public LineStorageMultiTransferEventCommand(
-            List<LineStorage> fromStorages,
+            List<LineStorage<MemoryItem>> fromStorages,
             List<int> fromSlots,
-            LineStorage toStorage,
+            LineStorage<MemoryItem> toStorage,
             List<int> toSlots,
             TransferEventOverrides transferEventOverrides
         )

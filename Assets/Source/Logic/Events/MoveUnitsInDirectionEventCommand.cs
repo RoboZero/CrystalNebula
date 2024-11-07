@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Source.Logic.State;
+using Source.Logic.State.Battlefield;
+using Source.Logic.State.LineItems;
 using Source.Utility;
 
 namespace Source.Logic.Events
@@ -13,7 +15,7 @@ namespace Source.Logic.Events
         }
         
         private EventTracker eventTracker;
-        private BattlefieldStorage battlefieldStorage;
+        private LineStorage<BattlefieldItem> battlefieldStorage;
         private List<int> fromSlots;
         private Direction direction;
         private int distance;
@@ -21,7 +23,7 @@ namespace Source.Logic.Events
         
         public MoveUnitsInDirectionEventCommand(
             EventTracker eventTracker,
-            BattlefieldStorage battlefieldStorage,
+            LineStorage<BattlefieldItem> battlefieldStorage,
             List<int> fromSlots,
             Direction direction,
             int distance,

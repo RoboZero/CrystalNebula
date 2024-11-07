@@ -4,11 +4,12 @@ using System.Collections.Generic;
 namespace Source.Logic.State.LineItems
 {
     [Serializable]
-    public class LineStorage
+    public class LineStorage<T> where T : LineItem
+
     {
         public string StorageName;
         public int Length;
-        public List<LineItem> Items;
+        public List<T> Items;
 
         public override string ToString()
         {

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Source.Logic.State;
+using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Serialization.Data;
 
@@ -10,7 +11,7 @@ namespace Source.Serialization
     {
         public GameData Convert(GameState gameState)
         {
-            var players = gameState.Players.Select(pair => ConvertPlayer(pair.Value)).ToList();
+            var players = gameState.Players.Select(ConvertPlayer).ToList();
 
             var gameData = new GameData
             {
@@ -30,7 +31,7 @@ namespace Source.Serialization
             };
         }
 
-        private BattlefieldStorageData ConvertBattlefieldStorage(BattlefieldStorage battlefieldStorage)
+        private BattlefieldStorageData ConvertBattlefieldStorage(LineStorage<BattlefieldItem> battlefieldStorage)
         {
             var battlefieldItems = (
                     from item in battlefieldStorage.Items
@@ -76,10 +77,10 @@ namespace Source.Serialization
             return new PlayerData()
             {
                 Id = player.Id,
-                PersonalStorage = ConvertLineStorage(player.PersonalStorage),
+                PersonalStorage = ConvertMemoryStorage(player.PersonalStorage),
                 Processors = processors,
-                DiskStorage = ConvertLineStorage(player.DiskStorage),
-                MemoryStorage = ConvertLineStorage(player.MemoryStorage)
+                DiskStorage = ConvertMemoryStorage(player.DiskStorage),
+                MemoryStorage = ConvertMemoryStorage(player.MemoryStorage)
             };
         }
 
@@ -88,33 +89,32 @@ namespace Source.Serialization
             return new ProcessorData()
             {
                 Definition = processor.Definition,
-                ProcessorStorage = ConvertLineStorage(processor.ProcessorStorage),
+                ProcessorStorage = ConvertMemoryStorage(processor.ProcessorStorage),
                 ClockSpeed = processor.ClockSpeed,
             };
         }
 
-        private LineStorageData ConvertLineStorage(LineStorage lineStorage)
+        private MemoryStorageData ConvertMemoryStorage(LineStorage<MemoryItem> lineStorage)
         {
-            var diskStorageItems = new List<LineItemData>();
+            var diskStorageItems = new List<MemoryItemData>();
 
             foreach (var storedItem in lineStorage.Items)
             {
                 if (storedItem != null)
                 {
-                    diskStorageItems.Add(new LineItemData()
+                    diskStorageItems.Add(new MemoryItemData()
                     {
-                        Description = storedItem.Description,
                         Memory = new MemoryData()
                         {
-                            OwnerId = storedItem.Memory.OwnerId,
-                            Definition = storedItem.Memory.Definition,
-                            Progress = storedItem.Memory.CurrentProgress
+                            OwnerId = storedItem.OwnerId,
+                            Definition = storedItem.Definition,
+                            Progress = storedItem.CurrentProgress
                         }
                     });
                 }
             }
 
-            return new LineStorageData()
+            return new MemoryStorageData()
             {
                 Length = lineStorage.Length,
                 Items = diskStorageItems

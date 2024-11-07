@@ -1,4 +1,7 @@
 ﻿using Source.Logic.State;
+using Source.Logic.State.Battlefield;
+using Source.Logic.State.LineItems;
+using Source.Logic.State.LineItems.Units;
 using UnityEngine;
 
 namespace Source.Logic.Events
@@ -6,17 +9,17 @@ namespace Source.Logic.Events
     public class TeleportUnitEventCommand : EventCommand
     {
         private EventTracker eventTracker;
-        private BattlefieldStorage battlefieldStorage;
+        private LineStorage<BattlefieldItem> battlefieldStorage;
         private int fromSlot;
         private int toSlot;
         private MoveUnitEventOverrides moveUnitEventOverrides;
         
-        private Unit fromUnit;
+        private UnitMemory fromUnit;
         private BattlefieldItem fromItem;
         
         public TeleportUnitEventCommand(
             EventTracker eventTracker,
-            BattlefieldStorage battlefieldStorage,
+            LineStorage<BattlefieldItem> battlefieldStorage,
             int fromSlot,
             int toSlot,
             MoveUnitEventOverrides moveUnitEventOverrides
@@ -31,8 +34,8 @@ namespace Source.Logic.Events
         
         public TeleportUnitEventCommand(
             EventTracker eventTracker,
-            BattlefieldStorage battlefieldStorage,
-            Unit fromUnit,
+            LineStorage<BattlefieldItem> battlefieldStorage,
+            UnitMemory fromUnit,
             int toSlot,
             MoveUnitEventOverrides moveUnitEventOverrides
         )

@@ -6,7 +6,7 @@ using Source.Logic.State;
 using Source.Serialization;
 using Source.Serialization.Data;
 using Source.Serialization.Samples;
-using Source.Visuals.Battlefield;
+using Source.Visuals.BattlefieldStorage;
 using UnityEngine;
 
 namespace Source.Interactions
@@ -19,8 +19,8 @@ namespace Source.Interactions
         [SerializeField] private BattlefieldStorageVisual battlefieldStorageVisual;
         [SerializeField] private EventTracker eventTracker;
         [SerializeField] private InputReaderSO inputReader;
-        [SerializeField] private UnitDataSO unitDataSO;
-        [SerializeField] private BuildingDataSO buildingDataSO;
+        [SerializeField] private UnitMemoryDataSO unitMemoryDataSO;
+        [SerializeField] private BuildingMemoryDataSO buildingMemoryDataSO;
         
         private void OnEnable()
         {
@@ -50,21 +50,21 @@ namespace Source.Interactions
             
             if (interactedSlots.Count <= 0) return;
             
-            if (unitDataSO != null)
+            if (unitMemoryDataSO != null)
             {
                 eventTracker.AddEvent(new CreateUnitsEventCommand(
                     battlefieldStorageBehavior.State, 
                     interactedSlots,
-                    unitDataSO.CreateDefault(0, "Units/Guardian"),
+                    unitMemoryDataSO.CreateDefault(0, "Units/Guardian"),
                     false
                 ));
             }
-            if (buildingDataSO != null)
+            if (buildingMemoryDataSO != null)
             {
                 eventTracker.AddEvent(new CreateBuildingsEventCommand(
                     battlefieldStorageBehavior.State, 
                     interactedSlots,
-                    buildingDataSO.CreateDefault(0, "Buildings/Flag"),
+                    buildingMemoryDataSO.CreateDefault(0, "Buildings/Flag"),
                     false
                 ));
             }

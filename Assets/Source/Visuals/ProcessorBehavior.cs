@@ -6,7 +6,7 @@ using System.Text;
 using Source.Logic;
 using Source.Logic.Events;
 using Source.Serialization;
-using Source.Visuals.LineStorage;
+using Source.Visuals.MemoryStorage;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -52,9 +52,9 @@ namespace Source.Visuals
             {
                 foreach (var lineItem in processorStorageBehavior.State.Items)
                 {
-                    if (lineItem.Memory != null)
+                    if (lineItem != null)
                     {
-                        lineItem.Memory.Tick(eventTracker, gameStateLoader.GameState);
+                        lineItem.Tick(eventTracker, gameStateLoader.GameState);
                     }
                     else
                     {

@@ -1,17 +1,19 @@
 ﻿using Source.Logic.State;
+using Source.Logic.State.Battlefield;
+using Source.Logic.State.LineItems;
 
 namespace Source.Logic.Events
 {
     public class SwitchUnitEventCommand : EventCommand
     {
         private EventTracker eventTracker;
-        private BattlefieldStorage battlefieldStorage;
+        private LineStorage<BattlefieldItem> battlefieldStorage;
         private int fromSlot;
         private int toSlot;
 
         public SwitchUnitEventCommand(
             EventTracker eventTracker,
-            BattlefieldStorage battlefieldStorage,
+            LineStorage<BattlefieldItem> battlefieldStorage,
             int fromSlot,
             int toSlot
         )

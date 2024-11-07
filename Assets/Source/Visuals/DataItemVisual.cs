@@ -12,12 +12,12 @@ namespace Source.Visuals
     {
         [SerializeField] private TMPro.TMP_Text tmpText;
 
-        private DataItem trackedDataItem;
+        private LineItem trackedLineItem;
         private string originalText;
 
-        public void SetDataItem(in DataItem dataItem)
+        public void SetDataItem(in LineItem lineItem)
         {
-            trackedDataItem = dataItem;
+            trackedLineItem = lineItem;
         }
 
         private void Update()
@@ -25,7 +25,7 @@ namespace Source.Visuals
             switch (CurrentVisualState)
             {
                 case InteractVisualState.None:
-                    tmpText.text = trackedDataItem?.Description ?? "NONE";
+                    tmpText.text = trackedLineItem?.Description ?? "NONE";
                     break;
                 case InteractVisualState.Hovered:
                     tmpText.text = "HOVERED";

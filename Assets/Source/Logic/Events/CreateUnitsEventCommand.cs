@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Source.Logic.State;
+using Source.Logic.State.Battlefield;
+using Source.Logic.State.LineItems;
+using Source.Logic.State.LineItems.Units;
 using Source.Utility;
 using UnityEngine;
 
@@ -9,15 +12,15 @@ namespace Source.Logic.Events
 {
     public class CreateUnitsEventCommand : EventCommand 
     {
-        private BattlefieldStorage battlefieldStorage;
+        private LineStorage<BattlefieldItem> battlefieldStorage;
         private List<int> slots;
-        private Unit unit;
+        private UnitMemory unit;
         private bool forceIfOccupied;
 
         public CreateUnitsEventCommand(
-            BattlefieldStorage battlefieldStorage,
+            LineStorage<BattlefieldItem> battlefieldStorage,
             List<int> slots,
-            Unit unit,
+            UnitMemory unit,
             bool forceIfOccupied
         )
         {

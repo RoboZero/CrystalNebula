@@ -16,12 +16,12 @@ namespace Source.Serialization.Samples
                 new PlayerData
                 {
                     Id = 0,
-                    PersonalStorage = new LineStorageData()
+                    PersonalStorage = new MemoryStorageData()
                     {
                         Length = 1,
-                        Items = new List<LineItemData>
+                        Items = new List<MemoryItemData>
                         {
-                            new LineItemData
+                            new MemoryItemData
                             {
                                 Location = 0,
                                 Memory = new MemoryData
@@ -39,12 +39,12 @@ namespace Source.Serialization.Samples
                         {
                             Definition = "Processors/Basic",
                             ClockSpeed = 1.0f,
-                            ProcessorStorage = new LineStorageData
+                            ProcessorStorage = new MemoryStorageData
                             {
                                 Length = 1,
-                                Items = new List<LineItemData>
+                                Items = new List<MemoryItemData>
                                 {
-                                    new LineItemData
+                                    new MemoryItemData
                                     {
                                         Location = 0,
                                         Memory = new MemoryData
@@ -58,12 +58,12 @@ namespace Source.Serialization.Samples
                             }  
                         }
                     },
-                    MemoryStorage = new LineStorageData
+                    MemoryStorage = new MemoryStorageData
                     {
                         Length = 3,
-                        Items = new List<LineItemData>
+                        Items = new List<MemoryItemData>
                         {
-                            new LineItemData
+                            new MemoryItemData
                             {
                                 Location = 0,
                                 Memory = new MemoryData
@@ -73,7 +73,7 @@ namespace Source.Serialization.Samples
                                     Progress = 0
                                 }
                             },
-                            new LineItemData
+                            new MemoryItemData
                             {
                                 Location = 1,
                                 Memory = new MemoryData
@@ -85,12 +85,12 @@ namespace Source.Serialization.Samples
                             }
                         }
                     },
-                    DiskStorage = new LineStorageData
+                    DiskStorage = new MemoryStorageData
                     {
                         Length = 5,
-                        Items = new List<LineItemData>
+                        Items = new List<MemoryItemData>
                         {
-                            new LineItemData
+                            new MemoryItemData
                             {
                                 Location = 0,
                                 Memory = new MemoryData
@@ -100,7 +100,7 @@ namespace Source.Serialization.Samples
                                     Progress = 0
                                 }
                             },
-                            new LineItemData
+                            new MemoryItemData
                             {
                                 Location = 1,
                                 Memory = new MemoryData

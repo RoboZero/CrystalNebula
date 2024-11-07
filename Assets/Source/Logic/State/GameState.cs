@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Source.Logic.State.Battlefield;
+using Source.Logic.State.LineItems;
 
 namespace Source.Logic.State
 {
@@ -7,7 +9,7 @@ namespace Source.Logic.State
     public class GameState
     {
         public Level Level;
-        public Dictionary<int, Player> Players;
-        public BattlefieldStorage BattlefieldStorage;
+        public List<Player> Players;
+        public LineStorage<BattlefieldItem> BattlefieldStorage;
     }
 }

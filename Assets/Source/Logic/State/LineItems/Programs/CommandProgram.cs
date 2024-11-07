@@ -1,14 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Source.Logic.Events;
 using UnityEngine;
 
 namespace Source.Logic.State.LineItems.Programs
 {
-    public class CommandProgram : Memory
+    public class CommandProgram : ProgramMemory
     {
         public int Distance;
         public MoveUnitsInDirectionEventCommand.Direction Direction;
-        
+
         protected override void Run(EventTracker eventTracker, GameState gameState)
         {
             Debug.Log("Command ran!");
@@ -27,7 +28,7 @@ namespace Source.Logic.State.LineItems.Programs
                     }
                 }
             }
-                
+
             eventTracker.AddEvent(new MoveUnitsInDirectionEventCommand(
                 eventTracker,
                 battlefield,

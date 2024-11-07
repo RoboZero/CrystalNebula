@@ -5,16 +5,16 @@ namespace Source.Logic.Events
 {
     public class LineStorageTransferEventCommand : EventCommand
     {
-        private LineStorage fromStorage;
+        private LineStorage<MemoryItem> fromStorage;
         private int fromSlot;
-        private LineStorage toStorage;
+        private LineStorage<MemoryItem> toStorage;
         private int toSlot;
         private TransferEventOverrides transferEventOverrides;
 
         public LineStorageTransferEventCommand(
-            LineStorage fromStorage,
+            LineStorage<MemoryItem> fromStorage,
             int fromSlot,
-            LineStorage toStorage,
+            LineStorage<MemoryItem> toStorage,
             int toSlot,
             TransferEventOverrides transferEventOverrides
         )
@@ -43,9 +43,9 @@ namespace Source.Logic.Events
                 return false;
             }
 
-            if (transferEventOverrides != null && !transferEventOverrides.CanSwitch && toStorage.Items[toSlot].Memory != null)
+            if (transferEventOverrides != null && !transferEventOverrides.CanSwitch && toStorage.Items[toSlot] != null)
             {
-                AddLog(failurePrefix + $"cannot switch and to slot {toSlot} has item in it {toStorage.Items[toSlot].Memory}");
+                AddLog(failurePrefix + $"cannot switch and to slot {toSlot} has item in it {toStorage.Items[toSlot]}");
                 return false;
             }
 

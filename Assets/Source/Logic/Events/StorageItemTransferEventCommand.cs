@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Source.Logic.Events
 {
-    public class StorageItemTransferEventCommand<T> : EventCommand where T : DataItem
+    public class StorageItemTransferEventCommand<T> : EventCommand where T : LineItem
     {
         private ItemStorage<T> fromStorage;
         private List<int> fromSlots;

@@ -1,11 +1,13 @@
 using System;
+using Source.Logic.State.LineItems.Units;
 
-namespace Source.Logic.State
+namespace Source.Logic.State.Battlefield
 {
+    // TODO: A Line item shouldn't contain other line items. 
     [Serializable]
-    public class BattlefieldItem : DataItem
+    public class BattlefieldItem : LineItem
     {
-        public Building Building;
-        public Unit Unit;
+        public BuildingMemory Building;
+        public UnitMemory Unit;
     }
 }

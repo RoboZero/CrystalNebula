@@ -7,9 +7,9 @@ namespace Source.Serialization.Data
     public class PlayerData
     {
         public int Id;
-        public LineStorageData PersonalStorage;
+        public MemoryStorageData PersonalStorage;
         public List<ProcessorData> Processors;
-        public LineStorageData MemoryStorage;
-        public LineStorageData DiskStorage;
+        public MemoryStorageData MemoryStorage;
+        public MemoryStorageData DiskStorage;
     }
 }

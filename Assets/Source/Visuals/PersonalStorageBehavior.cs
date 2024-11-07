@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Source.Input;
 using Source.Logic.State;
-using Source.Visuals.LineStorage;
+using Source.Logic.State.LineItems;
+using Source.Visuals.MemoryStorage;
 using UnityEngine;
 
 namespace Source.Visuals
@@ -31,15 +33,32 @@ namespace Source.Visuals
         
         protected override void UpdateStorageFromState(GameState gameState)
         {
-            if (!gameState.Players.ContainsKey(playerID))
+            var player = gameState.Players.FirstOrDefault(player => player.Id == playerID);
+            if (player == null)
             {
                 Debug.LogWarning($"Failed to read from player storage: playerId {playerID} is invalid, gamestate players count {gameState.Players.Count}");
                 return;
             }
 
-            var personalStorageState = gameState.Players[playerID].PersonalStorage;
+            var personalStorageState = player.PersonalStorage;
             itemStorageSize = personalStorageState.Length;
             state = personalStorageState;
+
+            ShiftItemsUp(personalStorageState);
+        }
+
+        private void ShiftItemsUp(LineStorage<MemoryItem> personalStorageState)
+        {
+            // Shift all items up to 0 if empty so transfer pairs can be made
+            // (Observed that if item was in slot 2 and you only selected one battlefield slot, never used slot 2.
+            for (var i = personalStorageState.Items.Count - 1; i >= 1; i--)
+            {
+                if (personalStorageState.Items[i - 1] == null)
+                {
+                    personalStorageState.Items[i - 1] = personalStorageState.Items[i];
+                    personalStorageState.Items[i] = null;
+                }
+            }
         }
     }
 }

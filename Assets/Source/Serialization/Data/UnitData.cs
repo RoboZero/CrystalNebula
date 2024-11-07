@@ -1,13 +1,10 @@
 using System;
-using Source.Logic;
-using Source.Logic.State;
 
 namespace Source.Serialization.Data
 {
     [Serializable]
-    public class UnitData : BattlefieldResource
+    public class UnitData : MemoryData
     {
-        public int Health;
-        public int Power;
+        
     }
 }

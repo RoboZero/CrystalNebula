@@ -20,10 +20,10 @@ namespace Source.Visuals
         [Header("Settings")]
         [SerializeField] private int itemStorageSize;
 
-        public ItemStorage<DataItem> ItemStorage => itemStorage;
+        public ItemStorage<LineItem> ItemStorage => itemStorage;
         public List<int> InteractedVisualIndices => interactedVisualIndices;
         
-        private ItemStorage<DataItem> itemStorage = new();
+        private ItemStorage<LineItem> itemStorage = new();
         private List<int> interactedVisualIndices = new();
         private List<DataItemRecordVisual> trackedRecords = new();
 
@@ -73,7 +73,7 @@ namespace Source.Visuals
             records.Add(record);
         }
 
-        private void UpdateRecordVisual(in DataItemRecordVisual recordVisual, in ItemStorage<DataItem>.ItemSlot slot)
+        private void UpdateRecordVisual(in DataItemRecordVisual recordVisual, in ItemStorage<LineItem>.ItemSlot slot)
         {
             if (slot.IsActive)
             {

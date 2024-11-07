@@ -1,22 +1,20 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Source.Logic.State.LineItems;
 using Source.Utility;
-using UnityEngine;
 
 namespace Source.Logic.Events
 {
     public class LineStorageOpenMultiTransferEventCommand : EventCommand
     {
-        private List<LineStorage> fromStorages;
+        private List<LineStorage<MemoryItem>> fromStorages;
         private List<int> fromSlots;
-        private LineStorage toStorage;
+        private LineStorage<MemoryItem> toStorage;
         private TransferEventOverrides transferEventOverrides;
 
         public LineStorageOpenMultiTransferEventCommand(
-            List<LineStorage> fromStorages,
+            List<LineStorage<MemoryItem>> fromStorages,
             List<int> fromSlots,
-            LineStorage toStorage,
+            LineStorage<MemoryItem> toStorage,
             TransferEventOverrides transferEventOverrides
         )
         {
@@ -36,7 +34,7 @@ namespace Source.Logic.Events
             for (var index = 0; index < toStorage.Items.Count; index++)
             {
                 var item = toStorage.Items[index];
-                if(item.Memory == null || transferEventOverrides.CanSwitch){
+                if(item == null || transferEventOverrides.CanSwitch){
                     openSlots.Add(index);
                 }
             }
