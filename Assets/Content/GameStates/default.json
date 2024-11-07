@@ -6,7 +6,7 @@
     {
       "Id": 1,
       "PersonalStorage": {
-        "Length": 1,
+        "Length": 2,
         "Items": []
       },
       "Processors": [

@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 3f6c241fa7708e543b1713f92fd10db4
   description: 
+  memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
   Sprite: {fileID: -1848972772, guid: 5115a204aec265e4ea76562ff32d5026, type: 3}
-  Name: Scarab
+  UnitName: 
   Abbreviation: Scarb
+  MaxProgress: 0
   BaseHealth: 3
   BasePower: 1
+  CanSwitchPlaces: 1
+  CanEngageCombat: 1

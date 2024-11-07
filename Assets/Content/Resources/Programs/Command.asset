@@ -18,6 +18,5 @@ MonoBehaviour:
   memoryForegroundIcon: {fileID: 21300000, guid: a182f363425c339429bc4ea2e44711ac, type: 3}
   memoryName: Command
   MaxProgress: 3
-  Data:
-    Distance: 1
-    Direction: 1
+  Distance: 1
+  Direction: -1
