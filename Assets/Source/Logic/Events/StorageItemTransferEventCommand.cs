@@ -29,7 +29,7 @@ namespace Source.Logic.Events
             this.toSlots = toSlots;
         }
 
-        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
+        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
         {
             AddLog($"Starting transfer of {fromSlots.Count} slots to {toSlots.Count} slots");
 

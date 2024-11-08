@@ -13,7 +13,7 @@ namespace Source.Logic.Events
         public UniTask<bool> AddEvent(EventCommand eventCommand)
         {
             eventCommands.Add(eventCommand);
-            var result = eventCommand.Perform(destroyCancellationToken);
+            var result = eventCommand.Apply(destroyCancellationToken);
             Debug.Log($"Event Tracker added and performed event: {eventCommand} \n {eventCommand.GetLog()}");
             return result;
         }

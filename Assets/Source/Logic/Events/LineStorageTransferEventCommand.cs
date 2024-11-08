@@ -37,7 +37,7 @@ namespace Source.Logic.Events
             this.transferEventOverrides = transferEventOverrides;
         }
 
-        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
+        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
         {
             AddLog($"{GetType().Name} Starting line storage transfer from slot {fromStorage}:{fromSlot} to slot {fromStorage}:{toSlot}");
             var failurePrefix = $"Unable to transfer from {fromStorage}:{fromSlot} to {toStorage}:{toSlot}: ";

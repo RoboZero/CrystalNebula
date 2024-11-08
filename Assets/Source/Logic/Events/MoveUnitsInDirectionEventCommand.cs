@@ -40,7 +40,7 @@ namespace Source.Logic.Events
             this.moveUnitEventOverrides = moveUnitEventOverrides;
         }
         
-        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
+        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
         {
             AddLog($"Moving units from {fromSlots.ToItemString()} in direction {direction.ToString()} with distance of {distance} within {battlefieldStorage}");
 

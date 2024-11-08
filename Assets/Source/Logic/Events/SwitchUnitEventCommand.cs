@@ -26,7 +26,7 @@ namespace Source.Logic.Events
             this.toSlot = toSlot;
         }
         
-        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
+        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
         {
             AddLog($"Switching units from {fromSlot} to {toSlot} in {battlefieldStorage}");
 

@@ -32,7 +32,7 @@ namespace Source.Logic.Events
             this.forceIfOccupied = forceIfOccupied;
         }
 
-        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
+        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
         {
             AddLog($"{ID} Creating buildings of type {building.Definition} in slots {slots.ToItemString()} of {battlefieldStorage}");
 

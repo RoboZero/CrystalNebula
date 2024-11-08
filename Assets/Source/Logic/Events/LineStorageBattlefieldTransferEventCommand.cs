@@ -40,7 +40,7 @@ namespace Source.Logic.Events
             this.transferEventOverrides = transferEventOverrides;
         }
         
-        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
+        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
         {
             AddLog($"{GetType().Name} Starting line storage transfer from slot {battlefieldStorage}:{battlefieldSlot} to slot {memoryStorage}:{memorySlot}");
             var failurePrefix = $"Unable to transfer from {battlefieldStorage}:{battlefieldSlot} to {memoryStorage}:{memorySlot}: ";

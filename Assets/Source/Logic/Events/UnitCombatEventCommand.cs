@@ -33,7 +33,7 @@ namespace Source.Logic.Events
             this.tryMoveAfterCombat = tryMoveAfterCombat;
         }
         
-        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
+        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
         {
             AddLog($"Unit combat started. Initiator slot: {initiatorSlot}, Responder slot: {responderSlot}");
             

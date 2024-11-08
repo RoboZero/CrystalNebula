@@ -23,7 +23,7 @@ namespace Source.Logic.Events
             this.deadUnitSlot = deadUnitSlot;
         }
         
-        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
+        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
         {
             AddLog($"Unit at slot {deadUnitSlot} has died in {battlefieldStorage}");
 

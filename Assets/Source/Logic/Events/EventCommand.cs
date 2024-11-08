@@ -25,12 +25,12 @@ namespace Source.Logic.Events
         }
 
         public virtual bool CanPerform() { return true; }
-        public abstract UniTask<bool> Perform(CancellationToken cancellationToken);
+        public abstract UniTask<bool> Apply(CancellationToken cancellationToken);
 
         protected UniTask<bool> PerformChildEventWithLog(EventCommand eventCommand, CancellationToken cancellationToken)
         {
             eventCommand.parentCount = parentCount + 1;
-            var result = eventCommand.Perform(cancellationToken);
+            var result = eventCommand.Apply(cancellationToken);
             logBuilder.AppendLine(eventCommand.GetLog());
             return result;
         }

@@ -30,7 +30,7 @@ namespace Source.Logic.Events
             this.transferEventOverrides = transferEventOverrides;
         }
 
-        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
+        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
         {
             AddLog($"{GetType().Name} Starting multiple line storage transfers from storages {fromStorages.ToItemString()}: slots {fromSlots.ToItemString()} to slot {toStorage}:{toSlots.ToItemString()}");
             var failurePrefix = $"Failed to multi transfer: ";
