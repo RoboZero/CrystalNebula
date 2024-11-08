@@ -107,18 +107,15 @@ namespace Source.Logic.Events
 
             AddLog($"Transfer time {transferTimeSeconds}");
             
-            await UniTask.Delay(TimeSpan.FromSeconds(transferTimeSeconds), DelayType.DeltaTime, PlayerLoopTiming.Update, cancellationToken);
-            
-            /*
             var stopwatch = Stopwatch.StartNew();
             while (transferPercentProgress < 1f)
             {
-                transferPercentProgress = Mathf.Clamp(stopwatch.Elapsed.Milliseconds / (transferTimeSeconds * 1000), 0, 1);
-                Debug.Log($"Awaiting line transfer storage. Transfer Percent Progress: {transferPercentProgress}");
+                transferPercentProgress = ((float) stopwatch.Elapsed.TotalSeconds) / transferTimeSeconds;
+                //AddLog($"Awaiting line transfer storage. Transfer Percent Progress: {transferPercentProgress}");
                 await UniTask.NextFrame();
             }
-            */
 
+            AddLog($"Finished awaiting line transfer storage");
             transferPercentProgress = 1;
         }
     }
