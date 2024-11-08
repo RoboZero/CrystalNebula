@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using Source.Interactions;
 using Source.Logic.State;
 using Source.Logic.State.LineItems;
@@ -27,7 +28,7 @@ namespace Source.Logic.Events
             this.toSlots = toSlots;
         }
 
-        public override bool Perform()
+        public override async UniTask<bool> Perform()
         {
             AddLog($"Starting transfer of {fromSlots.Count} slots to {toSlots.Count} slots");
 

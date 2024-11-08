@@ -1,4 +1,5 @@
-﻿using Source.Logic.State;
+﻿using Cysharp.Threading.Tasks;
+using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 
@@ -24,7 +25,7 @@ namespace Source.Logic.Events
             this.toSlot = toSlot;
         }
         
-        public override bool Perform()
+        public override async UniTask<bool> Perform()
         {
             AddLog($"Switching units from {fromSlot} to {toSlot} in {battlefieldStorage}");
 

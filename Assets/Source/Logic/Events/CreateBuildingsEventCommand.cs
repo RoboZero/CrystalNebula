@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
@@ -30,7 +31,7 @@ namespace Source.Logic.Events
             this.forceIfOccupied = forceIfOccupied;
         }
 
-        public override bool Perform()
+        public override async UniTask<bool> Perform()
         {
             AddLog($"{ID} Creating buildings of type {building.Definition} in slots {slots.ToItemString()} of {battlefieldStorage}");
 

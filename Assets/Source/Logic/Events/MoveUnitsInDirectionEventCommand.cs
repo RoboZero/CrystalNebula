@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
@@ -38,7 +39,7 @@ namespace Source.Logic.Events
             this.moveUnitEventOverrides = moveUnitEventOverrides;
         }
         
-        public override bool Perform()
+        public override async UniTask<bool> Perform()
         {
             AddLog($"Moving units from {fromSlots.ToItemString()} in direction {direction.ToString()} with distance of {distance} within {battlefieldStorage}");
 
@@ -59,7 +60,7 @@ namespace Source.Logic.Events
                     {
                         var fromSlot = fromSlots[i];
                         var toSlot = toSlots[i];
-                        var result = PerformChildEventWithLog(new TeleportUnitEventCommand(
+                        var result = await PerformChildEventWithLog(new TeleportUnitEventCommand(
                                 eventTracker,
                                 battlefieldStorage,
                                 fromSlot,
@@ -78,7 +79,7 @@ namespace Source.Logic.Events
                     {
                         var fromSlot = fromSlots[i];
                         var toSlot = toSlots[i];
-                        var result = PerformChildEventWithLog(new TeleportUnitEventCommand(
+                        var result = await PerformChildEventWithLog(new TeleportUnitEventCommand(
                                 eventTracker,
                                 battlefieldStorage,
                                 fromSlot,

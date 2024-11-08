@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State.LineItems;
 using Source.Utility;
 
@@ -27,7 +28,7 @@ namespace Source.Logic.Events
             this.transferEventOverrides = transferEventOverrides;
         }
 
-        public override bool Perform()
+        public override async UniTask<bool> Perform()
         {
             AddLog($"{GetType().Name} Starting multiple line storage transfers from storages {fromStorages.ToItemString()}: slots {fromSlots.ToItemString()} to slot {toStorage}:{toSlots.ToItemString()}");
             var failurePrefix = $"Failed to multi transfer: ";
@@ -49,7 +50,7 @@ namespace Source.Logic.Events
                     continue;
                 }
                 
-                var result = PerformChildEventWithLog(new LineStorageTransferEventCommand(
+                var result = await PerformChildEventWithLog(new LineStorageTransferEventCommand(
                     fromStorages[index],
                     fromSlots[index],
                     toStorage,

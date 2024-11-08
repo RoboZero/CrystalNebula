@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Source.Logic.Events
@@ -9,7 +10,7 @@ namespace Source.Logic.Events
         
         private List<EventCommand> eventCommands = new();
 
-        public bool AddEvent(EventCommand eventCommand)
+        public UniTask<bool> AddEvent(EventCommand eventCommand)
         {
             eventCommands.Add(eventCommand);
             var result = eventCommand.Perform();

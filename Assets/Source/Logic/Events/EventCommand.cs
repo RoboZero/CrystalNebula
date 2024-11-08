@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
@@ -23,9 +24,9 @@ namespace Source.Logic.Events
         }
 
         public virtual bool CanPerform() { return true; }
-        public abstract bool Perform();
+        public abstract UniTask<bool> Perform();
 
-        protected bool PerformChildEventWithLog(EventCommand eventCommand)
+        protected UniTask<bool> PerformChildEventWithLog(EventCommand eventCommand)
         {
             eventCommand.parentCount = parentCount + 1;
             var result = eventCommand.Perform();

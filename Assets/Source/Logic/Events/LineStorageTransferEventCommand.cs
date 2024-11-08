@@ -1,4 +1,5 @@
-﻿using Source.Logic.State.LineItems;
+﻿using Cysharp.Threading.Tasks;
+using Source.Logic.State.LineItems;
 using Source.Utility;
 
 namespace Source.Logic.Events
@@ -26,7 +27,7 @@ namespace Source.Logic.Events
             this.transferEventOverrides = transferEventOverrides;
         }
 
-        public override bool Perform()
+        public override async UniTask<bool> Perform()
         {
             AddLog($"{GetType().Name} Starting line storage transfer from slot {fromStorage}:{fromSlot} to slot {fromStorage}:{toSlot}");
             var failurePrefix = $"Unable to transfer from {fromStorage}:{fromSlot} to {toStorage}:{toSlot}: ";

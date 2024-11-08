@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Utility;
@@ -31,7 +32,7 @@ namespace Source.Logic.Events
             this.transferEventOverrides = transferEventOverrides;
         }
         
-        public override bool Perform()
+        public override async UniTask<bool> Perform()
         {
             
             AddLog($"{GetType().Name} Starting multiple line storage transfers from storages {memoryStorage}: slots {memorySlots.ToItemString()} to slot {battlefieldStorages.ToItemString()}:{battlefieldSlots.ToItemString()}");
@@ -48,7 +49,7 @@ namespace Source.Logic.Events
                     continue;
                 }
                 
-                var result = PerformChildEventWithLog(new LineStorageBattlefieldTransferEventCommand(
+                var result = await PerformChildEventWithLog(new LineStorageBattlefieldTransferEventCommand(
                     memoryStorage,
                     memorySlots[index],
                     battlefieldStorages[index],
