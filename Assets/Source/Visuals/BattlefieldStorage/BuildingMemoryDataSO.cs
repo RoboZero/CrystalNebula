@@ -14,6 +14,7 @@ namespace Source.Visuals.BattlefieldStorage
         public string Abbreviation;
         public int BaseHealth;
         public int BasePower;
+        public float DataSize;
 
         public BuildingMemory CreateInstance(BuildingData buildingData)
         {
@@ -22,7 +23,8 @@ namespace Source.Visuals.BattlefieldStorage
                 OwnerId = buildingData.OwnerId,
                 Definition = buildingData.Definition,
                 Health = buildingData.Health,
-                Power = buildingData.Power
+                Power = buildingData.Power,
+                DataSize = DataSize
             };
         }
 
@@ -33,7 +35,8 @@ namespace Source.Visuals.BattlefieldStorage
                 OwnerId = ownerId,
                 Definition = definition,
                 Health = health ?? BaseHealth,
-                Power = power ?? BasePower
+                Power = power ?? BasePower,
+                DataSize = DataSize
             };
         }
     }

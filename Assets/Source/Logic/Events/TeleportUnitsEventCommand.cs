@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
@@ -36,7 +37,7 @@ namespace Source.Logic.Events
             this.moveUnitEventOverrides = moveUnitEventOverrides;
         }
         
-        public override async UniTask<bool> Perform()
+        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
         {
             AddLog($"Moving units from {fromSlots.ToItemString()} to {toSlots.ToItemString()} of {battlefieldStorage}");
 
@@ -77,7 +78,7 @@ namespace Source.Logic.Events
                     @from.Unit, 
                     toSlot, 
                     moveUnitEventOverrides
-                ));
+                ), cancellationToken);
 
                 if (result) 
                     success = false;

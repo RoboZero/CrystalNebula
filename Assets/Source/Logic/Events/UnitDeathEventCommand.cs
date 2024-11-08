@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
@@ -22,7 +23,7 @@ namespace Source.Logic.Events
             this.deadUnitSlot = deadUnitSlot;
         }
         
-        public override async UniTask<bool> Perform()
+        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
         {
             AddLog($"Unit at slot {deadUnitSlot} has died in {battlefieldStorage}");
 

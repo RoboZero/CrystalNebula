@@ -21,5 +21,6 @@ MonoBehaviour:
   MaxProgress: 0
   BaseHealth: 5
   BasePower: 1
+  DataSize: 3
   CanSwitchPlaces: 0
   CanEngageCombat: 1

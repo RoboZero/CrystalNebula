@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
@@ -31,7 +32,7 @@ namespace Source.Logic.Events
             this.forceIfOccupied = forceIfOccupied;
         }
 
-        public override async UniTask<bool> Perform()
+        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
         {
             AddLog($"{ID} Creating units of type {unit.Definition} in slots {slots.ToItemString()} of {battlefieldStorage}");
 

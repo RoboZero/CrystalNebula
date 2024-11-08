@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Logic.State.LineItems;
 using Source.Utility;
@@ -26,7 +27,7 @@ namespace Source.Logic.Events
         }
 
         
-        public override async UniTask<bool> Perform()
+        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
         {
             AddLog($"{GetType().Name} Starting multiple line storage transfers from slots {fromStorages.ToItemString()}:{fromSlots.ToItemString()} to all {toStorage} open slots");
             var failurePrefix = "Failed to start multiple line storage transfers to open slots: ";
@@ -52,7 +53,7 @@ namespace Source.Logic.Events
                 toStorage,
                 openSlots,
                 transferEventOverrides
-            ));
+            ), cancellationToken);
 
             return result;
         }

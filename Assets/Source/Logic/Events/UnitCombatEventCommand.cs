@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
@@ -32,7 +33,7 @@ namespace Source.Logic.Events
             this.tryMoveAfterCombat = tryMoveAfterCombat;
         }
         
-        public override async UniTask<bool> Perform()
+        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
         {
             AddLog($"Unit combat started. Initiator slot: {initiatorSlot}, Responder slot: {responderSlot}");
             
@@ -61,19 +62,19 @@ namespace Source.Logic.Events
             {
                 AddLog($"Responder has died, cannot counter attack");
 
-                PerformChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, responderSlot));
+                await PerformChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, responderSlot), cancellationToken);
 
                 if (tryMoveAfterCombat)
                 {
                     AddLog("Moving to responders slot after their death.");
                     // TODO: Let unit decide whether it should move after combat
-                    PerformChildEventWithLog(new TeleportUnitEventCommand(
+                    await PerformChildEventWithLog(new TeleportUnitEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         initiatorSlot,
                         responderSlot,
                         null
-                    ));
+                    ), cancellationToken);
                 }
             }
             else
@@ -84,7 +85,7 @@ namespace Source.Logic.Events
             if (IsUnitDead(initiatorUnit))
             {
                 AddLog($"Initiator has died");
-                PerformChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, initiatorSlot));
+                await PerformChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, initiatorSlot), cancellationToken);
             }
 
             return true;

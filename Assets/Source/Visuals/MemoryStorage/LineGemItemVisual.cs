@@ -99,7 +99,7 @@ namespace Source.Visuals.MemoryStorage
                     foregroundImage.gameObject.SetActive(true);
                 }
 
-                progressImage.fillAmount = ((float) item.CurrentProgress) / item.MaxProgress;
+                progressImage.fillAmount = ((float) item.CurrentRunProgress) / item.MaxRunProgress;
                 progressImage.gameObject.SetActive(true);
             } else if(emptyGemSO != null)
             {

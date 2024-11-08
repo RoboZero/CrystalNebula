@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
@@ -24,12 +25,12 @@ namespace Source.Logic.Events
         }
 
         public virtual bool CanPerform() { return true; }
-        public abstract UniTask<bool> Perform();
+        public abstract UniTask<bool> Perform(CancellationToken cancellationToken);
 
-        protected UniTask<bool> PerformChildEventWithLog(EventCommand eventCommand)
+        protected UniTask<bool> PerformChildEventWithLog(EventCommand eventCommand, CancellationToken cancellationToken)
         {
             eventCommand.parentCount = parentCount + 1;
-            var result = eventCommand.Perform();
+            var result = eventCommand.Perform(cancellationToken);
             logBuilder.AppendLine(eventCommand.GetLog());
             return result;
         }

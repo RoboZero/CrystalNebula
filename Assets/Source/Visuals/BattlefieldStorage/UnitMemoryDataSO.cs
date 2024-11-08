@@ -22,6 +22,7 @@ namespace Source.Visuals.BattlefieldStorage
         public int MaxProgress;
         public int BaseHealth;
         public int BasePower;
+        public float DataSize;
         public bool CanSwitchPlaces = true;
         public bool CanEngageCombat = true;
 
@@ -33,6 +34,7 @@ namespace Source.Visuals.BattlefieldStorage
                 OwnerId = ownerId,
                 Health = BaseHealth,
                 Power = BasePower,
+                DataSize = DataSize,
                 CanSwitchPlaces = CanSwitchPlaces,
                 CanEngageCombat = CanEngageCombat
             };
@@ -48,10 +50,11 @@ namespace Source.Visuals.BattlefieldStorage
                 Definition = memoryData.Definition,
                 Health = memoryData.Health ?? BaseHealth,
                 Power = memoryData.Power ?? BasePower,
+                DataSize = DataSize,
                 CanSwitchPlaces = CanSwitchPlaces,
                 CanEngageCombat = CanEngageCombat,
-                CurrentProgress = memoryData.Progress,
-                MaxProgress = MaxProgress,
+                CurrentRunProgress = memoryData.Progress,
+                MaxRunProgress = MaxProgress,
             };
         }
     }

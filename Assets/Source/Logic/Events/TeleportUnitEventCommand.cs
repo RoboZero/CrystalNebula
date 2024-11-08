@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
@@ -48,7 +49,7 @@ namespace Source.Logic.Events
             this.moveUnitEventOverrides = moveUnitEventOverrides;
         }
 
-        public override async UniTask<bool> Perform()
+        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
         {
             AddLog($"{nameof(TeleportUnitEventCommand)}: Moving unit from {fromSlot} to {toSlot} of {battlefieldStorage}");
             var failPrefix = $"Failed to move unit from {fromSlot} to {toSlot}: ";
@@ -81,7 +82,7 @@ namespace Source.Logic.Events
                         battlefieldStorage,
                         fromSlot,
                         toSlot
-                    ));
+                    ), cancellationToken);
                 }
                 else
                 {
@@ -98,7 +99,7 @@ namespace Source.Logic.Events
                         fromSlot,
                         toSlot,
                         true
-                    ));
+                    ), cancellationToken);
                 }
             }
 

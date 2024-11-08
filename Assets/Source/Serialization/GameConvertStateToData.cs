@@ -108,7 +108,7 @@ namespace Source.Serialization
                         {
                             OwnerId = storedItem.OwnerId,
                             Definition = storedItem.Definition,
-                            Progress = storedItem.CurrentProgress
+                            Progress = storedItem.CurrentRunProgress
                         }
                     });
                 }
@@ -117,6 +117,7 @@ namespace Source.Serialization
             return new MemoryStorageData()
             {
                 Length = lineStorage.Length,
+                DataPerSecondTransfer = lineStorage.DataPerSecondTransfer,
                 Items = diskStorageItems
             };
         }

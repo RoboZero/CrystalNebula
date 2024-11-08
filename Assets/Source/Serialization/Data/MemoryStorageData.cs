@@ -7,6 +7,7 @@ namespace Source.Serialization.Data
     public class MemoryStorageData
     {
         public int Length;
+        public float DataPerSecondTransfer;
         public List<MemoryItemData> Items;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Logic.State.LineItems.Units;
@@ -39,7 +40,7 @@ namespace Source.Logic.Events
             this.transferEventOverrides = transferEventOverrides;
         }
         
-        public override async UniTask<bool> Perform()
+        public override async UniTask<bool> Perform(CancellationToken cancellationToken)
         {
             AddLog($"{GetType().Name} Starting line storage transfer from slot {battlefieldStorage}:{battlefieldSlot} to slot {memoryStorage}:{memorySlot}");
             var failurePrefix = $"Unable to transfer from {battlefieldStorage}:{battlefieldSlot} to {memoryStorage}:{memorySlot}: ";
