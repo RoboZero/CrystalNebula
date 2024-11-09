@@ -13,8 +13,6 @@ namespace Source.Logic.Events
 {
     public abstract class EventCommand
     {
-        public bool IsComplete { get; protected set; } = true;
-        
         protected EventTracker eventTracker;
         
         private readonly StringBuilder logBuilder = new();

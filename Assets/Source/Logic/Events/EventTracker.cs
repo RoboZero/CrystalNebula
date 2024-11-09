@@ -36,9 +36,8 @@ namespace Source.Logic.Events
             eventCommands.Add(eventCommand);
             //gameState.RunningEventCommands.Add(eventCommand);
             
-            var task = eventCommand.Apply(creatorCancellationToken);
             EventStarted?.Invoke(eventCommand);
-            var result = await task;
+            var result = await eventCommand.Apply(creatorCancellationToken);
             EventCompleted?.Invoke(eventCommand);
             
             //gameState.RunningEventCommands.Remove(eventCommand);

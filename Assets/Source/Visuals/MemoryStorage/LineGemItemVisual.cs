@@ -10,6 +10,7 @@ namespace Source.Visuals.MemoryStorage
     {
         [Header("Dependencies")]
         [SerializeField] private Image progressImage;
+        [SerializeField] private Image emptyGemImage;
         [SerializeField] private Image backgroundImage;
         [SerializeField] private Image foregroundImage;
 
@@ -23,20 +24,10 @@ namespace Source.Visuals.MemoryStorage
         private GameResources gameResources;
         private LineStorage<MemoryItem> trackedLineStorage;
         private MemoryItem trackedItem;
+        private MemoryItem trackedTransferItem;
         private int trackedSlot;
         private float trackedTransferProgressPercent = 1;
         private MemoryDataSO memoryDataSO;
-
-        private MemoryDataSO emptyGemSO;
-
-        private void Start()
-        {
-            if (gameResources != null)
-            {
-                var emptySprite = GameResources.BuildDefinitionPath(GameResourceConstants.PROGRAMS_PATH, GameResourceConstants.EMPTY_MEMORY_DATA_DEFINITION);
-                gameResources.TryLoadAsset(this, emptySprite, out emptyGemSO);
-            }
-        }
 
         public void SetGameResources(GameResources resources)
         {
@@ -71,9 +62,9 @@ namespace Source.Visuals.MemoryStorage
         }
 
         private void Update()
-        {
-            SetVisualToItem(trackedItem);
-            
+        { 
+            SetVisualToItem(trackedItem, memoryDataSO);
+
             switch (CurrentVisualState)
             {
                 case InteractVisualState.None:
@@ -88,34 +79,29 @@ namespace Source.Visuals.MemoryStorage
             }
         }
         
-        private void SetVisualToItem(MemoryItem item)
+        private void SetVisualToItem(MemoryItem item, MemoryDataSO memoryData)
         {
-            backgroundImage.gameObject.SetActive(false);
-
             if (gameResources == null) return;
-            
-            if (item != null && memoryDataSO != null)
+
+            if (item != null && memoryData != null)
             {
-                backgroundImage.sprite = memoryDataSO.MemoryBackgroundIcon;
+                backgroundImage.sprite = memoryData.MemoryBackgroundIcon;
                 backgroundImage.gameObject.SetActive(true);
                 backgroundImage.fillAmount = trackedTransferProgressPercent;
 
-                if (memoryDataSO.MemoryForegroundIcon != null)
+                if (memoryData.MemoryForegroundIcon != null)
                 {
-                    foregroundImage.sprite = memoryDataSO.MemoryForegroundIcon;
+                    foregroundImage.sprite = memoryData.MemoryForegroundIcon;
                     foregroundImage.gameObject.SetActive(true);
                 }
                 foregroundImage.fillAmount = trackedTransferProgressPercent;
 
-                if (trackedTransferProgressPercent >= 1)
-                {
-                    progressImage.fillAmount = ((float) item.CurrentRunProgress) / item.MaxRunProgress;
-                    progressImage.gameObject.SetActive(true);
-                }
-            } else if(emptyGemSO != null)
+                progressImage.fillAmount = ((float) item.CurrentRunProgress) / item.MaxRunProgress;
+                progressImage.gameObject.SetActive(true);
+            } 
+            else
             {
-                backgroundImage.sprite = emptyGemSO.MemoryBackgroundIcon;
-                backgroundImage.gameObject.SetActive(true);
+                backgroundImage.gameObject.SetActive(false);
                 foregroundImage.gameObject.SetActive(false);
                 progressImage.gameObject.SetActive(false);
             }
