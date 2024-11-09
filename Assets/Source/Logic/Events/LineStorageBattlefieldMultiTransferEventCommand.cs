@@ -50,7 +50,7 @@ namespace Source.Logic.Events
                     continue;
                 }
                 
-                var result = await PerformChildEventWithLog(new LineStorageBattlefieldTransferEventCommand(
+                var result = await ApplyChildEventWithLog(new LineStorageBattlefieldTransferEventCommand(
                     memoryStorage,
                     memorySlots[index],
                     battlefieldStorages[index],

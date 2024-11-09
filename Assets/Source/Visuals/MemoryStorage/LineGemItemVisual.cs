@@ -17,12 +17,14 @@ namespace Source.Visuals.MemoryStorage
 
         public MemoryItem TrackedItem => trackedItem;
         public int TrackedSlot => trackedSlot;
+        public bool IsTransferring => trackedTransferProgressPercent < 1;
         
         // TODO: Reevaluate if each item needs all info Storage gives
         private GameResources gameResources;
         private LineStorage<MemoryItem> trackedLineStorage;
         private MemoryItem trackedItem;
         private int trackedSlot;
+        private float trackedTransferProgressPercent = 1;
         private MemoryDataSO memoryDataSO;
 
         private MemoryDataSO emptyGemSO;
@@ -63,6 +65,10 @@ namespace Source.Visuals.MemoryStorage
         { 
             trackedSlot = slot;
         }
+        public void SetTransferProgressPercent(float transferProgressPercent)
+        {
+            trackedTransferProgressPercent = transferProgressPercent;
+        }
 
         private void Update()
         {
@@ -92,15 +98,20 @@ namespace Source.Visuals.MemoryStorage
             {
                 backgroundImage.sprite = memoryDataSO.MemoryBackgroundIcon;
                 backgroundImage.gameObject.SetActive(true);
+                backgroundImage.fillAmount = trackedTransferProgressPercent;
 
                 if (memoryDataSO.MemoryForegroundIcon != null)
                 {
                     foregroundImage.sprite = memoryDataSO.MemoryForegroundIcon;
                     foregroundImage.gameObject.SetActive(true);
                 }
+                foregroundImage.fillAmount = trackedTransferProgressPercent;
 
-                progressImage.fillAmount = ((float) item.CurrentRunProgress) / item.MaxRunProgress;
-                progressImage.gameObject.SetActive(true);
+                if (trackedTransferProgressPercent >= 1)
+                {
+                    progressImage.fillAmount = ((float) item.CurrentRunProgress) / item.MaxRunProgress;
+                    progressImage.gameObject.SetActive(true);
+                }
             } else if(emptyGemSO != null)
             {
                 backgroundImage.sprite = emptyGemSO.MemoryBackgroundIcon;

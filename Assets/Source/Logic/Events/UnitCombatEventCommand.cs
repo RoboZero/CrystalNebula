@@ -62,13 +62,13 @@ namespace Source.Logic.Events
             {
                 AddLog($"Responder has died, cannot counter attack");
 
-                await PerformChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, responderSlot), cancellationToken);
+                await ApplyChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, responderSlot), cancellationToken);
 
                 if (tryMoveAfterCombat)
                 {
                     AddLog("Moving to responders slot after their death.");
                     // TODO: Let unit decide whether it should move after combat
-                    await PerformChildEventWithLog(new TeleportUnitEventCommand(
+                    await ApplyChildEventWithLog(new TeleportUnitEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         initiatorSlot,
@@ -85,7 +85,7 @@ namespace Source.Logic.Events
             if (IsUnitDead(initiatorUnit))
             {
                 AddLog($"Initiator has died");
-                await PerformChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, initiatorSlot), cancellationToken);
+                await ApplyChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, initiatorSlot), cancellationToken);
             }
 
             return true;

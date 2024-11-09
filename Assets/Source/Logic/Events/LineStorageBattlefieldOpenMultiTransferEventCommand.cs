@@ -52,7 +52,7 @@ namespace Source.Logic.Events
                 return false;
             }
 
-            var result = await PerformChildEventWithLog(new LineStorageBattlefieldMultiTransferEventCommand(
+            var result = await ApplyChildEventWithLog(new LineStorageBattlefieldMultiTransferEventCommand(
                 fromStorages,
                 fromSlots,
                 toStorage,

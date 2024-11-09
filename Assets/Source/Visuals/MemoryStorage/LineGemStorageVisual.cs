@@ -48,6 +48,16 @@ namespace Source.Visuals.MemoryStorage
                 }
             }
         }
+
+        public LineGemItemVisual GetItemVisual(int slot)
+        {
+            if (trackedRecords.InBounds(slot))
+            {
+                return trackedRecords[slot];
+            }
+
+            return null;
+        }
         
         private void AddRecord(in List<LineGemItemVisual> records)
         {

@@ -72,7 +72,7 @@ namespace Source.Logic.Events
             {
                 var toSlot = toSlots[from.FromSlotsIndex];
 
-                var result = await PerformChildEventWithLog(new TeleportUnitEventCommand(
+                var result = await ApplyChildEventWithLog(new TeleportUnitEventCommand(
                     eventTracker, 
                     battlefieldStorage, 
                     @from.Unit, 

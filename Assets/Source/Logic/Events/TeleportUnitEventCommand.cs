@@ -77,7 +77,7 @@ namespace Source.Logic.Events
                         return false;
                     }
                     
-                    return await PerformChildEventWithLog(new SwitchUnitEventCommand(
+                    return await ApplyChildEventWithLog(new SwitchUnitEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         fromSlot,
@@ -93,7 +93,7 @@ namespace Source.Logic.Events
                         return false;
                     }
 
-                    return await PerformChildEventWithLog(new UnitCombatEventCommand(
+                    return await ApplyChildEventWithLog(new UnitCombatEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         fromSlot,

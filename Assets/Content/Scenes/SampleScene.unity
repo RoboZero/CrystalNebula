@@ -522,6 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInteractions: {fileID: 144567631}
   personalStorageBehavior: {fileID: 637927564}
+  personalLineGemStorageVisual: {fileID: 637927566}
   eventTracker: {fileID: 144567632}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
 --- !u!114 &144567634
@@ -541,8 +542,8 @@ MonoBehaviour:
   battlefieldStorageVisual: {fileID: 1890852929}
   eventTracker: {fileID: 144567632}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
-  unitDataSO: {fileID: 0}
-  buildingDataSO: {fileID: 0}
+  unitMemoryDataSO: {fileID: 0}
+  buildingMemoryDataSO: {fileID: 0}
 --- !u!114 &144567635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -724,8 +725,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 486106103}
   m_HandleRect: {fileID: 486106102}
   m_Direction: 3
-  m_Value: -0.0000044049875
-  m_Size: 0.519824
+  m_Value: -0.0000008809975
+  m_Size: 0.5196675
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2521,7 +2522,11 @@ MonoBehaviour:
   gameState:
     Level:
       Definition: 
+    Players: []
     BattlefieldStorage:
+      StorageName: 
+      Length: 0
+      DataPerSecondTransfer: 0
       Items: []
 --- !u!1 &844333156
 GameObject:
@@ -5689,7 +5694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5396266626338173817, guid: 55ad4514407be184a863172d00e2069c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 69.27992
+      value: 69.27968
       objectReference: {fileID: 0}
     - target: {fileID: 5396266626338173817, guid: 55ad4514407be184a863172d00e2069c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

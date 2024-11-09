@@ -1,16 +1,17 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Logic.State.LineItems;
 using Source.Utility;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace Source.Logic.Events
 {
     public class LineStorageTransferEventCommand : EventCommand
     {
+        // TODO: Separate real-time event specifics from animations for playback.
+        public int FromSlot => fromSlot;
+        public int ToSlot => toSlot;
         public float TransferPercentProgress => transferPercentProgress;
 
         private LineStorage<MemoryItem> fromStorage;
@@ -39,7 +40,7 @@ namespace Source.Logic.Events
 
         public override async UniTask<bool> Apply(CancellationToken cancellationToken)
         {
-            AddLog($"{GetType().Name} Starting line storage transfer from slot {fromStorage}:{fromSlot} to slot {fromStorage}:{toSlot}");
+            AddLog($"{GetType().Name} Starting line storage transfer from slot {fromStorage}:{fromSlot} to slot {toStorage}:{toSlot}");
             var failurePrefix = $"Unable to transfer from {fromStorage}:{fromSlot} to {toStorage}:{toSlot}: ";
 
             if (!fromStorage.Items.InBounds(fromSlot))
@@ -64,6 +65,7 @@ namespace Source.Logic.Events
             var toMemory = toStorage.Items[toSlot];
             
             AddLog($"Starting transfer of from memory {fromMemory} and to memory {toMemory}");
+            (toStorage.Items[toSlot], fromStorage.Items[fromSlot]) = (fromStorage.Items[fromSlot], toStorage.Items[toSlot]);
 
             await TransferTimeAsync(
                 fromMemory?.DataSize ?? 0, 
@@ -72,7 +74,9 @@ namespace Source.Logic.Events
                 toStorage.DataPerSecondTransfer,
                 cancellationToken
                 );
-            (toStorage.Items[toSlot], fromStorage.Items[fromSlot]) = (fromStorage.Items[fromSlot], toStorage.Items[toSlot]);
+            
+            // TODO: Check if canceled, if was undo swap. 
+            
             AddLog($"Successfully transferred slot {fromSlot} to slot {toSlot}");
             
             return true;
@@ -93,13 +97,16 @@ namespace Source.Logic.Events
 
             if (minDataTransferRate <= 0)
             {
+                // TODO: Should fail if no data will ever be transferred, not complete instantly.
                 AddLog($"Min Transfer Rate {minDataTransferRate} would never finish. Instantly transferring");
+                transferPercentProgress = 1;
                 return;
             }
             
             if (maxDataSize == 0)
             {
                 AddLog($"Max Data Size {maxDataSize} is 0. Instantly transferring");
+                transferPercentProgress = 1;
                 return;
             }
 
@@ -112,7 +119,7 @@ namespace Source.Logic.Events
             {
                 transferPercentProgress = ((float) stopwatch.Elapsed.TotalSeconds) / transferTimeSeconds;
                 //AddLog($"Awaiting line transfer storage. Transfer Percent Progress: {transferPercentProgress}");
-                await UniTask.NextFrame();
+                await UniTask.NextFrame(cancellationToken);
             }
 
             AddLog($"Finished awaiting line transfer storage");

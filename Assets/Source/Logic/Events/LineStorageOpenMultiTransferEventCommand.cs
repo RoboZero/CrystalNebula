@@ -8,6 +8,10 @@ namespace Source.Logic.Events
 {
     public class LineStorageOpenMultiTransferEventCommand : EventCommand
     {
+        // TODO: Consider removal propagation of sub-events.
+        public List<LineStorageTransferEventCommand> TransferEventCommands { get; private set; } = new();
+        public List<int> OpenSlots { get; private set; } = new();
+        
         private List<LineStorage<MemoryItem>> fromStorages;
         private List<int> fromSlots;
         private LineStorage<MemoryItem> toStorage;
@@ -32,28 +36,29 @@ namespace Source.Logic.Events
             AddLog($"{GetType().Name} Starting multiple line storage transfers from slots {fromStorages.ToItemString()}:{fromSlots.ToItemString()} to all {toStorage} open slots");
             var failurePrefix = "Failed to start multiple line storage transfers to open slots: ";
 
-            var openSlots = new List<int>();
             for (var index = 0; index < toStorage.Items.Count; index++)
             {
                 var item = toStorage.Items[index];
                 if(item == null || transferEventOverrides.CanSwitch){
-                    openSlots.Add(index);
+                    OpenSlots.Add(index);
                 }
             }
 
-            if (openSlots.Count == 0)
+            if (OpenSlots.Count == 0)
             {
                 AddLog(failurePrefix + $"No open slots");
                 return false;
             }
 
-            var result = await PerformChildEventWithLog(new LineStorageMultiTransferEventCommand(
+            var multiTransferEventCommand = new LineStorageMultiTransferEventCommand(
                 fromStorages,
                 fromSlots,
                 toStorage,
-                openSlots,
+                OpenSlots,
                 transferEventOverrides
-            ), cancellationToken);
+            );
+            TransferEventCommands = multiTransferEventCommand.TransferEventCommands;
+            var result = await ApplyChildEventWithLog(multiTransferEventCommand, cancellationToken);
 
             return result;
         }

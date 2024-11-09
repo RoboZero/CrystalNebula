@@ -10,10 +10,10 @@ namespace Source.Logic.Events
         
         private List<EventCommand> eventCommands = new();
 
-        public UniTask<bool> AddEvent(EventCommand eventCommand)
+        public async UniTask<bool> AddEvent(EventCommand eventCommand)
         {
             eventCommands.Add(eventCommand);
-            var result = eventCommand.Apply(destroyCancellationToken);
+            var result = await eventCommand.Apply(destroyCancellationToken);
             Debug.Log($"Event Tracker added and performed event: {eventCommand} \n {eventCommand.GetLog()}");
             return result;
         }
