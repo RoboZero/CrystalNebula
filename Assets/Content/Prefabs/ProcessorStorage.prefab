@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1561535395239782125}
   - component: {fileID: 3032453568750052756}
   - component: {fileID: 852498854888009896}
+  - component: {fileID: 3061566766660746473}
   m_Layer: 0
   m_Name: ProcessorStorage
   m_TagString: Untagged
@@ -91,9 +92,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80af4e54a96516845a888a3794470e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateLoader: {fileID: 0}
   playerID: 1
   itemStorageSize: 0
-  gameStateLoader: {fileID: 0}
   processorIndex: 0
 --- !u!114 &3032453568750052756
 MonoBehaviour:
@@ -111,6 +112,7 @@ MonoBehaviour:
   lineGemItemVisualPrefab: {fileID: 7609047805936301161, guid: 7f02e1f3e1916364e9bdd299170ecdcc, type: 3}
   dataItemLayoutGroup: {fileID: 3697483750990784329}
   gameResources: {fileID: 11400000, guid: e4dc6275d5f050243a88dfd9a519a163, type: 2}
+  showEmptyGems: 1
 --- !u!114 &852498854888009896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +127,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameStateLoader: {fileID: 0}
   processorStorageBehavior: {fileID: 1561535395239782125}
-  eventTracker: {fileID: 0}
   clockSpeedText: {fileID: 5232288163710227394}
   flashingPanel: {fileID: 6026577560143276487}
   flashingPanelGradient:
@@ -158,6 +159,21 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
+--- !u!114 &3061566766660746473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259098050571155268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d59e1bd5f3942498a2aad3d30c553c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventTrackerBehavior: {fileID: 0}
+  lineStorageBehavior: {fileID: 1561535395239782125}
+  lineGemStorageVisual: {fileID: 3032453568750052756}
 --- !u!1 &908520556026436154
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,13 +17,14 @@ namespace Source.Logic.Events
         private TransferEventOverrides transferEventOverrides;
         
         public LineStorageBattlefieldMultiTransferEventCommand(
+            EventTracker eventTracker,
             List<LineStorage<BattlefieldItem>> battlefieldStorages,
             List<int> battlefieldSlots,
             LineStorage<MemoryItem> memoryStorage,
             List<int> memorySlots,
             LineStorageBattlefieldTransferEventCommand.TransferredItem transferredItem,
             TransferEventOverrides transferEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.memoryStorage = memoryStorage;
             this.memorySlots = memorySlots;
@@ -51,13 +52,14 @@ namespace Source.Logic.Events
                 }
                 
                 var result = await ApplyChildEventWithLog(new LineStorageBattlefieldTransferEventCommand(
+                    eventTracker,
                     memoryStorage,
                     memorySlots[index],
                     battlefieldStorages[index],
                     battlefieldSlots[index],
                     transferredItem,
                     transferEventOverrides
-                ), cancellationToken);
+                ));
 
                 if (!result)
                     success = false;

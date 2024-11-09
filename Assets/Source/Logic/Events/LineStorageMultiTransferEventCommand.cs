@@ -18,12 +18,13 @@ namespace Source.Logic.Events
         private TransferEventOverrides transferEventOverrides;
 
         public LineStorageMultiTransferEventCommand(
+            EventTracker eventTracker,
             List<LineStorage<MemoryItem>> fromStorages,
             List<int> fromSlots,
             LineStorage<MemoryItem> toStorage,
             List<int> toSlots,
             TransferEventOverrides transferEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.fromStorages = fromStorages;
             this.fromSlots = fromSlots;
@@ -64,6 +65,7 @@ namespace Source.Logic.Events
                 }
 
                 var transferEventCommand = new LineStorageTransferEventCommand(
+                    eventTracker,
                     fromStorages[index],
                     fromSlots[index],
                     toStorage,
@@ -71,7 +73,7 @@ namespace Source.Logic.Events
                     transferEventOverrides
                 );
                 TransferEventCommands.Add(transferEventCommand);
-                var task = ApplyChildEventWithLog(transferEventCommand, cancellationToken);
+                var task = ApplyChildEventWithLog(transferEventCommand);
                 
                 tasks.Add(task);
             }

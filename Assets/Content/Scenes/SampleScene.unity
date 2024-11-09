@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 144567628}
   - component: {fileID: 144567633}
   - component: {fileID: 144567634}
-  - component: {fileID: 144567632}
+  - component: {fileID: 144567636}
   - component: {fileID: 144567630}
   - component: {fileID: 144567635}
   m_Layer: 0
@@ -401,7 +401,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f30901a85597440ae2ec3dc8744949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventTracker: {fileID: 144567632}
   playerInteractions: {fileID: 144567631}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
   interactableMask:
@@ -496,18 +495,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1452ddbcff96e0942a704ebdfc068d1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &144567632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 144567627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e235f435fa0ef940ada045de5ac4310, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &144567633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -523,7 +510,7 @@ MonoBehaviour:
   playerInteractions: {fileID: 144567631}
   personalStorageBehavior: {fileID: 637927564}
   personalLineGemStorageVisual: {fileID: 637927566}
-  eventTracker: {fileID: 144567632}
+  eventTrackerBehavior: {fileID: 144567636}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
 --- !u!114 &144567634
 MonoBehaviour:
@@ -532,7 +519,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 144567627}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0859f070ff045388dca7d48b15ba331, type: 3}
   m_Name: 
@@ -540,7 +527,7 @@ MonoBehaviour:
   playerInteractions: {fileID: 144567631}
   battlefieldStorageBehavior: {fileID: 1890852933}
   battlefieldStorageVisual: {fileID: 1890852929}
-  eventTracker: {fileID: 144567632}
+  eventTrackerBehavior: {fileID: 144567636}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
   unitMemoryDataSO: {fileID: 0}
   buildingMemoryDataSO: {fileID: 0}
@@ -559,6 +546,19 @@ MonoBehaviour:
   gameStateLoader: {fileID: 801838671}
   scenario1: {fileID: 4900000, guid: e5cc45c398c54e48adb22d1b5837f2be, type: 3}
   scenario2: {fileID: 4900000, guid: 0b28166a8b7f4427a8a786d8312364e1, type: 3}
+--- !u!114 &144567636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144567627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceed151c77d84fb88f4b552d785d129e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameStateLoader: {fileID: 801838671}
 --- !u!1 &151837091
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,7 +726,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 486106102}
   m_Direction: 3
   m_Value: -0.0000008809975
-  m_Size: 0.5196675
+  m_Size: 0.519824
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2073,6 +2073,7 @@ GameObject:
   - component: {fileID: 637927565}
   - component: {fileID: 637927564}
   - component: {fileID: 637927566}
+  - component: {fileID: 637927567}
   m_Layer: 0
   m_Name: PersonalStorage
   m_TagString: Untagged
@@ -2113,9 +2114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bfa1c7ea6f3d0b408393612cd71e032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateLoader: {fileID: 801838671}
   playerID: 1
   itemStorageSize: 1
-  gameStateLoader: {fileID: 801838671}
   inputReader: {fileID: 11400000, guid: c864a6b42e84ad544883d8aec5e571f0, type: 2}
   backgroundRectTransform: {fileID: 637927563}
 --- !u!222 &637927565
@@ -2143,6 +2144,21 @@ MonoBehaviour:
   dataItemLayoutGroup: {fileID: 1230007907}
   gameResources: {fileID: 11400000, guid: e4dc6275d5f050243a88dfd9a519a163, type: 2}
   showEmptyGems: 0
+--- !u!114 &637927567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637927562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d59e1bd5f3942498a2aad3d30c553c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventTrackerBehavior: {fileID: 144567636}
+  lineStorageBehavior: {fileID: 637927564}
+  lineGemStorageVisual: {fileID: 637927566}
 --- !u!1 &651998108
 GameObject:
   m_ObjectHideFlags: 0
@@ -3676,6 +3692,7 @@ GameObject:
   - component: {fileID: 1255313526}
   - component: {fileID: 1255313529}
   - component: {fileID: 1255313528}
+  - component: {fileID: 1255313530}
   m_Layer: 0
   m_Name: MemoryStorage
   m_TagString: Untagged
@@ -3753,9 +3770,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d79d9c2e02ff44ca4d1c06395e0ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateLoader: {fileID: 801838671}
   playerID: 1
   itemStorageSize: 3
-  gameStateLoader: {fileID: 801838671}
 --- !u!114 &1255313529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3773,6 +3790,21 @@ MonoBehaviour:
   dataItemLayoutGroup: {fileID: 844333158}
   gameResources: {fileID: 11400000, guid: e4dc6275d5f050243a88dfd9a519a163, type: 2}
   showEmptyGems: 1
+--- !u!114 &1255313530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255313522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d59e1bd5f3942498a2aad3d30c553c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventTrackerBehavior: {fileID: 144567636}
+  lineStorageBehavior: {fileID: 1255313528}
+  lineGemStorageVisual: {fileID: 1255313529}
 --- !u!1 &1256234034
 GameObject:
   m_ObjectHideFlags: 0
@@ -5135,6 +5167,7 @@ GameObject:
   - component: {fileID: 2051352132}
   - component: {fileID: 2051352134}
   - component: {fileID: 2051352135}
+  - component: {fileID: 2051352136}
   m_Layer: 0
   m_Name: DiskStorage
   m_TagString: Untagged
@@ -5229,9 +5262,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa110eb48effea744a4231581f52d9e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameStateLoader: {fileID: 801838671}
   playerID: 1
   itemStorageSize: 5
-  gameStateLoader: {fileID: 801838671}
+--- !u!114 &2051352136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2051352128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d59e1bd5f3942498a2aad3d30c553c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventTrackerBehavior: {fileID: 144567636}
+  lineStorageBehavior: {fileID: 2051352135}
+  lineGemStorageVisual: {fileID: 2051352134}
 --- !u!1 &2060442756
 GameObject:
   m_ObjectHideFlags: 0
@@ -5494,11 +5542,15 @@ PrefabInstance:
     - target: {fileID: 852498854888009896, guid: 05d8bd8241d22ea4790640f8b3095d3d, type: 3}
       propertyPath: eventTracker
       value: 
-      objectReference: {fileID: 144567632}
+      objectReference: {fileID: 0}
     - target: {fileID: 852498854888009896, guid: 05d8bd8241d22ea4790640f8b3095d3d, type: 3}
       propertyPath: gameStateLoader
       value: 
       objectReference: {fileID: 801838671}
+    - target: {fileID: 1561535395239782125, guid: 05d8bd8241d22ea4790640f8b3095d3d, type: 3}
+      propertyPath: eventTracker
+      value: 
+      objectReference: {fileID: 144567636}
     - target: {fileID: 1561535395239782125, guid: 05d8bd8241d22ea4790640f8b3095d3d, type: 3}
       propertyPath: gameStateLoader
       value: 
@@ -5507,6 +5559,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3061566766660746473, guid: 05d8bd8241d22ea4790640f8b3095d3d, type: 3}
+      propertyPath: eventTrackerBehavior
+      value: 
+      objectReference: {fileID: 144567636}
     - target: {fileID: 4286851122923811755, guid: 05d8bd8241d22ea4790640f8b3095d3d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -5694,7 +5750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5396266626338173817, guid: 55ad4514407be184a863172d00e2069c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 69.27968
+      value: 69.27967
       objectReference: {fileID: 0}
     - target: {fileID: 5396266626338173817, guid: 55ad4514407be184a863172d00e2069c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

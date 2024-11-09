@@ -18,7 +18,7 @@ namespace Source.Logic.Events
             LineStorage<BattlefieldItem> battlefieldStorage,
             int fromSlot,
             int toSlot
-        )
+        ) : base(eventTracker)
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;

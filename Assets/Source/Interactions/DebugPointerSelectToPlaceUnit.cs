@@ -1,11 +1,10 @@
 ﻿using System.Linq;
 using Source.Input;
-using Source.Logic;
 using Source.Logic.Events;
 using Source.Logic.State;
 using Source.Serialization;
-using Source.Serialization.Data;
 using Source.Serialization.Samples;
+using Source.Visuals;
 using Source.Visuals.BattlefieldStorage;
 using UnityEngine;
 
@@ -17,7 +16,7 @@ namespace Source.Interactions
         [SerializeField] private PlayerInteractions playerInteractions;
         [SerializeField] private BattlefieldStorageBehavior battlefieldStorageBehavior;
         [SerializeField] private BattlefieldStorageVisual battlefieldStorageVisual;
-        [SerializeField] private EventTracker eventTracker;
+        [SerializeField] private EventTrackerBehavior eventTrackerBehavior;
         [SerializeField] private InputReaderSO inputReader;
         [SerializeField] private UnitMemoryDataSO unitMemoryDataSO;
         [SerializeField] private BuildingMemoryDataSO buildingMemoryDataSO;
@@ -52,7 +51,8 @@ namespace Source.Interactions
             
             if (unitMemoryDataSO != null)
             {
-                eventTracker.AddEvent(new CreateUnitsEventCommand(
+                eventTrackerBehavior.EventTracker.AddEvent(new CreateUnitsEventCommand(
+                    eventTrackerBehavior.EventTracker,
                     battlefieldStorageBehavior.State, 
                     interactedSlots,
                     unitMemoryDataSO.CreateDefault(0, "Units/Guardian"),
@@ -61,7 +61,8 @@ namespace Source.Interactions
             }
             if (buildingMemoryDataSO != null)
             {
-                eventTracker.AddEvent(new CreateBuildingsEventCommand(
+                eventTrackerBehavior.EventTracker.AddEvent(new CreateBuildingsEventCommand(
+                    eventTrackerBehavior.EventTracker,
                     battlefieldStorageBehavior.State, 
                     interactedSlots,
                     buildingMemoryDataSO.CreateDefault(0, "Buildings/Flag"),
@@ -83,8 +84,8 @@ namespace Source.Interactions
 
             if (interactedSlots.Count <= 0 || hoveredSlots.Count <= 0) return;
             
-            eventTracker.AddEvent(new TeleportUnitEventCommand(
-                eventTracker,
+            eventTrackerBehavior.EventTracker.AddEvent(new TeleportUnitEventCommand(
+                eventTrackerBehavior.EventTracker,
                 battlefieldStorageBehavior.State,
                 interactedSlots[0],
                 hoveredSlots[0],

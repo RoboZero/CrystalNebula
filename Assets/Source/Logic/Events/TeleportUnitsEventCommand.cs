@@ -28,7 +28,7 @@ namespace Source.Logic.Events
             List<int> fromSlots,
             List<int> toSlots,
             MoveUnitEventOverrides moveUnitEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
@@ -78,7 +78,7 @@ namespace Source.Logic.Events
                     @from.Unit, 
                     toSlot, 
                     moveUnitEventOverrides
-                ), cancellationToken);
+                ));
 
                 if (result) 
                     success = false;

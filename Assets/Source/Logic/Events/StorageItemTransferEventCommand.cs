@@ -17,11 +17,12 @@ namespace Source.Logic.Events
         private List<int> toSlots;
 
         public StorageItemTransferEventCommand(
-                ItemStorage<T> fromStorage,
-                List<int> fromSlots,
-                ItemStorage<T> toStorage,
-                List<int> toSlots
-            )
+            EventTracker eventTracker,
+            ItemStorage<T> fromStorage,
+            List<int> fromSlots,
+            ItemStorage<T> toStorage,
+            List<int> toSlots
+        ) : base(eventTracker)
         {
             this.fromStorage = fromStorage;
             this.fromSlots = fromSlots;

@@ -30,7 +30,7 @@ namespace Source.Logic.Events
             Direction direction,
             int distance,
             MoveUnitEventOverrides moveUnitEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
@@ -62,12 +62,12 @@ namespace Source.Logic.Events
                         var fromSlot = fromSlots[i];
                         var toSlot = toSlots[i];
                         var result = await ApplyChildEventWithLog(new TeleportUnitEventCommand(
-                                eventTracker,
-                                battlefieldStorage,
-                                fromSlot,
-                                toSlot,
-                                moveUnitEventOverrides
-                            ), cancellationToken);
+                            eventTracker,
+                            battlefieldStorage,
+                            fromSlot,
+                            toSlot,
+                            moveUnitEventOverrides
+                        ));
                         
                         if (result == false)
                             success = false;
@@ -80,12 +80,12 @@ namespace Source.Logic.Events
                         var fromSlot = fromSlots[i];
                         var toSlot = toSlots[i];
                         var result = await ApplyChildEventWithLog(new TeleportUnitEventCommand(
-                                eventTracker,
-                                battlefieldStorage,
-                                fromSlot,
-                                toSlot,
-                                moveUnitEventOverrides
-                            ), cancellationToken);
+                            eventTracker,
+                            battlefieldStorage,
+                            fromSlot,
+                            toSlot,
+                            moveUnitEventOverrides
+                        ));
                         
                         if (result == false)
                             success = false;

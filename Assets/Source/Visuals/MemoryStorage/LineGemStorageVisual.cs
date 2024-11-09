@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using Source.Logic.Events;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
 using Source.Utility;
@@ -12,18 +15,19 @@ namespace Source.Visuals.MemoryStorage
         [SerializeField] private LineStorageBehavior trackedLineGemStorageBehavior;
         [SerializeField] private LineGemItemVisual lineGemItemVisualPrefab;
         [SerializeField] private MultirowHorizontalLayoutGroup dataItemLayoutGroup;
+
         [SerializeField] private GameResources gameResources;
 
         [Header("Settings")]
         [SerializeField] private bool showEmptyGems = true;
         
         private List<LineGemItemVisual> trackedRecords = new();
+        
 
         private void Awake()
         {
             lineGemItemVisualPrefab.gameObject.SetActive(false);
         }
-        
 
         private void Update()
         {

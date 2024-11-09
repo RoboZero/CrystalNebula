@@ -24,7 +24,7 @@ namespace Source.Logic.Events
             int initiatorSlot,
             int responderSlot,
             bool tryMoveAfterCombat
-        )
+        ) : base(eventTracker)
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
@@ -62,7 +62,7 @@ namespace Source.Logic.Events
             {
                 AddLog($"Responder has died, cannot counter attack");
 
-                await ApplyChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, responderSlot), cancellationToken);
+                await ApplyChildEventWithLog(new UnitDeathEventCommand(eventTracker, battlefieldStorage, responderSlot));
 
                 if (tryMoveAfterCombat)
                 {
@@ -74,7 +74,7 @@ namespace Source.Logic.Events
                         initiatorSlot,
                         responderSlot,
                         null
-                    ), cancellationToken);
+                    ));
                 }
             }
             else
@@ -85,7 +85,7 @@ namespace Source.Logic.Events
             if (IsUnitDead(initiatorUnit))
             {
                 AddLog($"Initiator has died");
-                await ApplyChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, initiatorSlot), cancellationToken);
+                await ApplyChildEventWithLog(new UnitDeathEventCommand(eventTracker, battlefieldStorage, initiatorSlot));
             }
 
             return true;

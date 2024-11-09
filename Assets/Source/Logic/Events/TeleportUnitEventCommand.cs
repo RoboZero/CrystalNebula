@@ -25,7 +25,7 @@ namespace Source.Logic.Events
             int fromSlot,
             int toSlot,
             MoveUnitEventOverrides moveUnitEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
@@ -40,7 +40,7 @@ namespace Source.Logic.Events
             UnitMemory fromUnit,
             int toSlot,
             MoveUnitEventOverrides moveUnitEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
@@ -82,7 +82,7 @@ namespace Source.Logic.Events
                         battlefieldStorage,
                         fromSlot,
                         toSlot
-                    ), cancellationToken);
+                    ));
                 }
                 else
                 {
@@ -99,7 +99,7 @@ namespace Source.Logic.Events
                         fromSlot,
                         toSlot,
                         true
-                    ), cancellationToken);
+                    ));
                 }
             }
 

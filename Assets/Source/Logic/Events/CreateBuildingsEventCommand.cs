@@ -20,11 +20,12 @@ namespace Source.Logic.Events
         private bool forceIfOccupied;
 
         public CreateBuildingsEventCommand(
+            EventTracker eventTracker,
             LineStorage<BattlefieldItem> battlefieldStorage,
             List<int> slots,
             BuildingMemory building,
             bool forceIfOccupied
-        )
+        ) : base(eventTracker)
         {
             this.battlefieldStorage = battlefieldStorage;
             this.slots = slots;

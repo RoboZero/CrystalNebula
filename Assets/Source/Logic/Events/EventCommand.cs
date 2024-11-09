@@ -13,26 +13,31 @@ namespace Source.Logic.Events
 {
     public abstract class EventCommand
     {
+        public bool IsComplete { get; protected set; } = true;
+        
+        protected EventTracker eventTracker;
+        
         private readonly StringBuilder logBuilder = new();
         protected string ID => id;
         private string id;
 
         private int parentCount = 0;
 
-        protected EventCommand()
+        protected EventCommand(EventTracker eventTracker)
         {
-            id = "[" + Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 4) + "]";
+            this.id = CreateID();
+            this.eventTracker = eventTracker;
         }
 
         public virtual bool CanPerform() { return true; }
         public abstract UniTask<bool> Apply(CancellationToken cancellationToken);
 
-        protected UniTask<bool> ApplyChildEventWithLog(EventCommand eventCommand, CancellationToken cancellationToken)
+        protected UniTask<bool> ApplyChildEventWithLog(EventCommand eventCommand)
         {
             eventCommand.parentCount = parentCount + 1;
-            var result = eventCommand.Apply(cancellationToken);
+            var task = eventTracker.AddEvent(eventCommand, true);
             logBuilder.AppendLine(eventCommand.GetLog());
-            return result;
+            return task;
         }
 
         protected void AddLog(string log)
@@ -107,6 +112,11 @@ namespace Source.Logic.Events
 
             item = battlefieldStorage.Items[slot];
             return true;
+        }
+
+        protected string CreateID()
+        {
+            return "[" + Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 4) + "]";
         }
     }
 }

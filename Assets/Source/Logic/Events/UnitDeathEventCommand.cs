@@ -15,9 +15,10 @@ namespace Source.Logic.Events
         private int deadUnitSlot;
 
         public UnitDeathEventCommand(
+            EventTracker eventTracker,
             LineStorage<BattlefieldItem> battlefieldStorage,
             int deadUnitSlot
-        )
+        ) : base(eventTracker)
         {
             this.battlefieldStorage = battlefieldStorage;
             this.deadUnitSlot = deadUnitSlot;

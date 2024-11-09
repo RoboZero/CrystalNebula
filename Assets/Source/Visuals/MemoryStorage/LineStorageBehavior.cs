@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using Source.Logic.Events;
 using Source.Logic.State;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
@@ -7,15 +9,16 @@ namespace Source.Visuals.MemoryStorage
 {
     public abstract class LineStorageBehavior : MonoBehaviour
     {
+        [Header("Dependencies")]
+        [SerializeField] protected GameStateLoader gameStateLoader;
+
         [Header("Settings")]
         [SerializeField] protected int playerID = 0;
         [SerializeField] protected int itemStorageSize;
-    
-        [SerializeField] protected GameStateLoader gameStateLoader;
-    
+
         public LineStorage<MemoryItem> State => state;
         protected LineStorage<MemoryItem> state;
-    
+
         public void Tick()
         {
             if(gameStateLoader.GameState != null)

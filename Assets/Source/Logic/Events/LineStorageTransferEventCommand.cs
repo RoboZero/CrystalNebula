@@ -10,7 +10,9 @@ namespace Source.Logic.Events
     public class LineStorageTransferEventCommand : EventCommand
     {
         // TODO: Separate real-time event specifics from animations for playback.
+        public LineStorage<MemoryItem> FromStorage => fromStorage;
         public int FromSlot => fromSlot;
+        public LineStorage<MemoryItem> ToStorage => toStorage;
         public int ToSlot => toSlot;
         public float TransferPercentProgress => transferPercentProgress;
 
@@ -24,12 +26,13 @@ namespace Source.Logic.Events
         private float startTime;
 
         public LineStorageTransferEventCommand(
+            EventTracker eventTracker,
             LineStorage<MemoryItem> fromStorage,
             int fromSlot,
             LineStorage<MemoryItem> toStorage,
             int toSlot,
             TransferEventOverrides transferEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.fromStorage = fromStorage;
             this.fromSlot = fromSlot;
@@ -65,8 +68,6 @@ namespace Source.Logic.Events
             var toMemory = toStorage.Items[toSlot];
             
             AddLog($"Starting transfer of from memory {fromMemory} and to memory {toMemory}");
-            (toStorage.Items[toSlot], fromStorage.Items[fromSlot]) = (fromStorage.Items[fromSlot], toStorage.Items[toSlot]);
-
             await TransferTimeAsync(
                 fromMemory?.DataSize ?? 0, 
                 fromStorage.DataPerSecondTransfer, 
@@ -76,7 +77,8 @@ namespace Source.Logic.Events
                 );
             
             // TODO: Check if canceled, if was undo swap. 
-            
+            (toStorage.Items[toSlot], fromStorage.Items[fromSlot]) = (fromStorage.Items[fromSlot], toStorage.Items[toSlot]);
+
             AddLog($"Successfully transferred slot {fromSlot} to slot {toSlot}");
             
             return true;

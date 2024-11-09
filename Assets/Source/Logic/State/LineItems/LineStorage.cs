@@ -5,7 +5,6 @@ namespace Source.Logic.State.LineItems
 {
     [Serializable]
     public class LineStorage<T> where T : LineItem
-
     {
         public string StorageName;
         public int Length;

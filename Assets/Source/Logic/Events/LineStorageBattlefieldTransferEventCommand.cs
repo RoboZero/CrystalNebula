@@ -24,13 +24,14 @@ namespace Source.Logic.Events
         private TransferEventOverrides transferEventOverrides;
         
         public LineStorageBattlefieldTransferEventCommand(
+            EventTracker eventTracker,
             LineStorage<MemoryItem> memoryStorage,
             int memorySlot,
             LineStorage<BattlefieldItem> battlefieldStorage,
             int battlefieldSlot,
             TransferredItem transferredItem,
             TransferEventOverrides transferEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.battlefieldStorage = battlefieldStorage;
             this.battlefieldSlot = battlefieldSlot;

@@ -20,11 +20,12 @@ namespace Source.Logic.Events
         private bool forceIfOccupied;
 
         public CreateUnitsEventCommand(
+            EventTracker eventTracker,
             LineStorage<BattlefieldItem> battlefieldStorage,
             List<int> slots,
             UnitMemory unit,
             bool forceIfOccupied
-        )
+        ) : base(eventTracker)
         {
             this.battlefieldStorage = battlefieldStorage;
             this.slots = slots;
