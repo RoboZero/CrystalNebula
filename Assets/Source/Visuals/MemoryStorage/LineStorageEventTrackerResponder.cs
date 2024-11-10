@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Logic.Events;
+using Source.Logic.State.LineItems;
 using UnityEngine;
 
 namespace Source.Visuals.MemoryStorage
@@ -24,7 +25,7 @@ namespace Source.Visuals.MemoryStorage
                         Debug.Log(
                             $"{this.GetType().Name} {gameObject.name} detected matching FROM transfer event from {lineStorageBehavior.State}");
                         
-                        TransferItem(lineStorageTransferEventCommand.FromSlot, lineStorageTransferEventCommand, eventCommandCancellationToken);
+                        TransferItem(lineStorageTransferEventCommand.FromSlot, true, lineStorageTransferEventCommand, eventCommandCancellationToken);
                         created = true;
                     }
 
@@ -32,7 +33,7 @@ namespace Source.Visuals.MemoryStorage
                     {
                         Debug.Log(
                             $"{this.GetType().Name} {gameObject.name} detected matching TO transfer event from {lineStorageBehavior.State}");
-                        TransferItem(lineStorageTransferEventCommand.ToSlot, lineStorageTransferEventCommand, eventCommandCancellationToken);
+                        TransferItem(lineStorageTransferEventCommand.ToSlot, false, lineStorageTransferEventCommand, eventCommandCancellationToken);
                         created = true;
                     }
 
@@ -42,25 +43,29 @@ namespace Source.Visuals.MemoryStorage
             return created;
         }
         
-        private void TransferItem(int slot, LineStorageTransferEventCommand command, CancellationToken cancellationToken)
+        private void TransferItem(int slot, bool TFromFTo, LineStorageTransferEventCommand command, CancellationToken cancellationToken)
         {
             var visual = lineGemStorageVisual.GetItemVisual(slot);
+            var otherMemory = TFromFTo
+                ? command.FromStorage.Items[command.FromSlot]
+                : command.ToStorage.Items[command.ToSlot];
 
             if (visual == null)
             {
                 Debug.Log($"Transfer animation visual at slot {command.FromSlot} is null");
             }
             
-            TransferItemAsync(visual, command, cancellationToken);
+            TransferItemAsync(visual, otherMemory, command, cancellationToken);
+            visual.SetTransferProgressPercent(1);
         }
         
-        private async UniTask TransferItemAsync(LineGemItemVisual visual, LineStorageTransferEventCommand command, CancellationToken cancellationToken)
+        private async UniTask TransferItemAsync(LineGemItemVisual visual, MemoryItem otherMemory, LineStorageTransferEventCommand command, CancellationToken cancellationToken)
         {
-            while (!cancellationToken.IsCancellationRequested)
+            do
             {
                 visual.SetTransferProgressPercent(command.TransferPercentProgress);
                 await UniTask.NextFrame(cancellationToken);
-            }
+            } while (!cancellationToken.IsCancellationRequested);
         }
     }
 }

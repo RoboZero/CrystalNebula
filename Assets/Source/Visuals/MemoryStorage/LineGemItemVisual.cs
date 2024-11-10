@@ -68,12 +68,15 @@ namespace Source.Visuals.MemoryStorage
             switch (CurrentVisualState)
             {
                 case InteractVisualState.None:
+                    emptyGemImage.color = Color.white; 
                     backgroundImage.color = Color.white; 
                     break;
                 case InteractVisualState.Hovered:
+                    emptyGemImage.color = Color.yellow;
                     backgroundImage.color = Color.yellow;
                     break;
                 case InteractVisualState.Selected:
+                    emptyGemImage.color = Color.blue;
                     backgroundImage.color = Color.blue;
                     break;
             }

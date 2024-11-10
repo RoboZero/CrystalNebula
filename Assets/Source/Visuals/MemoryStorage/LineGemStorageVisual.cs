@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Cysharp.Threading.Tasks;
 using Source.Logic.Events;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
 using Source.Utility;
+using TMPro;
 using UnityEngine;
 
 namespace Source.Visuals.MemoryStorage
@@ -12,6 +14,8 @@ namespace Source.Visuals.MemoryStorage
     public class LineGemStorageVisual : MonoBehaviour
     {
         [Header("Dependencies")]
+        [SerializeField] private TextMeshProUGUI storageNameText;
+        [SerializeField] private TextMeshProUGUI transferSpeedText;
         [SerializeField] private LineStorageBehavior trackedLineGemStorageBehavior;
         [SerializeField] private LineGemItemVisual lineGemItemVisualPrefab;
         [SerializeField] private MultirowHorizontalLayoutGroup dataItemLayoutGroup;
@@ -34,6 +38,17 @@ namespace Source.Visuals.MemoryStorage
             // TODO: Visual should not update memory storage, could be updated multiple times per frame. 
             trackedLineGemStorageBehavior.Tick();
 
+            if (storageNameText != null)
+            {
+                storageNameText.text = trackedLineGemStorageBehavior.State.StorageName;
+            }
+            
+            if (transferSpeedText != null)
+            {
+                var transferSpeed = trackedLineGemStorageBehavior.State.DataPerSecondTransfer.ToString(CultureInfo.InvariantCulture);
+                transferSpeedText.text = transferSpeed;
+            }
+                
             while (trackedLineGemStorageBehavior.State.Items.Count > trackedRecords.Count)
             {
                 AddRecord(trackedRecords);
