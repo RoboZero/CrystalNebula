@@ -36,8 +36,10 @@ namespace Source.Visuals
 
         private void OnEventCompleted(EventCommand eventCommand)
         {
+            Debug.Log($"RAM-7 Event completed: {eventCommand}");
             if (cancellationTokens.TryGetValue(eventCommand, out var source))
             {
+                Debug.Log($"RAM-7 Found completed token stored: {eventCommand}");
                 source.Cancel();
                 cancellationTokens.Remove(eventCommand);
             }

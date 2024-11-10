@@ -62,13 +62,21 @@ namespace Source.Visuals.MemoryStorage
             /*
              * I get it! The epiphany - if I call an async and don't wait, then the rest of the code happens IMMEDIATELY
              * Want to mark this mental achievement :)
+             * Second epiphany - cancellation token cancel throws an exception, that's why the task doesn't finish.
+             * TODO: Determine better way for UniTask completion than try catch.
              */
-            await TransferItemAsync(visual, command, cancellationToken);
-            
-            // TODO: Determine why transfer item not being set to null
-            visual.SetTransferProgressPercent(1);
-            visual.SetTransferDataItem(null);
-            visual.IsTransferring(false);
+            Debug.Log($"RAM-7 Starting transferring item. Visual data item {visual.TrackedItem}");
+            try
+            {
+                await TransferItemAsync(visual, command, cancellationToken);
+            }
+            catch (OperationCanceledException e) 
+            {
+                visual.SetTransferProgressPercent(1);
+                visual.SetTransferDataItem(null);
+                visual.IsTransferring(false);
+                Debug.Log($"RAM-7 Finished transferring item. Visual data item {visual.TrackedItem}");
+            }
         }
         
         private async UniTask TransferItemAsync(LineGemItemVisual visual, LineStorageTransferEventCommand command, CancellationToken cancellationToken)
