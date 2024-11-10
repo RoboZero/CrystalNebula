@@ -120,6 +120,7 @@ namespace Source.Logic.Events
             while (transferPercentProgress < 1f)
             {
                 transferPercentProgress = ((float) stopwatch.Elapsed.TotalSeconds) / transferTimeSeconds;
+                transferPercentProgress = Mathf.Clamp(transferPercentProgress, 0, 1);
                 //AddLog($"Awaiting line transfer storage. Transfer Percent Progress: {transferPercentProgress}");
                 await UniTask.NextFrame(cancellationToken);
             }

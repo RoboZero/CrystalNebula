@@ -59,7 +59,7 @@ namespace Source.Visuals.MemoryStorage
                 if (i < trackedLineGemStorageBehavior.State.Items.Count)
                 {
                     var item = trackedLineGemStorageBehavior.State.Items[i];
-                    UpdateRecordVisual(trackedRecords[i], i, item, showEmptyGems || (item != null));
+                    UpdateRecordVisual(trackedRecords[i], i, item, true);
                 }
                 else
                 {
@@ -94,16 +94,18 @@ namespace Source.Visuals.MemoryStorage
         
         private void UpdateRecordVisual(in LineGemItemVisual recordVisual, int lineNumber, MemoryItem item, bool isActive)
         {
+            recordVisual.SetShowEmptyGem(showEmptyGems);
+            
             if (isActive)
             {
                 recordVisual.SetGameResources(gameResources);
                 recordVisual.SetStorage(trackedLineGemStorageBehavior.State);
-                recordVisual.SetDataItem(item);
+                recordVisual.SetCurrentDataItem(item);
                 recordVisual.SetSlot(lineNumber);
             }
             else
             {
-                recordVisual.SetDataItem(null);
+                recordVisual.SetCurrentDataItem(null);
                 recordVisual.SetStorage(null);
                 recordVisual.ResetState();
                 recordVisual.SetSlot(-1);

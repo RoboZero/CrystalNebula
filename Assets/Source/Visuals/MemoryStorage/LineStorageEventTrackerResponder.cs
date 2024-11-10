@@ -43,23 +43,34 @@ namespace Source.Visuals.MemoryStorage
             return created;
         }
         
-        private void TransferItem(int slot, bool TFromFTo, LineStorageTransferEventCommand command, CancellationToken cancellationToken)
+        private async UniTask TransferItem(int slot, bool TFromFTo, LineStorageTransferEventCommand command, CancellationToken cancellationToken)
         {
             var visual = lineGemStorageVisual.GetItemVisual(slot);
-            var otherMemory = TFromFTo
-                ? command.FromStorage.Items[command.FromSlot]
-                : command.ToStorage.Items[command.ToSlot];
+            var transferMemory = TFromFTo
+                ? command.ToStorage.Items[command.ToSlot]
+                : command.FromStorage.Items[command.FromSlot];
+            
+            visual.SetTransferProgressPercent(0);
+            visual.SetTransferDataItem(transferMemory);
+            visual.IsTransferring(true);
 
             if (visual == null)
             {
                 Debug.Log($"Transfer animation visual at slot {command.FromSlot} is null");
             }
             
-            TransferItemAsync(visual, otherMemory, command, cancellationToken);
+            /*
+             * I get it! The epiphany - if I call an async and don't wait, then the rest of the code happens IMMEDIATELY
+             * Want to mark this mental achievement :)
+             */
+            await TransferItemAsync(visual, command, cancellationToken);
+            
             visual.SetTransferProgressPercent(1);
+            visual.SetTransferDataItem(null);
+            visual.IsTransferring(false);
         }
         
-        private async UniTask TransferItemAsync(LineGemItemVisual visual, MemoryItem otherMemory, LineStorageTransferEventCommand command, CancellationToken cancellationToken)
+        private async UniTask TransferItemAsync(LineGemItemVisual visual, LineStorageTransferEventCommand command, CancellationToken cancellationToken)
         {
             do
             {
