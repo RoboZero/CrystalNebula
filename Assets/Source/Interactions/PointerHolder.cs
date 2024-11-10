@@ -29,6 +29,8 @@ namespace Source.Interactions
             CanSwitch = true,
         };
 
+        private bool lineStorageTransferring;
+
         private void OnEnable()
         {
             inputReader.HoldPressedEvent += OnHoldPressed;
@@ -48,6 +50,8 @@ namespace Source.Interactions
                 .OfType<LineGemItemVisual>()
                 .ToList();
 
+            if (lineStorageTransferring) return;
+            
             if (interactedLines.Count > 0)
             {
                 TransferPersonalAndMemoryStorages(interactedLines);
@@ -70,7 +74,7 @@ namespace Source.Interactions
             inputReader.ClickAndDrag = false;
         }
 
-        private void TransferPersonalAndMemoryStorages(List<LineGemItemVisual> lineGemItemVisuals)
+        private async UniTask TransferPersonalAndMemoryStorages(List<LineGemItemVisual> lineGemItemVisuals)
         {
             var interactedSlots = lineGemItemVisuals.Select(visual => visual.TrackedSlot).ToList();
             var interactedStorages = lineGemItemVisuals.Select(visual => visual.TrackedLineStorage).ToList();
@@ -85,7 +89,9 @@ namespace Source.Interactions
                 transferEventOverrides
             );
 
-            eventTrackerBehavior.EventTracker.AddEvent(multiOpenTransferEvent);
+            lineStorageTransferring = true;
+            await eventTrackerBehavior.EventTracker.AddEvent(multiOpenTransferEvent);
+            lineStorageTransferring = false;
         }
 
         private void TransferPersonalAndBattlefieldStorage(List<BattlefieldItemVisual> battlefieldItemVisuals)

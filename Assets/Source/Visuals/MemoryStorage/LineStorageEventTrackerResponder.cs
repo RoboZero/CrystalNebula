@@ -65,6 +65,7 @@ namespace Source.Visuals.MemoryStorage
              */
             await TransferItemAsync(visual, command, cancellationToken);
             
+            // TODO: Determine why transfer item not being set to null
             visual.SetTransferProgressPercent(1);
             visual.SetTransferDataItem(null);
             visual.IsTransferring(false);

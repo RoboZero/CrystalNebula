@@ -63,10 +63,10 @@ namespace Source.Visuals.MemoryStorage
                     foregroundImage.sprite = memoryDataSO.MemoryForegroundIcon;
                     foregroundImage.gameObject.SetActive(true);
                 }
-
                 foregroundImage.fillAmount = transferProgressPercent;
-                
-                progressImage.fillAmount = ((float) trackedItem.CurrentRunProgress) / trackedItem.MaxRunProgress;
+
+                var totalProgressFillPercent = ((float)trackedItem.CurrentRunProgress) / trackedItem.MaxRunProgress;
+                progressImage.fillAmount = Mathf.Min(transferProgressPercent, totalProgressFillPercent);
                 progressImage.gameObject.SetActive(true);
             } 
             else
