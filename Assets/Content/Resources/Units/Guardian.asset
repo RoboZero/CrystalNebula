@@ -18,6 +18,7 @@ MonoBehaviour:
   Sprite: {fileID: 1116579199, guid: b83ea8ad3494ce0438f38cedffd2d653, type: 3}
   UnitName: Guardian
   Abbreviation: Guard
+  UnitDescription: "A bulwark of stability. \r\nEasily clears small creatures"
   MaxProgress: 0
   BaseHealth: 5
   BasePower: 1

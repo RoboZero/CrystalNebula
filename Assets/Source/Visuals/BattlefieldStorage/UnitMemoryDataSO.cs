@@ -20,7 +20,7 @@ namespace Source.Visuals.BattlefieldStorage
         public Sprite Sprite;
         public string UnitName;
         public string Abbreviation;
-        public string UnitDescription;
+        [TextArea] public string UnitDescription;
         public int MaxProgress;
         public int BaseHealth;
         public int BasePower;

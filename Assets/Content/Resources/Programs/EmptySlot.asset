@@ -17,5 +17,7 @@ MonoBehaviour:
   memoryBackgroundIcon: {fileID: 21300000, guid: dabe3e793467c4b4d88361ff628d4b1f, type: 3}
   memoryForegroundIcon: {fileID: 0}
   memoryName: Empty Slot
-  StartingProgress: 0
+  memoryDescription: "Program. Common. \r\nTicks to Run: 10. Size: 0\r\nWhen run,
+    create programs in Disk.\r\n"
   MaxProgress: 0
+  DataSize: 0

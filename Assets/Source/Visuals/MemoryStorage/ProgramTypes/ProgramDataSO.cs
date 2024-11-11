@@ -12,7 +12,7 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
         [SerializeField] private Sprite memoryBackgroundIcon;
         [SerializeField] private Sprite memoryForegroundIcon;
         [SerializeField] private string memoryName;
-        [SerializeField] private string memoryDescription;
+        [TextArea] [SerializeField] private string memoryDescription;
         
         public int MaxProgress;
         public float DataSize;
