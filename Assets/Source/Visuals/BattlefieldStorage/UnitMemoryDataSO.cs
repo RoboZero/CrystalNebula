@@ -13,12 +13,14 @@ namespace Source.Visuals.BattlefieldStorage
         public override Sprite MemoryBackgroundIcon => memoryBackgroundIcon;
         public override Sprite MemoryForegroundIcon => Sprite;
         public override string MemoryName => UnitName;
+        public override string MemoryDescription => UnitDescription;
 
         [SerializeField] private Sprite memoryBackgroundIcon;
         
         public Sprite Sprite;
         public string UnitName;
         public string Abbreviation;
+        public string UnitDescription;
         public int MaxProgress;
         public int BaseHealth;
         public int BasePower;

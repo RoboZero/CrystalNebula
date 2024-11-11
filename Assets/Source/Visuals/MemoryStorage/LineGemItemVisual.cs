@@ -2,12 +2,13 @@ using System;
 using Source.Interactions;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
+using Source.Visuals.Tooltip;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Source.Visuals.MemoryStorage
 {
-    public class LineGemItemVisual : StandardInteractableVisual
+    public class LineGemItemVisual : StandardInteractableVisual, ITooltipTarget
     {
         [Header("Dependencies")]
         [SerializeField] private Image progressImage;
@@ -25,9 +26,10 @@ namespace Source.Visuals.MemoryStorage
         private LineStorage<MemoryItem> trackedLineStorage;
         private int trackedSlot;
         private float trackedTransferProgressPercent = 1;
-        private MemoryDataSO memoryDataSO;
         private bool showEmptyGem;
         private bool isTransferring;
+
+        private TooltipContent tooltipContent = new();
 
         public void IsTransferring(bool isTransferring)
         {
@@ -64,6 +66,16 @@ namespace Source.Visuals.MemoryStorage
         public void SetCurrentDataItem(MemoryItem item)
         {
             currentSubVisual.SetDataItem(item, gameResources);
+
+            if (currentSubVisual.MemoryDataSO == null)
+            {
+                tooltipContent = null;
+                return;
+            }
+
+            tooltipContent ??= new TooltipContent();
+            tooltipContent.Header = currentSubVisual.MemoryDataSO.MemoryName;
+            tooltipContent.Content = currentSubVisual.MemoryDataSO.MemoryDescription;
         }
         
         public void SetTransferDataItem(MemoryItem item)
@@ -90,6 +102,11 @@ namespace Source.Visuals.MemoryStorage
                     emptyGemImage.color = Color.blue;
                     break;
             }
+        }
+
+        public TooltipContent GetContent()
+        {
+            return tooltipContent;
         }
     }
 }

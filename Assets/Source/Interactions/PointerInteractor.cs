@@ -5,40 +5,33 @@ using Source.Logic;
 using Source.Logic.Events;
 using Source.Logic.State;
 using Source.Utility;
+using Source.Visuals;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Source.Interactions
 {
-    public class PointerInteractor : MonoBehaviour
+    public class PointerInteractor : PointerRaycaster
     {
         [Header("Dependencies")]
-        [SerializeField] private EventTracker eventTracker;
         [SerializeField] private PlayerInteractions playerInteractions;
-        [SerializeField] private InputReaderSO inputReader;
-        
-        [Header("Settings")]
-        [SerializeField] private LayerMask interactableMask;
 
-        private Vector2 pointerPosition;
-
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            inputReader.PointerPositionEvent += OnPointerPosition;
+            base.OnEnable();
             inputReader.InteractPressedEvent += OnInteractPressed;
             inputReader.InteractReleasedEvent += OnInteractReleased;
             inputReader.InteractCanceledEvent += OnInteractCanceled;
         }
 
-        private void OnDisable()
+        protected override void OnDisable()
         {
-            inputReader.PointerPositionEvent -= OnPointerPosition;
+            base.OnDisable();
             inputReader.InteractPressedEvent -= OnInteractPressed;
             inputReader.InteractReleasedEvent -= OnInteractReleased;
             inputReader.InteractCanceledEvent -= OnInteractCanceled;
         }
         
-        private void OnPointerPosition(Vector2 position, bool isMouse) => pointerPosition = position;
         private void OnInteractPressed() => inputReader.ClickAndDrag = true;
         private void OnInteractReleased() => inputReader.ClickAndDrag = false;
         private void OnInteractCanceled()
@@ -46,15 +39,14 @@ namespace Source.Interactions
             playerInteractions.Interacted.Clear();
         }
 
-        void Update()
+        private void Update()
         {
             var raycastResults = RaycastUIFromPointer();
             var allInteractables = raycastResults
                 .Select(result => result.gameObject.GetComponent<IInteractableVisual>())
                 .Where(result => result != null)
                 .ToList();
-            
-            
+
             var hoveredIsSame = playerInteractions.Hovered.Tick(allInteractables);
             var interactedIsSame = true;
             if(inputReader.ClickAndDrag)
@@ -64,19 +56,6 @@ namespace Source.Interactions
                 Debug.Log("Pointer hovering over" + allInteractables.ToItemString());
             if(!interactedIsSame)
                 Debug.Log("Pointer interacting with" + allInteractables.ToItemString());
-        }
-
-        private IEnumerable<RaycastResult> RaycastUIFromPointer()
-        {
-            var eventData = new PointerEventData(EventSystem.current)
-            {
-                position = pointerPosition
-            };
-            
-            var results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, results);
-            var resultsInLayer = results.Where(r => ((1 << r.gameObject.layer) & interactableMask) != 0);
-            return resultsInLayer;
         }
     }
 }
