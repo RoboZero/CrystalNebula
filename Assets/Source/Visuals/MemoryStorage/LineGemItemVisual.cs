@@ -60,7 +60,7 @@ namespace Source.Visuals.MemoryStorage
         {
             trackedTransferProgressPercent = transferProgressPercent;
         }
-        
+
         public void SetCurrentDataItem(MemoryItem item)
         {
             currentSubVisual.SetDataItem(item, gameResources);

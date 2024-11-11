@@ -6,7 +6,6 @@ using Cysharp.Threading.Tasks;
 using Source.Input;
 using Source.Logic.Events;
 using Source.Logic.State;
-using Source.Serialization;
 using Source.Utility;
 using Source.Visuals;
 using Source.Visuals.BattlefieldStorage;
@@ -30,17 +29,26 @@ namespace Source.Interactions
         };
 
         private bool lineStorageTransferring;
-        private CancellationTokenSource transferCancelSource = new();
+        private CancellationTokenSource transferCancelSource;
+        private CancellationToken token;
 
         private void OnEnable()
         {
             inputReader.HoldPressedEvent += OnHoldPressed;
+            inputReader.CommandCanceledEvent += OnCancel;
         }
 
         private void OnDisable()
         {
             inputReader.HoldPressedEvent -= OnHoldPressed;
+            inputReader.CommandCanceledEvent -= OnCancel;
         }
+        
+        private void OnDestroy()
+        {
+            transferCancelSource.Dispose();
+        }
+
 
         private void OnHoldPressed()
         {
@@ -58,7 +66,7 @@ namespace Source.Interactions
                 TransferPersonalAndMemoryStorages(interactedLines);
                 hasInteracted = true;
             }
-
+            
             if (!hasInteracted)
             {
                 var interactedBattlefieldItems = playerInteractions.Interacted
@@ -75,12 +83,20 @@ namespace Source.Interactions
             inputReader.ClickAndDrag = false;
         }
 
+        private void OnCancel()
+        {
+            CancelTransferStorages();
+        }
+
         private async UniTask TransferPersonalAndMemoryStorages(List<LineGemItemVisual> lineGemItemVisuals)
         {
+            transferCancelSource = new CancellationTokenSource();
+            token = transferCancelSource.Token;
+
             var interactedSlots = lineGemItemVisuals.Select(visual => visual.TrackedSlot).ToList();
             var interactedStorages = lineGemItemVisuals.Select(visual => visual.TrackedLineStorage).ToList();
 
-            Debug.Log($"Storages {interactedStorages.ToItemString()}, Slots {interactedSlots.ToItemString()}");
+            Debug.Log($"RAM-7 Transfer storage: Storages {interactedStorages.ToItemString()}, Slots {interactedSlots.ToItemString()}");
 
             var multiOpenTransferEvent = new LineStorageOpenMultiTransferEventCommand(
                 eventTrackerBehavior.EventTracker,
@@ -91,7 +107,17 @@ namespace Source.Interactions
             );
 
             lineStorageTransferring = true;
-            await eventTrackerBehavior.EventTracker.AddEvent(multiOpenTransferEvent, eventCallerCancellationToken: transferCancelSource.Token);
+            await eventTrackerBehavior.EventTracker.AddEvent(multiOpenTransferEvent, false, token);
+            lineStorageTransferring = false;
+        }
+
+        private void CancelTransferStorages()
+        {
+            if (!lineStorageTransferring) return;
+            
+            transferCancelSource.Cancel();
+            transferCancelSource.Dispose();
+            Debug.Log($"RAM-7 Transfer storage holder finished: canceled. Token status: {token.IsCancellationRequested}");
             lineStorageTransferring = false;
         }
 

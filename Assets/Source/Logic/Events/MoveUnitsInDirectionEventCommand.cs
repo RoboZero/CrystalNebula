@@ -70,7 +70,7 @@ namespace Source.Logic.Events
                             toSlot,
                             moveUnitEventOverrides
                         );
-                        await ApplyChildEventWithLog(moveEvent);
+                        await ApplyChildEventWithLog(moveEvent, cancellationToken);
                         if (moveEvent.Status == EventStatus.Failed)
                             fails++;
                     }
@@ -89,7 +89,7 @@ namespace Source.Logic.Events
                             toSlot,
                             moveUnitEventOverrides
                         );
-                        await ApplyChildEventWithLog(moveEvent);
+                        await ApplyChildEventWithLog(moveEvent, cancellationToken);
                         
                         if (moveEvent.Status == EventStatus.Failed)
                             fails++;

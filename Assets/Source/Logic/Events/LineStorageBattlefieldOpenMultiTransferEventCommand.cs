@@ -65,7 +65,7 @@ namespace Source.Logic.Events
                 transferEventOverrides
             );
             
-            await ApplyChildEventWithLog(transferEvent);
+            await ApplyChildEventWithLog(transferEvent, cancellationToken);
             status = transferEvent.Status;
         }
     }

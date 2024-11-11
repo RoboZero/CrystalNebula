@@ -60,7 +60,7 @@ namespace Source.Logic.Events
                     transferredItem,
                     transferEventOverrides
                 );
-                await ApplyChildEventWithLog(transferEvent);
+                await ApplyChildEventWithLog(transferEvent, cancellationToken);
 
                 if (transferEvent.Status == EventStatus.Failed)
                     fails++;

@@ -61,7 +61,7 @@ namespace Source.Logic.Events
                 transferEventOverrides
             );
             TransferEventCommands = multiTransferEventCommand.TransferEventCommands; 
-            await ApplyChildEventWithLog(multiTransferEventCommand);
+            await ApplyChildEventWithLog(multiTransferEventCommand, cancellationToken);
             status = multiTransferEventCommand.Status; 
             AddLog($"Open Multi Transfer Status: {status.ToString()}");
         }

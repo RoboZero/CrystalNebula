@@ -80,7 +80,7 @@ namespace Source.Logic.Events
                     toSlot, 
                     moveUnitEventOverrides
                 );
-                await ApplyChildEventWithLog(teleportUnitEvent);
+                await ApplyChildEventWithLog(teleportUnitEvent, cancellationToken);
 
                 if (teleportUnitEvent.Status == EventStatus.Failed)
                     fails++;

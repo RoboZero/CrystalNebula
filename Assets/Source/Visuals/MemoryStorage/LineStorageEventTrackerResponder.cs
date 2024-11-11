@@ -71,10 +71,15 @@ namespace Source.Visuals.MemoryStorage
             }
             catch (OperationCanceledException e) 
             {
-                Debug.Log($"Finished transfer animation");
+                Debug.Log($"RAM-7 Finished transfer animation. Command status {command.Status.ToString()}");
                 visual.SetTransferProgressPercent(1);
                 visual.SetTransferDataItem(null);
                 visual.IsTransferring(false);
+
+                if (command.Status == EventCommand.EventStatus.Success)
+                {
+                    
+                }
             }
         }
         

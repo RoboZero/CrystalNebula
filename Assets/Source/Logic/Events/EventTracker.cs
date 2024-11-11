@@ -39,12 +39,7 @@ namespace Source.Logic.Events
             var logBuilder = new StringBuilder().AppendLine($"Event Tracker added and performed event: {eventCommand}");
             
             EventStarted?.Invoke(eventCommand);
-            try
-            {
-                await eventCommand.Apply(linked.Token);
-            }
-            catch (OperationCanceledException operationCanceledException) { }
-            
+            await eventCommand.Apply(linked.Token);
             logBuilder.AppendLine($"Status: {eventCommand.Status.ToString()}").AppendLine(eventCommand.GetLog());
             EventFinished?.Invoke(eventCommand);
             

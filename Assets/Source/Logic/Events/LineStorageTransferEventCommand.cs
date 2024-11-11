@@ -6,6 +6,7 @@ using DG.Tweening;
 using Source.Logic.State.LineItems;
 using Source.Utility;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Source.Logic.Events
 {
@@ -74,18 +75,29 @@ namespace Source.Logic.Events
             
             AddLog($"Starting transfer of from memory {fromMemory} and to memory {toMemory}");
             if (CalculateTransferTime(
-                    fromMemory?.DataSize ?? 0, 
+                    fromMemory?.DataSize ?? 0,
                     fromStorage.DataPerSecondTransfer,
-                    toMemory?.DataSize ?? 0, 
+                    toMemory?.DataSize ?? 0,
                     toStorage.DataPerSecondTransfer,
                     out var transferTime))
             {
-                await DOVirtual.Float(0, 1, transferTime, (x) => transferProgressPercent = x).ToUniTask(cancellationToken: cancellationToken);
+                try
+                {
+                    await DOVirtualAsync(0, 1, transferTime, (x) => transferProgressPercent = x, cancellationToken);
+                }
+                catch (Exception e)
+                {
+                    status = EventStatus.Failed;
+                    return;
+                }
             }
-            
-            // TODO: Check if canceled, if was undo swap. 
-            (toStorage.Items[toSlot], fromStorage.Items[fromSlot]) = (fromStorage.Items[fromSlot], toStorage.Items[toSlot]);
 
+            OnComplete();
+        }
+
+        private void OnComplete()
+        {
+            (toStorage.Items[toSlot], fromStorage.Items[fromSlot]) = (fromStorage.Items[fromSlot], toStorage.Items[toSlot]);
             AddLog($"Successfully transferred slot {fromSlot} to slot {toSlot}");
             status = EventStatus.Success;
         }
@@ -112,6 +124,18 @@ namespace Source.Logic.Events
 
             transferTimeSeconds = maxDataSize / minDataTransferRate;
             return true;
+        }
+
+        private async UniTask ProgressTransfer(float time, CancellationToken cancellationToken)
+        {
+            var tween = DOVirtual.Float(0, 1, time,(x) => transferProgressPercent = x);
+            
+            while (tween.IsActive() && !cancellationToken.IsCancellationRequested)
+            {
+                await UniTask.NextFrame();
+            }
+            
+            tween.Kill();
         }
     }
 }

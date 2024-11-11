@@ -76,7 +76,7 @@ namespace Source.Logic.Events
                     transferEventOverrides
                 );
                 TransferEventCommands.Add(transferEventCommand);
-                var task = ApplyChildEventWithLog(transferEventCommand);
+                var task = ApplyChildEventWithLog(transferEventCommand, cancellationToken);
                 
                 tasks.Add(task);
             } 

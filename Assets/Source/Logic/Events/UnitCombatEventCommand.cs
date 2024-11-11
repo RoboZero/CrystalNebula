@@ -66,7 +66,7 @@ namespace Source.Logic.Events
             {
                 AddLog($"Responder has died, cannot counter attack");
 
-                await ApplyChildEventWithLog(new UnitDeathEventCommand(eventTracker, battlefieldStorage, responderSlot));
+                await ApplyChildEventWithLog(new UnitDeathEventCommand(eventTracker, battlefieldStorage, responderSlot), cancellationToken);
 
                 if (tryMoveAfterCombat)
                 {
@@ -78,7 +78,7 @@ namespace Source.Logic.Events
                         initiatorSlot,
                         responderSlot,
                         null
-                    ));
+                    ), cancellationToken);
                 }
             }
             else
@@ -89,7 +89,7 @@ namespace Source.Logic.Events
             if (IsUnitDead(initiatorUnit))
             {
                 AddLog($"Initiator has died");
-                await ApplyChildEventWithLog(new UnitDeathEventCommand(eventTracker, battlefieldStorage, initiatorSlot));
+                await ApplyChildEventWithLog(new UnitDeathEventCommand(eventTracker, battlefieldStorage, initiatorSlot), cancellationToken);
             }
 
             status = EventStatus.Success;

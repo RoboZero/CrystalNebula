@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
@@ -44,10 +45,10 @@ namespace Source.Logic.Events
         public virtual bool CanPerform() { return true; }
         public abstract UniTask Apply(CancellationToken cancellationToken);
 
-        protected UniTask ApplyChildEventWithLog(EventCommand eventCommand)
+        protected UniTask ApplyChildEventWithLog(EventCommand eventCommand, CancellationToken cancellationToken)
         {
             eventCommand.parentCount = parentCount + 1;
-            var task = eventTracker.AddEvent(eventCommand, true);
+            var task = eventTracker.AddEvent(eventCommand, true, cancellationToken);
             logBuilder.AppendLine(eventCommand.GetLog());
             return task;
         }
@@ -139,6 +140,21 @@ namespace Source.Logic.Events
         protected string CreateID()
         {
             return "[" + Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 4) + "]";
+        }
+        
+        public static async UniTask DOVirtualAsync(float from, float to, float duration, TweenCallback<float> onUpdate, CancellationToken cancellationToken)
+        {
+            var tcs = new UniTaskCompletionSource();
+            var tween = DOVirtual.Float(from, to, duration, onUpdate)
+                .OnComplete(() => tcs.TrySetResult());
+
+            using (cancellationToken.Register(() => { 
+                       tween.Kill();
+                       tcs.TrySetCanceled(); 
+                   }))
+            {
+                await tcs.Task;
+            }
         }
     }
 }

@@ -87,7 +87,7 @@ namespace Source.Logic.Events
                         toSlot
                     );
                     
-                    await ApplyChildEventWithLog(switchUnitEvent);
+                    await ApplyChildEventWithLog(switchUnitEvent, cancellationToken);
                     status = switchUnitEvent.Status;
                 }
                 else
@@ -107,7 +107,7 @@ namespace Source.Logic.Events
                         toSlot,
                         true
                     );
-                    await ApplyChildEventWithLog(unitCombatEvent);
+                    await ApplyChildEventWithLog(unitCombatEvent, cancellationToken);
                     status = unitCombatEvent.Status;
                 }
             }
