@@ -19,7 +19,7 @@ namespace Source.Visuals
         [Header("Dependencies")]
         [SerializeField] private GameStateLoader gameStateLoader;
         [SerializeField] private ProcessorStorageBehavior processorStorageBehavior;
-        [SerializeField] private EventTracker eventTracker;
+        [SerializeField] private EventTrackerBehavior eventTrackerBehavior;
         
         [SerializeField] private TextMeshProUGUI clockSpeedText;
         [SerializeField] private Image flashingPanel;
@@ -54,7 +54,7 @@ namespace Source.Visuals
                 {
                     if (lineItem != null)
                     {
-                        lineItem.Tick(eventTracker, gameStateLoader.GameState);
+                        lineItem.Tick(eventTrackerBehavior.EventTracker, gameStateLoader.GameState);
                     }
                     else
                     {

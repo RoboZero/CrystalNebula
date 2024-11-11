@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
@@ -26,7 +28,7 @@ namespace Source.Logic.Events
             List<int> fromSlots,
             List<int> toSlots,
             MoveUnitEventOverrides moveUnitEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
@@ -35,18 +37,19 @@ namespace Source.Logic.Events
             this.moveUnitEventOverrides = moveUnitEventOverrides;
         }
         
-        public override bool Perform()
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"Moving units from {fromSlots.ToItemString()} to {toSlots.ToItemString()} of {battlefieldStorage}");
-
-            var success = true;
 
             if (fromSlots.Count != toSlots.Count)
             {
                 AddLog($"Failed to move units: from count {fromSlots.Count} != to count {toSlots.Count}");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
 
+            var fails = 0;
             for (var index = 0; index < fromSlots.Count; index++)
             {
                 var fromSlot = fromSlots[index];
@@ -54,7 +57,7 @@ namespace Source.Logic.Events
                 if (!TryGetUnitAtSlot(battlefieldStorage, fromSlot, out var fromItem, out var fromUnit))
                 {
                     AddLog($"Failed to move unit in {fromSlot}: unit does not exist (null)");
-                    success = false;
+                    fails++;
                     continue;
                 }
                 
@@ -70,19 +73,21 @@ namespace Source.Logic.Events
             {
                 var toSlot = toSlots[from.FromSlotsIndex];
 
-                var result = PerformChildEventWithLog(new TeleportUnitEventCommand(
+                var teleportUnitEvent = new TeleportUnitEventCommand(
                     eventTracker, 
                     battlefieldStorage, 
-                    from.Unit, 
+                    @from.Unit, 
                     toSlot, 
                     moveUnitEventOverrides
-                ));
+                );
+                await ApplyChildEventWithLog(teleportUnitEvent, cancellationToken);
 
-                if (result) 
-                    success = false;
+                if (teleportUnitEvent.Status == EventStatus.Failed)
+                    fails++;
             }
             
-            return success;
+            UpdateMultiStatus(fails, fromSlots.Count);
+            return;
         }
 
         private struct FromData

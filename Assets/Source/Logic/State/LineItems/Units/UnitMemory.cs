@@ -1,6 +1,4 @@
-﻿using System;
-using Source.Logic.Events;
-using Source.Logic.State.Battlefield;
+﻿using Source.Logic.Events;
 using UnityEngine;
 
 namespace Source.Logic.State.LineItems.Units

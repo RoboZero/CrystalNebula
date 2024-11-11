@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
@@ -11,26 +14,43 @@ namespace Source.Logic.Events
 {
     public abstract class EventCommand
     {
+        public enum EventStatus
+        {
+            Created,
+            Started,
+            Success,
+            PartiallyFailed,
+            Failed,
+            Canceled
+        }
+
+        public EventStatus Status => status;
+        
+        protected EventTracker eventTracker;
+        protected EventStatus status;
+        
         private readonly StringBuilder logBuilder = new();
         protected string ID => id;
         private string id;
 
         private int parentCount = 0;
 
-        protected EventCommand()
+        protected EventCommand(EventTracker eventTracker)
         {
-            id = "[" + Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 4) + "]";
+            this.id = CreateID();
+            this.eventTracker = eventTracker;
+            this.status = EventStatus.Created;
         }
 
         public virtual bool CanPerform() { return true; }
-        public abstract bool Perform();
+        public abstract UniTask Apply(CancellationToken cancellationToken);
 
-        protected bool PerformChildEventWithLog(EventCommand eventCommand)
+        protected UniTask ApplyChildEventWithLog(EventCommand eventCommand, CancellationToken cancellationToken)
         {
             eventCommand.parentCount = parentCount + 1;
-            var result = eventCommand.Perform();
+            var task = eventTracker.AddEvent(eventCommand, true, cancellationToken);
             logBuilder.AppendLine(eventCommand.GetLog());
-            return result;
+            return task;
         }
 
         protected void AddLog(string log)
@@ -46,6 +66,16 @@ namespace Source.Logic.Events
         public string GetLog()
         {
             return logBuilder.ToString();
+        }
+
+        protected void UpdateMultiStatus(int fails, int total)
+        {
+            if (fails == 0)
+                status = EventStatus.Success;
+            else if (fails == total)
+                status = EventStatus.Failed;
+            else
+                status = EventStatus.PartiallyFailed;
         }
         
         
@@ -105,6 +135,26 @@ namespace Source.Logic.Events
 
             item = battlefieldStorage.Items[slot];
             return true;
+        }
+
+        protected string CreateID()
+        {
+            return "[" + Convert.ToBase64String(Guid.NewGuid().ToByteArray()).Substring(0, 4) + "]";
+        }
+        
+        public static async UniTask DOVirtualAsync(float from, float to, float duration, TweenCallback<float> onUpdate, CancellationToken cancellationToken)
+        {
+            var tcs = new UniTaskCompletionSource();
+            var tween = DOVirtual.Float(from, to, duration, onUpdate)
+                .OnComplete(() => tcs.TrySetResult());
+
+            using (cancellationToken.Register(() => { 
+                       tween.Kill();
+                       tcs.TrySetCanceled(); 
+                   }))
+            {
+                await tcs.Task;
+            }
         }
     }
 }

@@ -7,6 +7,7 @@
       "Id": 1,
       "PersonalStorage": {
         "Length": 2,
+        "DataPerSecondTransfer": 10.0,
         "Items": []
       },
       "Processors": [
@@ -15,12 +16,14 @@
           "ClockSpeed": 1.0,
           "ProcessorStorage": {
             "Length": 1,
+            "DataPerSecondTransfer": 5.0,
             "Items": []
           }
         }
       ],
       "MemoryStorage": {
         "Length": 3,
+        "DataPerSecondTransfer": 3.0,
         "Items": [
           {
             "Location": 0,
@@ -52,6 +55,7 @@
       },
       "DiskStorage": {
         "Length": 5,
+        "DataPerSecondTransfer": 1.0,
         "Items": [
         ]
       }
@@ -59,6 +63,7 @@
   ],
   "BattlefieldStorage": {
     "Length": 20,
+    "DataPerSecondTransfer": 10.0,
     "Items": [
       {
         "Location": 3,

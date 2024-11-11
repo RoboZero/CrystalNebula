@@ -1,7 +1,12 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using Cysharp.Threading.Tasks;
+using Source.Logic.Events;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
 using Source.Utility;
+using TMPro;
 using UnityEngine;
 
 namespace Source.Visuals.MemoryStorage
@@ -9,27 +14,41 @@ namespace Source.Visuals.MemoryStorage
     public class LineGemStorageVisual : MonoBehaviour
     {
         [Header("Dependencies")]
+        [SerializeField] private TextMeshProUGUI storageNameText;
+        [SerializeField] private TextMeshProUGUI transferSpeedText;
         [SerializeField] private LineStorageBehavior trackedLineGemStorageBehavior;
         [SerializeField] private LineGemItemVisual lineGemItemVisualPrefab;
         [SerializeField] private MultirowHorizontalLayoutGroup dataItemLayoutGroup;
+
         [SerializeField] private GameResources gameResources;
 
         [Header("Settings")]
         [SerializeField] private bool showEmptyGems = true;
         
         private List<LineGemItemVisual> trackedRecords = new();
+        
 
         private void Awake()
         {
             lineGemItemVisualPrefab.gameObject.SetActive(false);
         }
-        
 
         private void Update()
         {
             // TODO: Visual should not update memory storage, could be updated multiple times per frame. 
             trackedLineGemStorageBehavior.Tick();
 
+            if (storageNameText != null)
+            {
+                storageNameText.text = trackedLineGemStorageBehavior.State.StorageName;
+            }
+            
+            if (transferSpeedText != null)
+            {
+                var transferSpeed = trackedLineGemStorageBehavior.State.DataPerSecondTransfer.ToString(CultureInfo.InvariantCulture);
+                transferSpeedText.text = transferSpeed;
+            }
+                
             while (trackedLineGemStorageBehavior.State.Items.Count > trackedRecords.Count)
             {
                 AddRecord(trackedRecords);
@@ -40,13 +59,23 @@ namespace Source.Visuals.MemoryStorage
                 if (i < trackedLineGemStorageBehavior.State.Items.Count)
                 {
                     var item = trackedLineGemStorageBehavior.State.Items[i];
-                    UpdateRecordVisual(trackedRecords[i], i, item, showEmptyGems || (item != null));
+                    UpdateRecordVisual(trackedRecords[i], i, item, true);
                 }
                 else
                 {
                     UpdateRecordVisual(trackedRecords[i], i, null, false);
                 }
             }
+        }
+
+        public LineGemItemVisual GetItemVisual(int slot)
+        {
+            if (trackedRecords.InBounds(slot))
+            {
+                return trackedRecords[slot];
+            }
+
+            return null;
         }
         
         private void AddRecord(in List<LineGemItemVisual> records)
@@ -65,16 +94,18 @@ namespace Source.Visuals.MemoryStorage
         
         private void UpdateRecordVisual(in LineGemItemVisual recordVisual, int lineNumber, MemoryItem item, bool isActive)
         {
+            recordVisual.SetShowEmptyGem(showEmptyGems);
+            
             if (isActive)
             {
                 recordVisual.SetGameResources(gameResources);
                 recordVisual.SetStorage(trackedLineGemStorageBehavior.State);
-                recordVisual.SetDataItem(item);
+                recordVisual.SetCurrentDataItem(item);
                 recordVisual.SetSlot(lineNumber);
             }
             else
             {
-                recordVisual.SetDataItem(null);
+                recordVisual.SetCurrentDataItem(null);
                 recordVisual.SetStorage(null);
                 recordVisual.ResetState();
                 recordVisual.SetSlot(-1);

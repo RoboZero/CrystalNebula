@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Utility;
@@ -15,12 +17,13 @@ namespace Source.Logic.Events
         private TransferEventOverrides transferEventOverrides;
 
         public LineStorageBattlefieldOpenMultiTransferEventCommand (
+            EventTracker eventTracker,
             List<LineStorage<BattlefieldItem>> fromStorages,
             List<int> fromSlots,
             LineStorage<MemoryItem> toStorage,
             LineStorageBattlefieldTransferEventCommand.TransferredItem transferredItem,
             TransferEventOverrides transferEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.fromStorages = fromStorages;
             this.fromSlots = fromSlots;
@@ -30,8 +33,9 @@ namespace Source.Logic.Events
         }
 
         
-        public override bool Perform()
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"{GetType().Name} Starting multiple line storage transfers from slots {fromStorages.ToItemString()}:{fromSlots.ToItemString()} to all {toStorage} open slots");
             var failurePrefix = "Failed to start multiple line storage transfers to open slots: ";
 
@@ -47,19 +51,22 @@ namespace Source.Logic.Events
             if (openSlots.Count == 0)
             {
                 AddLog(failurePrefix + $"No open slots");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
 
-            var result = PerformChildEventWithLog(new LineStorageBattlefieldMultiTransferEventCommand(
+            var transferEvent = new LineStorageBattlefieldMultiTransferEventCommand(
+                eventTracker,
                 fromStorages,
                 fromSlots,
                 toStorage,
                 openSlots,
                 transferredItem,
                 transferEventOverrides
-            ));
-
-            return result;
+            );
+            
+            await ApplyChildEventWithLog(transferEvent, cancellationToken);
+            status = transferEvent.Status;
         }
     }
 }

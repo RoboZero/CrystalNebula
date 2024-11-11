@@ -9,26 +9,27 @@ namespace Source.Logic.State.LineItems
     {
         public int OwnerId;
         public string Definition;
-        public int CurrentProgress;
-        public int MaxProgress;
+        public int CurrentRunProgress;
+        public int MaxRunProgress;
+        public float DataSize;
 
         public virtual void Tick(EventTracker eventTracker, GameState gameState)
         {
-            Debug.Log($"{Definition} tick. Progress: {CurrentProgress} / {MaxProgress}");
+            Debug.Log($"{Definition} tick. Progress: {CurrentRunProgress} / {MaxRunProgress}");
             
-            CurrentProgress++;
+            CurrentRunProgress++;
 
-            if (CurrentProgress <= MaxProgress) return;
+            if (CurrentRunProgress <= MaxRunProgress) return;
             
             Run(eventTracker, gameState);
-            CurrentProgress = 0;
+            CurrentRunProgress = 0;
         }
 
         protected virtual void Run(EventTracker eventTracker, GameState gameState) { }
 
         public override string ToString()
         {
-            return $"{Definition}:(OId: {OwnerId}, Prog: {CurrentProgress}, Max Prog: {MaxProgress})";
+            return $"{Definition}:(OId: {OwnerId}, Prog: {CurrentRunProgress}, Max Prog: {MaxRunProgress})";
         }
     }
 }

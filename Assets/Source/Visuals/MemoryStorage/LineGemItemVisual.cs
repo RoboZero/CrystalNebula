@@ -1,3 +1,4 @@
+using System;
 using Source.Interactions;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
@@ -10,30 +11,34 @@ namespace Source.Visuals.MemoryStorage
     {
         [Header("Dependencies")]
         [SerializeField] private Image progressImage;
-        [SerializeField] private Image backgroundImage;
-        [SerializeField] private Image foregroundImage;
+        [SerializeField] private Image emptyGemImage;
+        [SerializeField] private LineGemSubItemVisual currentSubVisual;
+        [SerializeField] private LineGemSubItemVisual transferSubVisual;
 
         public LineStorage<MemoryItem> TrackedLineStorage => trackedLineStorage;
 
-        public MemoryItem TrackedItem => trackedItem;
+        public MemoryItem TrackedItem => currentSubVisual.TrackedItem;
         public int TrackedSlot => trackedSlot;
         
         // TODO: Reevaluate if each item needs all info Storage gives
         private GameResources gameResources;
         private LineStorage<MemoryItem> trackedLineStorage;
-        private MemoryItem trackedItem;
         private int trackedSlot;
+        private float trackedTransferProgressPercent = 1;
         private MemoryDataSO memoryDataSO;
+        private bool showEmptyGem;
+        private bool isTransferring;
 
-        private MemoryDataSO emptyGemSO;
-
-        private void Start()
+        public void IsTransferring(bool isTransferring)
         {
-            if (gameResources != null)
-            {
-                var emptySprite = GameResources.BuildDefinitionPath(GameResourceConstants.PROGRAMS_PATH, GameResourceConstants.EMPTY_MEMORY_DATA_DEFINITION);
-                gameResources.TryLoadAsset(this, emptySprite, out emptyGemSO);
-            }
+            this.isTransferring = isTransferring;
+        }
+
+        public void SetShowEmptyGem(bool showEmptyGem)
+        {
+            this.showEmptyGem = showEmptyGem;
+
+            emptyGemImage.gameObject.SetActive(this.showEmptyGem);
         }
 
         public void SetGameResources(GameResources resources)
@@ -46,67 +51,44 @@ namespace Source.Visuals.MemoryStorage
             trackedLineStorage = lineStorage;
         }
         
-        public void SetDataItem(in MemoryItem item)
-        {
-            if (item != null && item != trackedItem)
-            {
-                if (item.Definition != null)
-                {
-                    gameResources.TryLoadAsset(this, item.Definition, out memoryDataSO);
-                }
-            }
-            
-            trackedItem = item;
-        }
-        
         public void SetSlot(int slot)
         { 
             trackedSlot = slot;
         }
+        
+        public void SetTransferProgressPercent(float transferProgressPercent)
+        {
+            trackedTransferProgressPercent = transferProgressPercent;
+        }
+
+        public void SetCurrentDataItem(MemoryItem item)
+        {
+            currentSubVisual.SetDataItem(item, gameResources);
+        }
+        
+        public void SetTransferDataItem(MemoryItem item)
+        {
+            transferSubVisual.SetDataItem(item, gameResources);
+        }
 
         private void Update()
         {
-            SetVisualToItem(trackedItem);
-            
+            currentSubVisual.UpdateVisual(isTransferring ? 1 - trackedTransferProgressPercent : 1);
+            currentSubVisual.UpdateInteractionVisual(CurrentVisualState);
+            transferSubVisual.UpdateVisual(isTransferring ? trackedTransferProgressPercent : 0);
+            transferSubVisual.UpdateInteractionVisual(CurrentVisualState);
+
             switch (CurrentVisualState)
             {
                 case InteractVisualState.None:
-                    backgroundImage.color = Color.white; 
+                    emptyGemImage.color = Color.white; 
                     break;
                 case InteractVisualState.Hovered:
-                    backgroundImage.color = Color.yellow;
+                    emptyGemImage.color = Color.yellow;
                     break;
                 case InteractVisualState.Selected:
-                    backgroundImage.color = Color.blue;
+                    emptyGemImage.color = Color.blue;
                     break;
-            }
-        }
-        
-        private void SetVisualToItem(MemoryItem item)
-        {
-            backgroundImage.gameObject.SetActive(false);
-
-            if (gameResources == null) return;
-            
-            if (item != null && memoryDataSO != null)
-            {
-                backgroundImage.sprite = memoryDataSO.MemoryBackgroundIcon;
-                backgroundImage.gameObject.SetActive(true);
-
-                if (memoryDataSO.MemoryForegroundIcon != null)
-                {
-                    foregroundImage.sprite = memoryDataSO.MemoryForegroundIcon;
-                    foregroundImage.gameObject.SetActive(true);
-                }
-
-                progressImage.fillAmount = ((float) item.CurrentProgress) / item.MaxProgress;
-                progressImage.gameObject.SetActive(true);
-            } else if(emptyGemSO != null)
-            {
-                backgroundImage.sprite = emptyGemSO.MemoryBackgroundIcon;
-                backgroundImage.gameObject.SetActive(true);
-                foregroundImage.gameObject.SetActive(false);
-                progressImage.gameObject.SetActive(false);
             }
         }
     }

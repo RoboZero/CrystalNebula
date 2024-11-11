@@ -18,8 +18,8 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
             {
                 OwnerId = memoryData.OwnerId,
                 Definition = memoryData.Definition,
-                CurrentProgress = memoryData.Progress,
-                MaxProgress = MaxProgress,
+                CurrentRunProgress = memoryData.Progress,
+                MaxRunProgress = MaxProgress,
                 Distance = Distance,
                 Direction = Direction
             };

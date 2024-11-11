@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State.LineItems;
 using Source.Utility;
 
@@ -6,17 +8,22 @@ namespace Source.Logic.Events
 {
     public class LineStorageOpenMultiTransferEventCommand : EventCommand
     {
+        // TODO: Consider removal propagation of sub-events.
+        public List<LineStorageTransferEventCommand> TransferEventCommands { get; private set; } = new();
+        public List<int> OpenSlots { get; private set; } = new();
+        
         private List<LineStorage<MemoryItem>> fromStorages;
         private List<int> fromSlots;
         private LineStorage<MemoryItem> toStorage;
         private TransferEventOverrides transferEventOverrides;
 
         public LineStorageOpenMultiTransferEventCommand(
+            EventTracker eventTracker,
             List<LineStorage<MemoryItem>> fromStorages,
             List<int> fromSlots,
             LineStorage<MemoryItem> toStorage,
             TransferEventOverrides transferEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.fromStorages = fromStorages;
             this.fromSlots = fromSlots;
@@ -25,35 +32,38 @@ namespace Source.Logic.Events
         }
 
         
-        public override bool Perform()
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"{GetType().Name} Starting multiple line storage transfers from slots {fromStorages.ToItemString()}:{fromSlots.ToItemString()} to all {toStorage} open slots");
             var failurePrefix = "Failed to start multiple line storage transfers to open slots: ";
 
-            var openSlots = new List<int>();
             for (var index = 0; index < toStorage.Items.Count; index++)
             {
                 var item = toStorage.Items[index];
                 if(item == null || transferEventOverrides.CanSwitch){
-                    openSlots.Add(index);
+                    OpenSlots.Add(index);
                 }
             }
 
-            if (openSlots.Count == 0)
+            if (OpenSlots.Count == 0)
             {
                 AddLog(failurePrefix + $"No open slots");
-                return false;
+                status = EventStatus.Failed;
             }
 
-            var result = PerformChildEventWithLog(new LineStorageMultiTransferEventCommand(
+            var multiTransferEventCommand = new LineStorageMultiTransferEventCommand(
+                eventTracker,
                 fromStorages,
                 fromSlots,
                 toStorage,
-                openSlots,
+                OpenSlots,
                 transferEventOverrides
-            ));
-
-            return result;
+            );
+            TransferEventCommands = multiTransferEventCommand.TransferEventCommands; 
+            await ApplyChildEventWithLog(multiTransferEventCommand, cancellationToken);
+            status = multiTransferEventCommand.Status; 
+            AddLog($"Open Multi Transfer Status: {status.ToString()}");
         }
     }
 }

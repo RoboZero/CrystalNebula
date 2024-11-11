@@ -1,4 +1,6 @@
-﻿using Source.Logic.State;
+﻿using System.Threading;
+using Cysharp.Threading.Tasks;
+using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Logic.State.LineItems.Units;
@@ -23,7 +25,7 @@ namespace Source.Logic.Events
             int fromSlot,
             int toSlot,
             MoveUnitEventOverrides moveUnitEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
@@ -38,7 +40,7 @@ namespace Source.Logic.Events
             UnitMemory fromUnit,
             int toSlot,
             MoveUnitEventOverrides moveUnitEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
@@ -47,8 +49,9 @@ namespace Source.Logic.Events
             this.moveUnitEventOverrides = moveUnitEventOverrides;
         }
 
-        public override bool Perform()
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"{nameof(TeleportUnitEventCommand)}: Moving unit from {fromSlot} to {toSlot} of {battlefieldStorage}");
             var failPrefix = $"Failed to move unit from {fromSlot} to {toSlot}: ";
 
@@ -57,7 +60,8 @@ namespace Source.Logic.Events
                 if (!TryGetUnitAtSlot(battlefieldStorage, fromSlot, out fromItem, out fromUnit))
                 {
                     AddLog(failPrefix + "unit at from slot does not exit");
-                    return false;
+                    status = EventStatus.Failed;
+                    return;
                 }
             }
             
@@ -72,15 +76,19 @@ namespace Source.Logic.Events
                         (moveUnitEventOverrides == null || !moveUnitEventOverrides.CanSwitchPlacesOverride))
                     {
                         AddLog(failPrefix + $"friendly unit {otherUnit} on to spot and is not switching");
-                        return false;
+                        status = EventStatus.Failed;
+                        return;
                     }
-                    
-                    return PerformChildEventWithLog(new SwitchUnitEventCommand(
+
+                    var switchUnitEvent = new SwitchUnitEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         fromSlot,
                         toSlot
-                    ));
+                    );
+                    
+                    await ApplyChildEventWithLog(switchUnitEvent, cancellationToken);
+                    status = switchUnitEvent.Status;
                 }
                 else
                 {
@@ -88,23 +96,27 @@ namespace Source.Logic.Events
                         (moveUnitEventOverrides == null || !moveUnitEventOverrides.CanEngageCombatOverride))
                     {
                         AddLog(failPrefix + $"enemy unit {otherUnit} on to slot and cannot engage combat");
-                        return false;
+                        status = EventStatus.Failed;
+                        return;
                     }
 
-                    return PerformChildEventWithLog(new UnitCombatEventCommand(
+                    var unitCombatEvent = new UnitCombatEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         fromSlot,
                         toSlot,
                         true
-                    ));
+                    );
+                    await ApplyChildEventWithLog(unitCombatEvent, cancellationToken);
+                    status = unitCombatEvent.Status;
                 }
             }
 
             if (toItem == null)
             {
                 AddLog(failPrefix + $" to slot does not exist");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
 
             AddLog($"Successfully moved unit {fromUnit} from {fromSlot} to {toSlot}");
@@ -112,8 +124,8 @@ namespace Source.Logic.Events
             
             if (fromItem != null)
                 fromItem.Unit = null;
-            
-            return true;
+
+            status = EventStatus.Success;
         }
     }
 }

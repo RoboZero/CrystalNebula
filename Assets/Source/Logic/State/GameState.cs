@@ -11,5 +11,6 @@ namespace Source.Logic.State
         public Level Level;
         public List<Player> Players;
         public LineStorage<BattlefieldItem> BattlefieldStorage;
+        //public List<EventCommand> RunningEventCommands;
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
@@ -18,11 +20,12 @@ namespace Source.Logic.Events
         private bool forceIfOccupied;
 
         public CreateBuildingsEventCommand(
+            EventTracker eventTracker,
             LineStorage<BattlefieldItem> battlefieldStorage,
             List<int> slots,
             BuildingMemory building,
             bool forceIfOccupied
-        )
+        ) : base(eventTracker)
         {
             this.battlefieldStorage = battlefieldStorage;
             this.slots = slots;
@@ -30,7 +33,7 @@ namespace Source.Logic.Events
             this.forceIfOccupied = forceIfOccupied;
         }
 
-        public override bool Perform()
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
             AddLog($"{ID} Creating buildings of type {building.Definition} in slots {slots.ToItemString()} of {battlefieldStorage}");
 
@@ -55,8 +58,8 @@ namespace Source.Logic.Events
                 battlefieldStorage.Items[slot].Building = building;
                 AddLog($"Successfully created building of type {building.Definition} in slot {slot} of {battlefieldStorage}");
             }
-            
-            return success;
+
+            status = EventStatus.Success;
         }
     }
 }

@@ -27,8 +27,8 @@ namespace Source.Logic.State.LineItems.Programs
                         fromSlots.Add(index);
                     }
                 }
-            }
-
+            } 
+            
             eventTracker.AddEvent(new MoveUnitsInDirectionEventCommand(
                 eventTracker,
                 battlefield,

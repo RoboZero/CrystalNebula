@@ -13,5 +13,6 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
         [SerializeField] private string memoryName;
         
         public int MaxProgress;
+        public float DataSize;
     }
 }

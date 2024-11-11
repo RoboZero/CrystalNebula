@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
@@ -22,7 +24,7 @@ namespace Source.Logic.Events
             int initiatorSlot,
             int responderSlot,
             bool tryMoveAfterCombat
-        )
+        ) : base(eventTracker)
         {
             this.eventTracker = eventTracker;
             this.battlefieldStorage = battlefieldStorage;
@@ -31,26 +33,30 @@ namespace Source.Logic.Events
             this.tryMoveAfterCombat = tryMoveAfterCombat;
         }
         
-        public override bool Perform()
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"Unit combat started. Initiator slot: {initiatorSlot}, Responder slot: {responderSlot}");
             
             if (!TryGetUnitAtSlot(battlefieldStorage, initiatorSlot, out _, out var initiatorUnit))
             {
                 AddLog($"Failed to start combat: initiator unit on {initiatorSlot} does not exist. (null)");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
 
             if (!initiatorUnit.CanEngageCombat)
             {
                 AddLog($"Failed to start combat: initiator unit on {initiatorSlot} cannot initiate combat. ");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
 
             if (!TryGetUnitAtSlot(battlefieldStorage, responderSlot, out _, out var responderUnit))
             {
                 AddLog($"Failed to start combat: responder unit on {responderSlot} does not exist (null)");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
 
             AddLog($"Found units on slots. Initiator: {initiatorUnit}, Responder: {responderUnit}");
@@ -60,19 +66,19 @@ namespace Source.Logic.Events
             {
                 AddLog($"Responder has died, cannot counter attack");
 
-                PerformChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, responderSlot));
+                await ApplyChildEventWithLog(new UnitDeathEventCommand(eventTracker, battlefieldStorage, responderSlot), cancellationToken);
 
                 if (tryMoveAfterCombat)
                 {
                     AddLog("Moving to responders slot after their death.");
                     // TODO: Let unit decide whether it should move after combat
-                    PerformChildEventWithLog(new TeleportUnitEventCommand(
+                    await ApplyChildEventWithLog(new TeleportUnitEventCommand(
                         eventTracker,
                         battlefieldStorage,
                         initiatorSlot,
                         responderSlot,
                         null
-                    ));
+                    ), cancellationToken);
                 }
             }
             else
@@ -83,10 +89,10 @@ namespace Source.Logic.Events
             if (IsUnitDead(initiatorUnit))
             {
                 AddLog($"Initiator has died");
-                PerformChildEventWithLog(new UnitDeathEventCommand(battlefieldStorage, initiatorSlot));
+                await ApplyChildEventWithLog(new UnitDeathEventCommand(eventTracker, battlefieldStorage, initiatorSlot), cancellationToken);
             }
 
-            return true;
+            status = EventStatus.Success;
         }
 
         private void Attack(UnitMemory attacker, UnitMemory defender)

@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Utility;
@@ -15,13 +17,14 @@ namespace Source.Logic.Events
         private TransferEventOverrides transferEventOverrides;
         
         public LineStorageBattlefieldMultiTransferEventCommand(
+            EventTracker eventTracker,
             List<LineStorage<BattlefieldItem>> battlefieldStorages,
             List<int> battlefieldSlots,
             LineStorage<MemoryItem> memoryStorage,
             List<int> memorySlots,
             LineStorageBattlefieldTransferEventCommand.TransferredItem transferredItem,
             TransferEventOverrides transferEventOverrides
-        )
+        ) : base(eventTracker)
         {
             this.memoryStorage = memoryStorage;
             this.memorySlots = memorySlots;
@@ -31,42 +34,40 @@ namespace Source.Logic.Events
             this.transferEventOverrides = transferEventOverrides;
         }
         
-        public override bool Perform()
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
-            
+            status = EventStatus.Started;
             AddLog($"{GetType().Name} Starting multiple line storage transfers from storages {memoryStorage}: slots {memorySlots.ToItemString()} to slot {battlefieldStorages.ToItemString()}:{battlefieldSlots.ToItemString()}");
             var failurePrefix = $"Failed to multi transfer: ";
 
-            var success = true;
-
+            var fails = 0;
+            
             for (var index = 0; index < memorySlots.Count; index++)
             {
                 if (index >= battlefieldSlots.Count)
                 {
                     AddLog(failurePrefix + $"Unable to transfer at transfer {index}, from slots index {index} is greater than to slots count {battlefieldSlots.Count}");
-                    success = false;
+                    fails++;
                     continue;
                 }
                 
-                var result = PerformChildEventWithLog(new LineStorageBattlefieldTransferEventCommand(
+                var transferEvent = new LineStorageBattlefieldTransferEventCommand(
+                    eventTracker,
                     memoryStorage,
                     memorySlots[index],
                     battlefieldStorages[index],
                     battlefieldSlots[index],
                     transferredItem,
                     transferEventOverrides
-                ));
+                );
+                await ApplyChildEventWithLog(transferEvent, cancellationToken);
 
-                if (!result)
-                    success = false;
+                if (transferEvent.Status == EventStatus.Failed)
+                    fails++;
             }
 
-            if(success)
-                AddLog($"Successfully multi transferred");
-            else
-                AddLog($"Failed to fully multi transfer");
-            
-            return success;
+            UpdateMultiStatus(fails, memorySlots.Count);
+            AddLog($"Multi transfer Status: {status.ToString()}");
         }
     }
 }

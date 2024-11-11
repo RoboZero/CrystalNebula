@@ -134,6 +134,7 @@ namespace Source.Serialization
             {
                 StorageName = storageName,
                 Length = memoryStorage.Length,
+                DataPerSecondTransfer = memoryStorage.DataPerSecondTransfer,
                 Items = lineStorageItems
             };
         }
