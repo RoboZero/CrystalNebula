@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Source.Logic.State.LineItems;
 using Source.Utility;
 using UnityEngine;
@@ -14,16 +16,15 @@ namespace Source.Logic.Events
         public int FromSlot => fromSlot;
         public LineStorage<MemoryItem> ToStorage => toStorage;
         public int ToSlot => toSlot;
-        public float TransferPercentProgress => transferPercentProgress;
+        public float TransferProgressPercent => transferProgressPercent;
 
         private LineStorage<MemoryItem> fromStorage;
         private int fromSlot;
         private LineStorage<MemoryItem> toStorage;
         private int toSlot;
         private TransferEventOverrides transferEventOverrides;
-        
-        private float transferPercentProgress;
-        private float startTime;
+
+        private float transferProgressPercent;
 
         public LineStorageTransferEventCommand(
             EventTracker eventTracker,
@@ -68,13 +69,15 @@ namespace Source.Logic.Events
             var toMemory = toStorage.Items[toSlot];
             
             AddLog($"Starting transfer of from memory {fromMemory} and to memory {toMemory}");
-            await TransferTimeAsync(
-                fromMemory?.DataSize ?? 0, 
-                fromStorage.DataPerSecondTransfer, 
-                toMemory?.DataSize ?? 0, 
-                toStorage.DataPerSecondTransfer,
-                cancellationToken
-                );
+            if (CalculateTransferTime(
+                    fromMemory?.DataSize ?? 0, 
+                    fromStorage.DataPerSecondTransfer,
+                    toMemory?.DataSize ?? 0, 
+                    toStorage.DataPerSecondTransfer,
+                    out var transferTime))
+            {
+                await DOVirtual.Float(0, 1, transferTime, (x) => transferProgressPercent = x).ToUniTask(cancellationToken: cancellationToken);
+            }
             
             // TODO: Check if canceled, if was undo swap. 
             (toStorage.Items[toSlot], fromStorage.Items[fromSlot]) = (fromStorage.Items[fromSlot], toStorage.Items[toSlot]);
@@ -84,16 +87,8 @@ namespace Source.Logic.Events
             return true;
         }
 
-        private async UniTask TransferTimeAsync(float memoryDataSizeA, float dataTransferRateA, float memoryDataSizeB, float dataTransferRateB, CancellationToken cancellationToken)
+        private bool CalculateTransferTime(float memoryDataSizeA, float dataTransferRateA, float memoryDataSizeB, float dataTransferRateB, out float transferTimeSeconds)
         {
-            /*
-             * Use lower transfer rate, higher data size
-             * UnitA: 10 data. Personal storage 5 data/sec. Transfer Time 
-             * UnitB: 20 data. Disk storage 2 data/sec.
-             * 
-             * Total time = 20 data / 2 data/sec = 10 seconds
-             */
-
             var minDataTransferRate = Mathf.Min(dataTransferRateA, dataTransferRateB);
             var maxDataSize = Mathf.Max(memoryDataSizeA, memoryDataSizeB);
 
@@ -101,32 +96,19 @@ namespace Source.Logic.Events
             {
                 // TODO: Should fail if no data will ever be transferred, not complete instantly.
                 AddLog($"Min Transfer Rate {minDataTransferRate} would never finish. Instantly transferring");
-                transferPercentProgress = 1;
-                return;
+                transferTimeSeconds = 0;
+                return false;
             }
-            
+
             if (maxDataSize == 0)
             {
                 AddLog($"Max Data Size {maxDataSize} is 0. Instantly transferring");
-                transferPercentProgress = 1;
-                return;
+                transferTimeSeconds = 0;
+                return false;
             }
 
-            var transferTimeSeconds = maxDataSize / minDataTransferRate;
-
-            AddLog($"Transfer time {transferTimeSeconds}");
-            
-            var stopwatch = Stopwatch.StartNew();
-            while (transferPercentProgress < 1f)
-            {
-                transferPercentProgress = ((float) stopwatch.Elapsed.TotalSeconds) / transferTimeSeconds;
-                transferPercentProgress = Mathf.Clamp(transferPercentProgress, 0, 1);
-                //AddLog($"Awaiting line transfer storage. Transfer Percent Progress: {transferPercentProgress}");
-                await UniTask.NextFrame(cancellationToken);
-            }
-
-            AddLog($"Finished awaiting line transfer storage");
-            transferPercentProgress = 1;
+            transferTimeSeconds = maxDataSize / minDataTransferRate;
+            return true;
         }
     }
 }

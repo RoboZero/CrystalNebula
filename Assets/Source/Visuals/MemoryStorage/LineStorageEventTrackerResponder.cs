@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Source.Logic.Events;
 using Source.Logic.State.LineItems;
 using UnityEngine;
@@ -50,22 +51,25 @@ namespace Source.Visuals.MemoryStorage
                 ? command.ToStorage.Items[command.ToSlot]
                 : command.FromStorage.Items[command.FromSlot];
             
+            if (visual == null)
+            {
+                Debug.Log($"Transfer animation visual at slot {command.FromSlot} is null");
+                return;
+            }
+
             visual.SetTransferProgressPercent(0);
             visual.SetTransferDataItem(transferMemory);
             visual.IsTransferring(true);
 
-            if (visual == null)
-            {
-                Debug.Log($"Transfer animation visual at slot {command.FromSlot} is null");
-            }
-            
+            await TransferItemAsync(visual, command, cancellationToken);
+
+
             /*
              * I get it! The epiphany - if I call an async and don't wait, then the rest of the code happens IMMEDIATELY
              * Want to mark this mental achievement :)
              * Second epiphany - cancellation token cancel throws an exception, that's why the task doesn't finish.
              * TODO: Determine better way for UniTask completion than try catch.
              */
-            Debug.Log($"RAM-7 Starting transferring item. Visual data item {visual.TrackedItem}");
             try
             {
                 await TransferItemAsync(visual, command, cancellationToken);
@@ -75,7 +79,6 @@ namespace Source.Visuals.MemoryStorage
                 visual.SetTransferProgressPercent(1);
                 visual.SetTransferDataItem(null);
                 visual.IsTransferring(false);
-                Debug.Log($"RAM-7 Finished transferring item. Visual data item {visual.TrackedItem}");
             }
         }
         
@@ -83,7 +86,7 @@ namespace Source.Visuals.MemoryStorage
         {
             do
             {
-                visual.SetTransferProgressPercent(command.TransferPercentProgress);
+                visual.SetTransferProgressPercent(command.TransferProgressPercent);
                 await UniTask.NextFrame(cancellationToken);
             } while (!cancellationToken.IsCancellationRequested);
         }
