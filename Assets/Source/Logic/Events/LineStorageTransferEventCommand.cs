@@ -42,27 +42,31 @@ namespace Source.Logic.Events
             this.transferEventOverrides = transferEventOverrides;
         }
 
-        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"{GetType().Name} Starting line storage transfer from slot {fromStorage}:{fromSlot} to slot {toStorage}:{toSlot}");
             var failurePrefix = $"Unable to transfer from {fromStorage}:{fromSlot} to {toStorage}:{toSlot}: ";
 
             if (!fromStorage.Items.InBounds(fromSlot))
             {
                 AddLog(failurePrefix + $"from slot {fromSlot} is not in fromStorage bounds length {fromStorage.Items.Count}");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
             
             if (!toStorage.Items.InBounds(toSlot))
             {
                 AddLog(failurePrefix + $"to slot {toSlot} is not in toStorage bounds length {toStorage.Items.Count}");
-                return false;
+                status = EventStatus.Failed;
+                return; 
             }
 
             if (transferEventOverrides != null && !transferEventOverrides.CanSwitch && toStorage.Items[toSlot] != null)
             {
                 AddLog(failurePrefix + $"cannot switch and to slot {toSlot} has item in it {toStorage.Items[toSlot]}");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
 
             var fromMemory = fromStorage.Items[fromSlot];
@@ -83,8 +87,7 @@ namespace Source.Logic.Events
             (toStorage.Items[toSlot], fromStorage.Items[fromSlot]) = (fromStorage.Items[fromSlot], toStorage.Items[toSlot]);
 
             AddLog($"Successfully transferred slot {fromSlot} to slot {toSlot}");
-            
-            return true;
+            status = EventStatus.Success;
         }
 
         private bool CalculateTransferTime(float memoryDataSizeA, float dataTransferRateA, float memoryDataSizeB, float dataTransferRateB, out float transferTimeSeconds)

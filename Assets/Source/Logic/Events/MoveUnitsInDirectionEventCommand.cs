@@ -40,11 +40,11 @@ namespace Source.Logic.Events
             this.moveUnitEventOverrides = moveUnitEventOverrides;
         }
         
-        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"Moving units from {fromSlots.ToItemString()} in direction {direction.ToString()} with distance of {distance} within {battlefieldStorage}");
 
-            var success = true;
             var toSlots = new List<int>();
 
             foreach (var fromSlot in fromSlots)
@@ -54,6 +54,7 @@ namespace Source.Logic.Events
                 toSlots.Add(toSlot);
             }
 
+            var fails = 0;
             switch (direction)
             {
                 case Direction.Right:
@@ -61,16 +62,17 @@ namespace Source.Logic.Events
                     {
                         var fromSlot = fromSlots[i];
                         var toSlot = toSlots[i];
-                        var result = await ApplyChildEventWithLog(new TeleportUnitEventCommand(
+
+                        var moveEvent = new TeleportUnitEventCommand(
                             eventTracker,
                             battlefieldStorage,
                             fromSlot,
                             toSlot,
                             moveUnitEventOverrides
-                        ));
-                        
-                        if (result == false)
-                            success = false;
+                        );
+                        await ApplyChildEventWithLog(moveEvent);
+                        if (moveEvent.Status == EventStatus.Failed)
+                            fails++;
                     }
 
                     break;
@@ -79,21 +81,24 @@ namespace Source.Logic.Events
                     {
                         var fromSlot = fromSlots[i];
                         var toSlot = toSlots[i];
-                        var result = await ApplyChildEventWithLog(new TeleportUnitEventCommand(
+                        
+                        var moveEvent = new TeleportUnitEventCommand(
                             eventTracker,
                             battlefieldStorage,
                             fromSlot,
                             toSlot,
                             moveUnitEventOverrides
-                        ));
+                        );
+                        await ApplyChildEventWithLog(moveEvent);
                         
-                        if (result == false)
-                            success = false;
+                        if (moveEvent.Status == EventStatus.Failed)
+                            fails++;
                     }
                     break;
             }
 
-            return success;
+            // TODO: Track how many units should have been moved
+            status = EventStatus.Success;
         }
     }
 }

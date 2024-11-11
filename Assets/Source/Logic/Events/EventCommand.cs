@@ -13,7 +13,20 @@ namespace Source.Logic.Events
 {
     public abstract class EventCommand
     {
+        public enum EventStatus
+        {
+            Created,
+            Started,
+            Success,
+            PartiallyFailed,
+            Failed,
+            Canceled
+        }
+
+        public EventStatus Status => status;
+        
         protected EventTracker eventTracker;
+        protected EventStatus status;
         
         private readonly StringBuilder logBuilder = new();
         protected string ID => id;
@@ -25,12 +38,13 @@ namespace Source.Logic.Events
         {
             this.id = CreateID();
             this.eventTracker = eventTracker;
+            this.status = EventStatus.Created;
         }
 
         public virtual bool CanPerform() { return true; }
-        public abstract UniTask<bool> Apply(CancellationToken cancellationToken);
+        public abstract UniTask Apply(CancellationToken cancellationToken);
 
-        protected UniTask<bool> ApplyChildEventWithLog(EventCommand eventCommand)
+        protected UniTask ApplyChildEventWithLog(EventCommand eventCommand)
         {
             eventCommand.parentCount = parentCount + 1;
             var task = eventTracker.AddEvent(eventCommand, true);
@@ -51,6 +65,16 @@ namespace Source.Logic.Events
         public string GetLog()
         {
             return logBuilder.ToString();
+        }
+
+        protected void UpdateMultiStatus(int fails, int total)
+        {
+            if (fails == 0)
+                status = EventStatus.Success;
+            else if (fails == total)
+                status = EventStatus.Failed;
+            else
+                status = EventStatus.PartiallyFailed;
         }
         
         

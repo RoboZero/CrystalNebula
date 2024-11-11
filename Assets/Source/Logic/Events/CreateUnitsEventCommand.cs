@@ -33,17 +33,18 @@ namespace Source.Logic.Events
             this.forceIfOccupied = forceIfOccupied;
         }
 
-        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"{ID} Creating units of type {unit.Definition} in slots {slots.ToItemString()} of {battlefieldStorage}");
 
-            var success = true;
+            var fails = 0;
             foreach (var slot in slots)
             {
                 if (slot < 0 || slot >= battlefieldStorage.Items.Count)
                 {
                     AddLog($"Failed to create unit of type {unit.Definition} in slot {slot} of {battlefieldStorage}: slot {slot} out of battlefield index bounds {battlefieldStorage.Items.Count}");
-                    success = false;
+                    fails++;
                     continue;
                 }
                 
@@ -51,7 +52,7 @@ namespace Source.Logic.Events
                 if (!forceIfOccupied && battlefieldStorage.Items[slot].Unit != null)
                 {
                     AddLog($"Failed to create unit of type {unit.Definition} in slot {slot} of {battlefieldStorage}: slot is occupied by {battlefieldStorage.Items[slot].Unit.Definition}\n");
-                    success = false;
+                    fails++;
                     continue;
                 }
                 
@@ -59,7 +60,8 @@ namespace Source.Logic.Events
                 AddLog($"Successfully created unit of type {unit.Definition} in slot {slot} of {battlefieldStorage}");
             }
             
-            return success;
+            UpdateMultiStatus(fails, slots.Count);
+            AddLog($"Multi create units Status: {status.ToString()}");
         }
     }
 }

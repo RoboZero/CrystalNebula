@@ -30,20 +30,22 @@ namespace Source.Logic.Events
             this.toSlots = toSlots;
         }
 
-        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"Starting transfer of {fromSlots.Count} slots to {toSlots.Count} slots");
 
             if (fromSlots.Count > toSlots.Count)
             {
                 AddLog("There are more from slots than to slots, cannot transfer. Exiting");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
             
             // fromSlots.Union(toSlots).ToList().Count != fromSlots.Count
             // Maybe use Hashset for performance with large amounts of slots. Do when needed
             
-            var success = true;
+            var fails = 0;
             for (var i = 0; i < fromSlots.Count; i++)
             {
                 if (fromStorage.GetItemSlotReference(fromSlots[i], out var fromSlot) && 
@@ -55,11 +57,11 @@ namespace Source.Logic.Events
                 }
                 else
                 {
-                    success = false;
+                    fails++;
                 }
             }
 
-            return success;
+            status = EventStatus.Success;
         }
     }
 }

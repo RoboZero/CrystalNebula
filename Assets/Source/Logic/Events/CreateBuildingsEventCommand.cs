@@ -33,7 +33,7 @@ namespace Source.Logic.Events
             this.forceIfOccupied = forceIfOccupied;
         }
 
-        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
             AddLog($"{ID} Creating buildings of type {building.Definition} in slots {slots.ToItemString()} of {battlefieldStorage}");
 
@@ -58,8 +58,8 @@ namespace Source.Logic.Events
                 battlefieldStorage.Items[slot].Building = building;
                 AddLog($"Successfully created building of type {building.Definition} in slot {slot} of {battlefieldStorage}");
             }
-            
-            return success;
+
+            status = EventStatus.Success;
         }
     }
 }

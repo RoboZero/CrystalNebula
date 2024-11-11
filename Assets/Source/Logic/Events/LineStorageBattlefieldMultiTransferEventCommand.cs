@@ -34,24 +34,24 @@ namespace Source.Logic.Events
             this.transferEventOverrides = transferEventOverrides;
         }
         
-        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
-            
+            status = EventStatus.Started;
             AddLog($"{GetType().Name} Starting multiple line storage transfers from storages {memoryStorage}: slots {memorySlots.ToItemString()} to slot {battlefieldStorages.ToItemString()}:{battlefieldSlots.ToItemString()}");
             var failurePrefix = $"Failed to multi transfer: ";
 
-            var success = true;
-
+            var fails = 0;
+            
             for (var index = 0; index < memorySlots.Count; index++)
             {
                 if (index >= battlefieldSlots.Count)
                 {
                     AddLog(failurePrefix + $"Unable to transfer at transfer {index}, from slots index {index} is greater than to slots count {battlefieldSlots.Count}");
-                    success = false;
+                    fails++;
                     continue;
                 }
                 
-                var result = await ApplyChildEventWithLog(new LineStorageBattlefieldTransferEventCommand(
+                var transferEvent = new LineStorageBattlefieldTransferEventCommand(
                     eventTracker,
                     memoryStorage,
                     memorySlots[index],
@@ -59,18 +59,15 @@ namespace Source.Logic.Events
                     battlefieldSlots[index],
                     transferredItem,
                     transferEventOverrides
-                ));
+                );
+                await ApplyChildEventWithLog(transferEvent);
 
-                if (!result)
-                    success = false;
+                if (transferEvent.Status == EventStatus.Failed)
+                    fails++;
             }
 
-            if(success)
-                AddLog($"Successfully multi transferred");
-            else
-                AddLog($"Failed to fully multi transfer");
-            
-            return success;
+            UpdateMultiStatus(fails, memorySlots.Count);
+            AddLog($"Multi transfer Status: {status.ToString()}");
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Logic.State;
@@ -17,7 +18,7 @@ namespace Source.Logic.Events
          * Visuals affected by Event are notified to update
          */
         public event Action<EventCommand> EventStarted;
-        public event Action<EventCommand> EventCompleted;
+        public event Action<EventCommand> EventFinished;
         
         public List<EventCommand> EventCommands => eventCommands;
         
@@ -31,20 +32,24 @@ namespace Source.Logic.Events
             this.creatorCancellationToken = creatorCancellationToken;
         }
 
-        public async UniTask<bool> AddEvent(EventCommand eventCommand, bool silent = false)
+        public async UniTask AddEvent(EventCommand eventCommand, bool silent = false, CancellationToken eventCallerCancellationToken = default)
         {
             eventCommands.Add(eventCommand);
-            //gameState.RunningEventCommands.Add(eventCommand);
+            var linked = CancellationTokenSource.CreateLinkedTokenSource(eventCallerCancellationToken, creatorCancellationToken);
+            var logBuilder = new StringBuilder().AppendLine($"Event Tracker added and performed event: {eventCommand}");
             
             EventStarted?.Invoke(eventCommand);
-            var result = await eventCommand.Apply(creatorCancellationToken);
-            EventCompleted?.Invoke(eventCommand);
+            try
+            {
+                await eventCommand.Apply(linked.Token);
+            }
+            catch (OperationCanceledException operationCanceledException) { }
             
-            //gameState.RunningEventCommands.Remove(eventCommand);
+            logBuilder.AppendLine($"Status: {eventCommand.Status.ToString()}").AppendLine(eventCommand.GetLog());
+            EventFinished?.Invoke(eventCommand);
+            
             if(!silent)
-                Debug.Log($"Event Tracker added and performed event: {eventCommand} \n {eventCommand.GetLog()}");
-            
-            return result;
+                Debug.Log(logBuilder);
         }
     }
 }

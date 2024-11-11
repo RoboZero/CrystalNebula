@@ -33,26 +33,30 @@ namespace Source.Logic.Events
             this.tryMoveAfterCombat = tryMoveAfterCombat;
         }
         
-        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"Unit combat started. Initiator slot: {initiatorSlot}, Responder slot: {responderSlot}");
             
             if (!TryGetUnitAtSlot(battlefieldStorage, initiatorSlot, out _, out var initiatorUnit))
             {
                 AddLog($"Failed to start combat: initiator unit on {initiatorSlot} does not exist. (null)");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
 
             if (!initiatorUnit.CanEngageCombat)
             {
                 AddLog($"Failed to start combat: initiator unit on {initiatorSlot} cannot initiate combat. ");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
 
             if (!TryGetUnitAtSlot(battlefieldStorage, responderSlot, out _, out var responderUnit))
             {
                 AddLog($"Failed to start combat: responder unit on {responderSlot} does not exist (null)");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
 
             AddLog($"Found units on slots. Initiator: {initiatorUnit}, Responder: {responderUnit}");
@@ -88,7 +92,7 @@ namespace Source.Logic.Events
                 await ApplyChildEventWithLog(new UnitDeathEventCommand(eventTracker, battlefieldStorage, initiatorSlot));
             }
 
-            return true;
+            status = EventStatus.Success;
         }
 
         private void Attack(UnitMemory attacker, UnitMemory defender)

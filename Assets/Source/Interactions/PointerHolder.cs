@@ -30,6 +30,7 @@ namespace Source.Interactions
         };
 
         private bool lineStorageTransferring;
+        private CancellationTokenSource transferCancelSource = new();
 
         private void OnEnable()
         {
@@ -90,7 +91,7 @@ namespace Source.Interactions
             );
 
             lineStorageTransferring = true;
-            await eventTrackerBehavior.EventTracker.AddEvent(multiOpenTransferEvent);
+            await eventTrackerBehavior.EventTracker.AddEvent(multiOpenTransferEvent, eventCallerCancellationToken: transferCancelSource.Token);
             lineStorageTransferring = false;
         }
 

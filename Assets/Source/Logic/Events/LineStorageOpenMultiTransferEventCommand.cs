@@ -32,8 +32,9 @@ namespace Source.Logic.Events
         }
 
         
-        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"{GetType().Name} Starting multiple line storage transfers from slots {fromStorages.ToItemString()}:{fromSlots.ToItemString()} to all {toStorage} open slots");
             var failurePrefix = "Failed to start multiple line storage transfers to open slots: ";
 
@@ -48,7 +49,7 @@ namespace Source.Logic.Events
             if (OpenSlots.Count == 0)
             {
                 AddLog(failurePrefix + $"No open slots");
-                return false;
+                status = EventStatus.Failed;
             }
 
             var multiTransferEventCommand = new LineStorageMultiTransferEventCommand(
@@ -59,10 +60,10 @@ namespace Source.Logic.Events
                 OpenSlots,
                 transferEventOverrides
             );
-            TransferEventCommands = multiTransferEventCommand.TransferEventCommands;
-            var result = await ApplyChildEventWithLog(multiTransferEventCommand);
-
-            return result;
+            TransferEventCommands = multiTransferEventCommand.TransferEventCommands; 
+            await ApplyChildEventWithLog(multiTransferEventCommand);
+            status = multiTransferEventCommand.Status; 
+            AddLog($"Open Multi Transfer Status: {status.ToString()}");
         }
     }
 }

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
 using Source.Logic.Events;
-using Source.Logic.State.LineItems;
 using UnityEngine;
 
 namespace Source.Visuals.MemoryStorage
@@ -56,26 +53,25 @@ namespace Source.Visuals.MemoryStorage
                 Debug.Log($"Transfer animation visual at slot {command.FromSlot} is null");
                 return;
             }
-
+            
             visual.SetTransferProgressPercent(0);
             visual.SetTransferDataItem(transferMemory);
             visual.IsTransferring(true);
-
-            await TransferItemAsync(visual, command, cancellationToken);
-
-
+            
             /*
              * I get it! The epiphany - if I call an async and don't wait, then the rest of the code happens IMMEDIATELY
              * Want to mark this mental achievement :)
              * Second epiphany - cancellation token cancel throws an exception, that's why the task doesn't finish.
              * TODO: Determine better way for UniTask completion than try catch.
              */
+            
             try
             {
                 await TransferItemAsync(visual, command, cancellationToken);
             }
             catch (OperationCanceledException e) 
             {
+                Debug.Log($"Finished transfer animation");
                 visual.SetTransferProgressPercent(1);
                 visual.SetTransferDataItem(null);
                 visual.IsTransferring(false);

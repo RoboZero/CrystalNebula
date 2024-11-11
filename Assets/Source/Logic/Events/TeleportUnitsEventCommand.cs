@@ -37,18 +37,19 @@ namespace Source.Logic.Events
             this.moveUnitEventOverrides = moveUnitEventOverrides;
         }
         
-        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
+            status = EventStatus.Started;
             AddLog($"Moving units from {fromSlots.ToItemString()} to {toSlots.ToItemString()} of {battlefieldStorage}");
-
-            var success = true;
 
             if (fromSlots.Count != toSlots.Count)
             {
                 AddLog($"Failed to move units: from count {fromSlots.Count} != to count {toSlots.Count}");
-                return false;
+                status = EventStatus.Failed;
+                return;
             }
 
+            var fails = 0;
             for (var index = 0; index < fromSlots.Count; index++)
             {
                 var fromSlot = fromSlots[index];
@@ -56,7 +57,7 @@ namespace Source.Logic.Events
                 if (!TryGetUnitAtSlot(battlefieldStorage, fromSlot, out var fromItem, out var fromUnit))
                 {
                     AddLog($"Failed to move unit in {fromSlot}: unit does not exist (null)");
-                    success = false;
+                    fails++;
                     continue;
                 }
                 
@@ -72,19 +73,21 @@ namespace Source.Logic.Events
             {
                 var toSlot = toSlots[from.FromSlotsIndex];
 
-                var result = await ApplyChildEventWithLog(new TeleportUnitEventCommand(
+                var teleportUnitEvent = new TeleportUnitEventCommand(
                     eventTracker, 
                     battlefieldStorage, 
                     @from.Unit, 
                     toSlot, 
                     moveUnitEventOverrides
-                ));
+                );
+                await ApplyChildEventWithLog(teleportUnitEvent);
 
-                if (result) 
-                    success = false;
+                if (teleportUnitEvent.Status == EventStatus.Failed)
+                    fails++;
             }
             
-            return success;
+            UpdateMultiStatus(fails, fromSlots.Count);
+            return;
         }
 
         private struct FromData

@@ -15,13 +15,13 @@ namespace Source.Visuals
         private void Start()
         {
             eventTrackerBehavior.EventTracker.EventStarted += OnEventStarted;
-            eventTrackerBehavior.EventTracker.EventCompleted += OnEventCompleted;
+            eventTrackerBehavior.EventTracker.EventFinished += OnEventFinished;
         }
 
         private void OnDisable()
         {
             eventTrackerBehavior.EventTracker.EventStarted -= OnEventStarted;
-            eventTrackerBehavior.EventTracker.EventCompleted -= OnEventCompleted;
+            eventTrackerBehavior.EventTracker.EventFinished -= OnEventFinished;
         }
         
         private void OnEventStarted(EventCommand eventCommand)
@@ -34,7 +34,7 @@ namespace Source.Visuals
                 cancellationTokens.Add(eventCommand, linked);
         }
 
-        private void OnEventCompleted(EventCommand eventCommand)
+        private void OnEventFinished(EventCommand eventCommand)
         {
             Debug.Log($"RAM-7 Event completed: {eventCommand}");
             if (cancellationTokens.TryGetValue(eventCommand, out var source))

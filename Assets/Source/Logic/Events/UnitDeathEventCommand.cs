@@ -24,19 +24,19 @@ namespace Source.Logic.Events
             this.deadUnitSlot = deadUnitSlot;
         }
         
-        public override async UniTask<bool> Apply(CancellationToken cancellationToken)
+        public override async UniTask Apply(CancellationToken cancellationToken)
         {
             AddLog($"Unit at slot {deadUnitSlot} has died in {battlefieldStorage}");
 
             if (!TryGetUnitAtSlot(battlefieldStorage, deadUnitSlot, out _, out _))
             {
                 AddLog($"Failed have unit in slot {deadUnitSlot} die: could not get unit in slot");
-                return false;
+                status = EventStatus.Failed;
             }
 
             battlefieldStorage.Items[deadUnitSlot].Unit = null;
             AddLog($"Successfully killed unit by removing unit in slot {deadUnitSlot} (now null)");
-            return true;
+            status = EventStatus.Success;
         }
     }
 }
