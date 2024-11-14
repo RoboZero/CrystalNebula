@@ -1,22 +1,24 @@
 using System.Globalization;
-using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Logic.State.LineItems.Units;
 using Source.Serialization.Data;
 using Source.Visuals.MemoryStorage;
 using Source.Visuals.Tooltip;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Source.Visuals.BattlefieldStorage
 {
     [CreateAssetMenu(fileName = "UnitName", menuName = "Game/Unit")]
     public class UnitMemoryDataSO : MemoryDataSO
     {
+        public override Sprite TooltipIcon => tooltipIcon;
         public override Sprite MemoryBackgroundIcon => memoryBackgroundIcon;
         public override Sprite MemoryForegroundIcon => Sprite;
         public override string MemoryName => UnitName;
         public override string MemoryDescription => UnitDescription;
 
+        [SerializeField] private Sprite tooltipIcon;
         [SerializeField] private Sprite memoryBackgroundIcon;
         
         public Sprite Sprite;
@@ -66,6 +68,7 @@ namespace Source.Visuals.BattlefieldStorage
         {
             if (memoryItem is UnitMemory unitMemory)
             {
+                tooltipContent.Icon = TooltipIcon;
                 tooltipContent.Header = MemoryName;
                 tooltipContent.Description = MemoryDescription;
                 tooltipContent.Stats.Clear();

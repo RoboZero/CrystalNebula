@@ -3,16 +3,19 @@ using Source.Logic.State.LineItems.Programs;
 using Source.Serialization.Data;
 using Source.Visuals.Tooltip;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Source.Visuals.MemoryStorage.ProgramTypes
 { 
     public abstract class ProgramDataSO : MemoryDataSO
     {
+        public override Sprite TooltipIcon => tooltipIcon;
         public override Sprite MemoryBackgroundIcon => memoryBackgroundIcon;
         public override Sprite MemoryForegroundIcon => memoryForegroundIcon;
         public override string MemoryName => memoryName;
         public override string MemoryDescription => memoryDescription;
         
+        [SerializeField] private Sprite tooltipIcon;
         [SerializeField] private Sprite memoryBackgroundIcon;
         [SerializeField] private Sprite memoryForegroundIcon;
         [SerializeField] private string memoryName;
@@ -37,6 +40,7 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
         {
             if (memoryItem is ProgramMemory programMemory)
             {
+                tooltipContent.Icon = TooltipIcon;
                 tooltipContent.Header = MemoryName;
                 tooltipContent.Description = MemoryDescription;
                 tooltipContent.Stats.Clear();

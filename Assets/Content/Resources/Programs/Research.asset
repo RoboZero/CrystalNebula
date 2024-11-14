@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 0735d92f6b530e3479becd128bc6c4b7
   description: 
+  tooltipIcon: {fileID: 0}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
   memoryForegroundIcon: {fileID: 21300000, guid: 8ab9772a0113ae9488292c792c92dace, type: 3}
-  memoryName: Research
-  memoryDescription: "Program. Common. \r\nTicks to Run: 10. Size: 0\r\nWhen run,
-    create programs in Disk.\r\n"
+  memoryName: Research Program
+  memoryDescription: "\rWhen run, create programs in Disk.\r\n"
   MaxProgress: 3
   DataSize: 0
