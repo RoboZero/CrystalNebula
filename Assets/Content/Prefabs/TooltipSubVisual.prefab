@@ -600,8 +600,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1739543799657994699}
   - {fileID: 4489034478701195897}
+  - {fileID: 1739543799657994699}
   - {fileID: 8151167035205537839}
   - {fileID: 229304960988310102}
   - {fileID: 5441692071166093729}
@@ -660,7 +660,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 269658898191368899}
-  horizontalLayoutGroup: {fileID: 6814326596521973779}
   header: {fileID: 355217684458288362}
   stats: {fileID: 4537474980183467619}
   description: {fileID: 912696373850862749}
