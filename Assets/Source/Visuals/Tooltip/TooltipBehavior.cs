@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using DG.Tweening;
+using Source.Utility;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
@@ -26,48 +28,59 @@ namespace Source.Visuals.Tooltip
         [SerializeField] private float pivotTweenTimeX = 0.5f;
         [SerializeField] private float pivotTweenTimeY = 1f;
 
-        private TooltipContent tooltipContent;
+        private ContinuousCollection<TooltipContent> t;
+        private HashSet<TooltipContent> tooltipContents = new();
         private Sequence moveSequence;
         private Vector2 MousePositionUI => inputSystemUIInputModule.input.mousePosition;
-
-        public void SetContent(TooltipContent nextContent)
+        
+        public void AddContent(TooltipContent tooltipContent)
         {
-            tooltipContent = nextContent;
-
-            if (tooltipContent == null) return;
+            if (tooltipContent != null)
+                tooltipContents.Add(tooltipContent);
             
-            header.text = tooltipContent.Header;
-            content.text = tooltipContent.Content;
-            
-            Resize();
+            if (tooltipContents.Count > 0)
+                Show();
         }
 
-        public void Show()
+        public bool RemoveContent(TooltipContent tooltipContent)
         {
-            if (tooltipContent == null) return;
-            
-            if (content == null)
+            var result = tooltipContents.Remove(tooltipContent);
+            if (tooltipContents.Count == 0)
+                Hide();
+            return result;
+        }
+
+        public void RemoveAllContent()
+        {
+            if (tooltipContents.Count == 0) return;
+            tooltipContents.Clear();
+            Hide();
+        }
+
+        private void Show()
+        {
+            foreach (var tooltipContent in tooltipContents)
             {
-                background.gameObject.SetActive(false);
-                header.gameObject.SetActive(false);
-                content.gameObject.SetActive(false);
+                header.text = tooltipContent.Header;
+                content.text = tooltipContent.Content;
+                
+                if(string.IsNullOrEmpty(tooltipContent.Header))
+                    header.gameObject.SetActive(false);
+                if(string.IsNullOrEmpty(tooltipContent.Content))
+                    content.gameObject.SetActive(false);
             }
-            
-            if(string.IsNullOrEmpty(tooltipContent.Header))
-                header.gameObject.SetActive(false);
-            if(string.IsNullOrEmpty(tooltipContent.Content))
-                content.gameObject.SetActive(false);
 
             background.gameObject.SetActive(true);
             header.gameObject.SetActive(true);
             content.gameObject.SetActive(true);
+            Resize();
             
             header.DOFade(1, fadeInTweenTime);
             content.DOFade(1, fadeInTweenTime);
             background.DOFade(1, fadeInTweenTime);
         }
 
-        public void Hide()
+        private void Hide()
         {
             header.DOFade(0, fadeOutTweenTime);
             content.DOFade(0, fadeOutTweenTime);

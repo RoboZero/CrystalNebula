@@ -4,6 +4,7 @@ using Source.Interactions;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
 using Source.Visuals.Tooltip;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -30,7 +31,6 @@ namespace Source.Visuals.MemoryStorage
         private bool showEmptyGem;
         private bool isTransferring;
 
-        private readonly HashSet<TooltipContent> tooltipContents = new();
         private readonly TooltipContent memoryTooltipContent = new();
 
         public void IsTransferring(bool isTransferring)
@@ -71,13 +71,11 @@ namespace Source.Visuals.MemoryStorage
 
             if (item == null || currentSubVisual.MemoryDataSO == null)
             {
-                tooltipContents.Clear();
                 return;
             }
 
             memoryTooltipContent.Header = currentSubVisual.MemoryDataSO.MemoryName;
             memoryTooltipContent.Content = currentSubVisual.MemoryDataSO.MemoryDescription;
-            tooltipContents.Add(memoryTooltipContent);
         }
 
         public void SetTransferDataItem(MemoryItem item)
@@ -106,9 +104,14 @@ namespace Source.Visuals.MemoryStorage
             }
         }
 
-        public IEnumerable<TooltipContent> GetContent()
+        public void UpdateContent(TooltipBehavior tooltipBehavior)
         {
-            return tooltipContents;
+            if (TrackedItem != null && currentSubVisual.MemoryDataSO != null)
+            {
+                memoryTooltipContent.Header = currentSubVisual.MemoryDataSO.MemoryName;
+                memoryTooltipContent.Content = currentSubVisual.MemoryDataSO.MemoryDescription;
+                tooltipBehavior.AddContent(memoryTooltipContent);
+            }
         }
     }
 }

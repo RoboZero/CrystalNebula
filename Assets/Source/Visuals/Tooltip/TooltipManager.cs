@@ -19,18 +19,14 @@ namespace Source.Visuals.Tooltip
             Current = this;
         }
 
-        public static void Show(IEnumerable<TooltipContent> tooltipContent)
+        public static void AddContent(TooltipContent tooltipContent)
         {
-            foreach (var tooltip in tooltipContent)
-            {
-                Current.tooltip.SetContent(tooltip);
-                Current.tooltip.Show();
-            }
+            Current.tooltip.AddContent(tooltipContent);
         }
 
-        public static void Hide()
+        public static void RemoveContent(TooltipContent tooltipContent)
         {
-            Current.tooltip.Hide();
+            Current.tooltip.RemoveContent(tooltipContent);
         }
     }
 }

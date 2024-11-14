@@ -9,6 +9,9 @@ namespace Source.Interactions
 {
     public class PointerTooltip : PointerRaycaster
     {
+        [Header("Dependencies")]
+        [SerializeField] private TooltipBehavior tooltipBehavior;
+        
         [Header("Settings")]
         [SerializeField] private float delayUntilShow = 0.5f;
         
@@ -26,14 +29,14 @@ namespace Source.Interactions
                 Debug.Log($"Pointer Tooltip target: {target}");
                 showTween = DOVirtual.DelayedCall(delayUntilShow, () =>
                 {
-                    TooltipManager.Show(target.GetContent());
+                    target.UpdateContent(tooltipBehavior);
                 });
             }
             else if (target == null && showTween != null)
             {
                 showTween.Kill();
                 showTween = null;
-                TooltipManager.Hide();
+                tooltipBehavior.RemoveAllContent();
             }
         }
     }

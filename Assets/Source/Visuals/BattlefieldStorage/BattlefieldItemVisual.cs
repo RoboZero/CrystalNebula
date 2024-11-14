@@ -44,7 +44,6 @@ namespace Source.Visuals.BattlefieldStorage
         private string buildingDataDefinition;
         private BuildingMemoryDataSO buildingMemoryDataSO;
 
-        private readonly HashSet<TooltipContent> tooltipContents = new();
         private readonly TooltipContent unitTooltipContent = new();
         private readonly TooltipContent buildingTooltipContent = new();
 
@@ -140,7 +139,6 @@ namespace Source.Visuals.BattlefieldStorage
 
             if (item == null || gameResources == null)
             {
-                tooltipContents.Clear();
                 return;
             }
 
@@ -162,12 +160,7 @@ namespace Source.Visuals.BattlefieldStorage
                     unitStatsHolder.gameObject.SetActive(true);
                     unitHealthText.gameObject.SetActive(true);
                     unitPowerText.gameObject.SetActive(true);
-
-                    unitTooltipContent.Header = unitMemoryDataSO.MemoryName;
-                    unitTooltipContent.Content = unitMemoryDataSO.MemoryDescription;
                 }
-
-                tooltipContents.Add(unitTooltipContent);
             }
 
             if (item.Building != null)
@@ -188,18 +181,25 @@ namespace Source.Visuals.BattlefieldStorage
                     buildingStatsHolder.gameObject.SetActive(true);
                     buildingHealthText.gameObject.SetActive(true);
                     buildingPowerText.gameObject.SetActive(true);
-                        
-                    buildingTooltipContent.Header = buildingMemoryDataSO.Name;
-                    //buildingTooltipContent.Content = buildingMemoryDataSO.MemoryDescription;
                 }
-                
-                tooltipContents.Add(buildingTooltipContent);
             }
         }
 
-        public IEnumerable<TooltipContent> GetContent()
+        public void UpdateContent(TooltipBehavior tooltipBehavior)
         {
-            return tooltipContents;
+            if (unitMemoryDataSO != null)
+            {
+                unitTooltipContent.Header = unitMemoryDataSO.MemoryName;
+                unitTooltipContent.Content = unitMemoryDataSO.MemoryDescription;
+                tooltipBehavior.AddContent(unitTooltipContent);
+            }
+
+            if (buildingMemoryDataSO != null)
+            {
+                buildingTooltipContent.Header = buildingMemoryDataSO.Name;
+                //buildingTooltipContent.Content = buildingMemoryDataSO.MemoryDescription;
+                tooltipBehavior.AddContent(buildingTooltipContent);
+            }
         }
     }
 }

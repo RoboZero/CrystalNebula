@@ -6,20 +6,17 @@ namespace Source.Visuals.Tooltip
 {
     public class TooltipTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
+        [Header("Dependencies")]
         [SerializeField] private TooltipContent tooltipContent;
-
-        private HashSet<TooltipContent> tooltipContents = new();
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            tooltipContents.Add(tooltipContent);
-            TooltipManager.Show(tooltipContents);
+            TooltipManager.AddContent(tooltipContent);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            tooltipContents.Remove(tooltipContent);
-            TooltipManager.Hide();
+            TooltipManager.RemoveContent(tooltipContent);
         }
     }
 }
