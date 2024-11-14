@@ -1,14 +1,16 @@
+using System.Collections.Generic;
 using Source.Interactions;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
+using Source.Visuals.Tooltip;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Source.Visuals.BattlefieldStorage
 {
-    public class BattlefieldItemVisual : StandardInteractableVisual
+    public class BattlefieldItemVisual : StandardInteractableVisual, ITooltipTarget
     {
         [Header("Dependencies")]
         [SerializeField] private Image selectorIcon;
@@ -41,6 +43,10 @@ namespace Source.Visuals.BattlefieldStorage
         private UnitMemoryDataSO unitMemoryDataSO;
         private string buildingDataDefinition;
         private BuildingMemoryDataSO buildingMemoryDataSO;
+
+        private readonly HashSet<TooltipContent> tooltipContents = new();
+        private readonly TooltipContent unitTooltipContent = new();
+        private readonly TooltipContent buildingTooltipContent = new();
 
         public void SetGameResources(GameResources resources)
         {
@@ -132,7 +138,11 @@ namespace Source.Visuals.BattlefieldStorage
             unitHealthText.gameObject.SetActive(false);
             unitPowerText.gameObject.SetActive(false);
 
-            if (item == null || gameResources == null) return;
+            if (item == null || gameResources == null)
+            {
+                tooltipContents.Clear();
+                return;
+            }
 
             if (item.Unit != null)
             {
@@ -152,7 +162,12 @@ namespace Source.Visuals.BattlefieldStorage
                     unitStatsHolder.gameObject.SetActive(true);
                     unitHealthText.gameObject.SetActive(true);
                     unitPowerText.gameObject.SetActive(true);
+
+                    unitTooltipContent.Header = unitMemoryDataSO.MemoryName;
+                    unitTooltipContent.Content = unitMemoryDataSO.MemoryDescription;
                 }
+
+                tooltipContents.Add(unitTooltipContent);
             }
 
             if (item.Building != null)
@@ -173,8 +188,18 @@ namespace Source.Visuals.BattlefieldStorage
                     buildingStatsHolder.gameObject.SetActive(true);
                     buildingHealthText.gameObject.SetActive(true);
                     buildingPowerText.gameObject.SetActive(true);
+                        
+                    buildingTooltipContent.Header = buildingMemoryDataSO.Name;
+                    //buildingTooltipContent.Content = buildingMemoryDataSO.MemoryDescription;
                 }
+                
+                tooltipContents.Add(buildingTooltipContent);
             }
+        }
+
+        public IEnumerable<TooltipContent> GetContent()
+        {
+            return tooltipContents;
         }
     }
 }

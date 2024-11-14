@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Source.Interactions;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
@@ -29,7 +30,8 @@ namespace Source.Visuals.MemoryStorage
         private bool showEmptyGem;
         private bool isTransferring;
 
-        private TooltipContent tooltipContent = new();
+        private readonly HashSet<TooltipContent> tooltipContents = new();
+        private readonly TooltipContent memoryTooltipContent = new();
 
         public void IsTransferring(bool isTransferring)
         {
@@ -67,17 +69,17 @@ namespace Source.Visuals.MemoryStorage
         {
             currentSubVisual.SetDataItem(item, gameResources);
 
-            if (currentSubVisual.MemoryDataSO == null)
+            if (item == null || currentSubVisual.MemoryDataSO == null)
             {
-                tooltipContent = null;
+                tooltipContents.Clear();
                 return;
             }
 
-            tooltipContent ??= new TooltipContent();
-            tooltipContent.Header = currentSubVisual.MemoryDataSO.MemoryName;
-            tooltipContent.Content = currentSubVisual.MemoryDataSO.MemoryDescription;
+            memoryTooltipContent.Header = currentSubVisual.MemoryDataSO.MemoryName;
+            memoryTooltipContent.Content = currentSubVisual.MemoryDataSO.MemoryDescription;
+            tooltipContents.Add(memoryTooltipContent);
         }
-        
+
         public void SetTransferDataItem(MemoryItem item)
         {
             transferSubVisual.SetDataItem(item, gameResources);
@@ -104,9 +106,9 @@ namespace Source.Visuals.MemoryStorage
             }
         }
 
-        public TooltipContent GetContent()
+        public IEnumerable<TooltipContent> GetContent()
         {
-            return tooltipContent;
+            return tooltipContents;
         }
     }
 }

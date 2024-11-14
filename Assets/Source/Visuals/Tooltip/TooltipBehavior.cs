@@ -19,6 +19,8 @@ namespace Source.Visuals.Tooltip
         [SerializeField] private LayoutElement layoutElement;
 
         [Header("Settings")]
+        [SerializeField] private float percentScreenWidthToAdjust = 0.5f;
+        [SerializeField] private float percentScreenHeightToAdjust = 0.5f;
         [SerializeField] private float fadeInTweenTime = 0.5f;
         [SerializeField] private float fadeOutTweenTime = 0.2f;
         [SerializeField] private float pivotTweenTimeX = 0.5f;
@@ -89,13 +91,13 @@ namespace Source.Visuals.Tooltip
             float finalPivotY;
             
             //If mouse on left of screen move tooltip to right of cursor and vice vera
-            if (pivotX < 0.5) 
+            if (pivotX < percentScreenWidthToAdjust) 
                 finalPivotX = -0.1f;
             else
                 finalPivotX = 1.01f;
             
             //If mouse on lower half of screen move tooltip above cursor and vice versa
-            if (pivotY < 0.5) 
+            if (pivotY < percentScreenHeightToAdjust) 
                 finalPivotY = 0;
             else
                 finalPivotY = 1;

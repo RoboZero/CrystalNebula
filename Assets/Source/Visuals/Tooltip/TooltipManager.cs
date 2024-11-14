@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Source.Visuals.Tooltip
@@ -18,10 +19,13 @@ namespace Source.Visuals.Tooltip
             Current = this;
         }
 
-        public static void Show(TooltipContent tooltipContent)
+        public static void Show(IEnumerable<TooltipContent> tooltipContent)
         {
-            Current.tooltip.SetContent(tooltipContent);
-            Current.tooltip.Show();
+            foreach (var tooltip in tooltipContent)
+            {
+                Current.tooltip.SetContent(tooltip);
+                Current.tooltip.Show();
+            }
         }
 
         public static void Hide()
