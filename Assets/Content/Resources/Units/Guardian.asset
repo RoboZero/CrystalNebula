@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: d7280cfe630323d419c1995671ed82b6
   description: 
+  tooltipIcon: {fileID: 1116579199, guid: b83ea8ad3494ce0438f38cedffd2d653, type: 3}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
   Sprite: {fileID: 1116579199, guid: b83ea8ad3494ce0438f38cedffd2d653, type: 3}
   UnitName: Guardian
   Abbreviation: Guard
+  UnitDescription: "A bulwark of stability. \r\nEasily clears small creatures"
   MaxProgress: 0
   BaseHealth: 5
   BasePower: 1

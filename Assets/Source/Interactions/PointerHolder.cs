@@ -44,12 +44,6 @@ namespace Source.Interactions
             inputReader.CommandCanceledEvent -= OnCancel;
         }
         
-        private void OnDestroy()
-        {
-            transferCancelSource.Dispose();
-        }
-
-
         private void OnHoldPressed()
         {
             Debug.Log("Player pressed hold. ");

@@ -1,4 +1,5 @@
 ﻿using Source.Logic.State.LineItems;
+using Source.Logic.State.LineItems.Programs;
 using Source.Serialization.Data;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
     {
         public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
         {
-            return new MemoryItem();
+            return new EmptyProgram();
         }
     }
 }

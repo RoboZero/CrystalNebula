@@ -9,6 +9,7 @@ namespace Source.Visuals.MemoryStorage
     public class LineGemSubItemVisual : MonoBehaviour
     {
         public MemoryItem TrackedItem => trackedItem;
+        public MemoryDataSO MemoryDataSO => memoryDataSO;
         
         [Header("Dependencies")]
         [SerializeField] private Image progressImage;

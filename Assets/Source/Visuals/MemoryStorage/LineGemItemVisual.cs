@@ -1,13 +1,16 @@
 using System;
+using System.Collections.Generic;
 using Source.Interactions;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
+using Source.Visuals.Tooltip;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Source.Visuals.MemoryStorage
 {
-    public class LineGemItemVisual : StandardInteractableVisual
+    public class LineGemItemVisual : StandardInteractableVisual, ITooltipTarget
     {
         [Header("Dependencies")]
         [SerializeField] private Image progressImage;
@@ -25,9 +28,10 @@ namespace Source.Visuals.MemoryStorage
         private LineStorage<MemoryItem> trackedLineStorage;
         private int trackedSlot;
         private float trackedTransferProgressPercent = 1;
-        private MemoryDataSO memoryDataSO;
         private bool showEmptyGem;
         private bool isTransferring;
+
+        private readonly TooltipContent memoryTooltipContent = new();
 
         public void IsTransferring(bool isTransferring)
         {
@@ -64,8 +68,16 @@ namespace Source.Visuals.MemoryStorage
         public void SetCurrentDataItem(MemoryItem item)
         {
             currentSubVisual.SetDataItem(item, gameResources);
+
+            if (item == null || currentSubVisual.MemoryDataSO == null)
+            {
+                return;
+            }
+
+            memoryTooltipContent.Header = currentSubVisual.MemoryDataSO.MemoryName;
+            memoryTooltipContent.Description = currentSubVisual.MemoryDataSO.MemoryDescription;
         }
-        
+
         public void SetTransferDataItem(MemoryItem item)
         {
             transferSubVisual.SetDataItem(item, gameResources);
@@ -89,6 +101,15 @@ namespace Source.Visuals.MemoryStorage
                 case InteractVisualState.Selected:
                     emptyGemImage.color = Color.blue;
                     break;
+            }
+        }
+
+        public void UpdateContent(TooltipVisual tooltipVisual)
+        {
+            if (TrackedItem != null && currentSubVisual.MemoryDataSO != null)
+            {
+                currentSubVisual.MemoryDataSO.FillTooltipContent(TrackedItem, memoryTooltipContent);
+                tooltipVisual.AddContent(memoryTooltipContent);
             }
         }
     }

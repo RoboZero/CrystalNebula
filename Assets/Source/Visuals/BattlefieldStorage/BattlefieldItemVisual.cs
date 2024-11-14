@@ -1,14 +1,16 @@
+using System.Collections.Generic;
 using Source.Interactions;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
+using Source.Visuals.Tooltip;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Source.Visuals.BattlefieldStorage
 {
-    public class BattlefieldItemVisual : StandardInteractableVisual
+    public class BattlefieldItemVisual : StandardInteractableVisual, ITooltipTarget
     {
         [Header("Dependencies")]
         [SerializeField] private Image selectorIcon;
@@ -41,6 +43,9 @@ namespace Source.Visuals.BattlefieldStorage
         private UnitMemoryDataSO unitMemoryDataSO;
         private string buildingDataDefinition;
         private BuildingMemoryDataSO buildingMemoryDataSO;
+
+        private readonly TooltipContent unitTooltipContent = new();
+        private readonly TooltipContent buildingTooltipContent = new();
 
         public void SetGameResources(GameResources resources)
         {
@@ -132,7 +137,10 @@ namespace Source.Visuals.BattlefieldStorage
             unitHealthText.gameObject.SetActive(false);
             unitPowerText.gameObject.SetActive(false);
 
-            if (item == null || gameResources == null) return;
+            if (item == null || gameResources == null)
+            {
+                return;
+            }
 
             if (item.Unit != null)
             {
@@ -174,6 +182,21 @@ namespace Source.Visuals.BattlefieldStorage
                     buildingHealthText.gameObject.SetActive(true);
                     buildingPowerText.gameObject.SetActive(true);
                 }
+            }
+        }
+
+        public void UpdateContent(TooltipVisual tooltipVisual)
+        {
+            if (trackedItem.Unit != null && unitMemoryDataSO != null)
+            {
+                unitMemoryDataSO.FillTooltipContent(trackedItem.Unit, unitTooltipContent);
+                tooltipVisual.AddContent(unitTooltipContent);
+            }
+
+            if (trackedItem.Building != null && buildingMemoryDataSO != null)
+            {
+                buildingMemoryDataSO.FillTooltipContent(trackedItem.Building, buildingTooltipContent);
+                tooltipVisual.AddContent(buildingTooltipContent);
             }
         }
     }

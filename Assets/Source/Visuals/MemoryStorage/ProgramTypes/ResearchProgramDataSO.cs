@@ -10,13 +10,8 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
     {
         public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
         {
-            return new ResearchProgram()
-            {
-                OwnerId = memoryData.OwnerId,
-                Definition = memoryData.Definition,
-                CurrentRunProgress = memoryData.Progress,
-                MaxRunProgress = MaxProgress,
-            };
+            var memoryItem = base.CreateMemoryInstance(memoryData);
+            return memoryItem;
         }
     }
 }

@@ -14,8 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: cbc7fdc9af72236418cdc29da078a114
   description: 
+  tooltipIcon: {fileID: 136534628, guid: 354d5978268c8804989af5540898408f, type: 3}
+  memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
   Sprite: {fileID: 136534628, guid: 354d5978268c8804989af5540898408f, type: 3}
-  Name: Factory
+  BuildingName: Factory
   Abbreviation: Fctry
+  BuildingDescription: Needed to create units.
+  MaxProgress: 0
   BaseHealth: 3
   BasePower: 2
+  DataSize: 0
