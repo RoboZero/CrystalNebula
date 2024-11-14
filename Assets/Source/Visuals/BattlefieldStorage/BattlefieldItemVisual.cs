@@ -185,20 +185,20 @@ namespace Source.Visuals.BattlefieldStorage
             }
         }
 
-        public void UpdateContent(TooltipBehavior tooltipBehavior)
+        public void UpdateContent(TooltipVisual tooltipVisual)
         {
             if (unitMemoryDataSO != null)
             {
                 unitTooltipContent.Header = unitMemoryDataSO.MemoryName;
                 unitTooltipContent.Content = unitMemoryDataSO.MemoryDescription;
-                tooltipBehavior.AddContent(unitTooltipContent);
+                tooltipVisual.AddContent(unitTooltipContent);
             }
 
             if (buildingMemoryDataSO != null)
             {
                 buildingTooltipContent.Header = buildingMemoryDataSO.Name;
                 //buildingTooltipContent.Content = buildingMemoryDataSO.MemoryDescription;
-                tooltipBehavior.AddContent(buildingTooltipContent);
+                tooltipVisual.AddContent(buildingTooltipContent);
             }
         }
     }

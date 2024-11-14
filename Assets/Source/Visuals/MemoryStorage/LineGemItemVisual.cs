@@ -104,13 +104,13 @@ namespace Source.Visuals.MemoryStorage
             }
         }
 
-        public void UpdateContent(TooltipBehavior tooltipBehavior)
+        public void UpdateContent(TooltipVisual tooltipVisual)
         {
             if (TrackedItem != null && currentSubVisual.MemoryDataSO != null)
             {
                 memoryTooltipContent.Header = currentSubVisual.MemoryDataSO.MemoryName;
                 memoryTooltipContent.Content = currentSubVisual.MemoryDataSO.MemoryDescription;
-                tooltipBehavior.AddContent(memoryTooltipContent);
+                tooltipVisual.AddContent(memoryTooltipContent);
             }
         }
     }

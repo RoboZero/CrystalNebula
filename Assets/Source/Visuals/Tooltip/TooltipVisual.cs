@@ -10,15 +10,14 @@ using UnityEngine.UI;
 namespace Source.Visuals.Tooltip
 {
     [ExecuteInEditMode]
-    public class TooltipBehavior : MonoBehaviour
+    public class TooltipVisual : MonoBehaviour
     {
         [Header("Dependencies")]
         [SerializeField] private InputSystemUIInputModule inputSystemUIInputModule;
         [SerializeField] private RectTransform tooltipTransform;
-        [SerializeField] private Image background;
-        [SerializeField] private TextMeshProUGUI header;
-        [SerializeField] private TextMeshProUGUI content;
         [SerializeField] private LayoutElement layoutElement;
+        [SerializeField] private Image background;
+        [SerializeField] private TooltipSubVisual tooltipSubVisualPrefab;
 
         [Header("Settings")]
         [SerializeField] private float percentScreenWidthToAdjust = 0.5f;
@@ -28,7 +27,7 @@ namespace Source.Visuals.Tooltip
         [SerializeField] private float pivotTweenTimeX = 0.5f;
         [SerializeField] private float pivotTweenTimeY = 1f;
 
-        private ContinuousCollection<TooltipContent> t;
+        private List<TooltipSubVisual> tooltipSubVisuals = new();
         private HashSet<TooltipContent> tooltipContents = new();
         private Sequence moveSequence;
         private Vector2 MousePositionUI => inputSystemUIInputModule.input.mousePosition;
@@ -59,35 +58,34 @@ namespace Source.Visuals.Tooltip
 
         private void Show()
         {
+            while (tooltipSubVisuals.Count < tooltipContents.Count)
+            {
+                var subTooltip = Instantiate(tooltipSubVisualPrefab, layoutElement.transform);
+                tooltipSubVisuals.Add(subTooltip);
+            }
+            
+            var contentIndex = 0;
             foreach (var tooltipContent in tooltipContents)
             {
-                header.text = tooltipContent.Header;
-                content.text = tooltipContent.Content;
-                
-                if(string.IsNullOrEmpty(tooltipContent.Header))
-                    header.gameObject.SetActive(false);
-                if(string.IsNullOrEmpty(tooltipContent.Content))
-                    content.gameObject.SetActive(false);
+                tooltipSubVisuals[contentIndex].SetContent(tooltipContent);
+                tooltipSubVisuals[contentIndex].Show();
+                contentIndex++;
             }
 
-            background.gameObject.SetActive(true);
-            header.gameObject.SetActive(true);
-            content.gameObject.SetActive(true);
+            background.enabled = true;
             Resize();
-            
-            header.DOFade(1, fadeInTweenTime);
-            content.DOFade(1, fadeInTweenTime);
             background.DOFade(1, fadeInTweenTime);
         }
 
         private void Hide()
         {
-            header.DOFade(0, fadeOutTweenTime);
-            content.DOFade(0, fadeOutTweenTime);
-            background.DOFade(0, fadeOutTweenTime);
+            foreach (var tooltipSubVisual in tooltipSubVisuals)
+            {
+                tooltipSubVisual.Hide();
+            }
             
-            header.gameObject.SetActive(false);
-            content.gameObject.SetActive(false);
+            background.DOFade(0, fadeOutTweenTime);
+            background.enabled = false;
         }
         
         private void Update()
@@ -132,8 +130,17 @@ namespace Source.Visuals.Tooltip
 
         private void Resize()
         {
-            layoutElement.enabled = header.preferredWidth > layoutElement.preferredWidth || 
-                                    content.preferredWidth > layoutElement.preferredWidth;
+            var layoutEnabled = false;
+            
+            foreach (var tooltipSubVisual in tooltipSubVisuals)
+            {
+                if (!tooltipSubVisual.WithinLayoutPreferredBounds(layoutElement))
+                {
+                    layoutEnabled = true;
+                }
+            }
+
+            layoutElement.enabled = layoutEnabled;
         }
     }
 }

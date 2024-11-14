@@ -12,7 +12,7 @@ namespace Source.Visuals.Tooltip
         public static TooltipManager Current;
 
         [Header("Dependencies")]
-        [SerializeField] private TooltipBehavior tooltip;
+        [SerializeField] private TooltipVisual tooltip;
 
         private void Awake()
         {

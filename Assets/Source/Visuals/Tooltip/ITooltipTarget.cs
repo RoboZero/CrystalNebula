@@ -4,6 +4,6 @@ namespace Source.Visuals.Tooltip
 {
     public interface ITooltipTarget
     {
-        public void UpdateContent(TooltipBehavior tooltipBehavior);
+        public void UpdateContent(TooltipVisual tooltipVisual);
     }
 }
