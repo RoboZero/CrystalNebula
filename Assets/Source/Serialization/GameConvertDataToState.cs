@@ -70,7 +70,7 @@ namespace Source.Serialization
             {
                 if (gameResources.TryLoadAsset(this, battlefieldItemData.Building.Definition, out BuildingMemoryDataSO buildingDataSO))
                 {
-                    building = buildingDataSO.CreateInstance(battlefieldItemData.Building);
+                    building = (BuildingMemory) buildingDataSO.CreateMemoryInstance(battlefieldItemData.Building);
                 }
             }
 

@@ -1,32 +1,33 @@
-using Source.Logic.State.Battlefield;
+using System.Globalization;
+using Source.Logic.State.LineItems;
 using Source.Logic.State.LineItems.Units;
 using Source.Serialization.Data;
-using Source.Utility;
+using Source.Visuals.MemoryStorage;
+using Source.Visuals.Tooltip;
 using UnityEngine;
 
 namespace Source.Visuals.BattlefieldStorage
 {
     [CreateAssetMenu(fileName = "BuildingName", menuName = "Game/Building")]
-    public class BuildingMemoryDataSO : DescriptionBaseSO
+    public class BuildingMemoryDataSO : MemoryDataSO
     {
+        public override Sprite TooltipIcon => tooltipIcon;
+        public override Sprite MemoryBackgroundIcon => memoryBackgroundIcon;
+        public override Sprite MemoryForegroundIcon => Sprite;
+        public override string MemoryName => BuildingName;
+        public override string MemoryDescription => BuildingDescription;
+
+        [SerializeField] private Sprite tooltipIcon;
+        [SerializeField] private Sprite memoryBackgroundIcon;
+
         public Sprite Sprite;
-        public string Name;
+        public string BuildingName;
         public string Abbreviation;
+        [TextArea] public string BuildingDescription;
+        public int MaxProgress;
         public int BaseHealth;
         public int BasePower;
         public float DataSize;
-
-        public BuildingMemory CreateInstance(BuildingData buildingData)
-        {
-            return new BuildingMemory()
-            {
-                OwnerId = buildingData.OwnerId,
-                Definition = buildingData.Definition,
-                Health = buildingData.Health,
-                Power = buildingData.Power,
-                DataSize = DataSize
-            };
-        }
 
         public BuildingMemory CreateDefault(int ownerId, string definition, int? health = null, int? power = null)
         {
@@ -38,6 +39,39 @@ namespace Source.Visuals.BattlefieldStorage
                 Power = power ?? BasePower,
                 DataSize = DataSize
             };
+        }
+
+        public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
+        {
+            return new BuildingMemory()
+            {
+                OwnerId = memoryData.OwnerId,
+                Definition = memoryData.Definition,
+                Health = memoryData.Health ?? BaseHealth,
+                Power = memoryData.Power ?? BasePower,
+                DataSize = DataSize,
+                CurrentRunProgress = memoryData.Progress,
+                MaxRunProgress = MaxProgress,
+            };
+        }
+
+        public override void FillTooltipContent(MemoryItem memoryItem, TooltipContent tooltipContent)
+        {
+            if (memoryItem is BuildingMemory buildingMemory)
+            {
+                tooltipContent.Icon = TooltipIcon;
+                tooltipContent.Header = MemoryName;
+                tooltipContent.Description = MemoryDescription;
+                tooltipContent.Stats.Clear();
+                tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Health", Value = $"{buildingMemory.Health}/{BaseHealth.ToString()}"});
+                tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Power", Value = $"{buildingMemory.Power.ToString()}/{BasePower.ToString()}"});
+                tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Progress", Value = $"{buildingMemory.CurrentRunProgress}/{buildingMemory.MaxRunProgress}" });
+                tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Data Size", Value = $"{buildingMemory.DataSize.ToString(CultureInfo.InvariantCulture)}/{DataSize}"});
+                return;
+            }
+            
+            tooltipContent.Clear();
+            tooltipContent.Header = "???";
         }
     }
 }

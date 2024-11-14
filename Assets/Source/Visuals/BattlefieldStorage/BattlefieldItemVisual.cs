@@ -195,11 +195,7 @@ namespace Source.Visuals.BattlefieldStorage
 
             if (trackedItem.Building != null && buildingMemoryDataSO != null)
             {
-                buildingTooltipContent.Header = buildingMemoryDataSO.Name;
-                buildingTooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Health", Value = $"{trackedItem.Building.Health}/{buildingMemoryDataSO.BaseHealth.ToString()}"});
-                buildingTooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Power", Value = $"{trackedItem.Building.Power.ToString()}/{buildingMemoryDataSO.BasePower.ToString()}"});
-
-                //buildingTooltipContent.Content = buildingMemoryDataSO.MemoryDescription;
+                buildingMemoryDataSO.FillTooltipContent(trackedItem.Building, buildingTooltipContent);
                 tooltipVisual.AddContent(buildingTooltipContent);
             }
         }
