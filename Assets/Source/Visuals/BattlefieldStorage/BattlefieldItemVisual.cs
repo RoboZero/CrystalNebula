@@ -187,16 +187,18 @@ namespace Source.Visuals.BattlefieldStorage
 
         public void UpdateContent(TooltipVisual tooltipVisual)
         {
-            if (unitMemoryDataSO != null)
+            if (trackedItem.Unit != null && unitMemoryDataSO != null)
             {
-                unitTooltipContent.Header = unitMemoryDataSO.MemoryName;
-                unitTooltipContent.Content = unitMemoryDataSO.MemoryDescription;
+                unitMemoryDataSO.FillTooltipContent(trackedItem.Unit, unitTooltipContent);
                 tooltipVisual.AddContent(unitTooltipContent);
             }
 
-            if (buildingMemoryDataSO != null)
+            if (trackedItem.Building != null && buildingMemoryDataSO != null)
             {
                 buildingTooltipContent.Header = buildingMemoryDataSO.Name;
+                buildingTooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Health", Value = $"{trackedItem.Building.Health}/{buildingMemoryDataSO.BaseHealth.ToString()}"});
+                buildingTooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Power", Value = $"{trackedItem.Building.Power.ToString()}/{buildingMemoryDataSO.BasePower.ToString()}"});
+
                 //buildingTooltipContent.Content = buildingMemoryDataSO.MemoryDescription;
                 tooltipVisual.AddContent(buildingTooltipContent);
             }

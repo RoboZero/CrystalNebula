@@ -7,6 +7,20 @@ namespace Source.Visuals.Tooltip
     public class TooltipContent
     {
         public string Header;
-        public string Content;
+        public List<Stat> Stats = new();
+        public string Description;
+
+        public struct Stat
+        {
+            public string Name;
+            public string Value;
+        }
+
+        public void Clear()
+        {
+            Header = "";
+            Stats.Clear();
+            Description = "";
+        }
     }
 }

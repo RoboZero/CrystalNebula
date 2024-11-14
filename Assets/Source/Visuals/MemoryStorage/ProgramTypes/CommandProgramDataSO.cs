@@ -20,6 +20,7 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
                 Definition = memoryData.Definition,
                 CurrentRunProgress = memoryData.Progress,
                 MaxRunProgress = MaxProgress,
+                DataSize = DataSize,
                 Distance = Distance,
                 Direction = Direction
             };

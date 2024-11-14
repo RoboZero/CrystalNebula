@@ -1,6 +1,7 @@
 ﻿using Source.Logic.State.LineItems;
 using Source.Serialization.Data;
 using Source.Utility;
+using Source.Visuals.Tooltip;
 using UnityEngine;
 
 namespace Source.Visuals.MemoryStorage
@@ -13,5 +14,6 @@ namespace Source.Visuals.MemoryStorage
         public abstract string MemoryDescription { get; }
         
         public abstract MemoryItem CreateMemoryInstance(MemoryData memoryData);
+        public abstract void FillTooltipContent(MemoryItem memoryItem, TooltipContent tooltipContent);
     }
 }

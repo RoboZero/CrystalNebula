@@ -1,8 +1,10 @@
+using System.Globalization;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Logic.State.LineItems.Units;
 using Source.Serialization.Data;
 using Source.Visuals.MemoryStorage;
+using Source.Visuals.Tooltip;
 using UnityEngine;
 
 namespace Source.Visuals.BattlefieldStorage
@@ -58,6 +60,24 @@ namespace Source.Visuals.BattlefieldStorage
                 CurrentRunProgress = memoryData.Progress,
                 MaxRunProgress = MaxProgress,
             };
+        }
+
+        public override void FillTooltipContent(MemoryItem memoryItem, TooltipContent tooltipContent)
+        {
+            if (memoryItem is UnitMemory unitMemory)
+            {
+                tooltipContent.Header = MemoryName;
+                tooltipContent.Description = MemoryDescription;
+                tooltipContent.Stats.Clear();
+                tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Health", Value = $"{unitMemory.Health}/{BaseHealth.ToString()}"});
+                tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Power", Value = $"{unitMemory.Power.ToString()}/{BasePower.ToString()}"});
+                tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Progress", Value = $"{unitMemory.CurrentRunProgress}/{unitMemory.MaxRunProgress}" });
+                tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Data Size", Value = $"{unitMemory.DataSize.ToString(CultureInfo.InvariantCulture)}/{DataSize}"});
+                return;
+            }
+            
+            tooltipContent.Clear();
+            tooltipContent.Header = "???";
         }
     }
 }

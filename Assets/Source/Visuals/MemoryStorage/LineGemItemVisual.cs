@@ -75,7 +75,7 @@ namespace Source.Visuals.MemoryStorage
             }
 
             memoryTooltipContent.Header = currentSubVisual.MemoryDataSO.MemoryName;
-            memoryTooltipContent.Content = currentSubVisual.MemoryDataSO.MemoryDescription;
+            memoryTooltipContent.Description = currentSubVisual.MemoryDataSO.MemoryDescription;
         }
 
         public void SetTransferDataItem(MemoryItem item)
@@ -108,8 +108,7 @@ namespace Source.Visuals.MemoryStorage
         {
             if (TrackedItem != null && currentSubVisual.MemoryDataSO != null)
             {
-                memoryTooltipContent.Header = currentSubVisual.MemoryDataSO.MemoryName;
-                memoryTooltipContent.Content = currentSubVisual.MemoryDataSO.MemoryDescription;
+                currentSubVisual.MemoryDataSO.FillTooltipContent(TrackedItem, memoryTooltipContent);
                 tooltipVisual.AddContent(memoryTooltipContent);
             }
         }

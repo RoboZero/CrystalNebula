@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using Source.Logic.State.LineItems;
+using Source.Logic.State.LineItems.Programs;
+using Source.Serialization.Data;
+using Source.Visuals.Tooltip;
+using UnityEngine;
 
 namespace Source.Visuals.MemoryStorage.ProgramTypes
 { 
@@ -16,5 +20,33 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
         
         public int MaxProgress;
         public float DataSize;
+        
+        public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
+        {
+            return new ResearchProgram()
+            {
+                OwnerId = memoryData.OwnerId,
+                Definition = memoryData.Definition,
+                CurrentRunProgress = memoryData.Progress,
+                MaxRunProgress = MaxProgress,
+                DataSize = DataSize
+            };
+        }
+
+        public override void FillTooltipContent(MemoryItem memoryItem, TooltipContent tooltipContent)
+        {
+            if (memoryItem is ProgramMemory programMemory)
+            {
+                tooltipContent.Header = MemoryName;
+                tooltipContent.Description = MemoryDescription;
+                tooltipContent.Stats.Clear();
+                tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Progress", Value = $"{programMemory.CurrentRunProgress}/{programMemory.MaxRunProgress}" });
+                tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Data Size", Value = $"{programMemory.DataSize}"});
+                return;
+            }
+
+            tooltipContent.Clear();
+            tooltipContent.Header = "???";
+        }
     }
 }

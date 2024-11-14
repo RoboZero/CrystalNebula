@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using System.Text;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,8 @@ namespace Source.Visuals.Tooltip
     {
         [Header("Dependencies")]
         [SerializeField] private TextMeshProUGUI header;
-        [SerializeField] private TextMeshProUGUI content;
+        [SerializeField] private TextMeshProUGUI stats;
+        [SerializeField] private TextMeshProUGUI description;
         
         [Header("Settings")]
         [SerializeField] private float fadeInTweenTime = 0.5f;
@@ -21,36 +23,37 @@ namespace Source.Visuals.Tooltip
         {
             tooltipContent = nextTooltipContent;
             header.text = tooltipContent.Header;
-            content.text = tooltipContent.Content;
-            
-            if(string.IsNullOrEmpty(tooltipContent.Header))
-                header.gameObject.SetActive(false);
-            if(string.IsNullOrEmpty(tooltipContent.Content))
-                content.gameObject.SetActive(false);
+            stats.text = "";
+            foreach (var stat in tooltipContent.Stats)
+            {
+                stats.text += $"{stat.Name}: {stat.Value}\n";
+            }
+            description.text = tooltipContent.Description;
         }
 
         public void Show()
         {
+            header.gameObject.SetActive(!string.IsNullOrEmpty(tooltipContent.Header));
+            stats.gameObject.SetActive(tooltipContent.Stats.Count != 0);
+            description.gameObject.SetActive(!string.IsNullOrEmpty(tooltipContent.Description));
+                
             header.DOFade(1, fadeInTweenTime);
-            content.DOFade(1, fadeInTweenTime);
-            
-            header.gameObject.SetActive(true);
-            content.gameObject.SetActive(true);
+            stats.DOFade(1, fadeInTweenTime);
+            description.DOFade(1, fadeInTweenTime);
         }
 
         public void Hide()
         {
-            header.DOFade(0, fadeOutTweenTime);
-            content.DOFade(0, fadeOutTweenTime);
-            
-            header.gameObject.SetActive(false);
-            content.gameObject.SetActive(false);
+            header.DOFade(0, fadeOutTweenTime).OnComplete(() => { header.gameObject.SetActive(false); });
+            stats.DOFade(0, fadeOutTweenTime).OnComplete(() => { stats.gameObject.SetActive(false); });
+            description.DOFade(0, fadeOutTweenTime).OnComplete(() => { description.gameObject.SetActive(false); });
         }
 
         public bool WithinLayoutPreferredBounds(LayoutElement layoutElement)
         {
             return header.preferredWidth < layoutElement.preferredWidth &&
-                   content.preferredWidth < layoutElement.preferredWidth;
+                   stats.preferredWidth < layoutElement.preferredWidth &&
+                   description.preferredWidth < layoutElement.preferredWidth;
         }
     }
 }
