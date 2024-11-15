@@ -20,6 +20,6 @@ MonoBehaviour:
   memoryName: Command
   memoryDescription: "\rMove all ally units one tile up towards the enemy. \r"
   MaxProgress: 3
-  DataSize: 0
+  DataSize: 1
   Distance: 1
   Direction: -1
