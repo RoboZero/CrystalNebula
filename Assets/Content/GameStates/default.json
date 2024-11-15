@@ -29,7 +29,7 @@
             "Location": 0,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Build",
+              "Definition": "Programs/Command",
               "Progress": 0
             }
           },
@@ -37,7 +37,7 @@
             "Location": 1,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Research",
+              "Definition": "Programs/BuildGuardian",
               "Progress": 0
             }
           },
