@@ -12,14 +12,14 @@ using UnityEngine;
 
 namespace Source.Logic.Events
 {
-    public class CreateUnitsEventCommand : EventCommand 
+    public class CreateBattlefieldUnitsEventCommand : EventCommand 
     {
         private LineStorage<BattlefieldItem> battlefieldStorage;
         private List<int> slots;
         private UnitMemory unit;
         private bool forceIfOccupied;
 
-        public CreateUnitsEventCommand(
+        public CreateBattlefieldUnitsEventCommand(
             EventTracker eventTracker,
             LineStorage<BattlefieldItem> battlefieldStorage,
             List<int> slots,
