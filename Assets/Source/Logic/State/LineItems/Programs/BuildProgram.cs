@@ -4,6 +4,7 @@ using System.Linq;
 using Source.Logic.Events;
 using Source.Logic.Events.Overrides;
 using Source.Logic.State.LineItems.Units;
+using Source.Utility;
 using UnityEngine;
 
 namespace Source.Logic.State.LineItems.Programs
@@ -15,12 +16,20 @@ namespace Source.Logic.State.LineItems.Programs
         
         protected override void Run(EventTracker eventTracker, GameState gameState)
         {
-            Debug.Log("Command ran!");
+            Debug.Log($"{GetType().Name} ran.");
 
-            var memoryStorage = gameState.Players[MemoryItem.OwnerId].MemoryStorage;
+            var player = gameState.Players.FirstOrDefault(player => player.Id == MemoryItem.OwnerId);
+            if (player == null)
+            {
+                Debug.LogWarning($"Unable to find player with Id == Memory item Owner Id {MemoryItem.OwnerId}");
+                return;
+            }
+
+            var memoryStorage = player.MemoryStorage;
 
             if (memoryStorage.Length == 0)
             {
+                Debug.Log($"{GetType().Name} unable to run as {memoryStorage} has length of 0.");
                 return;
             }
             

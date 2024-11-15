@@ -7,5 +7,10 @@ namespace Source.Serialization.Data
     {
         public int Location;
         public MemoryData Memory;
+
+        public override string ToString()
+        {
+            return $"MemoryItemData (Location: {Location}, Memory: {Memory})";
+        }
     }
 }
