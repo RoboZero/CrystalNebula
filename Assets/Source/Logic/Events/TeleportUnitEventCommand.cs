@@ -89,6 +89,7 @@ namespace Source.Logic.Events
                     
                     await ApplyChildEventWithLog(switchUnitEvent, cancellationToken);
                     status = switchUnitEvent.Status;
+                    return;
                 }
                 else
                 {
@@ -109,6 +110,7 @@ namespace Source.Logic.Events
                     );
                     await ApplyChildEventWithLog(unitCombatEvent, cancellationToken);
                     status = unitCombatEvent.Status;
+                    return;
                 }
             }
 
