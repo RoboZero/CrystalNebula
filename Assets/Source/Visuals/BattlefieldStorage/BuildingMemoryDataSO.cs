@@ -41,18 +41,27 @@ namespace Source.Visuals.BattlefieldStorage
             };
         }
 
-        public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
+        public override MemoryItem CreateDefaultInstance(int ownerId, string definition)
         {
             return new BuildingMemory()
             {
-                OwnerId = memoryData.OwnerId,
-                Definition = memoryData.Definition,
-                Health = memoryData.Health ?? BaseHealth,
-                Power = memoryData.Power ?? BasePower,
+                OwnerId = ownerId,
+                Definition = definition,
+                Health = BaseHealth,
+                Power = BasePower,
                 DataSize = DataSize,
-                CurrentRunProgress = memoryData.Progress,
+                CurrentRunProgress = 0,
                 MaxRunProgress = MaxProgress,
             };
+        }
+
+        public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
+        {
+            var instance = (BuildingMemory) CreateDefaultInstance(memoryData.OwnerId, memoryData.Definition);
+            instance.Health = memoryData.Health ?? BaseHealth;
+            instance.Power = memoryData.Power ?? BasePower;
+            instance.CurrentRunProgress = memoryData.Progress;
+            return instance;
         }
 
         public override void FillTooltipContent(MemoryItem memoryItem, TooltipContent tooltipContent)

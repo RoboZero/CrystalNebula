@@ -2,6 +2,7 @@
 using Source.Input;
 using Source.Logic.Events;
 using Source.Logic.State;
+using Source.Logic.State.LineItems.Units;
 using Source.Serialization;
 using Source.Serialization.Samples;
 using Source.Visuals;
@@ -51,17 +52,17 @@ namespace Source.Interactions
             
             if (unitMemoryDataSO != null)
             {
-                eventTrackerBehavior.EventTracker.AddEvent(new CreateUnitsEventCommand(
+                eventTrackerBehavior.EventTracker.AddEvent(new CreateBattlefieldUnitsEventCommand(
                     eventTrackerBehavior.EventTracker,
                     battlefieldStorageBehavior.State, 
                     interactedSlots,
-                    unitMemoryDataSO.CreateDefault(0, "Units/Guardian"),
+                    (UnitMemory) unitMemoryDataSO.CreateDefaultInstance(0, "Units/Guardian"),
                     false
                 ));
             }
             if (buildingMemoryDataSO != null)
             {
-                eventTrackerBehavior.EventTracker.AddEvent(new CreateBuildingsEventCommand(
+                eventTrackerBehavior.EventTracker.AddEvent(new CreateBattlefieldBuildingsEventCommand(
                     eventTrackerBehavior.EventTracker,
                     battlefieldStorageBehavior.State, 
                     interactedSlots,

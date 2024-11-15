@@ -26,7 +26,7 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
         
         public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
         {
-            return new ResearchProgram()
+            return new EmptyProgram()
             {
                 OwnerId = memoryData.OwnerId,
                 Definition = memoryData.Definition,

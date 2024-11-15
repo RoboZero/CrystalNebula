@@ -13,6 +13,18 @@ namespace Source.Logic.State.LineItems
         public int MaxRunProgress;
         public float DataSize;
 
+        public virtual MemoryItem CreateInstance()
+        {
+            return new MemoryItem()
+            {
+                Definition = Definition,
+                OwnerId = OwnerId,
+                CurrentRunProgress = CurrentRunProgress,
+                MaxRunProgress = MaxRunProgress,
+                DataSize = DataSize,
+            };
+        }
+
         public virtual void Tick(EventTracker eventTracker, GameState gameState)
         {
             Debug.Log($"{Definition} tick. Progress: {CurrentRunProgress} / {MaxRunProgress}");

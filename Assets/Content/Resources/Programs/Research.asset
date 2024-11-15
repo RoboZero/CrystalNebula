@@ -20,4 +20,4 @@ MonoBehaviour:
   memoryName: Research Program
   memoryDescription: "\rWhen run, create programs in Disk.\r\n"
   MaxProgress: 3
-  DataSize: 0
+  DataSize: 1

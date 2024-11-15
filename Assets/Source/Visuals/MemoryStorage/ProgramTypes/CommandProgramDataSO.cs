@@ -12,18 +12,25 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
         public int Distance;
         public MoveUnitsInDirectionEventCommand.Direction Direction;
 
-        public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
+        public override MemoryItem CreateDefaultInstance(int ownerId, string definition)
         {
             return new CommandProgram()
             {
-                OwnerId = memoryData.OwnerId,
-                Definition = memoryData.Definition,
-                CurrentRunProgress = memoryData.Progress,
+                OwnerId = ownerId,
+                Definition = definition,
+                CurrentRunProgress = 0,
                 MaxRunProgress = MaxProgress,
                 DataSize = DataSize,
                 Distance = Distance,
                 Direction = Direction
             };
+        }
+
+        public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
+        {
+            var instance = (CommandProgram) CreateDefaultInstance(memoryData.OwnerId, memoryData.Definition);
+            instance.CurrentRunProgress = memoryData.Progress;
+            return instance;
         }
     }
 }

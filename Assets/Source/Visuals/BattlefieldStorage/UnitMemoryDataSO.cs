@@ -32,7 +32,7 @@ namespace Source.Visuals.BattlefieldStorage
         public bool CanSwitchPlaces = true;
         public bool CanEngageCombat = true;
 
-        public UnitMemory CreateDefault(int ownerId, string definition)
+        public override MemoryItem CreateDefaultInstance(int ownerId, string definition)
         {
             return new UnitMemory
             {
@@ -41,6 +41,8 @@ namespace Source.Visuals.BattlefieldStorage
                 Health = BaseHealth,
                 Power = BasePower,
                 DataSize = DataSize,
+                CurrentRunProgress = 0,
+                MaxRunProgress = MaxProgress,
                 CanSwitchPlaces = CanSwitchPlaces,
                 CanEngageCombat = CanEngageCombat
             };
@@ -48,20 +50,11 @@ namespace Source.Visuals.BattlefieldStorage
 
         public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
         {
-            Debug.Log($"Creating instance of Memory data {memoryData}");
-
-            return new UnitMemory()
-            {
-                OwnerId = memoryData.OwnerId,
-                Definition = memoryData.Definition,
-                Health = memoryData.Health ?? BaseHealth,
-                Power = memoryData.Power ?? BasePower,
-                DataSize = DataSize,
-                CanSwitchPlaces = CanSwitchPlaces,
-                CanEngageCombat = CanEngageCombat,
-                CurrentRunProgress = memoryData.Progress,
-                MaxRunProgress = MaxProgress,
-            };
+            var instance = (UnitMemory) CreateDefaultInstance(memoryData.OwnerId, memoryData.Definition);
+            instance.Health = memoryData.Health ?? BaseHealth;
+            instance.Power = memoryData.Power ?? BasePower;
+            instance.CurrentRunProgress = memoryData.Progress;
+            return instance;
         }
 
         public override void FillTooltipContent(MemoryItem memoryItem, TooltipContent tooltipContent)

@@ -126,7 +126,7 @@ namespace Source.Serialization
                 }
                 else
                 {
-                    Debug.LogError($"Unable to load {nameof(memoryDataSO)} asset for stored data item: {storedItem}");
+                    Debug.LogError($"Unable to load {nameof(MemoryDataSO)} asset for stored data item: {storedItem}");
                 }
             }
 
