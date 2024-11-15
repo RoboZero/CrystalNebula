@@ -21,30 +21,61 @@ namespace Source.Serialization
         [ReadOnly]
         [SerializeField] private List<DefinitionToResource> resourceList = new();
 
-        //TODO: Switch to using dictionary when large enough. 
+        private Dictionary<string, DescriptionBaseSO> definitionToResource;
+        private Dictionary<DescriptionBaseSO, string> resourceToDefinition;
+
         //TODO: Consider whether to ignore empty definitions
         public bool TryLoadAsset<T>(object loader, string definition, out T asset)
         {
+            // TODO: Consider iterative creation for large resource lists.
+            if (definitionToResource == null){
+                definitionToResource = new Dictionary<string, DescriptionBaseSO>();
+                resourceToDefinition = new Dictionary<DescriptionBaseSO, string>();
+
+                foreach (var pair in resourceList)
+                {
+                    definitionToResource.Add(pair.Definition, pair.Resource);
+                    resourceToDefinition.Add(pair.Resource, pair.Definition);
+                }
+            }
+            
             if (definition == "")
             {
                 Debug.Log($"Loader {loader} could not find asset with empty definition. ");
                 asset = default;
                 return false;
             }
-            
-            var resource = resourceList.FirstOrDefault(definitionToResource => definitionToResource.Definition.Equals(definition));
 
-            // Debug.Log($"Resource found: {resource.Resource}");
-            if (resource is { Resource: T resourceTyped })
+            if (!definitionToResource.TryGetValue(definition, out var resource))
             {
-                Debug.Log($"Loader {loader} found asset of type {resourceTyped.GetType()}");
-                asset = resourceTyped;
-                return true;
+                
+                Debug.LogWarning($"Loader {loader} is unable to find resource with definition {definition}");
+                asset = default;
+                return false;
+            }
+            
+            if (resource is not T resourceTyped)
+            {
+                Debug.LogWarning($"Loader {loader} is unable to load resource: {definition}");
+                asset = default;
+                return false;
             }
 
-            Debug.LogWarning($"Loader {loader} is unable to load resource: {definition}");
-            asset = default;
-            return false;
+            Debug.Log($"Loader {loader} found asset of type {resourceTyped.GetType()}");
+            asset = resourceTyped;
+            return true;
+        }
+
+        public bool TryLoadDefinition(object loader, DescriptionBaseSO resource, out string definition)
+        {
+            if (!resourceToDefinition.TryGetValue(resource, out definition))
+            {
+                Debug.LogWarning($"Loader {loader} is unable to load definition from resource {resource}");
+                definition = "";
+                return false;
+            }
+
+            return true;
         }
         
         public static string BuildDefinitionPath(string directoryName, string assetNameNoExtension)
@@ -78,6 +109,9 @@ namespace Source.Serialization
                         Definition = definitionName,
                         Resource = resource
                     });
+                    
+                    definitionToResource.Add(definitionName, resource);
+                    resourceToDefinition.Add(resource, definitionName);
                 }
             }
         }
