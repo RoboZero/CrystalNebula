@@ -11,6 +11,7 @@ namespace Source.Utility
         [SerializeField] private GameStateLoader gameStateLoader;
         [SerializeField] private TextAsset scenario1;
         [SerializeField] private TextAsset scenario2;
+        [SerializeField] private TextAsset scenario3;
         
         public void LoadScenario1()
         {
@@ -20,6 +21,11 @@ namespace Source.Utility
         public void LoadScenario2()
         {
             gameStateLoader.Load(scenario2);
+        }
+        
+        public void LoadScenario3()
+        {
+            gameStateLoader.Load(scenario3);
         }
 
         private void Update()

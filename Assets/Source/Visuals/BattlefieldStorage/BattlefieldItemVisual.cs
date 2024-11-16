@@ -102,24 +102,10 @@ namespace Source.Visuals.BattlefieldStorage
                 case InteractVisualState.Hovered:
                     selectorIcon.gameObject.SetActive(true);
                     selectorIcon.color = Color.yellow;
-                    //unitUtilityText.text = "STATE: HOVERED";
-                    buildingUtilityText.text = trackedItem != null && 
-                                               trackedItem.Building != null && 
-                                               buildingMemoryDataSO != null ? buildingMemoryDataSO.Abbreviation : "";
-                    unitUtilityText.text = trackedItem != null && 
-                                           trackedItem.Unit != null && 
-                                           unitMemoryDataSO != null ? unitMemoryDataSO.Abbreviation : "";
                     break;
                 case InteractVisualState.Selected:
                     selectorIcon.gameObject.SetActive(true);
                     selectorIcon.color = Color.blue;
-                    //unitUtilityText.text = "STATE: SELECTED";
-                    buildingUtilityText.text = trackedItem != null && 
-                                               trackedItem.Building != null && 
-                                               buildingMemoryDataSO != null ? buildingMemoryDataSO.Abbreviation : "";
-                    unitUtilityText.text = trackedItem != null && 
-                                           trackedItem.Unit != null && 
-                                           unitMemoryDataSO != null ? unitMemoryDataSO.Abbreviation : "";
                     break;
             }
         }
@@ -152,6 +138,7 @@ namespace Source.Visuals.BattlefieldStorage
 
                 if (unitMemoryDataSO != null)
                 {
+                    unitImage.transform.localScale = unitMemoryDataSO.BattlefieldScaleFactor;
                     unitImage.sprite = unitMemoryDataSO.Sprite;
                     unitHealthText.text = item.Unit.Health.ToString();
                     unitPowerText.text = item.Unit.Power.ToString();
@@ -173,6 +160,7 @@ namespace Source.Visuals.BattlefieldStorage
                 
                 if (buildingMemoryDataSO != null)
                 {
+                    buildingImage.transform.localScale = buildingMemoryDataSO.BattlefieldScaleFactor;
                     buildingImage.sprite = buildingMemoryDataSO.Sprite;
                     buildingHealthText.text = item.Building.Health.ToString();
                     buildingPowerText.text = item.Building.Power.ToString();

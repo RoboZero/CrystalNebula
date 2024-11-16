@@ -30,7 +30,7 @@
             "Location": 0,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Research",
+              "Definition": "Programs/Command",
               "Progress": 0
             }
           },
@@ -50,22 +50,13 @@
     "Length": 20,
     "Items": [
       {
-        "Location": 0,
+        "Location": 1,
         "Building": {
           "Health": 3,
           "Power": 1,
           "Definition": "Buildings/Flag",
           "OwnerId": 2
         },
-        "Unit": {
-          "Definition": "Units/Boss_TheUnraveler",
-          "OwnerId": 2
-        },
-        "Description": null
-      },
-      {
-        "Location": 1,
-        "Building": null,
         "Unit": {
           "Definition": "Units/Spider",
           "OwnerId": 2
@@ -76,9 +67,7 @@
         "Location": 2,
         "Building": null,
         "Unit": {
-          "Health": 5,
-          "Power": 2,
-          "Definition": "Units/Hornet",
+          "Definition": "Units/Boss_TheUnraveler",
           "OwnerId": 2
         },
         "Description": null
@@ -87,7 +76,27 @@
         "Location": 3,
         "Building": null,
         "Unit": {
+          "Health": 5,
+          "Power": 2,
+          "Definition": "Units/Hornet",
+          "OwnerId": 2
+        },
+        "Description": null
+      },
+      {
+        "Location": 4,
+        "Building": null,
+        "Unit": {
           "Definition": "Units/Spider",
+          "OwnerId": 2
+        },
+        "Description": null
+      },
+      {
+        "Location": 7,
+        "Building": null,
+        "Unit": {
+          "Definition": "Units/Scarab",
           "OwnerId": 2
         },
         "Description": null

@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 
   tooltipIcon: {fileID: 707951768, guid: a301be8b45f8cb649987387f7dc5a0a3, type: 3}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
+  battlefieldScaleFactor: {x: 1.1, y: 1.1}
   Sprite: {fileID: 707951768, guid: a301be8b45f8cb649987387f7dc5a0a3, type: 3}
   UnitName: The Unraveler
   Abbreviation: Boss

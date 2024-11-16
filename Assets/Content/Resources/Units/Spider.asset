@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 
   tooltipIcon: {fileID: -1010719233, guid: 381c177bd03ed794ead01979859d376a, type: 3}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
+  battlefieldScaleFactor: {x: 0.8, y: 0.8}
   Sprite: {fileID: -1010719233, guid: 381c177bd03ed794ead01979859d376a, type: 3}
   UnitName: Spider
   Abbreviation: Spdr
