@@ -52,6 +52,10 @@ namespace Source.Visuals.BattlefieldStorage
 
         private readonly TooltipContent unitTooltipContent = new();
         private readonly TooltipContent buildingTooltipContent = new();
+        
+        private Color noneColor = Color.white;
+        private Color hoveredColor = Color.yellow;
+        private Color interactedColor = Color.blue;
 
         public void SetGameResources(GameResources resources)
         {
@@ -113,16 +117,17 @@ namespace Source.Visuals.BattlefieldStorage
             {
                 case InteractVisualState.None:
                     selectorIcon.gameObject.SetActive(false);
+                    selectorIcon.color = noneColor;
                     buildingUtilityText.text = "";
                     unitUtilityText.text = "";
                     break;
                 case InteractVisualState.Hovered:
                     selectorIcon.gameObject.SetActive(true);
-                    selectorIcon.color = Color.yellow;
+                    selectorIcon.color = hoveredColor;
                     break;
                 case InteractVisualState.Selected:
                     selectorIcon.gameObject.SetActive(true);
-                    selectorIcon.color = Color.blue;
+                    selectorIcon.color = interactedColor;
                     break;
             }
         }
@@ -159,6 +164,10 @@ namespace Source.Visuals.BattlefieldStorage
                     platformImage.color = colorSchemeSO.DeploymentZonePlatformColor;
                     unitPlatformImage.color = colorSchemeSO.DeploymentZoneUnitPlatformColor;
                     buildingPlatformImage.color = colorSchemeSO.DeploymentZoneBuildingPlatformColor;
+
+                    noneColor = colorSchemeSO.NoInteractionColor;
+                    hoveredColor = colorSchemeSO.HoveredColor;
+                    interactedColor = colorSchemeSO.InteractedColor;
                 }
             }
 
