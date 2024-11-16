@@ -7,12 +7,13 @@
       "Id": 1,
       "PersonalStorage": {
         "Length": 1,
+        "DataPerSecondTransfer": 10.0,
         "Items": [
           {
             "Location": 0,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Build",
+              "Definition": "Programs/Command",
               "Progress": 0
             }
           }
@@ -24,6 +25,7 @@
           "ClockSpeed": 3.0,
           "ProcessorStorage": {
             "Length": 1,
+            "DataPerSecondTransfer": 10.0,
             "Items": [
               {
                 "Length": 0,
@@ -39,12 +41,13 @@
       ],
       "MemoryStorage": {
         "Length": 3,
+        "DataPerSecondTransfer": 7.0,
         "Items": [
           {
             "Location": 0,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Build",
+              "Definition": "Programs/BuildGuardian",
               "Progress": 0
             }
           },
@@ -60,6 +63,7 @@
       },
       "DiskStorage": {
         "Length": 5,
+        "DataPerSecondTransfer": 1.0,
         "Items": [
           {
             "Location": 0,
@@ -73,7 +77,7 @@
             "Location": 1,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Build",
+              "Definition": "Programs/BuildGuardian",
               "Progress": 0
             }
           },

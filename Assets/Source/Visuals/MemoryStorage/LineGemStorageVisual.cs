@@ -100,8 +100,8 @@ namespace Source.Visuals.MemoryStorage
             {
                 recordVisual.SetGameResources(gameResources);
                 recordVisual.SetStorage(trackedLineGemStorageBehavior.State);
-                recordVisual.SetLevel(trackedLineGemStorageBehavior.Level);
                 recordVisual.SetCurrentDataItem(item);
+                recordVisual.SetLevel(trackedLineGemStorageBehavior.Level);
                 recordVisual.SetSlot(lineNumber);
             }
             else

@@ -1,12 +1,13 @@
 ﻿{
   "Level": {
-    "Definition": "Levels/Level3"
+    "Definition": "Levels/Level1"
   },
   "Players": [
     {
       "Id": 1,
       "PersonalStorage": {
         "Length": 1,
+        "DataPerSecondTransfer": 20.0,
         "Items": []
       },
       "Processors": [
@@ -15,16 +16,19 @@
           "ClockSpeed": 3.0,
           "ProcessorStorage": {
             "Length": 1,
+            "DataPerSecondTransfer": 15.0,
             "Items": []
           }
         }
       ],
       "MemoryStorage": {
         "Length": 3,
+        "DataPerSecondTransfer": 8.0,
         "Items": []
       },
       "DiskStorage": {
         "Length": 5,
+        "DataPerSecondTransfer": 1.0,
         "Items": [
           {
             "Location": 0,

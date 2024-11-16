@@ -21,18 +21,15 @@ namespace Source.Visuals.MemoryStorage
         private LevelDataSO levelDataSO;
         private MemoryItem trackedItem;
         private MemoryDataSO memoryDataSO;
+        
+        private Color noneColor = Color.white;
+        private Color hoveredColor = Color.yellow;
+        private Color interactedColor = Color.blue;
 
-        public void SetLevel(Level level, GameResources gameResources)
+        public void SetLevel(Level level, LevelDataSO levelData)
         {
-            if (level != null && level != trackedLevel)
-            {
-                if (gameResources != null && level.Definition != null)
-                {
-                    gameResources.TryLoadAsset(this, level.Definition, out levelDataSO);
-                }
-            }
-
             trackedLevel = level;
+            levelDataSO = levelData;
         }
         
         // TODO: Remove resource retrieval every frame
@@ -56,13 +53,13 @@ namespace Source.Visuals.MemoryStorage
             switch (currentVisualState)
             {
                 case InteractVisualState.None:
-                    backgroundImage.color = Color.white; 
+                    backgroundImage.color = noneColor;
                     break;
                 case InteractVisualState.Hovered:
-                    backgroundImage.color = Color.yellow;
+                    backgroundImage.color = hoveredColor;
                     break;
                 case InteractVisualState.Selected:
-                    backgroundImage.color = Color.blue;
+                    backgroundImage.color = interactedColor;
                     break;
             }
         }
@@ -81,11 +78,14 @@ namespace Source.Visuals.MemoryStorage
                     foregroundImage.gameObject.SetActive(true);
                 }
                 foregroundImage.fillAmount = transferProgressPercent;
-
+                
                 if (trackedLevel != null && levelDataSO != null)
                 {
                     var colorScheme = levelDataSO.ColorSchemeAssociationsSO.GetColorScheme(trackedItem.OwnerId);
                     progressImage.color = colorScheme.MemoryProgressColor;
+                    noneColor = colorScheme.NoInteractionColor;
+                    hoveredColor = colorScheme.HoveredColor;
+                    interactedColor = colorScheme.InteractedColor;
                 }
                 
                 var totalProgressFillPercent = ((float)trackedItem.CurrentRunProgress) / trackedItem.MaxRunProgress;
