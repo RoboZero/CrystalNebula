@@ -13,9 +13,10 @@ namespace Source.Visuals.MemoryStorage
         [SerializeField] protected GameStateLoader gameStateLoader;
 
         [Header("Settings")]
-        [SerializeField] protected int playerID = 0;
+        [SerializeField] protected int playerId = 0;
         [SerializeField] protected int itemStorageSize;
 
+        public int PlayerId => playerId;
         public Level Level => level;
         public LineStorage<MemoryItem> State => state;
 

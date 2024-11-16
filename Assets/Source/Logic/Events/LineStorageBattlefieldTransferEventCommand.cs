@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
+using Source.Logic.Events.Overrides;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Logic.State.LineItems.Units;
@@ -64,10 +65,9 @@ namespace Source.Logic.Events
             var memory = memoryStorage.Items[memorySlot];
             var battlefieldItem = battlefieldStorage.Items[battlefieldSlot];
             
-            if (transferEventOverrides is { IgnoreDeploymentZone: false } && 
-                memory != null && memory.OwnerId != battlefieldItem.DeploymentZoneOwnerId)
+            if (transferEventOverrides is { UsedDeploymentZone: { } } && transferEventOverrides.UsedDeploymentZone != battlefieldItem.DeploymentZoneOwnerId)
             {
-                AddLog(failurePrefix + $"cannot transfer memory from owner {memory.OwnerId} to into battlefield slot whose owned by {battlefieldItem.DeploymentZoneOwnerId}");
+                AddLog(failurePrefix + $"owner {transferEventOverrides.UsedDeploymentZone} cannot transfer memory with battlefield slot whose owned by {battlefieldItem.DeploymentZoneOwnerId}");
                 status = EventStatus.Failed;
                 return;
             }

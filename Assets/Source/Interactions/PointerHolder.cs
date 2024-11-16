@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Input;
 using Source.Logic.Events;
+using Source.Logic.Events.Overrides;
 using Source.Logic.State;
 using Source.Utility;
 using Source.Visuals;
@@ -25,7 +26,6 @@ namespace Source.Interactions
 
         private TransferEventOverrides transferEventOverrides = new()
         {
-            IgnoreDeploymentZone = false,
             CanSwitch = true,
         };
 
@@ -44,7 +44,12 @@ namespace Source.Interactions
             inputReader.HoldPressedEvent -= OnHoldPressed;
             inputReader.CommandCanceledEvent -= OnCancel;
         }
-        
+
+        private void Start()
+        {
+            transferEventOverrides.UsedDeploymentZone = personalStorageBehavior.PlayerId;
+        }
+
         private void OnHoldPressed()
         {
             Debug.Log("Player pressed hold. ");

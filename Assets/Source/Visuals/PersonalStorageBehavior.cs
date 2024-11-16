@@ -14,7 +14,7 @@ namespace Source.Visuals
         [Header("Dependencies")]
         [SerializeField] private InputReaderSO inputReader;
         [SerializeField] private RectTransform backgroundRectTransform;
-        
+
         private void OnEnable()
         {
             inputReader.PointerPositionEvent += OnPointerPosition;
@@ -33,10 +33,10 @@ namespace Source.Visuals
         
         protected override void UpdateStorageFromState(GameState gameState)
         {
-            var player = gameState.Players.FirstOrDefault(player => player.Id == playerID);
+            var player = gameState.Players.FirstOrDefault(player => player.Id == playerId);
             if (player == null)
             {
-                Debug.LogWarning($"Failed to read from player storage: playerId {playerID} is invalid, gamestate players count {gameState.Players.Count}");
+                Debug.LogWarning($"Failed to read from player storage: playerId {playerId} is invalid, gamestate players count {gameState.Players.Count}");
                 return;
             }
 

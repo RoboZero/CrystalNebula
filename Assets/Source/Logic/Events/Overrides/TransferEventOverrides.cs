@@ -1,8 +1,8 @@
-﻿namespace Source.Logic.Events
+﻿namespace Source.Logic.Events.Overrides
 {
     public class TransferEventOverrides
     {
         public bool CanSwitch;
-        public bool IgnoreDeploymentZone;
+        public int? UsedDeploymentZone;
     }
 }
