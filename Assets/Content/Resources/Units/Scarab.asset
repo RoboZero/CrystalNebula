@@ -21,10 +21,10 @@ MonoBehaviour:
   Abbreviation: Scarb
   UnitDescription: 'Energy bug.
 
-    Easily clears small creatures. '
+    Frontliner with tough armor and a firm bite.  '
   MaxProgress: 0
-  BaseHealth: 3
-  BasePower: 1
+  BaseHealth: 2
+  BasePower: 3
   DataSize: 3
   CanSwitchPlaces: 1
   CanEngageCombat: 1

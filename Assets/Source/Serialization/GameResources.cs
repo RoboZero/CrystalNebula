@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using JetBrains.Annotations;
 using Source.Utility;
 using Unity.Collections;
 using UnityEditor;
@@ -109,9 +107,6 @@ namespace Source.Serialization
                         Definition = definitionName,
                         Resource = resource
                     });
-                    
-                    definitionToResource.Add(definitionName, resource);
-                    resourceToDefinition.Add(resource, definitionName);
                 }
             }
         }
