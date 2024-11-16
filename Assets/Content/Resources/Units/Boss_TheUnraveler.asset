@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c3676419d46764e92ff1aec6f4f8b5, type: 3}
+  m_Name: Boss_TheUnraveler
+  m_EditorClassIdentifier: 
+  guid: 60e503bf095cc9e48a17ab94b289ca19
+  description: 
+  tooltipIcon: {fileID: 707951768, guid: a301be8b45f8cb649987387f7dc5a0a3, type: 3}
+  memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
+  battlefieldScaleFactor: {x: 1.1, y: 1.1}
+  Sprite: {fileID: 707951768, guid: a301be8b45f8cb649987387f7dc5a0a3, type: 3}
+  UnitName: The Unraveler
+  Abbreviation: Boss
+  UnitDescription: "Energy bug. Boss. \nElite Spider excelling at unraveling and
+    harvesting connections. "
+  MaxProgress: 0
+  BaseHealth: 12
+  BasePower: 3
+  DataSize: 0
+  CanSwitchPlaces: 1
+  CanEngageCombat: 1

@@ -14,15 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: ea37090dfda252d40b6941debf910497
   description: 
-  tooltipIcon: {fileID: -355753444, guid: e2c5cd3374c6d9b4eb298bbda86a2096, type: 3}
+  tooltipIcon: {fileID: -619154770, guid: 1e741b846064fb547a32464c593ac634, type: 3}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
-  Sprite: {fileID: -355753444, guid: e2c5cd3374c6d9b4eb298bbda86a2096, type: 3}
+  battlefieldScaleFactor: {x: 1.2, y: 1.2}
+  Sprite: {fileID: -619154770, guid: 1e741b846064fb547a32464c593ac634, type: 3}
   UnitName: Hornet
   Abbreviation: Hrnt
-  UnitDescription: 
+  UnitDescription: 'Energy bug.
+
+    High damage with it''s volatile stinger. '
   MaxProgress: 0
-  BaseHealth: 3
-  BasePower: 3
+  BaseHealth: 1
+  BasePower: 5
   DataSize: 3
   CanSwitchPlaces: 1
   CanEngageCombat: 1

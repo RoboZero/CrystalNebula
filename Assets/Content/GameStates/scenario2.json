@@ -1,0 +1,121 @@
+﻿{
+  "Level": {
+    "Definition": "Levels/Level1"
+  },
+  "Players": [
+    {
+      "Id": 1,
+      "PersonalStorage": {
+        "Length": 1,
+        "DataPerSecondTransfer": 20.0,
+        "Items": []
+      },
+      "Processors": [
+        {
+          "Definition": "Processors/Basic",
+          "ClockSpeed": 3.0,
+          "ProcessorStorage": {
+            "Length": 1,
+            "DataPerSecondTransfer": 15.0,
+            "Items": []
+          }
+        }
+      ],
+      "MemoryStorage": {
+        "Length": 3,
+        "DataPerSecondTransfer": 8.0,
+        "Items": []
+      },
+      "DiskStorage": {
+        "Length": 5,
+        "DataPerSecondTransfer": 1.0,
+        "Items": [
+          {
+            "Location": 0,
+            "Memory": {
+              "OwnerId": 1,
+              "Definition": "Programs/Command",
+              "Progress": 0
+            }
+          },
+          {
+            "Location": 1,
+            "Memory": {
+              "OwnerId": 1,
+              "Definition": "Programs/BuildGuardian",
+              "Progress": 0
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "BattlefieldStorage": {
+    "Length": 20,
+    "Items": [
+      {
+        "Location": 1,
+        "Building": {
+          "Health": 3,
+          "Power": 1,
+          "Definition": "Buildings/Flag",
+          "OwnerId": 2
+        },
+        "Unit": {
+          "Definition": "Units/Spider",
+          "OwnerId": 2
+        },
+        "Description": null
+      },
+      {
+        "Location": 2,
+        "Building": null,
+        "Unit": {
+          "Definition": "Units/Boss_TheUnraveler",
+          "OwnerId": 2
+        },
+        "Description": null
+      },
+      {
+        "Location": 3,
+        "Building": null,
+        "Unit": {
+          "Health": 5,
+          "Power": 2,
+          "Definition": "Units/Hornet",
+          "OwnerId": 2
+        },
+        "Description": null
+      },
+      {
+        "Location": 4,
+        "Building": null,
+        "Unit": {
+          "Definition": "Units/Spider",
+          "OwnerId": 2
+        },
+        "Description": null
+      },
+      {
+        "Location": 7,
+        "Building": null,
+        "Unit": {
+          "Definition": "Units/Scarab",
+          "OwnerId": 2
+        },
+        "Description": null
+      },
+      {
+        "Location": 19,
+        "Building": {
+          "Health": 0,
+          "Power": 0,
+          "Definition": "Buildings/Flag",
+          "OwnerId": 1
+        },
+        "Unit": null,
+        "Description": null
+      }
+    ]
+  }
+}

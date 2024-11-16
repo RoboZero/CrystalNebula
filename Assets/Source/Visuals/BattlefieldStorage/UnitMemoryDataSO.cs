@@ -17,9 +17,11 @@ namespace Source.Visuals.BattlefieldStorage
         public override Sprite MemoryForegroundIcon => Sprite;
         public override string MemoryName => UnitName;
         public override string MemoryDescription => UnitDescription;
+        public override Vector2 BattlefieldScaleFactor => battlefieldScaleFactor;
 
         [SerializeField] private Sprite tooltipIcon;
         [SerializeField] private Sprite memoryBackgroundIcon;
+        [SerializeField] private Vector2 battlefieldScaleFactor = Vector2.one;
         
         public Sprite Sprite;
         public string UnitName;

@@ -1,4 +1,5 @@
 ﻿using Source.Interactions;
+using Source.Logic.State;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
 using UnityEngine;
@@ -15,9 +16,21 @@ namespace Source.Visuals.MemoryStorage
         [SerializeField] private Image progressImage;
         [SerializeField] private Image backgroundImage;
         [SerializeField] private Image foregroundImage;
-        
+
+        private Level trackedLevel;
+        private LevelDataSO levelDataSO;
         private MemoryItem trackedItem;
         private MemoryDataSO memoryDataSO;
+        
+        private Color noneColor = Color.white;
+        private Color hoveredColor = Color.yellow;
+        private Color interactedColor = Color.blue;
+
+        public void SetLevel(Level level, LevelDataSO levelData)
+        {
+            trackedLevel = level;
+            levelDataSO = levelData;
+        }
         
         // TODO: Remove resource retrieval every frame
         public void SetDataItem(MemoryItem item, GameResources gameResources)
@@ -40,13 +53,13 @@ namespace Source.Visuals.MemoryStorage
             switch (currentVisualState)
             {
                 case InteractVisualState.None:
-                    backgroundImage.color = Color.white; 
+                    backgroundImage.color = noneColor;
                     break;
                 case InteractVisualState.Hovered:
-                    backgroundImage.color = Color.yellow;
+                    backgroundImage.color = hoveredColor;
                     break;
                 case InteractVisualState.Selected:
-                    backgroundImage.color = Color.blue;
+                    backgroundImage.color = interactedColor;
                     break;
             }
         }
@@ -65,7 +78,16 @@ namespace Source.Visuals.MemoryStorage
                     foregroundImage.gameObject.SetActive(true);
                 }
                 foregroundImage.fillAmount = transferProgressPercent;
-
+                
+                if (trackedLevel != null && levelDataSO != null)
+                {
+                    var colorScheme = levelDataSO.ColorSchemeAssociationsSO.GetColorScheme(trackedItem.OwnerId);
+                    progressImage.color = colorScheme.MemoryProgressColor;
+                    noneColor = colorScheme.NoInteractionColor;
+                    hoveredColor = colorScheme.HoveredColor;
+                    interactedColor = colorScheme.InteractedColor;
+                }
+                
                 var totalProgressFillPercent = ((float)trackedItem.CurrentRunProgress) / trackedItem.MaxRunProgress;
                 progressImage.fillAmount = Mathf.Min(transferProgressPercent, totalProgressFillPercent);
                 progressImage.gameObject.SetActive(true);

@@ -7,6 +7,7 @@ namespace Source.Logic.State.Battlefield
     [Serializable]
     public class BattlefieldItem : LineItem
     {
+        public int DeploymentZoneOwnerId;
         public BuildingMemory Building;
         public UnitMemory Unit;
     }

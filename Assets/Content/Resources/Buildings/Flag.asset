@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 
   tooltipIcon: {fileID: -1419714049, guid: 1dbfce441fc932945accbba00d10b474, type: 3}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
+  battlefieldScaleFactor: {x: 1, y: 1}
   Sprite: {fileID: -1419714049, guid: 1dbfce441fc932945accbba00d10b474, type: 3}
   BuildingName: Flag
   Abbreviation: Flag

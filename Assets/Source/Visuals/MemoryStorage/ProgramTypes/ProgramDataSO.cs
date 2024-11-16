@@ -14,7 +14,8 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
         public override Sprite MemoryForegroundIcon => memoryForegroundIcon;
         public override string MemoryName => memoryName;
         public override string MemoryDescription => memoryDescription;
-        
+        public override Vector2 BattlefieldScaleFactor => Vector2.one;
+
         [SerializeField] private Sprite tooltipIcon;
         [SerializeField] private Sprite memoryBackgroundIcon;
         [SerializeField] private Sprite memoryForegroundIcon;

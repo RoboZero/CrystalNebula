@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7179532541d77e42916bea68ffe6463, type: 3}
-  m_Name: ColorScheme
+  m_Name: BasicScheme
   m_EditorClassIdentifier: 
-  guid: bf6697084952e7a44bb786e4fdac4f67
+  guid: 9953e99c83ee46048948577037452f42
   description: 
-  ProgramColors:
-  - {r: 0.89019614, g: 0.3137255, b: 0.1254902, a: 0}
-  - {r: 0.1764706, g: 0.68235296, b: 0.8980393, a: 0}
-  - {r: 0.9725491, g: 0.8941177, b: 0.023529414, a: 0}
-  - {r: 0.5686275, g: 0.8352942, b: 0.4039216, a: 0}
+  MemoryProgressColor: {r: 0, g: 0.8294735, b: 1, a: 1}
+  DeploymentZonePlatformColor: {r: 0.2509804, g: 0.2509804, b: 0.2509804, a: 1}
+  DeploymentZoneUnitPlatformColor: {r: 0.3137255, g: 0.28235295, b: 0.28235295, a: 1}
+  DeploymentZoneBuildingPlatformColor: {r: 0.27450982, g: 0.26666668, b: 0.26666668, a: 1}

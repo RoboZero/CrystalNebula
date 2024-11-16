@@ -85,6 +85,7 @@ namespace Source.Serialization
 
             return new BattlefieldItem()
             {
+                DeploymentZoneOwnerId = battlefieldItemData.DeploymentZoneOwnerId,
                 Building = building,
                 Unit = unit
             };

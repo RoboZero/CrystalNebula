@@ -16,10 +16,10 @@ namespace Source.Visuals.MemoryStorage
         
         protected override void UpdateStorageFromState(GameState gameState)
         {
-            var player = gameState.Players.FirstOrDefault(player => player.Id == playerID);
+            var player = gameState.Players.FirstOrDefault(player => player.Id == playerId);
             if (player == null)
             {
-                Debug.LogWarning($"Failed to read from processor: playerId {playerID} is invalid, gamestate players count {gameState.Players.Count}");
+                Debug.LogWarning($"Failed to read from processor: playerId {playerId} is invalid, gamestate players count {gameState.Players.Count}");
                 return;
             }
 
@@ -32,6 +32,7 @@ namespace Source.Visuals.MemoryStorage
             processor = player.Processors[processorIndex];
             itemStorageSize = processor.ProcessorStorage.Length;
             state = processor.ProcessorStorage;
+            level = gameState.Level;
         }
     }
 }

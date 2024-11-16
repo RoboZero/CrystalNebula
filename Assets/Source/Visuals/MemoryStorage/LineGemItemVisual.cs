@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Source.Interactions;
+using Source.Logic.State;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
 using Source.Visuals.Tooltip;
@@ -26,12 +27,17 @@ namespace Source.Visuals.MemoryStorage
         // TODO: Reevaluate if each item needs all info Storage gives
         private GameResources gameResources;
         private LineStorage<MemoryItem> trackedLineStorage;
+        private Level trackedLevel;
+        private LevelDataSO levelDataSO;
         private int trackedSlot;
         private float trackedTransferProgressPercent = 1;
         private bool showEmptyGem;
         private bool isTransferring;
 
         private readonly TooltipContent memoryTooltipContent = new();
+        private Color noneColor = Color.white;
+        private Color hoveredColor = Color.yellow;
+        private Color interactedColor = Color.blue;
 
         public void IsTransferring(bool isTransferring)
         {
@@ -65,6 +71,20 @@ namespace Source.Visuals.MemoryStorage
             trackedTransferProgressPercent = transferProgressPercent;
         }
 
+        public void SetLevel(Level level)
+        {
+            if (level != null && level != trackedLevel)
+            {
+                if (gameResources != null && level.Definition != null)
+                {
+                    gameResources.TryLoadAsset(this, level.Definition, out levelDataSO);
+                }
+            }
+            
+            currentSubVisual.SetLevel(level, levelDataSO);
+            trackedLevel = level;
+        }
+
         public void SetCurrentDataItem(MemoryItem item)
         {
             currentSubVisual.SetDataItem(item, gameResources);
@@ -89,18 +109,32 @@ namespace Source.Visuals.MemoryStorage
             currentSubVisual.UpdateInteractionVisual(CurrentVisualState);
             transferSubVisual.UpdateVisual(isTransferring ? trackedTransferProgressPercent : 0);
             transferSubVisual.UpdateInteractionVisual(CurrentVisualState);
+            UpdateVisual();
 
             switch (CurrentVisualState)
             {
                 case InteractVisualState.None:
-                    emptyGemImage.color = Color.white; 
+                    emptyGemImage.color = noneColor;
                     break;
                 case InteractVisualState.Hovered:
-                    emptyGemImage.color = Color.yellow;
+                    emptyGemImage.color = hoveredColor;
                     break;
                 case InteractVisualState.Selected:
-                    emptyGemImage.color = Color.blue;
+                    emptyGemImage.color = interactedColor;
                     break;
+            }
+        }
+
+        private void UpdateVisual()
+        {
+            if (currentSubVisual.TrackedItem != null && trackedLevel != null && levelDataSO != null)
+            {
+                var colorScheme = levelDataSO.ColorSchemeAssociationsSO.GetColorScheme(currentSubVisual.TrackedItem.OwnerId);
+                
+                progressImage.color = colorScheme.MemoryProgressColor;
+                noneColor = colorScheme.NoInteractionColor;
+                hoveredColor = colorScheme.HoveredColor;
+                interactedColor = colorScheme.InteractedColor;
             }
         }
 

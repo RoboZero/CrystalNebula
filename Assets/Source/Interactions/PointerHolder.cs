@@ -5,6 +5,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Source.Input;
 using Source.Logic.Events;
+using Source.Logic.Events.Overrides;
 using Source.Logic.State;
 using Source.Utility;
 using Source.Visuals;
@@ -23,9 +24,10 @@ namespace Source.Interactions
         [SerializeField] private EventTrackerBehavior eventTrackerBehavior;
         [SerializeField] private InputReaderSO inputReader;
 
-        private TransferEventOverrides transferEventOverrides = new TransferEventOverrides()
+        private TransferEventOverrides transferEventOverrides = new()
         {
             CanSwitch = true,
+            AllowExtraction = false,
         };
 
         private bool lineStorageTransferring;
@@ -43,7 +45,12 @@ namespace Source.Interactions
             inputReader.HoldPressedEvent -= OnHoldPressed;
             inputReader.CommandCanceledEvent -= OnCancel;
         }
-        
+
+        private void Start()
+        {
+            transferEventOverrides.UsedDeploymentZone = personalStorageBehavior.PlayerId;
+        }
+
         private void OnHoldPressed()
         {
             Debug.Log("Player pressed hold. ");

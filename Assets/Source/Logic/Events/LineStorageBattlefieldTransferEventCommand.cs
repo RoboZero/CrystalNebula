@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
+using Source.Logic.Events.Overrides;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Logic.State.LineItems.Units;
-using Source.Serialization.Data;
 using Source.Utility;
 
 namespace Source.Logic.Events
@@ -60,16 +60,27 @@ namespace Source.Logic.Events
                 status = EventStatus.Failed;
                 return;
             }
+
+            var memory = memoryStorage.Items[memorySlot];
+            var battlefieldItem = battlefieldStorage.Items[battlefieldSlot];
             
-            if (transferEventOverrides is { CanSwitch: false } && memoryStorage.Items[memorySlot] != null)
+            if (transferEventOverrides is { UsedDeploymentZone: { } } && transferEventOverrides.UsedDeploymentZone != battlefieldItem.DeploymentZoneOwnerId)
+            {
+                if (transferEventOverrides is { AllowExtraction: false } || memory != null)
+                {
+                    AddLog(failurePrefix + $"owner {transferEventOverrides.UsedDeploymentZone} cannot transfer memory with battlefield slot whose owned by {battlefieldItem.DeploymentZoneOwnerId}");
+                    status = EventStatus.Failed;
+                    return;
+                }
+            }
+            
+            if (transferEventOverrides is { CanSwitch: false } && memory != null)
             {
                 AddLog(failurePrefix + $"cannot switch unit in {nameof(battlefieldSlot)} {battlefieldSlot} as {nameof(memorySlot)} has item in it {memoryStorage.Items[memorySlot]}");
                 status = EventStatus.Failed;
                 return;
             }
 
-            var memory = memoryStorage.Items[memorySlot];
-            var battlefieldItem = battlefieldStorage.Items[battlefieldSlot];
             switch (transferredItem)
             {
                 case TransferredItem.Unit:

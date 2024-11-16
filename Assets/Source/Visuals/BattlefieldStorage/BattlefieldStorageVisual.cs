@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Serialization;
 using UnityEngine;
@@ -71,6 +72,7 @@ namespace Source.Visuals.BattlefieldStorage
             {
                 recordVisual.ItemVisual.gameObject.name = "Slot " + lineNumber;
                 recordVisual.ItemVisual.SetGameResources(gameResources);
+                recordVisual.ItemVisual.SetLevel(battlefieldStorageBehavior.Level);
                 recordVisual.ItemVisual.SetStorage(battlefieldStorageBehavior.State);
                 recordVisual.ItemVisual.SetDataItem(item);
                 recordVisual.ItemVisual.SetSlot(lineNumber);

@@ -16,6 +16,7 @@ MonoBehaviour:
   description: 
   tooltipIcon: {fileID: 136534628, guid: 354d5978268c8804989af5540898408f, type: 3}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
+  battlefieldScaleFactor: {x: 1, y: 1}
   Sprite: {fileID: 136534628, guid: 354d5978268c8804989af5540898408f, type: 3}
   BuildingName: Factory
   Abbreviation: Fctry

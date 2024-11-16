@@ -66,7 +66,20 @@
     "DataPerSecondTransfer": 10.0,
     "Items": [
       {
+        "Location": 0,
+        "DeploymentZoneOwnerId": 2
+      },
+      {
+        "Location": 1,
+        "DeploymentZoneOwnerId": 2
+      },
+      {
+        "Location": 2,
+        "DeploymentZoneOwnerId": 2
+      },
+      {
         "Location": 3,
+        "DeploymentZoneOwnerId": 2,
         "Building": null,
         "Unit": {
           "Health": 2,
@@ -75,6 +88,10 @@
           "OwnerId": 2
         },
         "Description": null
+      },
+      {
+        "Location": 4,
+        "DeploymentZoneOwnerId": 2
       },
       {
         "Location": 7,
@@ -89,18 +106,37 @@
       },
       {
         "Location": 8,
-        "Building": {
-          "Health": 0,
-          "Power": 0,
-          "Definition": "Buildings/Flag",
-          "OwnerId": 1
-        },
+        "Building": null,
         "Unit": {
           "Health": 5,
           "Power": 1,
           "Definition": "Units/Guardian",
           "OwnerId": 1
         },
+        "Description": null
+      },
+      {
+        "Location": 16,
+        "DeploymentZoneOwnerId": 1
+      },
+      {
+        "Location": 17,
+        "DeploymentZoneOwnerId": 1
+      },
+      {
+        "Location": 18,
+        "DeploymentZoneOwnerId": 1
+      },
+      {
+        "Location": 19,
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Health": 0,
+          "Power": 0,
+          "Definition": "Buildings/Flag",
+          "OwnerId": 1
+        },
+        "Unit": null,
         "Description": null
       }
     ]

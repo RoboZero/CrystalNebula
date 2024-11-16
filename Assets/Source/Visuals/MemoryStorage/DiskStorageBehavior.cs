@@ -8,16 +8,17 @@ namespace Source.Visuals.MemoryStorage
     {
         protected override void UpdateStorageFromState(GameState gameState)
         {
-            var player = gameState.Players.FirstOrDefault(player => player.Id == playerID);
+            var player = gameState.Players.FirstOrDefault(player => player.Id == playerId);
             if (player == null)
             {
-                Debug.LogWarning($"Failed to read from disk storage: playerId {playerID} is invalid, gamestate players count {gameState.Players.Count}");
+                Debug.LogWarning($"Failed to read from disk storage: playerId {playerId} is invalid, gamestate players count {gameState.Players.Count}");
                 return;
             }
             
             var diskStorageState = player.DiskStorage;
             itemStorageSize = diskStorageState.Length;
             state = diskStorageState;
+            level = gameState.Level;
         }
     }
 }
