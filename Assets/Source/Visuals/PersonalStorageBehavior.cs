@@ -43,6 +43,7 @@ namespace Source.Visuals
             var personalStorageState = player.PersonalStorage;
             itemStorageSize = personalStorageState.Length;
             state = personalStorageState;
+            level = gameState.Level;
 
             ShiftItemsUp(personalStorageState);
         }

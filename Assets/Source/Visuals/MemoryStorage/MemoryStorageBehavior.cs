@@ -18,6 +18,7 @@ namespace Source.Visuals.MemoryStorage
             var memoryStorageState = player.MemoryStorage;
             itemStorageSize = memoryStorageState.Length;
             state = memoryStorageState;
+            level = gameState.Level;
         }
     }
 }

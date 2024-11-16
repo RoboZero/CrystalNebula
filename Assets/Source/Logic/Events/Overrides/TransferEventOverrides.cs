@@ -3,5 +3,6 @@
     public class TransferEventOverrides
     {
         public bool CanSwitch;
+        public bool IgnoreDeploymentZone;
     }
 }

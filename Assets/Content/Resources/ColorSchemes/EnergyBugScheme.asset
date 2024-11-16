@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7179532541d77e42916bea68ffe6463, type: 3}
+  m_Name: EnergyBugScheme
+  m_EditorClassIdentifier: 
+  guid: 07d789538f768574ba80986b82d9d08e
+  description: 
+  MemoryProgressColor: {r: 0.628212, g: 0, b: 1, a: 1}
+  DeploymentZonePlatformColor: {r: 0.20507072, g: 0, b: 0.690566, a: 1}
+  DeploymentZoneUnitPlatformColor: {r: 0.28475946, g: 0.08926304, b: 0.7509433, a: 1}
+  DeploymentZoneBuildingPlatformColor: {r: 0.25533846, g: 0.022862135, b: 0.6377357, a: 1}

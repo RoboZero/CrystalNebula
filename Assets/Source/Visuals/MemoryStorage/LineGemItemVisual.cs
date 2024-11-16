@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Source.Interactions;
+using Source.Logic.State;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
 using Source.Visuals.Tooltip;
@@ -63,6 +64,11 @@ namespace Source.Visuals.MemoryStorage
         public void SetTransferProgressPercent(float transferProgressPercent)
         {
             trackedTransferProgressPercent = transferProgressPercent;
+        }
+
+        public void SetLevel(Level level)
+        {
+            currentSubVisual.SetLevel(level, gameResources);
         }
 
         public void SetCurrentDataItem(MemoryItem item)

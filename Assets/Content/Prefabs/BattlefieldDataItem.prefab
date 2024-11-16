@@ -1716,6 +1716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a95d5af5df7b8994cb8c7b0755f01b70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  platformImage: {fileID: 2449620475231620756}
   selectorIcon: {fileID: 7745984861039828529}
   lineNumberText: {fileID: 9116760504357995084}
   buildingImage: {fileID: 8407816909724102103}

@@ -89,18 +89,37 @@
       },
       {
         "Location": 8,
-        "Building": {
-          "Health": 0,
-          "Power": 0,
-          "Definition": "Buildings/Flag",
-          "OwnerId": 1
-        },
+        "Building": null,
         "Unit": {
           "Health": 5,
           "Power": 1,
           "Definition": "Units/Guardian",
           "OwnerId": 1
         },
+        "Description": null
+      },
+      {
+        "Location": 16,
+        "DeploymentZoneOwnerId": 1
+      },
+      {
+        "Location": 17,
+        "DeploymentZoneOwnerId": 1
+      },
+      {
+        "Location": 18,
+        "DeploymentZoneOwnerId": 1
+      },
+      {
+        "Location": 19,
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Health": 0,
+          "Power": 0,
+          "Definition": "Buildings/Flag",
+          "OwnerId": 1
+        },
+        "Unit": null,
         "Description": null
       }
     ]

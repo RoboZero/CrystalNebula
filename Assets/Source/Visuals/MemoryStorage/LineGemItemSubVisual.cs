@@ -1,4 +1,5 @@
 ﻿using Source.Interactions;
+using Source.Logic.State;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
 using UnityEngine;
@@ -15,9 +16,24 @@ namespace Source.Visuals.MemoryStorage
         [SerializeField] private Image progressImage;
         [SerializeField] private Image backgroundImage;
         [SerializeField] private Image foregroundImage;
-        
+
+        private Level trackedLevel;
+        private LevelDataSO levelDataSO;
         private MemoryItem trackedItem;
         private MemoryDataSO memoryDataSO;
+
+        public void SetLevel(Level level, GameResources gameResources)
+        {
+            if (level != null && level != trackedLevel)
+            {
+                if (gameResources != null && level.Definition != null)
+                {
+                    gameResources.TryLoadAsset(this, level.Definition, out levelDataSO);
+                }
+            }
+
+            trackedLevel = level;
+        }
         
         // TODO: Remove resource retrieval every frame
         public void SetDataItem(MemoryItem item, GameResources gameResources)
@@ -66,6 +82,12 @@ namespace Source.Visuals.MemoryStorage
                 }
                 foregroundImage.fillAmount = transferProgressPercent;
 
+                if (trackedLevel != null && levelDataSO != null)
+                {
+                    var colorScheme = levelDataSO.ColorSchemeAssociationsSO.GetColorScheme(trackedItem.OwnerId);
+                    progressImage.color = colorScheme.MemoryProgressColor;
+                }
+                
                 var totalProgressFillPercent = ((float)trackedItem.CurrentRunProgress) / trackedItem.MaxRunProgress;
                 progressImage.fillAmount = Mathf.Min(transferProgressPercent, totalProgressFillPercent);
                 progressImage.gameObject.SetActive(true);

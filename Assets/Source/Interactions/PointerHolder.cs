@@ -23,8 +23,9 @@ namespace Source.Interactions
         [SerializeField] private EventTrackerBehavior eventTrackerBehavior;
         [SerializeField] private InputReaderSO inputReader;
 
-        private TransferEventOverrides transferEventOverrides = new TransferEventOverrides()
+        private TransferEventOverrides transferEventOverrides = new()
         {
+            IgnoreDeploymentZone = false,
             CanSwitch = true,
         };
 

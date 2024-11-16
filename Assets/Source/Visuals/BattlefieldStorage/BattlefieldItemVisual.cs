@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Source.Interactions;
+using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Serialization;
@@ -13,6 +15,7 @@ namespace Source.Visuals.BattlefieldStorage
     public class BattlefieldItemVisual : StandardInteractableVisual, ITooltipTarget
     {
         [Header("Dependencies")]
+        [SerializeField] private Image platformImage;
         [SerializeField] private Image selectorIcon;
         [SerializeField] private TMP_Text lineNumberText;
         [SerializeField] private Image buildingImage;
@@ -33,12 +36,15 @@ namespace Source.Visuals.BattlefieldStorage
         public int TrackedSlot => trackedSlot;
         
         private GameResources gameResources;
+        private Level trackedLevel;
         private LineStorage<BattlefieldItem> trackedBattlefieldStorage;
         private BattlefieldItem trackedItem;
         private int trackedSlot;
         private int assignedLineNumber;
         private string originalText;
 
+        private string levelDataDefinition;
+        private LevelDataSO levelDataSO;
         private string unitDataDefinition;
         private UnitMemoryDataSO unitMemoryDataSO;
         private string buildingDataDefinition;
@@ -52,6 +58,17 @@ namespace Source.Visuals.BattlefieldStorage
             gameResources = resources;
         }
         
+        public void SetLevel(Level level)
+        {
+            trackedLevel = level;
+            
+            if (trackedLevel == null)
+            {
+                levelDataDefinition = "";
+                levelDataSO = null;
+            }
+        }
+        
         public void SetStorage(LineStorage<BattlefieldItem> battlefieldStorage)
         {
             trackedBattlefieldStorage = battlefieldStorage;
@@ -61,7 +78,7 @@ namespace Source.Visuals.BattlefieldStorage
         {
             assignedLineNumber = lineNumber;
         }
-        
+
         public void SetDataItem(BattlefieldItem item)
         {
             if (item == null)
@@ -126,6 +143,23 @@ namespace Source.Visuals.BattlefieldStorage
             if (item == null || gameResources == null)
             {
                 return;
+            }
+
+            if (trackedLevel != null)
+            {
+                if (trackedLevel.Definition != null && trackedLevel.Definition != levelDataDefinition)
+                {
+                    gameResources.TryLoadAsset(this, trackedLevel.Definition, out levelDataSO);
+                    levelDataDefinition = trackedLevel.Definition;
+                }
+                
+                if (levelDataSO != null)
+                {
+                    var colorSchemeSO = levelDataSO.ColorSchemeAssociationsSO.GetColorScheme(item.DeploymentZoneOwnerId);
+                    platformImage.color = colorSchemeSO.DeploymentZonePlatformColor;
+                    unitPlatformImage.color = colorSchemeSO.DeploymentZoneUnitPlatformColor;
+                    buildingPlatformImage.color = colorSchemeSO.DeploymentZoneBuildingPlatformColor;
+                }
             }
 
             if (item.Unit != null)

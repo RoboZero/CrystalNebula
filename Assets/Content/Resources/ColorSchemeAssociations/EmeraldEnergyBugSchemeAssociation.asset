@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2884a734b3964ae18ac35c8313c3a794, type: 3}
+  m_Name: EmeraldEnergyBugSchemeAssociation
+  m_EditorClassIdentifier: 
+  guid: 7b6925b6a35d0d04f9d75d3066e4e6b7
+  description: 
+  baseColorScheme: {fileID: 11400000, guid: 9953e99c83ee46048948577037452f42, type: 2}
+  playerToColorSchemes:
+  - PlayerId: 1
+    colorSchemeSO: {fileID: 11400000, guid: 5e0282b2728554044a1a30e6abc5d38f, type: 2}
+  - PlayerId: 2
+    colorSchemeSO: {fileID: 11400000, guid: 07d789538f768574ba80986b82d9d08e, type: 2}

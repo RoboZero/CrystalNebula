@@ -19,6 +19,16 @@ MonoBehaviour:
     Resource: {fileID: 11400000, guid: cbc7fdc9af72236418cdc29da078a114, type: 2}
   - Definition: Buildings/Flag
     Resource: {fileID: 11400000, guid: a1f05ba9396dcad47808008ca2119113, type: 2}
+  - Definition: ColorSchemeAssociations/EmeraldEnergyBugSchemeAssociation
+    Resource: {fileID: 11400000, guid: 7b6925b6a35d0d04f9d75d3066e4e6b7, type: 2}
+  - Definition: ColorSchemes/BasicScheme
+    Resource: {fileID: 11400000, guid: 9953e99c83ee46048948577037452f42, type: 2}
+  - Definition: ColorSchemes/EmeraldScheme
+    Resource: {fileID: 11400000, guid: 5e0282b2728554044a1a30e6abc5d38f, type: 2}
+  - Definition: ColorSchemes/EnergyBugScheme
+    Resource: {fileID: 11400000, guid: 07d789538f768574ba80986b82d9d08e, type: 2}
+  - Definition: Levels/Level1
+    Resource: {fileID: 11400000, guid: 02943a83439edf74ca46368e4c0abfeb, type: 2}
   - Definition: Programs/BuildGuardian
     Resource: {fileID: 11400000, guid: 578d51c426881d1409fd2490291d3c6d, type: 2}
   - Definition: Programs/Command

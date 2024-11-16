@@ -32,6 +32,7 @@ namespace Source.Visuals.MemoryStorage
             processor = player.Processors[processorIndex];
             itemStorageSize = processor.ProcessorStorage.Length;
             state = processor.ProcessorStorage;
+            level = gameState.Level;
         }
     }
 }

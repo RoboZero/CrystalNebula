@@ -60,16 +60,25 @@ namespace Source.Logic.Events
                 status = EventStatus.Failed;
                 return;
             }
+
+            var memory = memoryStorage.Items[memorySlot];
+            var battlefieldItem = battlefieldStorage.Items[battlefieldSlot];
             
-            if (transferEventOverrides is { CanSwitch: false } && memoryStorage.Items[memorySlot] != null)
+            if (transferEventOverrides is { IgnoreDeploymentZone: false } && 
+                memory != null && memory.OwnerId != battlefieldItem.DeploymentZoneOwnerId)
+            {
+                AddLog(failurePrefix + $"cannot transfer memory from owner {memory.OwnerId} to into battlefield slot whose owned by {battlefieldItem.DeploymentZoneOwnerId}");
+                status = EventStatus.Failed;
+                return;
+            }
+            
+            if (transferEventOverrides is { CanSwitch: false } && memory != null)
             {
                 AddLog(failurePrefix + $"cannot switch unit in {nameof(battlefieldSlot)} {battlefieldSlot} as {nameof(memorySlot)} has item in it {memoryStorage.Items[memorySlot]}");
                 status = EventStatus.Failed;
                 return;
             }
 
-            var memory = memoryStorage.Items[memorySlot];
-            var battlefieldItem = battlefieldStorage.Items[battlefieldSlot];
             switch (transferredItem)
             {
                 case TransferredItem.Unit:

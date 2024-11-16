@@ -18,6 +18,7 @@ namespace Source.Visuals.MemoryStorage
             var diskStorageState = player.DiskStorage;
             itemStorageSize = diskStorageState.Length;
             state = diskStorageState;
+            level = gameState.Level;
         }
     }
 }
