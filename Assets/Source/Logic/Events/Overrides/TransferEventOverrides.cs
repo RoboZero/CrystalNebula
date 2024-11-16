@@ -4,5 +4,6 @@
     {
         public bool CanSwitch;
         public int? UsedDeploymentZone;
+        public bool AllowExtraction;
     }
 }

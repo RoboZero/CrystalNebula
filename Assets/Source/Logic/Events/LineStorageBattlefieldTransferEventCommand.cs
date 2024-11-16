@@ -4,7 +4,6 @@ using Source.Logic.Events.Overrides;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Logic.State.LineItems.Units;
-using Source.Serialization.Data;
 using Source.Utility;
 
 namespace Source.Logic.Events
@@ -67,9 +66,12 @@ namespace Source.Logic.Events
             
             if (transferEventOverrides is { UsedDeploymentZone: { } } && transferEventOverrides.UsedDeploymentZone != battlefieldItem.DeploymentZoneOwnerId)
             {
-                AddLog(failurePrefix + $"owner {transferEventOverrides.UsedDeploymentZone} cannot transfer memory with battlefield slot whose owned by {battlefieldItem.DeploymentZoneOwnerId}");
-                status = EventStatus.Failed;
-                return;
+                if (transferEventOverrides is { AllowExtraction: false } || memory != null)
+                {
+                    AddLog(failurePrefix + $"owner {transferEventOverrides.UsedDeploymentZone} cannot transfer memory with battlefield slot whose owned by {battlefieldItem.DeploymentZoneOwnerId}");
+                    status = EventStatus.Failed;
+                    return;
+                }
             }
             
             if (transferEventOverrides is { CanSwitch: false } && memory != null)

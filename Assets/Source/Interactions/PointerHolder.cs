@@ -27,6 +27,7 @@ namespace Source.Interactions
         private TransferEventOverrides transferEventOverrides = new()
         {
             CanSwitch = true,
+            AllowExtraction = false,
         };
 
         private bool lineStorageTransferring;
