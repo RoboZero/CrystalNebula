@@ -18,6 +18,6 @@ MonoBehaviour:
   memoryBackgroundIcon: {fileID: 21300000, guid: dabe3e793467c4b4d88361ff628d4b1f, type: 3}
   memoryForegroundIcon: {fileID: 0}
   memoryName: Empty Slot
-  memoryDescription: "\rWhen run, create programs in Disk.\r\n"
+  memoryDescription: 'Empty program. '
   MaxProgress: 0
   DataSize: 0

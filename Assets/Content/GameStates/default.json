@@ -140,5 +140,13 @@
         "Description": null
       }
     ]
+  },
+  "ResearchGraph": {
+    "Edges": [
+      {
+        "From": "Research/",
+        "To": [""]
+      }
+    ]
   }
 }

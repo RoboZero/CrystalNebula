@@ -9,18 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d531825b29e49ddb94632e12b7bcaa8, type: 3}
-  m_Name: Command
+  m_Script: {fileID: 11500000, guid: addadbdfb26c4b399156e139d97db7ca, type: 3}
+  m_Name: ResearchGuardians
   m_EditorClassIdentifier: 
-  guid: aea579a70ada0fe46887dd12e1f666e9
+  guid: 0735d92f6b530e3479becd128bc6c4b7
   description: 
   tooltipIcon: {fileID: 0}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
-  memoryForegroundIcon: {fileID: 21300000, guid: a182f363425c339429bc4ea2e44711ac, type: 3}
-  memoryName: Command
-  memoryDescription: "\rProgram. \nMove all ally units one tile up towards the enemy.
-    \r"
+  memoryForegroundIcon: {fileID: 21300000, guid: 8ab9772a0113ae9488292c792c92dace, type: 3}
+  memoryName: Research Guardians
+  memoryDescription: "\rProgram.\nWhen run, create programs in Disk.\r"
   MaxProgress: 3
   DataSize: 1
-  Distance: 1
-  Direction: -1
