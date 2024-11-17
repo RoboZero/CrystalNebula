@@ -15,6 +15,10 @@ MonoBehaviour:
   guid: e4dc6275d5f050243a88dfd9a519a163
   description: 
   resourceList:
+  - Definition: Buildings/BugBarracks
+    Resource: {fileID: 11400000, guid: a9fd817c628b2b640a83ba8362ea7018, type: 2}
+  - Definition: Buildings/BugBase
+    Resource: {fileID: 11400000, guid: 02f314f2cb1a8074a882685bc37e8e35, type: 2}
   - Definition: Buildings/EmeraldBarracks
     Resource: {fileID: 11400000, guid: 5afe7ddef6a399f44bf77b5a6271e871, type: 2}
   - Definition: Buildings/EmeraldBase

@@ -115,14 +115,10 @@
       {
         "Location": 0,
         "Building": {
-          "Health": 3,
-          "Power": 1,
           "Definition": "Buildings/Factory",
           "OwnerId": 2
         },
         "Unit": {
-          "Health": 5,
-          "Power": 2,
           "Definition": "Units/Scarab",
           "OwnerId": 2
         },
@@ -132,8 +128,6 @@
         "Location": 1,
         "Building": null,
         "Unit": {
-          "Health": 5,
-          "Power": 2,
           "Definition": "Units/Scarab",
           "OwnerId": 2
         },
@@ -142,52 +136,47 @@
       {
         "Location": 2,
         "Building": {
-          "Health": 2,
-          "Power": 0,
           "Definition": "Buildings/Flag",
           "OwnerId": 2
         },
         "Unit": {
-          "Health": 3,
-          "Power": 3,
           "Definition": "Units/Hornet",
           "OwnerId": 2
         },
         "Description": null
       },
       {
-        "Location": 17,
-        "Building": null,
-        "Unit": {
-          "Health": 5,
-          "Power": 1,
-          "Definition": "Units/EmeraldGuard",
+        "Location": 16,
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Definition": "Buildings/EmeraldBarracks",
           "OwnerId": 1
-        },
-        "Description": null
+        }
+      },
+      {
+        "Location": 17,
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Definition": "Buildings/EmeraldBarracks",
+          "OwnerId": 1
+        }
       },
       {
         "Location": 18,
+        "DeploymentZoneOwnerId": 1,
         "Building": {
-          "Definition": "Buildings/Flag",
+          "Definition": "Buildings/EmeraldBarracks",
           "OwnerId": 1
-        },
-        "Unit": {
-          "Definition": "Units/EmeraldGuard",
-          "OwnerId": 1
-        },
-        "Description": null
+        }
       },
       {
         "Location": 19,
+        "DeploymentZoneOwnerId": 1,
         "Building": {
-          "Definition": "Buildings/Factory",
+          "Definition": "Buildings/EmeraldBase",
           "OwnerId": 1
         },
-        "Unit": {
-          "Definition": "Units/EmeraldFighter",
-          "OwnerId": 1
-        },
+        "Unit": null,
         "Description": null
       }
     ]

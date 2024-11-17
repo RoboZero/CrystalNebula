@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 44db0d7d96f2d3c4e8121341dfb13380, type: 3}
-  m_Name: EmeraldBase
+  m_Name: BugBase
   m_EditorClassIdentifier: 
-  guid: 4b70d12d6f1416142846b95ba1f633a1
+  guid: 02f314f2cb1a8074a882685bc37e8e35
   description: 
-  tooltipIcon: {fileID: 21300000, guid: 102ead4e8d01e57488ffccc1ef3fdbcd, type: 3}
+  tooltipIcon: {fileID: 21300000, guid: f0e4285e94c7d06418356d3a3377f8eb, type: 3}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
   battlefieldScaleFactor: {x: 1, y: 1}
-  Sprite: {fileID: 21300000, guid: 102ead4e8d01e57488ffccc1ef3fdbcd, type: 3}
+  Sprite: {fileID: 21300000, guid: f0e4285e94c7d06418356d3a3377f8eb, type: 3}
   BuildingName: Base
   Abbreviation: Base
-  BuildingDescription: 'Emerald Building.
+  BuildingDescription: 'Energy Bug Building.
 
-    When destroyed, lose the game. '
+    Converts tile into Deployment Zone. '
   MaxProgress: 0
-  BaseHealth: 20
+  BaseHealth: 10
   BasePower: 1
   DataSize: 0

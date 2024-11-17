@@ -20,8 +20,10 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: 6de2eca4ad09f2c43b745a8a1fa1253a, type: 3}
   BuildingName: Barracks
   Abbreviation: Barracks
-  BuildingDescription: Converts tile into Deployment Zone
+  BuildingDescription: 'Emerald Building.
+
+    Converts tile into Deployment Zone'
   MaxProgress: 0
-  BaseHealth: 5
+  BaseHealth: 3
   BasePower: 0
   DataSize: 0

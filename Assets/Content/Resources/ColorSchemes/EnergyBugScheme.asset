@@ -14,6 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 07d789538f768574ba80986b82d9d08e
   description: 
+  NoInteractionColor: {r: 1, g: 1, b: 1, a: 1}
+  HoveredColor: {r: 0.7745212, g: 0.015686274, b: 1, a: 1}
+  InteractedColor: {r: 0.2745018, g: 0, b: 1, a: 1}
   MemoryProgressColor: {r: 0.628212, g: 0, b: 1, a: 1}
   DeploymentZonePlatformColor: {r: 0.20507072, g: 0, b: 0.690566, a: 1}
   DeploymentZoneUnitPlatformColor: {r: 0.28475946, g: 0.08926304, b: 0.7509433, a: 1}
