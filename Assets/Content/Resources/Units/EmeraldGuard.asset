@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48c3676419d46764e92ff1aec6f4f8b5, type: 3}
-  m_Name: EmeraldGuardian
+  m_Name: EmeraldGuard
   m_EditorClassIdentifier: 
   guid: d7280cfe630323d419c1995671ed82b6
   description: 
-  tooltipIcon: {fileID: 1116579199, guid: b83ea8ad3494ce0438f38cedffd2d653, type: 3}
+  tooltipIcon: {fileID: -1616812667, guid: 2b450a2cf032e5840841e8987e284fd0, type: 3}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
   battlefieldScaleFactor: {x: 1.2, y: 1.2}
-  Sprite: {fileID: 1116579199, guid: b83ea8ad3494ce0438f38cedffd2d653, type: 3}
-  UnitName: Guardian
+  Sprite: {fileID: -1616812667, guid: 2b450a2cf032e5840841e8987e284fd0, type: 3}
+  UnitName: Emerald Guard
   Abbreviation: Guard
-  UnitDescription: "Emerald trooper.\nA bulwark of stability. \r\nEasily clears small
-    creatures"
+  UnitDescription: "Level 1.\nArmored Axe Unit.  \nEffective against Medium enemies."
   MaxProgress: 0
-  BaseHealth: 5
+  BaseHealth: 3
   BasePower: 1
-  DataSize: 10
+  DataSize: 3
   CanSwitchPlaces: 0
   CanEngageCombat: 1

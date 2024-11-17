@@ -36,18 +36,28 @@ MonoBehaviour:
   - Definition: Programs/EmptySlot
     Resource: {fileID: 11400000, guid: f3fe046630acce646a92a9fa5feb971e, type: 2}
   - Definition: Programs/Research
+    Resource: {fileID: 11400000, guid: dd0c4bda265d05a49a0902dfac54325e, type: 2}
+  - Definition: Programs/ResearchGuardians
     Resource: {fileID: 11400000, guid: 0735d92f6b530e3479becd128bc6c4b7, type: 2}
   - Definition: Programs/Retreat
     Resource: {fileID: 11400000, guid: dbc73ab5476853241ba3ca8b2286d9f6, type: 2}
   - Definition: Units/Boss_TheUnraveler
     Resource: {fileID: 11400000, guid: 60e503bf095cc9e48a17ab94b289ca19, type: 2}
-  - Definition: Units/Guardian
+  - Definition: Units/EmeraldFighter
+    Resource: {fileID: 11400000, guid: d46f24868c0037f4b822f90f3a4d4afe, type: 2}
+  - Definition: Units/EmeraldGuard
     Resource: {fileID: 11400000, guid: d7280cfe630323d419c1995671ed82b6, type: 2}
   - Definition: Units/Hornet
     Resource: {fileID: 11400000, guid: ea37090dfda252d40b6941debf910497, type: 2}
+  - Definition: Units/RubyHero
+    Resource: {fileID: 11400000, guid: 3f430c67762ff844dad9bea4cb8674a1, type: 2}
+  - Definition: Units/RubyThief
+    Resource: {fileID: 11400000, guid: 1049292f6a647954f8976f1d994b34f1, type: 2}
+  - Definition: Units/SapphireGuard
+    Resource: {fileID: 11400000, guid: cf3be9e719342864aa0377ea6acfed2f, type: 2}
+  - Definition: Units/SapphireLancer
+    Resource: {fileID: 11400000, guid: a819b3ba8d2778d46a72bfa3cdcc41e0, type: 2}
   - Definition: Units/Scarab
     Resource: {fileID: 11400000, guid: 3f6c241fa7708e543b1713f92fd10db4, type: 2}
   - Definition: Units/Spider
     Resource: {fileID: 11400000, guid: 3d545e67793a93a43863d5e9c72a70d1, type: 2}
-  - Definition: Units/Thief
-    Resource: {fileID: 11400000, guid: 1049292f6a647954f8976f1d994b34f1, type: 2}

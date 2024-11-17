@@ -161,7 +161,7 @@
         "Unit": {
           "Health": 5,
           "Power": 1,
-          "Definition": "Units/Guardian",
+          "Definition": "Units/EmeraldGuard",
           "OwnerId": 1
         },
         "Description": null
@@ -169,15 +169,11 @@
       {
         "Location": 18,
         "Building": {
-          "Health": 0,
-          "Power": 0,
           "Definition": "Buildings/Flag",
           "OwnerId": 1
         },
         "Unit": {
-          "Health": 5,
-          "Power": 1,
-          "Definition": "Units/Guardian",
+          "Definition": "Units/EmeraldGuard",
           "OwnerId": 1
         },
         "Description": null
@@ -185,15 +181,11 @@
       {
         "Location": 19,
         "Building": {
-          "Health": 0,
-          "Power": 0,
           "Definition": "Buildings/Factory",
           "OwnerId": 1
         },
         "Unit": {
-          "Health": 2,
-          "Power": 2,
-          "Definition": "Units/Thief",
+          "Definition": "Units/EmeraldFighter",
           "OwnerId": 1
         },
         "Description": null

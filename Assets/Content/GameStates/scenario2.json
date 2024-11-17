@@ -56,8 +56,6 @@
       {
         "Location": 1,
         "Building": {
-          "Health": 3,
-          "Power": 1,
           "Definition": "Buildings/Flag",
           "OwnerId": 2
         },
@@ -80,8 +78,6 @@
         "Location": 3,
         "Building": null,
         "Unit": {
-          "Health": 5,
-          "Power": 2,
           "Definition": "Units/Hornet",
           "OwnerId": 2
         },
@@ -108,8 +104,6 @@
       {
         "Location": 19,
         "Building": {
-          "Health": 0,
-          "Power": 0,
           "Definition": "Buildings/Flag",
           "OwnerId": 1
         },

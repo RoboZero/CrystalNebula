@@ -45,10 +45,8 @@
             "Location": 2,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Units/Guardian",
-              "Progress": 0,
-              "Health": 5,
-              "Power": 1
+              "Definition": "Units/EmeraldGuard",
+              "Progress": 0
             }
           }
         ]
@@ -82,8 +80,6 @@
         "DeploymentZoneOwnerId": 2,
         "Building": null,
         "Unit": {
-          "Health": 2,
-          "Power": 2,
           "Definition": "Units/Scarab",
           "OwnerId": 2
         },
@@ -97,9 +93,7 @@
         "Location": 7,
         "Building": null,
         "Unit": {
-          "Health": 5,
-          "Power": 1,
-          "Definition": "Units/Guardian",
+          "Definition": "Units/EmeraldGuard",
           "OwnerId": 1
         },
         "Description": null
@@ -108,9 +102,7 @@
         "Location": 8,
         "Building": null,
         "Unit": {
-          "Health": 5,
-          "Power": 1,
-          "Definition": "Units/Guardian",
+          "Definition": "Units/EmeraldGuard",
           "OwnerId": 1
         },
         "Description": null
@@ -131,8 +123,6 @@
         "Location": 19,
         "DeploymentZoneOwnerId": 1,
         "Building": {
-          "Health": 0,
-          "Power": 0,
           "Definition": "Buildings/Flag",
           "OwnerId": 1
         },

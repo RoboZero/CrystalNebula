@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48c3676419d46764e92ff1aec6f4f8b5, type: 3}
-  m_Name: RubyThief
+  m_Name: EmeraldFighter
   m_EditorClassIdentifier: 
-  guid: 1049292f6a647954f8976f1d994b34f1
+  guid: d46f24868c0037f4b822f90f3a4d4afe
   description: 
-  tooltipIcon: {fileID: -2110523272, guid: 7d1da9656a1fba7429b6d03fd916d912, type: 3}
+  tooltipIcon: {fileID: 2057256801, guid: 03af41f0dfad4a848abd50f84791b9d1, type: 3}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
-  battlefieldScaleFactor: {x: 1, y: 1}
-  Sprite: {fileID: -2110523272, guid: 7d1da9656a1fba7429b6d03fd916d912, type: 3}
-  UnitName: Ruby Thief
-  Abbreviation: Thief
-  UnitDescription: "Level 3. \nSmall Sword Unit. \nExtreme damage to Armored Units."
+  battlefieldScaleFactor: {x: 1.2, y: 1.2}
+  Sprite: {fileID: 2057256801, guid: 03af41f0dfad4a848abd50f84791b9d1, type: 3}
+  UnitName: Emerald Fighter
+  Abbreviation: Fighter
+  UnitDescription: "Level 1. \nFierce Axe Unit. \nEffective attacks against Armored
+    units. "
   MaxProgress: 0
   BaseHealth: 1
-  BasePower: 9
-  DataSize: 27
-  CanSwitchPlaces: 1
+  BasePower: 3
+  DataSize: 3
+  CanSwitchPlaces: 0
   CanEngageCombat: 1

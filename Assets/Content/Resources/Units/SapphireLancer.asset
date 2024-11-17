@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48c3676419d46764e92ff1aec6f4f8b5, type: 3}
-  m_Name: RubyThief
+  m_Name: SapphireLancer
   m_EditorClassIdentifier: 
-  guid: 1049292f6a647954f8976f1d994b34f1
+  guid: a819b3ba8d2778d46a72bfa3cdcc41e0
   description: 
-  tooltipIcon: {fileID: -2110523272, guid: 7d1da9656a1fba7429b6d03fd916d912, type: 3}
+  tooltipIcon: {fileID: -981807431, guid: 6327c8e34fdadfe4da12161c128eda0c, type: 3}
   memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
-  battlefieldScaleFactor: {x: 1, y: 1}
-  Sprite: {fileID: -2110523272, guid: 7d1da9656a1fba7429b6d03fd916d912, type: 3}
-  UnitName: Ruby Thief
-  Abbreviation: Thief
-  UnitDescription: "Level 3. \nSmall Sword Unit. \nExtreme damage to Armored Units."
+  battlefieldScaleFactor: {x: 1.2, y: 1.2}
+  Sprite: {fileID: -981807431, guid: 6327c8e34fdadfe4da12161c128eda0c, type: 3}
+  UnitName: Sapphire Lancer
+  Abbreviation: Lancer
+  UnitDescription: "Level 2.\nMedium Lance Unit.  \nEasily clears Medium enemies. "
   MaxProgress: 0
-  BaseHealth: 1
-  BasePower: 9
-  DataSize: 27
-  CanSwitchPlaces: 1
+  BaseHealth: 3
+  BasePower: 5
+  DataSize: 9
+  CanSwitchPlaces: 0
   CanEngageCombat: 1
