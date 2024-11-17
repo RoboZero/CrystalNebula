@@ -15,7 +15,11 @@ MonoBehaviour:
   guid: e4dc6275d5f050243a88dfd9a519a163
   description: 
   resourceList:
-  - Definition: Buildings/Factory
+  - Definition: Buildings/EmeraldBarracks
+    Resource: {fileID: 11400000, guid: 5afe7ddef6a399f44bf77b5a6271e871, type: 2}
+  - Definition: Buildings/EmeraldBase
+    Resource: {fileID: 11400000, guid: 4b70d12d6f1416142846b95ba1f633a1, type: 2}
+  - Definition: Buildings/EmeraldFactory
     Resource: {fileID: 11400000, guid: cbc7fdc9af72236418cdc29da078a114, type: 2}
   - Definition: Buildings/Flag
     Resource: {fileID: 11400000, guid: a1f05ba9396dcad47808008ca2119113, type: 2}

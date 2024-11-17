@@ -109,21 +109,33 @@
       },
       {
         "Location": 16,
-        "DeploymentZoneOwnerId": 1
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Definition": "Buildings/EmeraldBarracks",
+          "OwnerId": 1
+        }
       },
       {
         "Location": 17,
-        "DeploymentZoneOwnerId": 1
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Definition": "Buildings/EmeraldBarracks",
+          "OwnerId": 1
+        }
       },
       {
         "Location": 18,
-        "DeploymentZoneOwnerId": 1
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Definition": "Buildings/EmeraldBarracks",
+          "OwnerId": 1
+        }
       },
       {
         "Location": 19,
         "DeploymentZoneOwnerId": 1,
         "Building": {
-          "Definition": "Buildings/Flag",
+          "Definition": "Buildings/EmeraldBase",
           "OwnerId": 1
         },
         "Unit": null,
