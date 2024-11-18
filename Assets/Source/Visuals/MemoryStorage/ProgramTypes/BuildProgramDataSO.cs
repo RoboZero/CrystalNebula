@@ -28,6 +28,8 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
                 Definition = definition,
                 CurrentRunProgress = 0,
                 MaxRunProgress = MaxProgress,
+                CurrentRunCount = CurrentRunCount,
+                MaxRunCount = MaxRunCount,
                 DataSize = DataSize,
                 MemoryItem = MemoryDataSO.CreateDefaultInstance(ownerId, createdDefinition),
                 CreateMemoryEventOverrides = CreateMemoryEventOverrides

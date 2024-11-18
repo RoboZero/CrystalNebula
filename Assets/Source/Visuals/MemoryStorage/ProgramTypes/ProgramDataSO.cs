@@ -23,6 +23,8 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
         [TextArea] [SerializeField] private string memoryDescription;
         
         public int MaxProgress;
+        public int CurrentRunCount;
+        public int MaxRunCount;
         public float DataSize;
         
         public override MemoryItem CreateMemoryInstance(MemoryData memoryData)
@@ -32,6 +34,8 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
                 OwnerId = memoryData.OwnerId,
                 Definition = memoryData.Definition,
                 CurrentRunProgress = memoryData.Progress,
+                CurrentRunCount = CurrentRunCount,
+                MaxRunCount = MaxRunCount,
                 MaxRunProgress = MaxProgress,
                 DataSize = DataSize
             };
@@ -46,6 +50,8 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
                 tooltipContent.Description = MemoryDescription;
                 tooltipContent.Stats.Clear();
                 tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Progress", Value = $"{programMemory.CurrentRunProgress}/{programMemory.MaxRunProgress}" });
+                if(MaxRunCount > 0)
+                    tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Run Count", Value = $"{programMemory.CurrentRunCount}/{programMemory.MaxRunCount}" });
                 tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Data Size", Value = $"{programMemory.DataSize}"});
                 return;
             }

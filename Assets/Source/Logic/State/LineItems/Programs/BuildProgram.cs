@@ -12,6 +12,7 @@ namespace Source.Logic.State.LineItems.Programs
         
         protected override void Run(EventTracker eventTracker, GameState gameState)
         {
+            base.Run(eventTracker, gameState);
             Debug.Log($"{GetType().Name} ran.");
 
             var player = gameState.Players.FirstOrDefault(player => player.Id == MemoryItem.OwnerId);

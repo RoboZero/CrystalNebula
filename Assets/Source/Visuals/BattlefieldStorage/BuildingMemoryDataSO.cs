@@ -27,6 +27,8 @@ namespace Source.Visuals.BattlefieldStorage
         public string Abbreviation;
         [TextArea] public string BuildingDescription;
         public int MaxProgress;
+        public int CurrentRunCount;
+        public int MaxRunCount;
         public int BaseHealth;
         public int BasePower;
         public float DataSize;
@@ -39,6 +41,8 @@ namespace Source.Visuals.BattlefieldStorage
                 Definition = definition,
                 Health = health ?? BaseHealth,
                 Power = power ?? BasePower,
+                CurrentRunCount = CurrentRunCount,
+                MaxRunCount = MaxRunCount,
                 DataSize = DataSize
             };
         }
@@ -77,6 +81,8 @@ namespace Source.Visuals.BattlefieldStorage
                 tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Health", Value = $"{buildingMemory.Health}/{BaseHealth.ToString()}"});
                 tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Power", Value = $"{buildingMemory.Power.ToString()}/{BasePower.ToString()}"});
                 tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Progress", Value = $"{buildingMemory.CurrentRunProgress}/{buildingMemory.MaxRunProgress}" });
+                if(MaxRunCount > 0)
+                    tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Run Count", Value = $"{buildingMemory.CurrentRunCount}/{buildingMemory.MaxRunCount}" });
                 tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Data Size", Value = $"{buildingMemory.DataSize.ToString(CultureInfo.InvariantCulture)}/{DataSize}"});
                 return;
             }

@@ -20,6 +20,8 @@ MonoBehaviour:
   memoryName: Research Sapphire Guardian
   memoryDescription: "\rProgram.\nWhen run, create programs in Disk.\r"
   MaxProgress: 20
+  CurrentRunCount: 0
+  MaxRunCount: 1
   DataSize: 1
   GameResources: {fileID: 11400000, guid: e4dc6275d5f050243a88dfd9a519a163, type: 2}
   CreateMemoryEventOverrides:

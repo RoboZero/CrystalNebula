@@ -11,6 +11,8 @@ namespace Source.Logic.State.LineItems
         public string Definition;
         public int CurrentRunProgress;
         public int MaxRunProgress;
+        public int CurrentRunCount;
+        public int MaxRunCount;
         public float DataSize;
 
         public virtual MemoryItem CreateInstance()
@@ -37,7 +39,10 @@ namespace Source.Logic.State.LineItems
             CurrentRunProgress = 0;
         }
 
-        protected virtual void Run(EventTracker eventTracker, GameState gameState) { }
+        protected virtual void Run(EventTracker eventTracker, GameState gameState)
+        {
+            CurrentRunCount++;
+        }
 
         public override string ToString()
         {
