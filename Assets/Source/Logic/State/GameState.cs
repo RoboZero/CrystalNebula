@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
+using Source.Logic.State.ResearchGraphs;
 
 namespace Source.Logic.State
 {

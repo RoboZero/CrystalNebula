@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Source.Logic.State.LineItems;
+using Source.Logic.State.ResearchGraphs;
 using Source.Serialization.Data;
 
 namespace Source.Logic.State
@@ -14,5 +15,6 @@ namespace Source.Logic.State
         public List<Processor> Processors;
         public LineStorage<MemoryItem> MemoryStorage;
         public LineStorage<MemoryItem> DiskStorage;
+        public ResearchGraph ResearchGraph;
     }
 }

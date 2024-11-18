@@ -17,6 +17,7 @@ namespace Source.Visuals.MemoryStorage
         public abstract string MemoryDescription { get; }
         public abstract Vector2 BattlefieldScaleFactor { get; }
         
+        //TODO: Separate any data needed to instantiate memory into resource files, and only save Unity-specific visual data here like Sprites.
         public abstract MemoryItem CreateDefaultInstance(int ownerId, string definition);
         public abstract MemoryItem CreateMemoryInstance(MemoryData memoryData);
         public abstract void FillTooltipContent(MemoryItem memoryItem, TooltipContent tooltipContent);

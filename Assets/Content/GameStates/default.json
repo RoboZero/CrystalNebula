@@ -55,6 +55,27 @@
         "Length": 5,
         "DataPerSecondTransfer": 1.0,
         "Items": [
+          {
+            "Location": 1,
+            "Memory": {
+              "OwnerId": 1,
+              "Definition": "Programs/Research",
+              "Progress": 0
+            }
+          }
+        ]
+      },
+      "ResearchGraph": {
+        "Name": "Level 1",
+        "Edges": [
+          {
+            "FromDefinition": "Programs/Research",
+            "ToEdges": [
+              {
+                "Definition": "Programs/Research"
+              }
+            ]
+          }
         ]
       }
     }
@@ -159,14 +180,6 @@
         },
         "Unit": null,
         "Description": null
-      }
-    ]
-  },
-  "ResearchGraph": {
-    "Edges": [
-      {
-        "From": "Research/",
-        "To": [""]
       }
     ]
   }
