@@ -52,7 +52,7 @@
         ]
       },
       "DiskStorage": {
-        "Length": 5,
+        "Length": 10,
         "DataPerSecondTransfer": 1.0,
         "Items": [
           {
