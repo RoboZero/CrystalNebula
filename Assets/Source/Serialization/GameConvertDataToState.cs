@@ -149,6 +149,7 @@ namespace Source.Serialization
         {
             var researchGraph = new ResearchGraph
             {
+                StartingDefinition = researchGraphData.StartingDefinition,
                 Edges = new Dictionary<string, List<ResearchEdge>>()
             };
 

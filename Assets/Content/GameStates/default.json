@@ -37,7 +37,7 @@
             "Location": 1,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/BuildGuardian",
+              "Definition": "Programs/BuildEmeraldGuardian",
               "Progress": 0
             }
           },
@@ -59,7 +59,7 @@
             "Location": 1,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Research",
+              "Definition": "Programs/ResearchEmeraldFighter",
               "Progress": 0
             }
           }
@@ -67,12 +67,57 @@
       },
       "ResearchGraph": {
         "Name": "Level 1",
+        "StartingDefinition": "Programs/ResearchEmeraldFighter",
         "Edges": [
           {
-            "FromDefinition": "Programs/Research",
+            "FromDefinition": "Programs/ResearchEmeraldFighter",
             "ToEdges": [
               {
-                "Definition": "Programs/Research"
+                "Definition": "Programs/BuildEmeraldFighter"
+              },
+              {
+                "Definition": "Programs/ResearchSapphireGuardian"
+              },
+              {
+                "Definition": "Programs/ResearchSapphireLancer"
+              }
+            ]
+          },
+          {
+            "FromDefinition": "Programs/ResearchSapphireGuardian",
+            "ToEdges": [
+              {
+                "Definition": "Programs/BuildSapphireGuardian"
+              },
+              {
+                "Definition": "Programs/ResearchRubyThief"
+              }
+            ]
+          },
+          {
+            "FromDefinition": "Programs/ResearchSapphireLancer",
+            "ToEdges": [
+              {
+                "Definition": "Programs/BuildSapphireLancer"
+              },
+              {
+                "Definition": "Programs/ResearchRubyHero"
+              }
+            ]
+          },
+          {
+            "FromDefinition": "Programs/ResearchRubyThief",
+            "ToEdges": [
+              {
+                "Definition": "Programs/BuildRubyThief"
+              }
+            ]
+          },
+          {
+            "FromDefinition": "Programs/ResearchRubyHero",
+            "ToEdges": [
+              {
+                "Definition": "Programs/BuildRubyHero"
               }
             ]
           }

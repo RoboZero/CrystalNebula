@@ -1,5 +1,7 @@
-﻿using Source.Logic.State.LineItems;
+﻿using Source.Logic.Events.Overrides;
+using Source.Logic.State.LineItems;
 using Source.Logic.State.LineItems.Programs;
+using Source.Serialization;
 using Source.Serialization.Data;
 using UnityEngine;
 
@@ -8,6 +10,10 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
     [CreateAssetMenu(fileName = "ResearchProgramLineItem", menuName = "Game/Memory Item/Research Program")]
     public class ResearchProgramDataSO : ProgramDataSO
     {
+        [Header("Research Program Dependencies")]
+        public GameResources GameResources;
+        public CreateMemoryEventOverrides CreateMemoryEventOverrides;
+        
         public override MemoryItem CreateDefaultInstance(int ownerId, string definition)
         {
             return new ResearchProgram()
@@ -17,6 +23,8 @@ namespace Source.Visuals.MemoryStorage.ProgramTypes
                 CurrentRunProgress = 0,
                 MaxRunProgress = MaxProgress,
                 DataSize = DataSize,
+                GameResources = GameResources,
+                CreateMemoryEventOverrides = CreateMemoryEventOverrides
             };
         }
 

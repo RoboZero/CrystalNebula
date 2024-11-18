@@ -37,16 +37,32 @@ MonoBehaviour:
     Resource: {fileID: 11400000, guid: 07d789538f768574ba80986b82d9d08e, type: 2}
   - Definition: Levels/Level1
     Resource: {fileID: 11400000, guid: 02943a83439edf74ca46368e4c0abfeb, type: 2}
-  - Definition: Programs/BuildGuardian
+  - Definition: Programs/BuildEmeraldFighter
+    Resource: {fileID: 11400000, guid: f9800025201d7bf429404123f4c5862b, type: 2}
+  - Definition: Programs/BuildEmeraldGuardian
     Resource: {fileID: 11400000, guid: 578d51c426881d1409fd2490291d3c6d, type: 2}
+  - Definition: Programs/BuildRubyHero
+    Resource: {fileID: 11400000, guid: 1bca8f4ed4beee54789d384cf59fbae9, type: 2}
+  - Definition: Programs/BuildRubyThief
+    Resource: {fileID: 11400000, guid: 5ace2910e4943b846a9ad3cacdcbd5cd, type: 2}
+  - Definition: Programs/BuildSapphireGuardian
+    Resource: {fileID: 11400000, guid: 309aa04dafd61394a9ef7fd7f4a87fcc, type: 2}
+  - Definition: Programs/BuildSapphireLancer
+    Resource: {fileID: 11400000, guid: 7895b2196bc8b544080bf13f88c3f13b, type: 2}
   - Definition: Programs/Command
     Resource: {fileID: 11400000, guid: aea579a70ada0fe46887dd12e1f666e9, type: 2}
   - Definition: Programs/EmptySlot
     Resource: {fileID: 11400000, guid: f3fe046630acce646a92a9fa5feb971e, type: 2}
-  - Definition: Programs/Research
-    Resource: {fileID: 11400000, guid: dd0c4bda265d05a49a0902dfac54325e, type: 2}
-  - Definition: Programs/ResearchGuardians
+  - Definition: Programs/ResearchEmeraldFighter
     Resource: {fileID: 11400000, guid: 0735d92f6b530e3479becd128bc6c4b7, type: 2}
+  - Definition: Programs/ResearchRubyHero
+    Resource: {fileID: 11400000, guid: 7c0ac9bedd54b7040a6bf6395154335c, type: 2}
+  - Definition: Programs/ResearchRubyThief
+    Resource: {fileID: 11400000, guid: ca69c9afa900a6d4ab5a9218aa2e0e9e, type: 2}
+  - Definition: Programs/ResearchSapphireGuardian
+    Resource: {fileID: 11400000, guid: dd0c4bda265d05a49a0902dfac54325e, type: 2}
+  - Definition: Programs/ResearchSapphireLancer
+    Resource: {fileID: 11400000, guid: 4a1d3dfe9eea36d4ba4bbd45bf275cae, type: 2}
   - Definition: Programs/Retreat
     Resource: {fileID: 11400000, guid: dbc73ab5476853241ba3ca8b2286d9f6, type: 2}
   - Definition: Units/Boss_TheUnraveler
@@ -61,7 +77,7 @@ MonoBehaviour:
     Resource: {fileID: 11400000, guid: 3f430c67762ff844dad9bea4cb8674a1, type: 2}
   - Definition: Units/RubyThief
     Resource: {fileID: 11400000, guid: 1049292f6a647954f8976f1d994b34f1, type: 2}
-  - Definition: Units/SapphireGuard
+  - Definition: Units/SapphireGuardian
     Resource: {fileID: 11400000, guid: cf3be9e719342864aa0377ea6acfed2f, type: 2}
   - Definition: Units/SapphireLancer
     Resource: {fileID: 11400000, guid: a819b3ba8d2778d46a72bfa3cdcc41e0, type: 2}

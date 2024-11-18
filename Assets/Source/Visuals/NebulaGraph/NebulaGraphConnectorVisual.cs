@@ -2,12 +2,18 @@ using Source.Interactions;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Source.Visuals
+namespace Source.Visuals.NebulaGraph
 {
     public class NebulaGraphConnectorVisual : StandardInteractableVisual
     {
         [Header("Dependencies")]
+        [SerializeField] private RectTransform rectTransform;
         [SerializeField] private Image iconImage;
+
+        public void SetHeight(float height)
+        {
+            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, height);
+        }
         
         private void Update()
         {
