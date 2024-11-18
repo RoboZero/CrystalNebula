@@ -120,20 +120,36 @@
     "Length": 20,
     "Items": [
       {
-        "Location": 1,
+        "Location": 0,
+        "DeploymentZoneOwnerId": 2,
         "Building": {
-          "Definition": "Buildings/Flag",
+          "Definition": "Buildings/BugBase",
           "OwnerId": 2
         },
         "Unit": {
           "Definition": "Units/Spider",
           "OwnerId": 2
+        }
+      },
+      {
+        "Location": 1,
+        "DeploymentZoneOwnerId": 2,
+        "Building": {
+          "Definition": "Buildings/BugBarracks",
+          "OwnerId": 2
         },
-        "Description": null
+        "Unit": {
+          "Definition": "Units/Spider",
+          "OwnerId": 2
+        }
       },
       {
         "Location": 2,
-        "Building": null,
+        "DeploymentZoneOwnerId": 2,
+        "Building": {
+          "Definition": "Buildings/BugBarracks",
+          "OwnerId": 2
+        },
         "Unit": {
           "Definition": "Units/Boss_TheUnraveler",
           "OwnerId": 2
@@ -142,7 +158,11 @@
       },
       {
         "Location": 3,
-        "Building": null,
+        "DeploymentZoneOwnerId": 2,
+        "Building": {
+          "Definition": "Buildings/BugBarracks",
+          "OwnerId": 2
+        },
         "Unit": {
           "Definition": "Units/Hornet",
           "OwnerId": 2
@@ -151,7 +171,11 @@
       },
       {
         "Location": 4,
-        "Building": null,
+        "DeploymentZoneOwnerId": 2,
+        "Building": {
+          "Definition": "Buildings/BugBarracks",
+          "OwnerId": 2
+        },
         "Unit": {
           "Definition": "Units/Spider",
           "OwnerId": 2
@@ -168,13 +192,36 @@
         "Description": null
       },
       {
-        "Location": 19,
+        "Location": 16,
+        "DeploymentZoneOwnerId": 1,
         "Building": {
-          "Definition": "Buildings/Flag",
+          "Definition": "Buildings/EmeraldBarracks",
           "OwnerId": 1
-        },
-        "Unit": null,
-        "Description": null
+        }
+      },
+      {
+        "Location": 17,
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Definition": "Buildings/EmeraldBarracks",
+          "OwnerId": 1
+        }
+      },
+      {
+        "Location": 18,
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Definition": "Buildings/EmeraldBarracks",
+          "OwnerId": 1
+        }
+      },
+      {
+        "Location": 19,
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Definition": "Buildings/EmeraldBase",
+          "OwnerId": 1
+        }
       }
     ]
   }

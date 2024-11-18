@@ -172,8 +172,9 @@
     "Items": [
       {
         "Location": 0,
+        "DeploymentZoneOwnerId": 2,
         "Building": {
-          "Definition": "Buildings/Factory",
+          "Definition": "Buildings/BugBase",
           "OwnerId": 2
         },
         "Unit": {
@@ -184,6 +185,7 @@
       },
       {
         "Location": 1,
+        "DeploymentZoneOwnerId": 2,
         "Building": null,
         "Unit": {
           "Definition": "Units/Scarab",
@@ -193,8 +195,9 @@
       },
       {
         "Location": 2,
+        "DeploymentZoneOwnerId": 2,
         "Building": {
-          "Definition": "Buildings/Flag",
+          "Definition": "Buildings/BugBarracks",
           "OwnerId": 2
         },
         "Unit": {

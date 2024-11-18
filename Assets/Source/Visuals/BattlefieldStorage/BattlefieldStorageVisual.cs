@@ -38,7 +38,8 @@ namespace Source.Visuals.BattlefieldStorage
                 AddRecord(trackedRecords);
             }
 
-            for (var i = 0; i < trackedRecords.Count; i++)
+            var updatedRecordCount = Math.Min(trackedRecords.Count, battlefieldStorageBehavior.State.Items.Count);
+            for (var i = 0; i < updatedRecordCount; i++)
             {
                 var item = battlefieldStorageBehavior.State.Items[i];
                 UpdateRecordVisual(trackedRecords[i], i, item, true);
