@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48c3676419d46764e92ff1aec6f4f8b5, type: 3}
+  m_Name: SapphireGuardian
+  m_EditorClassIdentifier: 
+  guid: cf3be9e719342864aa0377ea6acfed2f
+  description: 
+  tooltipIcon: {fileID: -786477860, guid: 21b20e156d5b3104c9a1520a62f0b801, type: 3}
+  memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
+  battlefieldScaleFactor: {x: 1.2, y: 1.2}
+  Sprite: {fileID: -786477860, guid: 21b20e156d5b3104c9a1520a62f0b801, type: 3}
+  UnitName: Sapphire Guardian
+  Abbreviation: Guard
+  UnitDescription: "Level 2.\nArmored Lance Unit.  \nEasily clears Small enemies. "
+  MaxProgress: 0
+  BaseHealth: 7
+  BasePower: 1
+  DataSize: 9
+  CanSwitchPlaces: 0
+  CanEngageCombat: 1

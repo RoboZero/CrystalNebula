@@ -50,17 +50,24 @@ namespace Source.Visuals
             
             if (time >= 1 / processor.ClockSpeed)
             {
-                foreach (var lineItem in processorStorageBehavior.State.Items)
+                for (var index = 0; index < processorStorageBehavior.State.Items.Count; index++)
                 {
+                    var lineItem = processorStorageBehavior.State.Items[index];
                     if (lineItem != null)
                     {
                         lineItem.Tick(eventTrackerBehavior.EventTracker, gameStateLoader.GameState);
+
+                        if (lineItem.MaxRunCount > 0 && lineItem.CurrentRunCount == lineItem.MaxRunCount)
+                        {
+                            processorStorageBehavior.State.Items[index] = null;
+                        }
                     }
                     else
                     {
                         Debug.Log($"Line item {lineItem} memory is null");
                     }
                 }
+
                 time = 0;
             }
         }

@@ -11,5 +11,6 @@ namespace Source.Serialization.Data
         public List<ProcessorData> Processors;
         public MemoryStorageData MemoryStorage;
         public MemoryStorageData DiskStorage;
+        public ResearchGraphData ResearchGraph;
     }
 }

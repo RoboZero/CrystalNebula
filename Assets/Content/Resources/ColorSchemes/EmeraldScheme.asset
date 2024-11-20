@@ -15,8 +15,8 @@ MonoBehaviour:
   guid: 5e0282b2728554044a1a30e6abc5d38f
   description: 
   NoInteractionColor: {r: 1, g: 1, b: 1, a: 1}
-  HoveredColor: {r: 0.7899419, g: 1, b: 0.015686274, a: 1}
-  InteractedColor: {r: 0, g: 0.7689574, b: 1, a: 1}
+  HoveredColor: {r: 0.74865633, g: 1, b: 0.015686274, a: 1}
+  InteractedColor: {r: 0, g: 1, b: 0.3723204, a: 1}
   MemoryProgressColor: {r: 0, g: 1, b: 0.67058825, a: 1}
   DeploymentZonePlatformColor: {r: 0.014802404, g: 0.7132075, b: 0.48314464, a: 1}
   DeploymentZoneUnitPlatformColor: {r: 0.07221783, g: 0.6075471, b: 0.19548447, a: 1}

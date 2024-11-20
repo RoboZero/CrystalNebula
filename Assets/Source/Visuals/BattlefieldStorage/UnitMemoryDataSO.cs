@@ -28,6 +28,8 @@ namespace Source.Visuals.BattlefieldStorage
         public string Abbreviation;
         [TextArea] public string UnitDescription;
         public int MaxProgress;
+        public int CurrentRunCount;
+        public int MaxRunCount;
         public int BaseHealth;
         public int BasePower;
         public float DataSize;
@@ -45,6 +47,8 @@ namespace Source.Visuals.BattlefieldStorage
                 DataSize = DataSize,
                 CurrentRunProgress = 0,
                 MaxRunProgress = MaxProgress,
+                CurrentRunCount = CurrentRunCount,
+                MaxRunCount = MaxRunCount,
                 CanSwitchPlaces = CanSwitchPlaces,
                 CanEngageCombat = CanEngageCombat
             };
@@ -70,6 +74,8 @@ namespace Source.Visuals.BattlefieldStorage
                 tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Health", Value = $"{unitMemory.Health}/{BaseHealth.ToString()}"});
                 tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Power", Value = $"{unitMemory.Power.ToString()}/{BasePower.ToString()}"});
                 tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Progress", Value = $"{unitMemory.CurrentRunProgress}/{unitMemory.MaxRunProgress}" });
+                if(MaxRunCount > 0)
+                    tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Run Count", Value = $"{unitMemory.CurrentRunCount}/{unitMemory.MaxRunCount}" });
                 tooltipContent.Stats.Add(new TooltipContent.Stat(){ Name = "Data Size", Value = $"{unitMemory.DataSize.ToString(CultureInfo.InvariantCulture)}/{DataSize}"});
                 return;
             }

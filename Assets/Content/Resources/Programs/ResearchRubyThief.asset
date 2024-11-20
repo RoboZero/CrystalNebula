@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: addadbdfb26c4b399156e139d97db7ca, type: 3}
+  m_Name: ResearchRubyThief
+  m_EditorClassIdentifier: 
+  guid: ca69c9afa900a6d4ab5a9218aa2e0e9e
+  description: 
+  tooltipIcon: {fileID: 0}
+  memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
+  memoryForegroundIcon: {fileID: 21300000, guid: 8ab9772a0113ae9488292c792c92dace, type: 3}
+  memoryName: Research Ruby Thief
+  memoryDescription: "\rProgram.\nWhen run, create programs in Disk.\r"
+  MaxProgress: 30
+  CurrentRunCount: 0
+  MaxRunCount: 1
+  DataSize: 1
+  GameResources: {fileID: 11400000, guid: e4dc6275d5f050243a88dfd9a519a163, type: 2}
+  CreateMemoryEventOverrides:
+    CreationTime: 0
+    Overwrite: 0

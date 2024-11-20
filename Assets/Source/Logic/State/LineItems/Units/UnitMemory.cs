@@ -30,6 +30,7 @@ namespace Source.Logic.State.LineItems.Units
 
         protected override void Run(EventTracker eventTracker, GameState gameState)
         {
+            base.Run(eventTracker, gameState);
             Debug.Log("Unit ran!");
         }
         

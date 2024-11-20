@@ -4,6 +4,7 @@ using Source.Logic.State;
 using Source.Logic.State.Battlefield;
 using Source.Logic.State.LineItems;
 using Source.Logic.State.LineItems.Units;
+using Source.Logic.State.ResearchGraphs;
 using Source.Serialization.Data;
 using Source.Visuals.BattlefieldStorage;
 using Source.Visuals.MemoryStorage;
@@ -28,7 +29,7 @@ namespace Source.Serialization
             {
                 Level = ConvertLevel(gameData.Level),
                 BattlefieldStorage = ConvertBattlefieldStorage("Battlefield", gameData.BattlefieldStorage),
-                Players = players
+                Players = players,
             };
             return gameState;
         }
@@ -41,7 +42,8 @@ namespace Source.Serialization
             };
         }
 
-        private LineStorage<BattlefieldItem> ConvertBattlefieldStorage(string storageName, BattlefieldStorageData battlefieldStorage)
+        private LineStorage<BattlefieldItem> ConvertBattlefieldStorage(string storageName,
+            BattlefieldStorageData battlefieldStorage)
         {
             var battlefieldItems = new List<BattlefieldItem>(new BattlefieldItem[battlefieldStorage.Length]);
 
@@ -49,7 +51,7 @@ namespace Source.Serialization
             {
                 battlefieldItems[i] = new BattlefieldItem();
             }
-            
+
             foreach (var item in battlefieldStorage.Items)
             {
                 battlefieldItems[item.Location] = ConvertBattlefieldItem(item);
@@ -68,18 +70,20 @@ namespace Source.Serialization
             BuildingMemory building = null;
             if (battlefieldItemData.Building != null)
             {
-                if (gameResources.TryLoadAsset(this, battlefieldItemData.Building.Definition, out BuildingMemoryDataSO buildingDataSO))
+                if (gameResources.TryLoadAsset(this, battlefieldItemData.Building.Definition,
+                        out BuildingMemoryDataSO buildingDataSO))
                 {
-                    building = (BuildingMemory) buildingDataSO.CreateMemoryInstance(battlefieldItemData.Building);
+                    building = (BuildingMemory)buildingDataSO.CreateMemoryInstance(battlefieldItemData.Building);
                 }
             }
 
             UnitMemory unit = null;
             if (battlefieldItemData.Unit != null)
             {
-                if (gameResources.TryLoadAsset(this, battlefieldItemData.Unit.Definition, out UnitMemoryDataSO unitDataSO))
+                if (gameResources.TryLoadAsset(this, battlefieldItemData.Unit.Definition,
+                        out UnitMemoryDataSO unitDataSO))
                 {
-                    unit = (UnitMemory) unitDataSO.CreateMemoryInstance(battlefieldItemData.Unit);
+                    unit = (UnitMemory)unitDataSO.CreateMemoryInstance(battlefieldItemData.Unit);
                 }
             }
 
@@ -102,6 +106,7 @@ namespace Source.Serialization
                 Processors = processors,
                 MemoryStorage = ConvertMemoryStorage("Memory", playerData.MemoryStorage),
                 DiskStorage = ConvertMemoryStorage("Disk", playerData.DiskStorage),
+                ResearchGraph = ConvertResearchGraph(playerData.ResearchGraph)
             };
         }
 
@@ -138,6 +143,29 @@ namespace Source.Serialization
                 DataPerSecondTransfer = memoryStorage.DataPerSecondTransfer,
                 Items = lineStorageItems
             };
+        }
+
+        private ResearchGraph ConvertResearchGraph(ResearchGraphData researchGraphData)
+        {
+            var researchGraph = new ResearchGraph
+            {
+                StartingDefinition = researchGraphData.StartingDefinition,
+                Edges = new Dictionary<string, List<ResearchEdge>>()
+            };
+
+            foreach (var edges in researchGraphData.Edges)
+            {
+                var edgeList = edges.ToEdges
+                    .Select(x => new ResearchEdge()
+                    {
+                        Definition = x.Definition
+                    })
+                    .ToList();
+                
+                researchGraph.Edges.Add(edges.FromDefinition, edgeList);
+            }
+
+            return researchGraph;
         }
     }
 }

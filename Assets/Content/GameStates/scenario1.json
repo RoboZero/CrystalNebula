@@ -31,7 +31,7 @@
                 "Length": 0,
                 "Memory": {
                   "OwnerId": 1,
-                  "Definition": "Programs/Research",
+                  "Definition": "Programs/ResearchEmeraldFighter",
                   "Progress": 0
                 }
               }
@@ -47,7 +47,7 @@
             "Location": 0,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/BuildGuardian",
+              "Definition": "Programs/BuildEmeraldGuardian",
               "Progress": 0
             }
           },
@@ -55,7 +55,7 @@
             "Location": 2,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Research",
+              "Definition": "Programs/ResearchEmeraldFighter",
               "Progress": 0
             }
           }
@@ -69,7 +69,7 @@
             "Location": 0,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Research",
+              "Definition": "Programs/ResearchEmeraldFighter",
               "Progress": 0
             }
           },
@@ -77,7 +77,7 @@
             "Location": 1,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/BuildGuardian",
+              "Definition": "Programs/BuildEmeraldGuardian",
               "Progress": 0
             }
           },
@@ -85,7 +85,7 @@
             "Location": 2,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Research",
+              "Definition": "Programs/ResearchEmeraldFighter",
               "Progress": 0
             }
           },
@@ -93,7 +93,7 @@
             "Location": 3,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Research",
+              "Definition": "Programs/ResearchEmeraldFighter",
               "Progress": 0
             }
           },
@@ -101,9 +101,67 @@
             "Location": 4,
             "Memory": {
               "OwnerId": 1,
-              "Definition": "Programs/Research",
+              "Definition": "Programs/ResearchEmeraldFighter",
               "Progress": 0
             }
+          }
+        ]
+      },
+      "ResearchGraph": {
+        "Name": "Level 1",
+        "StartingDefinition": "Programs/ResearchEmeraldFighter",
+        "Edges": [
+          {
+            "FromDefinition": "Programs/ResearchEmeraldFighter",
+            "ToEdges": [
+              {
+                "Definition": "Programs/BuildEmeraldFighter"
+              },
+              {
+                "Definition": "Programs/ResearchSapphireGuardian"
+              },
+              {
+                "Definition": "Programs/ResearchSapphireLancer"
+              }
+            ]
+          },
+          {
+            "FromDefinition": "Programs/ResearchSapphireGuardian",
+            "ToEdges": [
+              {
+                "Definition": "Programs/BuildSapphireGuardian"
+              },
+              {
+                "Definition": "Programs/ResearchRubyThief"
+              }
+            ]
+          },
+          {
+            "FromDefinition": "Programs/ResearchSapphireLancer",
+            "ToEdges": [
+              {
+                "Definition": "Programs/BuildSapphireLancer"
+              },
+              {
+                "Definition": "Programs/ResearchRubyHero"
+              }
+            ]
+          },
+          {
+            "FromDefinition": "Programs/ResearchRubyThief",
+            "ToEdges": [
+              {
+                "Definition": "Programs/BuildRubyThief"
+              }
+            ]
+          },
+          {
+            "FromDefinition": "Programs/ResearchRubyHero",
+            "ToEdges": [
+              {
+                "Definition": "Programs/BuildRubyHero"
+              }
+            ]
           }
         ]
       }
@@ -114,15 +172,12 @@
     "Items": [
       {
         "Location": 0,
+        "DeploymentZoneOwnerId": 2,
         "Building": {
-          "Health": 3,
-          "Power": 1,
-          "Definition": "Buildings/Factory",
+          "Definition": "Buildings/BugBase",
           "OwnerId": 2
         },
         "Unit": {
-          "Health": 5,
-          "Power": 2,
           "Definition": "Units/Scarab",
           "OwnerId": 2
         },
@@ -130,10 +185,9 @@
       },
       {
         "Location": 1,
+        "DeploymentZoneOwnerId": 2,
         "Building": null,
         "Unit": {
-          "Health": 5,
-          "Power": 2,
           "Definition": "Units/Scarab",
           "OwnerId": 2
         },
@@ -141,61 +195,49 @@
       },
       {
         "Location": 2,
+        "DeploymentZoneOwnerId": 2,
         "Building": {
-          "Health": 2,
-          "Power": 0,
-          "Definition": "Buildings/Flag",
+          "Definition": "Buildings/BugBarracks",
           "OwnerId": 2
         },
         "Unit": {
-          "Health": 3,
-          "Power": 3,
           "Definition": "Units/Hornet",
           "OwnerId": 2
         },
         "Description": null
       },
       {
-        "Location": 17,
-        "Building": null,
-        "Unit": {
-          "Health": 5,
-          "Power": 1,
-          "Definition": "Units/Guardian",
+        "Location": 16,
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Definition": "Buildings/EmeraldBarracks",
           "OwnerId": 1
-        },
-        "Description": null
+        }
+      },
+      {
+        "Location": 17,
+        "DeploymentZoneOwnerId": 1,
+        "Building": {
+          "Definition": "Buildings/EmeraldBarracks",
+          "OwnerId": 1
+        }
       },
       {
         "Location": 18,
+        "DeploymentZoneOwnerId": 1,
         "Building": {
-          "Health": 0,
-          "Power": 0,
-          "Definition": "Buildings/Flag",
+          "Definition": "Buildings/EmeraldBarracks",
           "OwnerId": 1
-        },
-        "Unit": {
-          "Health": 5,
-          "Power": 1,
-          "Definition": "Units/Guardian",
-          "OwnerId": 1
-        },
-        "Description": null
+        }
       },
       {
         "Location": 19,
+        "DeploymentZoneOwnerId": 1,
         "Building": {
-          "Health": 0,
-          "Power": 0,
-          "Definition": "Buildings/Factory",
+          "Definition": "Buildings/EmeraldBase",
           "OwnerId": 1
         },
-        "Unit": {
-          "Health": 2,
-          "Power": 2,
-          "Definition": "Units/Thief",
-          "OwnerId": 1
-        },
+        "Unit": null,
         "Description": null
       }
     ]
