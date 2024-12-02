@@ -8,13 +8,12 @@
       <change afterPath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/ImageProcessing/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/ImageProcessing/README.md.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.File_Commander/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.File_Commander/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Content/Prefabs/BattlefieldDataItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Prefabs/BattlefieldDataItem.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Content/Prefabs/NebulaGraph/NebulaGraphConnector.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Prefabs/NebulaGraph/NebulaGraphConnector.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Content/Prefabs/NebulaGraph/NebulaGraphContent.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Prefabs/NebulaGraph/NebulaGraphContent.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Content/Prefabs/NebulaGraph/NebulaGraphItem.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Prefabs/NebulaGraph/NebulaGraphItem.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Content/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Content/Fonts/c_c_red_alert_inet/C&amp;C Red Alert [INET] SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Fonts/c_c_red_alert_inet/C&amp;C Red Alert [INET] SDF.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/RoboZero.Core" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RoboZero.Core" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/greyscale_images.py.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/MemoryStorage/LineGemItemSubVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/MemoryStorage/LineGemItemSubVisual.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/MemoryStorage/LineGemItemVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/MemoryStorage/LineGemItemVisual.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/TMP Settings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/TMP Settings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,7 +138,7 @@
       <workItem from="1731559906647" duration="20360000" />
       <workItem from="1731653444745" duration="10993000" />
       <workItem from="1732763881546" duration="758000" />
-      <workItem from="1733097990566" duration="7727000" />
+      <workItem from="1733097990566" duration="8724000" />
     </task>
     <servers />
   </component>

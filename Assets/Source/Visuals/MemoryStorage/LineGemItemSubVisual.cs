@@ -26,6 +26,13 @@ namespace Source.Visuals.MemoryStorage
         private Color noneColor = Color.white;
         private Color hoveredColor = Color.yellow;
         private Color interactedColor = Color.blue;
+        
+        public void IsRaycastTarget(bool isRaycastTarget)
+        {
+            progressImage.raycastTarget = isRaycastTarget;
+            backgroundImage.raycastTarget = isRaycastTarget;
+            foregroundImage.raycastTarget = isRaycastTarget;
+        }
 
         public void SetLevel(Level level, LevelDataSO levelData)
         {

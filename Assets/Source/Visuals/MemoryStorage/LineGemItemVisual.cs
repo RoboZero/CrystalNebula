@@ -44,6 +44,8 @@ namespace Source.Visuals.MemoryStorage
         public void IsRaycastTarget(bool isRaycastTarget)
         {
             raycastTargetImage.raycastTarget = isRaycastTarget;
+            currentSubVisual.IsRaycastTarget(isRaycastTarget);
+            transferSubVisual.IsRaycastTarget(isRaycastTarget);
         }
 
         public void IsTransferring(bool isTransferring)
