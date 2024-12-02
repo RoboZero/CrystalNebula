@@ -15,6 +15,7 @@ namespace Source.Visuals.MemoryStorage
     public class LineGemItemVisual : StandardInteractableVisual, ITooltipTarget
     {
         [Header("Dependencies")]
+        [SerializeField] private Image raycastTargetImage;
         [SerializeField] private Image progressImage;
         [SerializeField] private Image emptyGemImage;
         [SerializeField] private LineGemSubItemVisual currentSubVisual;
@@ -39,6 +40,11 @@ namespace Source.Visuals.MemoryStorage
         private Color noneColor = Color.white;
         private Color hoveredColor = Color.yellow;
         private Color interactedColor = Color.blue;
+
+        public void IsRaycastTarget(bool isRaycastTarget)
+        {
+            raycastTargetImage.raycastTarget = isRaycastTarget;
+        }
 
         public void IsTransferring(bool isTransferring)
         {

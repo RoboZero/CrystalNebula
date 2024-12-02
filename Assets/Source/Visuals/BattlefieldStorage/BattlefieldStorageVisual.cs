@@ -13,7 +13,7 @@ namespace Source.Visuals.BattlefieldStorage
     {
         [Header("Dependencies")]
         [SerializeField] private BattlefieldItemVisual memoryItemVisualPrefab;
-        [SerializeField] private LayoutGroup lineNumberLayoutGroup;
+        [SerializeField] private RectTransform dataItemLayoutRectTransform;
         [SerializeField] private LayoutGroup dataItemLayoutGroup;
         
         [SerializeField] private GameResources gameResources;
