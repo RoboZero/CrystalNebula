@@ -9,6 +9,8 @@ namespace Source.Utility
 {
     public class ContinuousCollection<T> : IEnumerable<T>
     {
+        public int Count => storedItems.Count;
+        
         private readonly HashSet<T> storedItems = new();
         private List<T> oldItems = new();
         [CanBeNull] private readonly Action<T> itemHasEnteredAction;

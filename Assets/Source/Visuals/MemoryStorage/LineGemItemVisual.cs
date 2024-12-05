@@ -36,6 +36,7 @@ namespace Source.Visuals.MemoryStorage
         private bool showEmptyGem;
         private bool isTransferring;
 
+        private readonly HashSet<TooltipContent> tooltipContents = new();
         private readonly TooltipContent memoryTooltipContent = new();
         private Color noneColor = Color.white;
         private Color hoveredColor = Color.yellow;
@@ -154,6 +155,19 @@ namespace Source.Visuals.MemoryStorage
                 currentSubVisual.MemoryDataSO.FillTooltipContent(TrackedItem, memoryTooltipContent);
                 tooltipVisual.AddContent(memoryTooltipContent);
             }
+        }
+
+        public HashSet<TooltipContent> GetContent()
+        {
+            tooltipContents.Clear();
+            
+            if (TrackedItem != null && currentSubVisual.MemoryDataSO != null)
+            {
+                currentSubVisual.MemoryDataSO.FillTooltipContent(TrackedItem, memoryTooltipContent);
+                tooltipContents.Add(memoryTooltipContent);
+            }
+
+            return tooltipContents;
         }
     }
 }

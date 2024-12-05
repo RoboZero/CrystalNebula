@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Source.Interactions;
 using Source.Logic.State;
 using Source.Logic.State.LineItems;
@@ -22,6 +23,7 @@ namespace Source.Visuals.NebulaGraph
         private MemoryItem trackedItem;
         private MemoryDataSO memoryDataSO;
         
+        private readonly HashSet<TooltipContent> tooltipContents = new();
         private readonly TooltipContent memoryTooltipContent = new();
         private Color noneColor = Color.white;
         private Color hoveredColor = Color.yellow;
@@ -81,6 +83,19 @@ namespace Source.Visuals.NebulaGraph
                 memoryDataSO.FillTooltipContent(trackedItem, memoryTooltipContent);
                 tooltipVisual.AddContent(memoryTooltipContent);
             }
+        }
+
+        public HashSet<TooltipContent> GetContent()
+        {
+            tooltipContents.Clear();
+            
+            if (trackedItem != null && memoryDataSO != null)
+            {
+                memoryDataSO.FillTooltipContent(trackedItem, memoryTooltipContent);
+                tooltipContents.Add(memoryTooltipContent);
+            }
+
+            return tooltipContents;
         }
     }
 }

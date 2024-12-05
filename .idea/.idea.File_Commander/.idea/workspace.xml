@@ -7,9 +7,18 @@
     <list default="true" id="39e142f1-2237-4880-a7c9-c414ecbb00bc" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/ImageProcessing/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/ImageProcessing/README.md.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Content/Scenes/CreditsScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Scenes/CreditsScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.File_Commander/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.File_Commander/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Content/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/RoboZero.Core" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RoboZero.Core" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/greyscale_images.py.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Interactions/PointerTooltip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Interactions/PointerTooltip.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Utility/ContinuousCollection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Utility/ContinuousCollection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/BattlefieldStorage/BattlefieldItemVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/BattlefieldStorage/BattlefieldItemVisual.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/MemoryStorage/LineGemItemVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/MemoryStorage/LineGemItemVisual.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/NebulaGraph/NebulaGraphItemVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/NebulaGraph/NebulaGraphItemVisual.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/ITooltipTarget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/ITooltipTarget.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/TooltipSubVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/TooltipSubVisual.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/TooltipVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/TooltipVisual.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +42,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/97cb9d38073941518be7ea7279a10e803600/f0/3d8cd82a/JsonUtility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Logic/Events/LineStorageBattlefieldTransferEventCommand.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.core@1.12.5/Editor/Core/Build/ProjectUnlinkBuildWarning.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/82a2fd073ee449928e161903460426d72ae00/fd/2097bd38/TweenExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Logic/State/LineItem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8d33a6384e1148858f2e669234fa89ff958800/7c/f2a61310/AssetDatabase.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d303c2bf72cd4cec95665b89c457d265d2b8ef3ed6da17cd4f85587c2f9de7/System.Linq.cs" root0="SKIP_HIGHLIGHTING" />
@@ -135,6 +145,10 @@
       <workItem from="1731653444745" duration="10993000" />
       <workItem from="1732763881546" duration="758000" />
       <workItem from="1733097990566" duration="9530000" />
+      <workItem from="1733211934749" duration="6862000" />
+      <workItem from="1733297887077" duration="8654000" />
+      <workItem from="1733336340080" duration="2510000" />
+      <workItem from="1733384931496" duration="9711000" />
     </task>
     <servers />
   </component>

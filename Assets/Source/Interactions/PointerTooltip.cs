@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Source.Utility;
 using Source.Visuals.Tooltip;
@@ -14,30 +13,41 @@ namespace Source.Interactions
         
         [Header("Settings")]
         [SerializeField] private float delayUntilShow = 0.5f;
-        
-        private Tween showTween;
-        
+
+        private ContinuousCollection<ITooltipTarget> tooltipTargets;
+
+        private void Start()
+        {
+            tooltipTargets = new ContinuousCollection<ITooltipTarget>(
+                (target) =>
+                {
+                    DOVirtual.DelayedCall(delayUntilShow, () =>
+                    {
+                        Debug.Log($"Pointer Tooltip target: {target} NOW SHOWING");
+
+                        tooltipVisual.RemoveAllContent();
+                        foreach(var content in target.GetContent())
+                            tooltipVisual.AddContent(content);
+                    });
+                },
+                null,
+                (target) =>
+                {
+                    tooltipVisual.RemoveAllContent();
+                },
+                null
+            );
+        }
+
         private void Update()
         {
             var raycastResults = RaycastUIFromPointer();
-            var target = raycastResults
+            var targets = raycastResults
                 .Select(result => result.gameObject.GetComponent<ITooltipTarget>())
-                .FirstOrDefault(result => result != null);
-
-            if (target != null && showTween == null)
-            {
-                Debug.Log($"Pointer Tooltip target: {target}");
-                showTween = DOVirtual.DelayedCall(delayUntilShow, () =>
-                {
-                    target.UpdateContent(tooltipVisual);
-                });
-            }
-            else if (target == null && showTween != null)
-            {
-                showTween.Kill();
-                showTween = null;
-                tooltipVisual.RemoveAllContent();
-            }
+                .Where(result => result != null)
+                .ToList();
+            
+            tooltipTargets.Tick(targets);
         }
     }
 }
