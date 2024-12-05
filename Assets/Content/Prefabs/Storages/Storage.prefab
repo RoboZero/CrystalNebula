@@ -589,6 +589,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7548951079492524843}
     m_Modifications:
+    - target: {fileID: 318853969674035855, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.63600004
+      objectReference: {fileID: 0}
+    - target: {fileID: 318853969674035855, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 318853969674035855, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -0.8390002
+      objectReference: {fileID: 0}
+    - target: {fileID: 318853969674035855, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 318853969674035855, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.13900757
+      objectReference: {fileID: 0}
     - target: {fileID: 1946726870635877982, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -672,6 +692,22 @@ PrefabInstance:
     - target: {fileID: 4229520409568048385, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
       propertyPath: m_Name
       value: Storage Info Panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470258145030625452, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470258145030625452, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470258145030625452, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
+      propertyPath: m_overflowMode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470258145030625452, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8210855962629832424, guid: 5560f7cbc81b2ef4fbf4232d6c53cebb, type: 3}
       propertyPath: m_Enabled

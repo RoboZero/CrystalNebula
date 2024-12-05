@@ -7,18 +7,10 @@
     <list default="true" id="39e142f1-2237-4880-a7c9-c414ecbb00bc" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/ImageProcessing/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/ImageProcessing/README.md.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.File_Commander/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.File_Commander/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Content/Prefabs/Storages/Storage.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Prefabs/Storages/Storage.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Content/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/RoboZero.Core" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RoboZero.Core" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/greyscale_images.py.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Source/Interactions/PointerTooltip.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Interactions/PointerTooltip.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Source/Utility/ContinuousCollection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Utility/ContinuousCollection.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/BattlefieldStorage/BattlefieldItemVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/BattlefieldStorage/BattlefieldItemVisual.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/MemoryStorage/LineGemItemVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/MemoryStorage/LineGemItemVisual.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/NebulaGraph/NebulaGraphItemVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/NebulaGraph/NebulaGraphItemVisual.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/ITooltipTarget.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/ITooltipTarget.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/TooltipSubVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/TooltipSubVisual.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/TooltipVisual.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/Tooltip/TooltipVisual.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +140,7 @@
       <workItem from="1733211934749" duration="6862000" />
       <workItem from="1733297887077" duration="8654000" />
       <workItem from="1733336340080" duration="2510000" />
-      <workItem from="1733384931496" duration="9711000" />
+      <workItem from="1733384931496" duration="10075000" />
     </task>
     <servers />
   </component>
