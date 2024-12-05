@@ -7,5 +7,6 @@ namespace Source.Visuals.Levels
     public class LevelDataSO : DescriptionBaseSO
     {
         public ColorSchemeAssociationsSO ColorSchemeAssociationsSO;
+        public EnemyWavesSO EnemyWavesSO;
     }
 }

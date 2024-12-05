@@ -7,10 +7,23 @@
     <list default="true" id="39e142f1-2237-4880-a7c9-c414ecbb00bc" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/ImageProcessing/README.md" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/ImageProcessing/README.md.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Content/Prefabs/Storages/Storage.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Prefabs/Storages/Storage.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Source/Logic/State/EnemyController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Source/Logic/State/EnemyController.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Source/Logic/State/EnemyWaves.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Source/Logic/State/EnemyWaves.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Source/Visuals/EnemyControllerBehavior.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Source/Visuals/EnemyControllerBehavior.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Source/Visuals/Levels/EnemyWavesSO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Source/Visuals/Levels/EnemyWavesSO.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.File_Commander/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.File_Commander/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Content/Input/PlayerInputActions.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Input/PlayerInputActions.inputactions" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Content/Resources/Levels/Level1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Resources/Levels/Level1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Content/Resources/Programs/Command.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Resources/Programs/Command.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Content/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Content/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/RoboZero.Core" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/RoboZero.Core" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/RoboZero.Core/Python/greyscale_images.py.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Logic/State/LineItems/Programs/CommandProgram.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Logic/State/LineItems/Programs/CommandProgram.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Source/Visuals/Levels/LevelDataSO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Source/Visuals/Levels/LevelDataSO.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +44,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Source/Logic/State/Battlefield/BattlefieldResource.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/14992b42befa3a7bddd6de3d7bb8f7c36d75a6df7d265677e7340adcf591a/System.Buffers.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/Graphic.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Actions/InputAction.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/97cb9d38073941518be7ea7279a10e803600/f0/3d8cd82a/JsonUtility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Source/Logic/Events/LineStorageBattlefieldTransferEventCommand.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.services.core@1.12.5/Editor/Core/Build/ProjectUnlinkBuildWarning.cs" root0="SKIP_HIGHLIGHTING" />

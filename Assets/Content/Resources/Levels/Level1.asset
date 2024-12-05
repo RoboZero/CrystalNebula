@@ -15,3 +15,4 @@ MonoBehaviour:
   guid: 02943a83439edf74ca46368e4c0abfeb
   description: 
   ColorSchemeAssociationsSO: {fileID: 11400000, guid: 7b6925b6a35d0d04f9d75d3066e4e6b7, type: 2}
+  EnemyWavesSO: {fileID: 11400000, guid: 9e28b4c9d6b3e7e419d66916cf80775e, type: 2}
