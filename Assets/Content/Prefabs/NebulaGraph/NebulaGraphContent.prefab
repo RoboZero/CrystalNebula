@@ -101,6 +101,8 @@ GameObject:
   - component: {fileID: 5396266626338173817}
   - component: {fileID: 484962989396159656}
   - component: {fileID: 6823675684721254204}
+  - component: {fileID: 322399164169628714}
+  - component: {fileID: 8347200280030742391}
   m_Layer: 5
   m_Name: NebulaGraphContent
   m_TagString: Untagged
@@ -162,12 +164,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameResources: {fileID: 11400000, guid: e4dc6275d5f050243a88dfd9a519a163, type: 2}
+  nebulaBackground: {fileID: 0}
   startingLocation: {fileID: 1831697131759274751}
   itemGroup: {fileID: 1313499324913411162}
   connectorGroup: {fileID: 2115944179580882252}
   nebulaGraphBehavior: {fileID: 6823675684721254204}
   nebulaGraphItemVisualPrefab: {fileID: 1030150918912386589, guid: be414e7df325e2d47a24de5df073c477, type: 3}
   nebulaGraphConnectorVisualPrefab: {fileID: 4460878884615823427, guid: 114b931585386224a811ae84cd711efb, type: 3}
+  maxProgress: 50
+  minConnectorDistance: 280
+  maxConnectorDistance: 840
+  maxRotationAngle: 270
 --- !u!114 &6823675684721254204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +189,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameStateLoader: {fileID: 0}
   playerId: 1
+--- !u!222 &322399164169628714
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311933502682299133}
+  m_CullTransparentMesh: 1
+--- !u!114 &8347200280030742391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311933502682299133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.2942757, g: 0, b: 0.4037736, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &1504695993363554019
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,6 +24,7 @@ namespace Source.Visuals.MemoryStorage
 
         [Header("Settings")]
         [SerializeField] private bool showEmptyGems = true;
+        [SerializeField] private bool gemsAreRaycastTargets = true;
         
         private List<LineGemItemVisual> trackedRecords = new();
         
@@ -95,6 +96,7 @@ namespace Source.Visuals.MemoryStorage
         private void UpdateRecordVisual(in LineGemItemVisual recordVisual, int lineNumber, MemoryItem item, bool isActive)
         {
             recordVisual.SetShowEmptyGem(showEmptyGems);
+            recordVisual.IsRaycastTarget(gemsAreRaycastTargets);
             
             if (isActive)
             {

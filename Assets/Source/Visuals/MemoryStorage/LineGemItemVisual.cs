@@ -15,6 +15,7 @@ namespace Source.Visuals.MemoryStorage
     public class LineGemItemVisual : StandardInteractableVisual, ITooltipTarget
     {
         [Header("Dependencies")]
+        [SerializeField] private Image raycastTargetImage;
         [SerializeField] private Image progressImage;
         [SerializeField] private Image emptyGemImage;
         [SerializeField] private LineGemSubItemVisual currentSubVisual;
@@ -35,10 +36,18 @@ namespace Source.Visuals.MemoryStorage
         private bool showEmptyGem;
         private bool isTransferring;
 
+        private readonly HashSet<TooltipContent> tooltipContents = new();
         private readonly TooltipContent memoryTooltipContent = new();
         private Color noneColor = Color.white;
         private Color hoveredColor = Color.yellow;
         private Color interactedColor = Color.blue;
+
+        public void IsRaycastTarget(bool isRaycastTarget)
+        {
+            raycastTargetImage.raycastTarget = isRaycastTarget;
+            currentSubVisual.IsRaycastTarget(isRaycastTarget);
+            transferSubVisual.IsRaycastTarget(isRaycastTarget);
+        }
 
         public void IsTransferring(bool isTransferring)
         {
@@ -146,6 +155,19 @@ namespace Source.Visuals.MemoryStorage
                 currentSubVisual.MemoryDataSO.FillTooltipContent(TrackedItem, memoryTooltipContent);
                 tooltipVisual.AddContent(memoryTooltipContent);
             }
+        }
+
+        public HashSet<TooltipContent> GetContent()
+        {
+            tooltipContents.Clear();
+            
+            if (TrackedItem != null && currentSubVisual.MemoryDataSO != null)
+            {
+                currentSubVisual.MemoryDataSO.FillTooltipContent(TrackedItem, memoryTooltipContent);
+                tooltipContents.Add(memoryTooltipContent);
+            }
+
+            return tooltipContents;
         }
     }
 }

@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using DG.Tweening;
-using Source.Utility;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
@@ -31,61 +29,108 @@ namespace Source.Visuals.Tooltip
         private HashSet<TooltipContent> tooltipContents = new();
         private Sequence moveSequence;
         private Vector2 MousePositionUI => inputSystemUIInputModule.input.mousePosition;
-        
+
+        private bool isShowing;
+        private Tween hideTween;
+        private Tween showTween;
+
         public void AddContent(TooltipContent tooltipContent)
         {
-            if (tooltipContent != null)
-                tooltipContents.Add(tooltipContent);
+            if (tooltipContent == null) return;
             
-            if (tooltipContents.Count > 0)
-                Show();
+            var success = tooltipContents.Add(tooltipContent);
+
+            if (success)
+            {
+                UpdateVisibility();
+            }
         }
 
         public bool RemoveContent(TooltipContent tooltipContent)
         {
-            var result = tooltipContents.Remove(tooltipContent);
-            if (tooltipContents.Count == 0)
-                Hide();
-            return result;
+            var success = tooltipContents.Remove(tooltipContent);
+            
+            if (success)
+            {
+                UpdateVisibility();
+            }
+            return success;
         }
 
         public void RemoveAllContent()
         {
-            if (tooltipContents.Count == 0) return;
             tooltipContents.Clear();
-            Hide();
+            UpdateVisibility();
         }
 
-        private void Show()
+        private void UpdateVisibility()
         {
-            while (tooltipSubVisuals.Count < tooltipContents.Count)
+            //Debug.Log($"Tooltip contents count: {tooltipContents.Count}");
+            if (tooltipContents.Count > 0)
+            {
+                UpdateContent();
+                if (isShowing) return;
+                
+                ShowTween();
+                isShowing = true;
+            }
+            else
+            {
+                if (!isShowing) return;
+                
+                HideTween();
+                isShowing = false;
+            }
+        }
+        
+        private void UpdateContent()
+        {
+            for (var i = tooltipSubVisuals.Count - 1; i >= 0; i--)
+            {
+                Destroy(tooltipSubVisuals[i].gameObject);
+                tooltipSubVisuals.RemoveAt(i);
+            }
+
+            foreach (var tooltipContent in tooltipContents)
             {
                 var subTooltip = Instantiate(tooltipSubVisualPrefab, layoutElement.transform);
+                subTooltip.SetContent(tooltipContent);
                 tooltipSubVisuals.Add(subTooltip);
             }
-            
+
+            Resize();
+        }
+        
+        private void ShowTween()
+        {
+            hideTween?.Complete();
+
             var contentIndex = 0;
             foreach (var tooltipContent in tooltipContents)
             {
-                tooltipSubVisuals[contentIndex].SetContent(tooltipContent);
                 tooltipSubVisuals[contentIndex].Show();
                 contentIndex++;
             }
 
             background.enabled = true;
-            Resize();
-            background.DOFade(1, fadeInTweenTime);
+            showTween = background.DOFade(1, fadeInTweenTime);
         }
 
-        private void Hide()
+        private void HideTween()
         {
+            Debug.Log("Hiding");
+            showTween?.Kill();
+            
             foreach (var tooltipSubVisual in tooltipSubVisuals)
             {
                 tooltipSubVisual.Hide();
             }
-            
-            background.DOFade(0, fadeOutTweenTime);
-            background.enabled = false;
+
+            hideTween = background.DOFade(0, fadeOutTweenTime)
+                .OnComplete(() =>
+                {
+                    background.enabled = false;
+                });
         }
         
         private void Update()

@@ -1189,7 +1189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420daa268f4c5db4b9a90e162b43031b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndex: 1
+  sceneIndex: 2
 --- !u!1 &748699226
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,8 +1249,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Crystal \nNebula"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a65326bf64f331e42a04fcf497202115, type: 2}
-  m_sharedMaterial: {fileID: -2806163020022438632, guid: a65326bf64f331e42a04fcf497202115, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 76ce91b85b609c240ade8d3ff5b351cd, type: 2}
+  m_sharedMaterial: {fileID: 2703557232011416226, guid: 76ce91b85b609c240ade8d3ff5b351cd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1614,8 +1614,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Settings
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a65326bf64f331e42a04fcf497202115, type: 2}
-  m_sharedMaterial: {fileID: -2806163020022438632, guid: a65326bf64f331e42a04fcf497202115, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 76ce91b85b609c240ade8d3ff5b351cd, type: 2}
+  m_sharedMaterial: {fileID: 2703557232011416226, guid: 76ce91b85b609c240ade8d3ff5b351cd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2097,8 +2097,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a65326bf64f331e42a04fcf497202115, type: 2}
-  m_sharedMaterial: {fileID: -2806163020022438632, guid: a65326bf64f331e42a04fcf497202115, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 76ce91b85b609c240ade8d3ff5b351cd, type: 2}
+  m_sharedMaterial: {fileID: 2703557232011416226, guid: 76ce91b85b609c240ade8d3ff5b351cd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2286,6 +2286,7 @@ GameObject:
   - component: {fileID: 1725348669}
   - component: {fileID: 1725348668}
   - component: {fileID: 1725348667}
+  - component: {fileID: 1725348670}
   m_Layer: 5
   m_Name: Credits
   m_TagString: Untagged
@@ -2356,7 +2357,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1725348668}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1725348670}
+        m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
+        m_MethodName: LoadAtIndex
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1725348668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2395,6 +2408,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1725348664}
   m_CullTransparentMesh: 1
+--- !u!114 &1725348670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725348664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420daa268f4c5db4b9a90e162b43031b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneIndex: 1
 --- !u!1 &1897791566
 GameObject:
   m_ObjectHideFlags: 0
@@ -2558,8 +2584,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a65326bf64f331e42a04fcf497202115, type: 2}
-  m_sharedMaterial: {fileID: -2806163020022438632, guid: a65326bf64f331e42a04fcf497202115, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 76ce91b85b609c240ade8d3ff5b351cd, type: 2}
+  m_sharedMaterial: {fileID: 2703557232011416226, guid: 76ce91b85b609c240ade8d3ff5b351cd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

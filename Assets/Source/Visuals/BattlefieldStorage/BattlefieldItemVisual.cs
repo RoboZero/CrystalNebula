@@ -51,6 +51,7 @@ namespace Source.Visuals.BattlefieldStorage
         private string buildingDataDefinition;
         private BuildingMemoryDataSO buildingMemoryDataSO;
 
+        private readonly HashSet<TooltipContent> tooltipContents = new();
         private readonly TooltipContent unitTooltipContent = new();
         private readonly TooltipContent buildingTooltipContent = new();
         
@@ -217,19 +218,23 @@ namespace Source.Visuals.BattlefieldStorage
             }
         }
 
-        public void UpdateContent(TooltipVisual tooltipVisual)
+        public HashSet<TooltipContent> GetContent()
         {
+            tooltipContents.Clear();
+            
             if (trackedItem.Unit != null && unitMemoryDataSO != null)
             {
                 unitMemoryDataSO.FillTooltipContent(trackedItem.Unit, unitTooltipContent);
-                tooltipVisual.AddContent(unitTooltipContent);
+                tooltipContents.Add(unitTooltipContent);
             }
 
             if (trackedItem.Building != null && buildingMemoryDataSO != null)
             {
                 buildingMemoryDataSO.FillTooltipContent(trackedItem.Building, buildingTooltipContent);
-                tooltipVisual.AddContent(buildingTooltipContent);
+                tooltipContents.Add(buildingTooltipContent);
             }
+
+            return tooltipContents;
         }
     }
 }
