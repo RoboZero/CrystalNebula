@@ -103,6 +103,7 @@ namespace Source.Visuals.Tooltip
         
         private void ShowTween()
         {
+            showTween?.Kill();
             hideTween?.Complete();
 
             var contentIndex = 0;
@@ -120,6 +121,7 @@ namespace Source.Visuals.Tooltip
         {
             Debug.Log("Hiding");
             showTween?.Kill();
+            hideTween?.Kill();
             
             foreach (var tooltipSubVisual in tooltipSubVisuals)
             {

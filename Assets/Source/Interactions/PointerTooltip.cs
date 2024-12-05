@@ -46,6 +46,11 @@ namespace Source.Interactions
                 .Select(result => result.gameObject.GetComponent<ITooltipTarget>())
                 .Where(result => result != null)
                 .ToList();
+
+            if (targets.Count == 0)
+            {
+                tooltipVisual.RemoveAllContent();
+            }
             
             tooltipTargets.Tick(targets);
         }
