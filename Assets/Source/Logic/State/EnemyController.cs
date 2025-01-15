@@ -14,7 +14,8 @@ namespace Source.Logic.State
     public class EnemyController
     {
         public UnitMemoryDataSO CreatedUnitSO => createdUnitSO;
-        public float DelayTime => delayTime;
+        public float ArriveDelayTime => arriveDelayTime;
+        public float MoveDelayTime => moveDelayTime;
         
         public bool IsRunning = true;
         
@@ -25,7 +26,9 @@ namespace Source.Logic.State
         private GameState gameState;
         
         private UnitMemoryDataSO createdUnitSO;
-        private float delayTime;
+        private bool waitingForNextWave;
+        private float arriveDelayTime;
+        private float moveDelayTime;
         
         // TODO: Move to player processor logical behavior and use real state. 
         private CommandProgram commandProgram;
@@ -45,7 +48,8 @@ namespace Source.Logic.State
 
         public void Tick(float deltaTime)
         {
-            delayTime -= deltaTime;
+            arriveDelayTime -= deltaTime;
+            moveDelayTime -= deltaTime;
         }
         
         private async UniTask CommandRunner()
@@ -54,6 +58,7 @@ namespace Source.Logic.State
             {
                 commandProgram.Tick(eventTracker, gameState);
                 Debug.Log("Enemy Controller ticked command program");
+                moveDelayTime = tickDelay;
                 await UniTask.Delay(TimeSpan.FromSeconds(tickDelay));
             }
         }
@@ -73,7 +78,7 @@ namespace Source.Logic.State
             foreach (var wave in enemyWaves.Waves)
             {
                 await SpawnWave(wave, deploymentSlots);
-                delayTime = wave.timeUntilNextWave;
+                arriveDelayTime = wave.timeUntilNextWave;
                 await UniTask.Delay(TimeSpan.FromSeconds(wave.timeUntilNextWave));
                 createdUnitSO = null;
             }
@@ -87,7 +92,7 @@ namespace Source.Logic.State
             
             foreach (var unit in wave.enemyUnitInOrder)
             {
-                delayTime = wave.delayBetweenSpawn;
+                arriveDelayTime = wave.delayBetweenSpawn;
                 createdUnitSO = unit;
                 
                 gameResources.TryLoadDefinition(this, unit, out var definition);

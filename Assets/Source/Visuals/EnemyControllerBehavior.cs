@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using Source.Logic.State;
+﻿using Source.Logic.State;
 using Source.Logic.State.LineItems.Programs;
 using Source.Serialization;
 using Source.Visuals.Levels;
@@ -18,8 +17,9 @@ namespace Source.Visuals
         [SerializeField] private GameStateLoader gameStateLoader;
         [SerializeField] private EventTrackerBehavior eventTrackerBehavior;
 
-        [SerializeField] private Image image;
-        [SerializeField] private TextMeshProUGUI timerText;
+        [SerializeField] private Image enemyUnitImage;
+        [SerializeField] private TextMeshProUGUI enemyArrivesText;
+        [SerializeField] private TextMeshProUGUI enemyMovesText;
         
 
         [Header("Settings")]
@@ -58,15 +58,16 @@ namespace Source.Visuals
                 enemyController.Tick(Time.deltaTime);
                 if (enemyController.CreatedUnitSO != null)
                 {
-                    image.gameObject.SetActive(true);
-                    image.sprite = enemyController.CreatedUnitSO.Sprite;
+                    enemyUnitImage.gameObject.SetActive(true);
+                    enemyUnitImage.sprite = enemyController.CreatedUnitSO.Sprite;
                 }
                 else
                 {
-                    image.gameObject.SetActive(false);
+                    enemyUnitImage.gameObject.SetActive(false);
                 }
 
-                timerText.text = enemyController.DelayTime.ToString("F2");
+                enemyArrivesText.text = enemyController.ArriveDelayTime.ToString("F1");
+                enemyMovesText.text = enemyController.MoveDelayTime.ToString("F1");
             }
         }
     }
