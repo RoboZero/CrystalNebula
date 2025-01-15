@@ -17,7 +17,8 @@ namespace Source.Logic.State
         public UnitMemoryDataSO CreatedUnitSO => createdUnitSO;
         public float ArriveDelayTime => arriveDelayTime;
         public float MoveDelayTime => moveDelayTime;
-        
+        public float MaxMoveDelayTime => maxMoveDelayTime;
+
         public bool IsRunning = true;
         
         private EnemyWaves enemyWaves;
@@ -32,6 +33,7 @@ namespace Source.Logic.State
         private bool waitingForNextWave;
         private float arriveDelayTime;
         private float moveDelayTime;
+        private float maxMoveDelayTime;
         
         // TODO: Move to player processor logical behavior and use real state. 
         private CommandProgram commandProgram;
@@ -61,7 +63,8 @@ namespace Source.Logic.State
         {
             while (IsRunning)
             {
-                moveDelayTime = commandTickDelay;
+                maxMoveDelayTime = commandTickDelay;
+                moveDelayTime = maxMoveDelayTime;
                 await UniTask.Delay(TimeSpan.FromSeconds(commandTickDelay));
                 commandProgram.Tick(eventTracker, gameState);
                 Debug.Log("Enemy Controller ticked command program");

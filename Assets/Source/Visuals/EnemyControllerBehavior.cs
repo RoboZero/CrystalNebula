@@ -24,6 +24,7 @@ namespace Source.Visuals
 
         [Header("Settings")]
         [SerializeField] private int ownerId;
+        [SerializeField] private Gradient moveTimeGradient;
         
         private EnemyWaveController enemyWaveController;
         private CommandProgram createdCommandProgram;
@@ -68,6 +69,9 @@ namespace Source.Visuals
 
                 enemyArrivesText.text = enemyWaveController.ArriveDelayTime.ToString("F1");
                 enemyMovesText.text = enemyWaveController.MoveDelayTime.ToString("F1");
+
+                var movePercentage = enemyWaveController.MoveDelayTime / enemyWaveController.MaxMoveDelayTime;
+                enemyMovesText.color = moveTimeGradient.Evaluate(movePercentage);
             }
         }
     }
