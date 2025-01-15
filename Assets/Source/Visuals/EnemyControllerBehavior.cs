@@ -25,7 +25,7 @@ namespace Source.Visuals
         [Header("Settings")]
         [SerializeField] private int ownerId;
         
-        private EnemyController enemyController;
+        private EnemyWaveController enemyWaveController;
         private CommandProgram createdCommandProgram;
 
         private LevelDataSO previousLevel;
@@ -41,7 +41,7 @@ namespace Source.Visuals
             if (gameResources.TryLoadAsset(this, gameStateLoader.GameState.Level.Definition, out LevelDataSO level)
                 && level != previousLevel)
             {
-                enemyController = new EnemyController(
+                enemyWaveController = new EnemyWaveController(
                     ownerId,
                     level.EnemyWavesSO.EnemyWaves,
                     gameResources,
@@ -53,21 +53,21 @@ namespace Source.Visuals
                 previousLevel = level;
             }
 
-            if (enemyController != null)
+            if (enemyWaveController != null)
             {
-                enemyController.Tick(Time.deltaTime);
-                if (enemyController.CreatedUnitSO != null)
+                enemyWaveController.Tick(Time.deltaTime);
+                if (enemyWaveController.CreatedUnitSO != null)
                 {
                     enemyUnitImage.gameObject.SetActive(true);
-                    enemyUnitImage.sprite = enemyController.CreatedUnitSO.Sprite;
+                    enemyUnitImage.sprite = enemyWaveController.CreatedUnitSO.Sprite;
                 }
                 else
                 {
                     enemyUnitImage.gameObject.SetActive(false);
                 }
 
-                enemyArrivesText.text = enemyController.ArriveDelayTime.ToString("F1");
-                enemyMovesText.text = enemyController.MoveDelayTime.ToString("F1");
+                enemyArrivesText.text = enemyWaveController.ArriveDelayTime.ToString("F1");
+                enemyMovesText.text = enemyWaveController.MoveDelayTime.ToString("F1");
             }
         }
     }

@@ -20,7 +20,7 @@ MonoBehaviour:
   memoryName: Enemy Command
   memoryDescription: "\rProgram. \nMove all ally units one tile up towards the enemy.
     \r"
-  MaxProgress: 1
+  MaxProgress: 0
   CurrentRunCount: 0
   MaxRunCount: 0
   DataSize: 1

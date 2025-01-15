@@ -17,8 +17,8 @@ MonoBehaviour:
   enemyWaves:
     Waves:
     - commandDelay: 10
-      timeUntilNextWave: 0
-      delayBetweenSpawn: 11
+      timeUntilNextWave: 80
+      delayBetweenSpawn: 1
       enemyUnitInOrder:
       - {fileID: 11400000, guid: 3f6c241fa7708e543b1713f92fd10db4, type: 2}
       - {fileID: 11400000, guid: 3f6c241fa7708e543b1713f92fd10db4, type: 2}
@@ -40,6 +40,26 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 3f6c241fa7708e543b1713f92fd10db4, type: 2}
       - {fileID: 11400000, guid: 3d545e67793a93a43863d5e9c72a70d1, type: 2}
       - {fileID: 11400000, guid: 3f6c241fa7708e543b1713f92fd10db4, type: 2}
+    - commandDelay: 6
+      timeUntilNextWave: 90
+      delayBetweenSpawn: 7
+      enemyUnitInOrder:
+      - {fileID: 11400000, guid: 3d545e67793a93a43863d5e9c72a70d1, type: 2}
+      - {fileID: 11400000, guid: 3f6c241fa7708e543b1713f92fd10db4, type: 2}
+      - {fileID: 11400000, guid: 3d545e67793a93a43863d5e9c72a70d1, type: 2}
+      - {fileID: 11400000, guid: 3f6c241fa7708e543b1713f92fd10db4, type: 2}
+      - {fileID: 11400000, guid: 3d545e67793a93a43863d5e9c72a70d1, type: 2}
+      - {fileID: 11400000, guid: 3f6c241fa7708e543b1713f92fd10db4, type: 2}
+    - commandDelay: 4
+      timeUntilNextWave: 90
+      delayBetweenSpawn: 7
+      enemyUnitInOrder:
+      - {fileID: 11400000, guid: 60e503bf095cc9e48a17ab94b289ca19, type: 2}
+      - {fileID: 11400000, guid: 60e503bf095cc9e48a17ab94b289ca19, type: 2}
+      - {fileID: 11400000, guid: 60e503bf095cc9e48a17ab94b289ca19, type: 2}
+      - {fileID: 11400000, guid: 60e503bf095cc9e48a17ab94b289ca19, type: 2}
+      - {fileID: 11400000, guid: 60e503bf095cc9e48a17ab94b289ca19, type: 2}
+      - {fileID: 11400000, guid: 60e503bf095cc9e48a17ab94b289ca19, type: 2}
     - commandDelay: 5
       timeUntilNextWave: 120
       delayBetweenSpawn: 5
