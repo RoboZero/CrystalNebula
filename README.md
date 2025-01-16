@@ -3,7 +3,7 @@ Crystal Nebula is a single lane RTS where you play as a personified computer per
 Defend the infected's onslaught, build your base, upgrade your programs, and strategically strike to rescue your fragmented emotion shards from the Deadlock bug infection. 
 
 ### Link to Game
-Itch.io page: https://robozero.itch.io/crystal-nebula
+Itch.io page: https://robozero.itch.io/crystal-nebula \
 Currently on restricted access, password: password
 
 ### Reason for Creation
@@ -12,6 +12,6 @@ Focus on applying lessons from Turn Based Tactics Game project I worked on with 
 Originally going to be directly in the File Explorer with it's own file system, but I figured a more artful approach would be more fun and practical while designing.  
 
 ### Development Info
-All commits has tag to Trello board items: https://trello.com/b/7Nqr5E8U/crystal-nebula
-Created PRs throughout to track progress, check there first! 
+All commits has tag to Trello board items: https://trello.com/b/7Nqr5E8U/crystal-nebula \
+<b> Created PRs throughout to track progress, check there first! </b>
 
