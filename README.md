@@ -2,6 +2,10 @@
 Crystal Nebula is a single lane RTS where you play as a personified computer permanently connected to the hostile infected Cloud known as The Nebula.\
 Defend the infected's onslaught, build your base, upgrade your programs, and strategically strike to rescue your fragmented emotion shards from the Deadlock bug infection. 
 
+### Link to Game
+Itch.io page: https://robozero.itch.io/crystal-nebula
+Currently on restricted access, password: password
+
 ### Reason for Creation
 Unity Project for UF's Game Content Production 1. \
 Focus on applying lessons from Turn Based Tactics Game project I worked on with @Exanite (https://github.com/TurnBasedTacticsGame), along with game design principles from my psychology & design podcasts. \
@@ -9,3 +13,4 @@ Originally going to be directly in the File Explorer with it's own file system, 
 
 ### Development Info
 All commits has tag to Trello board items: https://trello.com/b/7Nqr5E8U/crystal-nebula
+
