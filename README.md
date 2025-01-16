@@ -13,4 +13,5 @@ Originally going to be directly in the File Explorer with it's own file system, 
 
 ### Development Info
 All commits has tag to Trello board items: https://trello.com/b/7Nqr5E8U/crystal-nebula
+Created PRs throughout to track progress, check there first! 
 
