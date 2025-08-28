@@ -15,13 +15,16 @@ MonoBehaviour:
   guid: d7280cfe630323d419c1995671ed82b6
   description: 
   tooltipIcon: {fileID: -1616812667, guid: 2b450a2cf032e5840841e8987e284fd0, type: 3}
-  memoryBackgroundIcon: {fileID: 21300000, guid: f417b608718e8e64ead0f9bf99ca33aa, type: 3}
+  memoryBackgroundIcon: {fileID: 21300000, guid: 5814678a9b69539429ea46a3a334ee5e, type: 3}
+  memoryForegroundIcon: {fileID: 21300000, guid: 5814678a9b69539429ea46a3a334ee5e, type: 3}
   battlefieldScaleFactor: {x: 1.2, y: 1.2}
-  Sprite: {fileID: -1616812667, guid: 2b450a2cf032e5840841e8987e284fd0, type: 3}
+  Sprite: {fileID: 21300000, guid: 712c06c1ae6b93d42b91bfb6e0a79ec2, type: 3}
   UnitName: Emerald Guard
   Abbreviation: Guard
   UnitDescription: "Level 1.\nArmored Axe Unit.  \nEffective against Medium enemies."
   MaxProgress: 0
+  CurrentRunCount: 0
+  MaxRunCount: 0
   BaseHealth: 3
   BasePower: 1
   DataSize: 3

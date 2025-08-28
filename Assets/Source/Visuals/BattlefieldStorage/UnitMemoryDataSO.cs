@@ -14,13 +14,14 @@ namespace Source.Visuals.BattlefieldStorage
     {
         public override Sprite TooltipIcon => tooltipIcon;
         public override Sprite MemoryBackgroundIcon => memoryBackgroundIcon;
-        public override Sprite MemoryForegroundIcon => Sprite;
+        public override Sprite MemoryForegroundIcon => memoryForegroundIcon != null ? memoryForegroundIcon : Sprite;
         public override string MemoryName => UnitName;
         public override string MemoryDescription => UnitDescription;
         public override Vector2 BattlefieldScaleFactor => battlefieldScaleFactor;
 
         [SerializeField] private Sprite tooltipIcon;
         [SerializeField] private Sprite memoryBackgroundIcon;
+        [SerializeField] private Sprite memoryForegroundIcon;
         [SerializeField] private Vector2 battlefieldScaleFactor = Vector2.one;
         
         public Sprite Sprite;
